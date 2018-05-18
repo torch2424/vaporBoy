@@ -1,3 +1,11 @@
+# Preact Cli
+node_modules
+/build
+/*.log
+
+# Cordova
+www/
+
 # System files
 **/.DS_Store
 

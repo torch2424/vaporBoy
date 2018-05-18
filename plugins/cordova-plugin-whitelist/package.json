@@ -15,11 +15,9 @@
     "saveSpec": null,
     "fetchSpec": "1"
   },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/cordova-plugin-whitelist/-/cordova-plugin-whitelist-1.3.3.tgz",
+  "_requiredBy": ["#USER", "/"],
+  "_resolved":
+    "https://registry.npmjs.org/cordova-plugin-whitelist/-/cordova-plugin-whitelist-1.3.3.tgz",
   "_shasum": "b5e85ecdbbfe5aeded40a1bf4ee2372e67d96fb4",
   "_spec": "cordova-plugin-whitelist@1",
   "_where": "/Users/aaron/Source/vaporBoy/cordova",
@@ -31,9 +29,7 @@
   },
   "bundleDependencies": false,
   "cordova": {
-    "platforms": [
-      "android"
-    ]
+    "platforms": ["android"]
   },
   "deprecated": false,
   "description": "Cordova Whitelist Plugin",
@@ -48,12 +44,7 @@
     }
   },
   "homepage": "https://github.com/apache/cordova-plugin-whitelist#readme",
-  "keywords": [
-    "cordova",
-    "whitelist",
-    "ecosystem:cordova",
-    "cordova-android"
-  ],
+  "keywords": ["cordova", "whitelist", "ecosystem:cordova", "cordova-android"],
   "license": "Apache-2.0",
   "name": "cordova-plugin-whitelist",
   "repository": {
