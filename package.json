@@ -5,7 +5,7 @@
   "version": "0.0.1",
   "license": "Apache-2.0",
   "description": "Coming soon!",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "start": "npm run dev",
     "dev": "npm run preact:dev",
@@ -14,7 +14,8 @@
       "npx prettier --write '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*'",
     "preact:start":
       "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
-    "preact:build": "preact build --template src/template.html --dest www",
+    "preact:build":
+      "preact build --template src/template.html --dest www --config src/preact.config.js",
     "preact:build:watch":
       "npx chokidar '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*' -c \"npm run preact:build\"",
     "preact:serve": "npm run build && preact serve",
@@ -22,13 +23,43 @@
     "preact:lint": "eslint src",
     "cordova:serve": "npx cordova run browser",
     "cordova:dev":
-      "npx concurrently --kill-others --names \"PREACT,CORDOVA\" -c \"bgMagenta.bold,bgBlue.bold\" \"npm run preact:build:watch\" \"npm run cordova:serve\""
+      "npx concurrently --kill-others --names \"PREACT,CORDOVA\" -c \"bgMagenta.bold,bgBlue.bold\" \"npm run preact:build:watch\" \"npm run cordova:serve\"",
+    "electron:serve": "export DEV=\"true\" && npx electron .",
+    "electron:dev":
+      "npx concurrently --kill-others --names \"PREACT,CORDOVA\" -c \"bgMagenta.bold,bgBlue.bold\" \"npm run preact:build:watch\" \"npm run electron:serve\""
   },
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {}
     },
     "platforms": ["browser"]
+  },
+  "build": {
+    "appId": "com.torch2424.vaporboy",
+    "productName": "VaporBoy",
+    "directories": {
+      "buildResources": "res"
+    },
+    "files": [
+      "www/**/*",
+      "main.js",
+      "!**/node_modules/**/*",
+      "!.editorconfig",
+      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,__pycache__,thumbs.db,.gitignore,.gitattributes,.flowconfig,.yarn-metadata.json,.idea,.vs,appveyor.yml,.travis.yml,circle.yml,npm-debug.log,.nyc_output,yarn.lock,.yarn-integrity}",
+      "!**/._*",
+      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}"
+    ],
+    "extraResources": [],
+    "mac": {
+      "category": "public.app-category.games",
+      "target": ["dmg", "zip"]
+    },
+    "win": {
+      "target": ["nsis", "portable"]
+    },
+    "linux": {
+      "target": ["AppImage", "zip"]
+    }
   },
   "eslintConfig": {
     "extends": "eslint-config-synacor"
@@ -44,6 +75,8 @@
     "chokidar-cli": "^1.2.0",
     "concurrently": "^3.5.1",
     "cordova": "^8.0.0",
+    "electron": "^2.0.1",
+    "electron-builder": "^20.13.4",
     "eslint": "^4.5.0",
     "eslint-config-synacor": "^1.1.0",
     "husky": "^0.14.3",
@@ -52,6 +85,7 @@
     "preact-cli": "^2.0.0",
     "prettier": "1.12.1",
     "pretty-quick": "^1.4.1",
-    "sass-loader": "^7.0.1"
+    "sass-loader": "^7.0.1",
+    "uglifyjs-webpack-plugin": "^1.2.5"
   }
 }
