@@ -4,7 +4,10 @@ node_modules
 /*.log
 
 # Cordova
+# https://gist.github.com/rjmunro/5831320
 www/
+platforms/
+plugins/
 
 # System files
 **/.DS_Store
