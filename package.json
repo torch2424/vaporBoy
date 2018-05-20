@@ -66,13 +66,13 @@
   },
   "eslintIgnore": ["build/*"],
   "dependencies": {
-    "aesthetic-css": "0.0.1",
+    "aesthetic-css": "0.0.3",
     "cordova-android": "^7.1.0",
     "cordova-browser": "^5.0.3",
     "cordova-plugin-whitelist": "^1.3.3",
     "preact": "^8.2.1",
     "preact-compat": "^3.17.0",
-    "wasmboy": "0.0.1"
+    "wasmboy": "0.0.2"
   },
   "devDependencies": {
     "chokidar-cli": "^1.2.0",
