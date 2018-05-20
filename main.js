@@ -15,14 +15,25 @@ function createWindow() {
     title: "VaporBoy"
   });
 
-  // and load the index.html of the app.
-  win.loadURL(
-    url.format({
-      pathname: path.join(__dirname, "www/index.html"),
-      protocol: "file:",
-      slashes: true
-    })
-  );
+  // Load the app
+  if (process.env.DEV) {
+    win.loadURL(
+      url.format({
+        pathname: "/",
+        host: "localhost:8080",
+        protocol: "http:",
+        slashes: true
+      })
+    );
+  } else {
+    win.loadURL(
+      url.format({
+        pathname: path.join(__dirname, "www/index.html"),
+        protocol: "file:",
+        slashes: true
+      })
+    );
+  }
 
   // Open the DevTools.
   if (process.env.DEV) {

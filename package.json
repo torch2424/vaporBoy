@@ -26,7 +26,7 @@
       "npx concurrently --kill-others --names \"PREACT,CORDOVA\" -c \"bgMagenta.bold,bgBlue.bold\" \"npm run preact:build:watch\" \"npm run cordova:serve\"",
     "electron:serve": "export DEV=\"true\" && npx electron .",
     "electron:dev":
-      "npx concurrently --kill-others --names \"PREACT,ELECTRON\" -c \"bgMagenta.bold,bgGreen.bold\" \"npm run preact:build:watch\" \"npm run electron:serve\""
+      "npx concurrently --kill-others --names \"PREACT,ELECTRON\" -c \"bgMagenta.bold,bgGreen.bold\" \"npm run preact:dev\" \"npm run electron:serve\""
   },
   "cordova": {
     "plugins": {
