@@ -15,7 +15,7 @@
     "preact:start":
       "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
     "preact:build":
-      "preact build --template src/template.html --dest www --config src/preact.config.js",
+      "preact build --template src/template.html --dest www --config src/preact.config.js --no-prerender",
     "preact:build:watch":
       "npx chokidar '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*' -c \"npm run preact:build\"",
     "preact:serve": "npm run build && preact serve",
@@ -32,7 +32,7 @@
     "plugins": {
       "cordova-plugin-whitelist": {}
     },
-    "platforms": ["browser", "android"]
+    "platforms": ["android", "browser"]
   },
   "build": {
     "appId": "com.torch2424.vaporboy",
