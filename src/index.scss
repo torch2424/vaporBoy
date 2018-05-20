@@ -1,3 +1,8 @@
+// Import the aesthetic components we are using
+@import "../node_modules/aesthetic-css/src/variables";
+@import "../node_modules/aesthetic-css/src/mixins";
+@import "../node_modules/aesthetic-css/src/buttons";
+
 html,
 body {
   font: 14px/1.21 "Helvetica Neue", arial, sans-serif;
