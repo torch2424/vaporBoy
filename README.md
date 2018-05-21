@@ -7,3 +7,5 @@ This uses [Preact](https://preactjs.com/) for it's frontend application framewor
 Installing Preact Sass: https://github.com/developit/preact-cli/issues/443
 
 Setting up cordova (simply build to www, and use custom preact template): https://cordova.apache.org/
+
+Borders: http://www.vgmuseum.com/features/sgb/#4s
