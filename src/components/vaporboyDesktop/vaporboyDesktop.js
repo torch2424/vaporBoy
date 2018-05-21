@@ -1,18 +1,40 @@
 // Desktop Layout for vaporboy
 import { Component } from "preact";
 
+import * as screenfull from "screenfull";
+
 // Our Components
 import SGBBorder from "../sgbBorder/sgbBorder";
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
 
 export default class VaporBoyDesktop extends Component {
   render() {
+    // Full Screen Icon
+    let fullScreenIcon = "";
+    if (screenfull.isFullscreen) {
+      fullScreenIcon = "_";
+    }
+
     return (
       <div class="vaporboy-desktop">
         <div class="aesthetic-windows-95-modal">
           <div class="aesthetic-windows-95-modal-title-bar">
             <div class="aesthetic-windows-95-modal-title-bar-text">
-              vaporboy.net
+              V A P O R B O Y
+            </div>
+
+            <div class="aesthetic-windows-95-modal-title-bar-controls">
+              <div class="aesthetic-windows-95-button-title-bar vaporboy-desktop__title-bar__fullscreen">
+                <button
+                  onClick={() => {
+                    screenfull.toggle();
+                    console.log("rendering...");
+                    this.render();
+                  }}
+                >
+                  {fullScreenIcon}
+                </button>
+              </div>
             </div>
           </div>
 

@@ -26,6 +26,12 @@
     }
   }
 
+  &__title-bar {
+    &__fullscreen {
+      font-size: 0.75rem;
+    }
+  }
+
   &__dropdowns {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -34,6 +40,12 @@
   &__game-container {
     flex-grow: 1;
     position: relative;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 100%;
+    max-width: 100vh;
   }
 
   .sgb-border {
@@ -42,8 +54,6 @@
     left: 0px;
     height: 100%;
     width: 100%;
-    z-index: 1;
-    opacity: 0.5;
 
     img {
       width: 100%;
