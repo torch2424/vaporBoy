@@ -3,9 +3,7 @@ import "./index.scss";
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
-// Our Components
-import SGBBorder from "./components/sgbBorder/sgbBorder";
-import WasmBoyCanvas from "./components/wasmboyCanvas/wasmboyCanvas";
+import VaporBoyDesktop from "./components/vaporboyDesktop/vaporboyDesktop";
 
 export default class App extends Component {
   componentDidMount() {
@@ -18,12 +16,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <h1>Hello, World!</h1>
-        <div class="aesthetic-windows-95-button">
-          <button>OK</button>
-        </div>
-        <WasmBoyCanvas />
-        <SGBBorder />
+        <VaporBoyDesktop />
       </div>
     );
   }

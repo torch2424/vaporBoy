@@ -2,7 +2,11 @@
 @import "../node_modules/aesthetic-css/src/variables";
 @import "../node_modules/aesthetic-css/src/mixins";
 @import "../node_modules/aesthetic-css/src/buttons";
+@import "../node_modules/aesthetic-css/src/containers";
+@import "../node_modules/aesthetic-css/src/modal";
+@import "../node_modules/aesthetic-css/src/dropdowns";
 
+@import "components/vaporboyDesktop/vaporboyDesktop";
 @import "components/sgbBorder/sgbBorder";
 @import "components/wasmboyCanvas/wasmboyCanvas";
 
@@ -12,7 +16,6 @@ body {
   font-weight: 400;
   margin-top: 10px;
   background-color: whitesmoke;
-  color: purple;
 }
 
 h1 {

@@ -7,22 +7,18 @@ export default class WasmBoyCanvas extends Component {
     // Get our HTML5 Canvas element
     const canvasElement = document.querySelector("#wasmboy-canvas");
 
-    // Initialize Wasmboy
-    WasmBoy.config({}, canvasElement)
-      .then(() => {
-        console.log("WasmBoy is configured!");
-        // You may now load games, or use other exported functions of the lib.
-      })
-      .catch(() => {
-        console.error("Error Configuring WasmBoy...");
-      });
+    const wasmboyInitTask = async () => {
+      await WasmBoy.config({}, canvasElement);
+      console.log("WasmBoy is configured!");
+      await WasmBoy.loadROM("assets/openSourceGames/tobutobugirl.gb");
+      console.log("TobuTobuGirl loaded!");
+      await WasmBoy.play();
+    };
+
+    wasmboyInitTask();
   }
 
   render() {
-    return (
-      <div>
-        <canvas id="wasmboy-canvas" />
-      </div>
-    );
+    return <canvas id="wasmboy-canvas" />;
   }
 }
