@@ -8,11 +8,50 @@ import SGBBorder from "../sgbBorder/sgbBorder";
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
 
 export default class VaporBoyDesktop extends Component {
+  componentDidMount() {
+    if (screenfull.enabled) {
+      screenfull.on("change", () => {
+        // Set the state to re-render and update our fullscreen icon
+        this.setState();
+      });
+    }
+  }
+
   render() {
-    // Full Screen Icon
-    let fullScreenIcon = "";
-    if (screenfull.isFullscreen) {
-      fullScreenIcon = "_";
+    // Create our fullscreenButton
+    let fullScreenButton = "";
+    let fullScreenViewListItem = "";
+    if (screenfull.enabled) {
+      // Our full screen view button
+      fullScreenViewListItem = (
+        <li class="aesthetic-windows-95-dropdown-menu-item">
+          <button
+            onClick={() => {
+              screenfull.toggle();
+            }}
+          >
+            Toggle Fullscreen
+          </button>
+        </li>
+      );
+
+      // Full Screen Icon
+      let fullScreenIcon = "";
+      if (screenfull.isFullscreen) {
+        fullScreenIcon = "_";
+      }
+
+      fullScreenButton = (
+        <div class="aesthetic-windows-95-button-title-bar vaporboy-desktop__title-bar__fullscreen">
+          <button
+            onClick={() => {
+              screenfull.toggle();
+            }}
+          >
+            {fullScreenIcon}
+          </button>
+        </div>
+      );
     }
 
     return (
@@ -24,17 +63,7 @@ export default class VaporBoyDesktop extends Component {
             </div>
 
             <div class="aesthetic-windows-95-modal-title-bar-controls">
-              <div class="aesthetic-windows-95-button-title-bar vaporboy-desktop__title-bar__fullscreen">
-                <button
-                  onClick={() => {
-                    screenfull.toggle();
-                    console.log("rendering...");
-                    this.render();
-                  }}
-                >
-                  {fullScreenIcon}
-                </button>
-              </div>
+              {fullScreenButton}
             </div>
           </div>
 
@@ -67,9 +96,7 @@ export default class VaporBoyDesktop extends Component {
                   <li class="aesthetic-windows-95-dropdown-menu-item">
                     <button>Expand Game</button>
                   </li>
-                  <li class="aesthetic-windows-95-dropdown-menu-item">
-                    <button>Fullscreen</button>
-                  </li>
+                  {fullScreenViewListItem}
                 </ul>
               </div>
             </div>
