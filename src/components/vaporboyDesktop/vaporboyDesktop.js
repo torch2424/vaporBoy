@@ -104,7 +104,9 @@ export default class VaporBoyDesktop extends Component {
                 </button>
                 <ul class="aesthetic-windows-95-dropdown-menu">
                   <li class="aesthetic-windows-95-dropdown-menu-item">
-                    <button>Expand Game</button>
+                    <button onClick={() => this.props.toggleExpand()}>
+                      Expand Game
+                    </button>
                   </li>
                   {fullScreenViewListItem}
                 </ul>

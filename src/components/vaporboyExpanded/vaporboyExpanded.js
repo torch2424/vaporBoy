@@ -35,14 +35,9 @@ export default class VaporBoyExpanded extends Component {
         <div class="vaporboy-expanded__controls">
           <button
             class="vaporboy-expanded__controls__exit-expand"
-            onClick={() => this.props.exitExpand()}
+            onClick={() => this.props.toggleExpand()}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M0 0h24v24H0z" />
               <path
                 class="vaporboy-expanded__controls__exit-expand__path"

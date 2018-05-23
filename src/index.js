@@ -7,6 +7,20 @@ import VaporBoyDesktop from "./components/vaporboyDesktop/vaporboyDesktop";
 import VaporBoyExpanded from "./components/vaporboyExpanded/vaporboyExpanded";
 
 export default class App extends Component {
+  constructor() {
+    super();
+    this.setState({
+      expanded: false
+    });
+  }
+
+  toggleExpand() {
+    this.setState({
+      ...this.state,
+      expanded: !this.state.expanded
+    });
+  }
+
   componentDidMount() {
     document.addEventListener("deviceready", () => {
       console.log("Cordova Launched Device Ready!");
@@ -15,10 +29,21 @@ export default class App extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <VaporBoyExpanded />
-      </div>
+    // Define our layouts
+    let vaporboyDesktopLayout = (
+      <VaporBoyDesktop toggleExpand={() => this.toggleExpand()} />
     );
+    let vaporboyExpandedLayout = (
+      <VaporBoyExpanded toggleExpand={() => this.toggleExpand()} />
+    );
+
+    // Get our current layout
+    let currentLayout = vaporboyDesktopLayout;
+
+    if (this.state.expanded) {
+      currentLayout = vaporboyExpandedLayout;
+    }
+
+    return <div>{currentLayout}</div>;
   }
 }

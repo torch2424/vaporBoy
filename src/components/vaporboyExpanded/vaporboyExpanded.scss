@@ -33,9 +33,18 @@
     left: 0px;
     z-index: 2;
 
+    button {
+      background-color: transparent;
+      border-color: transparent;
+      cursor: pointer;
+      outline: none;
+    }
+
     &__exit-expand {
       svg {
         fill: none;
+        width: 10vw;
+        height: 10vw;
       }
 
       &__path {
