@@ -7,7 +7,6 @@ export default class WasmBoyCanvas extends Component {
     // Check if we are already ready and initialized
     // (this is to avoid resetting a game on layout changes)
     if (!WasmBoy.isReady()) {
-      console.log("yooo");
       // Get our HTML5 Canvas element
       const canvasElement = document.querySelector("#wasmboy-canvas");
 
