@@ -4,6 +4,7 @@ import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
 import VaporBoyDesktop from "./components/vaporboyDesktop/vaporboyDesktop";
+import VaporBoyExpanded from "./components/vaporboyExpanded/vaporboyExpanded";
 
 export default class App extends Component {
   componentDidMount() {
@@ -16,7 +17,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <VaporBoyDesktop />
+        <VaporBoyExpanded />
       </div>
     );
   }

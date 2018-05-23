@@ -1,11 +1,12 @@
 // Desktop Layout for vaporboy
 import { Component } from "preact";
 
-import * as screenfull from "screenfull";
-
 // Our Components
 import SGBBorder from "../sgbBorder/sgbBorder";
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
+
+// 3P libs
+import * as screenfull from "screenfull";
 
 export default class VaporBoyDesktop extends Component {
   componentDidMount() {
@@ -15,6 +16,15 @@ export default class VaporBoyDesktop extends Component {
         this.setState();
       });
     }
+
+    // Set HTML/Body BG color
+    document.documentElement.classList.add("vaporboy-desktop-bg");
+    document.body.classList.add("vaporboy-desktop-bg");
+  }
+
+  componentWillUnmount() {
+    document.documentElement.classList.remove("vaporboy-desktop-bg");
+    document.body.classList.remove("vaporboy-desktop-bg");
   }
 
   render() {

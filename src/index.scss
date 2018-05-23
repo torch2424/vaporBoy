@@ -7,6 +7,7 @@
 @import "../node_modules/aesthetic-css/src/dropdowns";
 
 @import "components/vaporboyDesktop/vaporboyDesktop";
+@import "components/vaporboyExpanded/vaporboyExpanded";
 @import "components/sgbBorder/sgbBorder";
 @import "components/wasmboyCanvas/wasmboyCanvas";
 
@@ -15,7 +16,6 @@ body {
   font: 14px/1.21 "Helvetica Neue", arial, sans-serif;
   font-weight: 400;
   margin-top: 10px;
-  background-color: $aesthetic-windows-95-green;
 }
 
 h1 {
