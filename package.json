@@ -73,7 +73,7 @@
     "preact": "^8.2.1",
     "preact-compat": "^3.17.0",
     "screenfull": "^3.3.2",
-    "wasmboy": "0.0.2"
+    "wasmboy": "0.0.3"
   },
   "devDependencies": {
     "chokidar-cli": "^1.2.0",
