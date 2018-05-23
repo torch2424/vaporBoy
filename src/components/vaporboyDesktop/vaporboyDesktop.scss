@@ -9,6 +9,14 @@
   width: 100vw;
   height: 100vh;
 
+  .vaporboy-desktop__vaporboy-logo {
+    vertical-align: sub;
+    width: auto;
+    height: 18px;
+
+    margin-right: 10px;
+  }
+
   .aesthetic-windows-95-modal {
     height: calc(100% - 10px);
     display: flex;

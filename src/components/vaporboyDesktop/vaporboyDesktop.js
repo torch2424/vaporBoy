@@ -69,6 +69,10 @@ export default class VaporBoyDesktop extends Component {
         <div class="aesthetic-windows-95-modal">
           <div class="aesthetic-windows-95-modal-title-bar">
             <div class="aesthetic-windows-95-modal-title-bar-text">
+              <img
+                class="vaporboy-desktop__vaporboy-logo"
+                src="assets/vaporboyvhs.png"
+              />
               V A P O R B O Y
             </div>
 
