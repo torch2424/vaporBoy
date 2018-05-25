@@ -2,7 +2,7 @@
 import { Component } from "preact";
 
 // Our Components
-import SGBBorder from "../sgbBorder/sgbBorder";
+import SGBBorder from "./sgbBorder/sgbBorder";
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
 
 // 3P libs
