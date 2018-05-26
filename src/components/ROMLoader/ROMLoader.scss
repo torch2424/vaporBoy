@@ -1,3 +1,7 @@
+#ROMFileInput {
+  display: none;
+}
+
 .ROMLoader {
   position: fixed;
   bottom: 0px;
@@ -18,20 +22,28 @@
     opacity: 1;
   }
 
-  .cartridge-row {
+  .initial-load-row {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     width: 100%;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
 
-    &__cartridge {
-      width: 20vh;
-      height: 20vh;
-      color: $aesthetic-black;
+    fill: white;
+    color: white;
 
-      input[type="file"] {
-        display: none;
-      }
+    li {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      border-color: transparent;
+      padding: 0px;
     }
   }
 }
