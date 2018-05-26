@@ -5,6 +5,7 @@ import { WasmBoy } from "wasmboy";
 
 import VaporBoyDesktop from "./components/vaporboyDesktop/vaporboyDesktop";
 import VaporBoyExpanded from "./components/vaporboyExpanded/vaporboyExpanded";
+import ROMLoader from "./components/ROMLoader/ROMLoader";
 
 export default class App extends Component {
   constructor() {
@@ -44,6 +45,11 @@ export default class App extends Component {
       currentLayout = vaporboyExpandedLayout;
     }
 
-    return <div>{currentLayout}</div>;
+    return (
+      <div>
+        <ROMLoader show={true} />
+        {currentLayout}
+      </div>
+    );
   }
 }

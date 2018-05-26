@@ -1,0 +1,20 @@
+.ROMLoader {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 30vh;
+
+  z-index: 2;
+  background-color: $aesthetic-75-transparent;
+  color: $aesthetic-white;
+
+  transform: translate(0px, 40vh);
+  opacity: 0;
+  transition: transform 1s, opacity 1s;
+
+  &--show {
+    transform: translate(0px, 0vh);
+    opacity: 1;
+  }
+}

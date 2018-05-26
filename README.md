@@ -9,3 +9,7 @@ Installing Preact Sass: https://github.com/developit/preact-cli/issues/443
 Setting up cordova (simply build to www, and use custom preact template): https://cordova.apache.org/
 
 Borders: http://www.vgmuseum.com/features/sgb/#4s
+
+Cartridges: https://blueamnesiac.deviantart.com/art/Nintendo-Game-Boy-Cartridge-Gold-457938773
+
+http://hyperspin-fe.com/profile/3039-subzero/content/?type=forums_topic_post&page=76

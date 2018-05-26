@@ -7,9 +7,11 @@
 @import "../node_modules/aesthetic-css/src/dropdowns";
 
 @import "components/vaporboyDesktop/vaporboyDesktop";
+@import "components/vaporboyDesktop/sgbBorder/sgbBorder";
 @import "components/vaporboyExpanded/vaporboyExpanded";
-@import "components/sgbBorder/sgbBorder";
 @import "components/wasmboyCanvas/wasmboyCanvas";
+@import "components/ROMLoader/ROMLoader";
+@import "components/ROMLoader/cartridge/cartridge";
 
 html,
 body {
