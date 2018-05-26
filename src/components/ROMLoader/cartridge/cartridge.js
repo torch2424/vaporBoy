@@ -31,9 +31,9 @@ export default class Cartridge extends Component {
         <div class="cartridge__content">{cartridgeContent}</div>
 
         {/* Our Cartridge overlay */}
-        <div class="cartridge__overlay">
+        <button class="cartridge__overlay">
           <img src={cartridgeOverlayPath} />
-        </div>
+        </button>
       </div>
     );
   }

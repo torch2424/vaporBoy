@@ -3,7 +3,7 @@
   bottom: 0px;
   left: 0px;
   width: 100vw;
-  height: 30vh;
+  height: 35vh;
 
   z-index: 2;
   background-color: $aesthetic-75-transparent;
@@ -16,5 +16,18 @@
   &--show {
     transform: translate(0px, 0vh);
     opacity: 1;
+  }
+
+  .cartridge-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+
+    &__cartridge {
+      width: 20vh;
+      height: 20vh;
+      color: $aesthetic-black;
+    }
   }
 }
