@@ -11,7 +11,7 @@
 
   transform: translate(0px, 40vh);
   opacity: 0;
-  transition: transform 1s, opacity 1s;
+  transition: transform 0.5s, opacity 0.5s;
 
   &--show {
     transform: translate(0px, 0vh);

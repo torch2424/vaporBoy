@@ -90,7 +90,9 @@ export default class VaporBoyDesktop extends Component {
                 </button>
                 <ul class="aesthetic-windows-95-dropdown-menu">
                   <li class="aesthetic-windows-95-dropdown-menu-item">
-                    <button>Menu Item 1</button>
+                    <button onClick={() => this.props.showROMLoader()}>
+                      Load ROM...
+                    </button>
                   </li>
                   <li class="aesthetic-windows-95-dropdown-menu-item">
                     <button>Menu Item 2</button>

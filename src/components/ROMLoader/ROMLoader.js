@@ -12,7 +12,12 @@ export default class ROMLoader extends Component {
     });
   }
 
-  uploadROM() {
+  hideROMLoader() {
+    this.props.show = false;
+    this.setState({ ...this.state });
+  }
+
+  triggerLocalFileUpload() {
     document.getElementById("ROMFileInput").click();
   }
 
@@ -34,6 +39,7 @@ export default class ROMLoader extends Component {
       >
         {/* Our initial screen */}
         <h1>ROM Loader</h1>
+        <button onClick={() => this.hideROMLoader()}>Close</button>
 
         <div class="cartridge-row">
           <div class="cartridge-row__cartridge">
@@ -53,7 +59,7 @@ export default class ROMLoader extends Component {
             />
             <Cartridge
               text={"Upload from my device"}
-              onClick={() => this.uploadROM()}
+              onClick={() => this.triggerLocalFileUpload()}
             />
           </div>
         </div>

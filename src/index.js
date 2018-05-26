@@ -11,7 +11,8 @@ export default class App extends Component {
   constructor() {
     super();
     this.setState({
-      expanded: false
+      expanded: false,
+      showROMLoader: false
     });
   }
 
@@ -19,6 +20,13 @@ export default class App extends Component {
     this.setState({
       ...this.state,
       expanded: !this.state.expanded
+    });
+  }
+
+  showROMLoader() {
+    this.setState({
+      ...this.state,
+      showROMLoader: true
     });
   }
 
@@ -32,7 +40,10 @@ export default class App extends Component {
   render() {
     // Define our layouts
     let vaporboyDesktopLayout = (
-      <VaporBoyDesktop toggleExpand={() => this.toggleExpand()} />
+      <VaporBoyDesktop
+        toggleExpand={() => this.toggleExpand()}
+        showROMLoader={() => this.showROMLoader()}
+      />
     );
     let vaporboyExpandedLayout = (
       <VaporBoyExpanded toggleExpand={() => this.toggleExpand()} />
@@ -47,7 +58,7 @@ export default class App extends Component {
 
     return (
       <div>
-        <ROMLoader show={true} />
+        <ROMLoader show={this.state.showROMLoader} />
         {currentLayout}
       </div>
     );
