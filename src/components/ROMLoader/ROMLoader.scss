@@ -28,6 +28,10 @@
       width: 20vh;
       height: 20vh;
       color: $aesthetic-black;
+
+      input[type="file"] {
+        display: none;
+      }
     }
   }
 }

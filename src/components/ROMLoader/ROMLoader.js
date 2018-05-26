@@ -1,4 +1,5 @@
 import { Component } from "preact";
+import { WasmBoy } from "wasmboy";
 
 import Cartridge from "./cartridge/cartridge";
 
@@ -9,6 +10,21 @@ export default class ROMLoader extends Component {
       viewMyCollection: false,
       viewOpenSource: false
     });
+  }
+
+  uploadROM() {
+    document.getElementById("ROMFileInput").click();
+  }
+
+  loadLocalFile(event) {
+    const loadFileTask = async () => {
+      await WasmBoy.pause();
+      await WasmBoy.loadROM(event.target.files[0]);
+      console.log("Wasmboy Ready!");
+      await WasmBoy.play();
+    };
+
+    loadFileTask();
   }
 
   render() {
@@ -27,7 +43,18 @@ export default class ROMLoader extends Component {
             <Cartridge text={"Open Source ROMs"} />
           </div>
           <div class="cartridge-row__cartridge">
-            <Cartridge text={"Upload from my device"} />
+            <input
+              type="file"
+              id="ROMFileInput"
+              accept=".gb, .gbc, .zip"
+              onChange={event => {
+                this.loadLocalFile(event);
+              }}
+            />
+            <Cartridge
+              text={"Upload from my device"}
+              onClick={() => this.uploadROM()}
+            />
           </div>
         </div>
       </div>

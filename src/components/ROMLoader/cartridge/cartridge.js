@@ -6,6 +6,12 @@ export default class Cartridge extends Component {
     this.setState({});
   }
 
+  onClick() {
+    if (this.props.onClick) {
+      this.props.onClick();
+    }
+  }
+
   render() {
     // Our cartridge content
     let cartridgeContent = "";
@@ -31,7 +37,7 @@ export default class Cartridge extends Component {
         <div class="cartridge__content">{cartridgeContent}</div>
 
         {/* Our Cartridge overlay */}
-        <button class="cartridge__overlay">
+        <button class="cartridge__overlay" onClick={() => this.onClick()}>
           <img src={cartridgeOverlayPath} />
         </button>
       </div>
