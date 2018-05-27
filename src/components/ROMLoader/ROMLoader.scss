@@ -42,8 +42,25 @@
     &:hover,
     &:focus,
     &:active {
-      fill: $aesthetic-windows-95-grey;
       color: $aesthetic-windows-95-grey;
+    }
+  }
+
+  &__back {
+    @extend .ROMLoader__close;
+
+    width: 50px;
+    right: initial;
+    left: 0px;
+    padding: 5px;
+
+    transition: fill 0.5s;
+    fill: $aesthetic-white;
+
+    &:hover,
+    &:focus,
+    &:active {
+      fill: $aesthetic-windows-95-grey;
     }
   }
 }
