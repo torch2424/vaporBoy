@@ -33,6 +33,12 @@ export default class ROMLoader extends Component {
   }
 
   render() {
+    // Number of roms in our collection
+    let numberOfROMsInCollection = 0;
+
+    // Number of Open Source Games
+    let numberOfOpenSourceGames = 1;
+
     return (
       <div
         className={this.props.show ? "ROMLoader ROMLoader--show" : "ROMLoader"}
@@ -68,19 +74,9 @@ export default class ROMLoader extends Component {
                 My Collection
               </div>
             </button>
-            <div class="ROMLoader__initial-load-row__item__count" />
-          </li>
-          <li class="ROMLoader__initial-load-row__item">
-            <button>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6h1.9c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 12H6V10h12v10z" />
-              </svg>
-              <div class="ROMLoader__initial-load-row__item__label">
-                Open Source ROMs
-              </div>
-              <div class="ROMLoader__initial-load-row__item__count" />
-            </button>
+            <div class="ROMLoader__initial-load-row__item__count">
+              {numberOfROMsInCollection}
+            </div>
           </li>
           <li class="ROMLoader__initial-load-row__item">
             <button onClick={() => this.triggerLocalFileUpload()}>
@@ -92,6 +88,26 @@ export default class ROMLoader extends Component {
                 Open from device
               </div>
             </button>
+            <div
+              class="ROMLoader__initial-load-row__item__tooltip"
+              data-tooltip="Uploaded ROMs will automatically be stored in &quot;My Collection&quot; using IndexedDb"
+            >
+              i
+            </div>
+          </li>
+          <li class="ROMLoader__initial-load-row__item">
+            <button>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6h1.9c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 12H6V10h12v10z" />
+              </svg>
+              <div class="ROMLoader__initial-load-row__item__label">
+                Open Source ROMs
+              </div>
+            </button>
+            <div class="ROMLoader__initial-load-row__item__count">
+              {numberOfOpenSourceGames}
+            </div>
           </li>
         </ul>
       </div>

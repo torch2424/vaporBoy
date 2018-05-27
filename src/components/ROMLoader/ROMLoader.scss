@@ -2,6 +2,70 @@
   display: none;
 }
 
+/**
+ * Tooltip Styles: https://codepen.io/cbracco/pen/qzukg
+ */
+
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]:before {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-bottom: 5px;
+  margin-left: -80px;
+  padding: 7px;
+  width: 160px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #000;
+  background-color: $aesthetic-75-transparent;
+  color: $aesthetic-white;
+  content: attr(data-tooltip);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -5px;
+  width: 0;
+  border-top: 5px solid #000;
+  border-top: 5px solid $aesthetic-75-transparent;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: " ";
+  font-size: 0;
+  line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+  visibility: visible;
+  opacity: 1;
+}
+
 .ROMLoader {
   position: fixed;
   bottom: 0px;
@@ -24,21 +88,27 @@
   }
 
   &__close {
+    display: block;
+    background-color: transparent;
+    border: none;
+    border-color: transparent;
+    padding: 10px;
+
     position: absolute;
     top: 0px;
     right: 0px;
 
     font-size: 2rem;
-    margin: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    margin: 5px;
+    transition: color 0.5s;
     color: $aesthetic-white;
 
-    display: block;
-    background-color: transparent;
-    border: none;
-    border-color: transparent;
-    padding: 0px;
+    &:hover,
+    &:focus,
+    &:active {
+      fill: $aesthetic-windows-95-grey;
+      color: $aesthetic-windows-95-grey;
+    }
   }
 
   &__initial-load-row {
@@ -51,9 +121,8 @@
     padding: 0px;
     margin: 0px;
 
-    fill: $aesthetic-white;
-
     &__item {
+      position: relative;
       padding: 0px;
       margin: 0px;
       width: 25%;
@@ -69,19 +138,64 @@
         padding: 0px;
 
         width: 100%;
-      }
 
-      svg {
-        width: 50%;
-        max-width: 120px;
-      }
-
-      &__label {
-        width: 100%;
+        transition: fill 0.5s, color 0.5s;
+        fill: $aesthetic-white;
         color: $aesthetic-white;
-        text-align: center;
+
+        &:hover,
+        &:focus,
+        &:active {
+          fill: $aesthetic-windows-95-grey;
+          color: $aesthetic-windows-95-grey;
+        }
+
+        svg {
+          width: 50%;
+          max-width: 120px;
+        }
+
+        .ROMLoader__initial-load-row__item__label {
+          width: 100%;
+          text-align: center;
+          font-size: 1.5rem;
+          margin-top: 5px;
+        }
+      }
+
+      &__count {
+        position: absolute;
+        top: 0px;
+        right: 10px;
+
+        border-radius: 50%;
         font-size: 1.5rem;
-        margin-top: 5px;
+        width: 2.75rem;
+        height: 2.75rem;
+        background: linear-gradient(
+          to bottom right,
+          $aesthetic-white 0%,
+          $aesthetic-pepsi-red 25%,
+          $aesthetic-pepsi-red 75%,
+          $aesthetic-black 100%
+        );
+        border: 2px solid $aesthetic-white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      &__tooltip {
+        @extend .ROMLoader__initial-load-row__item__count;
+
+        background: linear-gradient(
+          to bottom right,
+          $aesthetic-white 0%,
+          $aesthetic-pepsi-blue 25%,
+          $aesthetic-pepsi-blue 75%,
+          $aesthetic-black 100%
+        );
       }
     }
   }
