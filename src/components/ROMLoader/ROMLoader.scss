@@ -30,7 +30,7 @@
   margin-bottom: 5px;
   margin-left: -80px;
   padding: 7px;
-  width: 160px;
+  width: 120px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -125,10 +125,12 @@
       position: relative;
       padding: 0px;
       margin: 0px;
-      width: 25%;
+      min-width: 100px;
+      width: 100%;
+      max-width: 300px;
       min-width: 150px;
-      margin-left: 20px;
-      margin-right: 20px;
+      margin-left: 30px;
+      margin-right: 30px;
 
       button {
         display: block;

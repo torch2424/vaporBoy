@@ -79,23 +79,6 @@ export default class ROMLoader extends Component {
             </div>
           </li>
           <li class="ROMLoader__initial-load-row__item">
-            <button onClick={() => this.triggerLocalFileUpload()}>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z" />
-              </svg>
-              <div class="ROMLoader__initial-load-row__item__label">
-                Open from device
-              </div>
-            </button>
-            <div
-              class="ROMLoader__initial-load-row__item__tooltip"
-              data-tooltip="Uploaded ROMs will automatically be stored in &quot;My Collection&quot; using IndexedDb"
-            >
-              i
-            </div>
-          </li>
-          <li class="ROMLoader__initial-load-row__item">
             <button>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M0 0h24v24H0z" fill="none" />
@@ -107,6 +90,23 @@ export default class ROMLoader extends Component {
             </button>
             <div class="ROMLoader__initial-load-row__item__count">
               {numberOfOpenSourceGames}
+            </div>
+          </li>
+          <li class="ROMLoader__initial-load-row__item">
+            <button onClick={() => this.triggerLocalFileUpload()}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z" />
+              </svg>
+              <div class="ROMLoader__initial-load-row__item__label">
+                Open from device
+              </div>
+            </button>
+            <div
+              class="ROMLoader__initial-load-row__item__tooltip"
+              data-tooltip="Uploaded ROMs will automatically be stored in &quot;My Collection&quot; for offline playing using IndexedDb."
+            >
+              i
             </div>
           </li>
         </ul>
