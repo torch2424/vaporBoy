@@ -1,7 +1,9 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
-export default class OpenSourceGames extends Component {
+import { AVAILABLE_GAMES } from "./availableGames";
+
+export default class Homebrew extends Component {
   constructor() {
     super();
     this.setState({});

@@ -12,7 +12,7 @@ export default class App extends Component {
     super();
     this.setState({
       expanded: false,
-      showROMLoader: false
+      showROMLoader: true
     });
   }
 

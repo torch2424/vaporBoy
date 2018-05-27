@@ -7,7 +7,7 @@ export default class ROMLoader extends Component {
     super();
     this.setState({
       viewMyCollection: false,
-      viewOpenSource: false
+      viewHomebrew: false
     });
   }
 
@@ -18,21 +18,21 @@ export default class ROMLoader extends Component {
   goToPreviousView() {
     this.setState({
       viewMyCollection: false,
-      viewOpenSource: false
+      viewHomebrew: false
     });
   }
 
   viewMyCollection() {
     this.setState({
       viewMyCollection: true,
-      viewOpenSource: false
+      viewHomebrew: false
     });
   }
 
-  viewOpenSourceGames() {
+  viewHomebrew() {
     this.setState({
       viewMyCollection: false,
-      viewOpenSource: true
+      viewHomebrew: true
     });
   }
 
@@ -42,14 +42,14 @@ export default class ROMLoader extends Component {
         viewMyCollection={() => {
           this.viewMyCollection();
         }}
-        viewOpenSourceGames={() => {
-          this.viewOpenSourceGames();
+        viewHomebrew={() => {
+          this.viewHomebrew();
         }}
       />
     );
 
     let backButton = <div />;
-    if (this.state.viewMyCollection || this.state.viewOpenSource) {
+    if (this.state.viewMyCollection || this.state.viewHomebrew) {
       console.log("hi");
       backButton = (
         <button class="ROMLoader__back" onClick={() => this.goToPreviousView()}>
