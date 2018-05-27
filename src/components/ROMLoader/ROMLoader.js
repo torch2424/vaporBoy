@@ -1,13 +1,14 @@
 import { Component } from "preact";
 
 import ROMSourceSelector from "./ROMSourceSelector/ROMSourceSelector";
+import Homebrew from "./homebrew/homebrew";
 
 export default class ROMLoader extends Component {
   constructor() {
     super();
     this.setState({
       viewMyCollection: false,
-      viewHomebrew: false
+      viewHomebrew: true
     });
   }
 
@@ -30,6 +31,7 @@ export default class ROMLoader extends Component {
   }
 
   viewHomebrew() {
+    console.log("ayyeee");
     this.setState({
       viewMyCollection: false,
       viewHomebrew: true
@@ -47,10 +49,12 @@ export default class ROMLoader extends Component {
         }}
       />
     );
+    if (this.state.viewHomebrew) {
+      currentView = <Homebrew />;
+    }
 
     let backButton = <div />;
     if (this.state.viewMyCollection || this.state.viewHomebrew) {
-      console.log("hi");
       backButton = (
         <button class="ROMLoader__back" onClick={() => this.goToPreviousView()}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -65,7 +69,7 @@ export default class ROMLoader extends Component {
       <div
         className={this.props.show ? "ROMLoader ROMLoader--show" : "ROMLoader"}
       >
-        <h1>ROM Loader</h1>
+        <h1 class="ROMLoader__title">ROM Loader</h1>
 
         <button class="ROMLoader__close" onClick={() => this.hideROMLoader()}>
           X
@@ -73,7 +77,7 @@ export default class ROMLoader extends Component {
 
         {backButton}
 
-        {currentView}
+        <div class="ROMLoader__current-view">{currentView}</div>
       </div>
     );
   }

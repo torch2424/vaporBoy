@@ -1,0 +1,41 @@
+.ROM-list {
+  margin: 0px;
+  list-style-type: none;
+  padding: 0px;
+
+  width: 100%;
+  flex-grow: 1;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  overflow-x: auto;
+
+  &__item {
+    margin: 0px;
+    padding: 0px;
+    margin-left: 30px;
+    margin-right: 30px;
+    height: 20vh;
+
+    &__cartridge {
+      width: 15vh;
+      height: 15vh;
+    }
+
+    &__label {
+      margin-top: 15px;
+      font-size: 1.5rem;
+      text-align: center;
+
+      a {
+        color: $aesthetic-light-blue;
+
+        &:visited {
+          color: $aesthetic-purple;
+        }
+      }
+    }
+  }
+}

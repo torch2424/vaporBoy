@@ -1,90 +1,94 @@
 .ROMSourceSelector {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  list-style-type: none;
-  padding: 0px;
-  margin: 0px;
 
-  &__item {
-    position: relative;
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    list-style-type: none;
     padding: 0px;
     margin: 0px;
-    min-width: 100px;
-    width: 100%;
-    max-width: 300px;
-    min-width: 150px;
-    margin-left: 30px;
-    margin-right: 30px;
 
-    button {
-      display: block;
-      background-color: transparent;
-      border: none;
-      border-color: transparent;
+    &__item {
+      position: relative;
       padding: 0px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0px;
+      min-width: 100px;
+      width: 100%;
+      max-width: 300px;
+      min-width: 150px;
+      margin-left: 30px;
+      margin-right: 30px;
 
-      transition: fill 0.5s, color 0.5s;
-      fill: $aesthetic-white;
-      color: $aesthetic-white;
+      button {
+        display: block;
+        background-color: transparent;
+        border: none;
+        border-color: transparent;
+        padding: 0px;
+        margin-left: auto;
+        margin-right: auto;
 
-      &:hover,
-      &:focus,
-      &:active {
-        fill: $aesthetic-windows-95-grey;
-        color: $aesthetic-windows-95-grey;
+        transition: fill 0.5s, color 0.5s;
+        fill: $aesthetic-white;
+        color: $aesthetic-white;
+
+        &:hover,
+        &:focus,
+        &:active {
+          fill: $aesthetic-windows-95-grey;
+          color: $aesthetic-windows-95-grey;
+        }
+
+        svg {
+          width: 50%;
+          max-width: 120px;
+        }
+
+        .ROMSourceSelector__list__item__label {
+          width: 100%;
+          text-align: center;
+          font-size: 1.5rem;
+          margin-top: 5px;
+        }
       }
 
-      svg {
-        width: 50%;
-        max-width: 120px;
-      }
+      &__count {
+        position: absolute;
+        top: 0px;
+        right: calc(50% - 100px);
 
-      .ROMSourceSelector__item__label {
-        width: 100%;
-        text-align: center;
+        border-radius: 50%;
         font-size: 1.5rem;
-        margin-top: 5px;
+        width: 2.75rem;
+        height: 2.75rem;
+        background: linear-gradient(
+          to bottom right,
+          $aesthetic-white 0%,
+          $aesthetic-pepsi-red 25%,
+          $aesthetic-pepsi-red 75%,
+          $aesthetic-black 100%
+        );
+        border: 2px solid $aesthetic-white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
       }
-    }
 
-    &__count {
-      position: absolute;
-      top: 0px;
-      right: calc(50% - 100px);
+      &__tooltip {
+        @extend .ROMSourceSelector__list__item__count;
 
-      border-radius: 50%;
-      font-size: 1.5rem;
-      width: 2.75rem;
-      height: 2.75rem;
-      background: linear-gradient(
-        to bottom right,
-        $aesthetic-white 0%,
-        $aesthetic-pepsi-red 25%,
-        $aesthetic-pepsi-red 75%,
-        $aesthetic-black 100%
-      );
-      border: 2px solid $aesthetic-white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-
-    &__tooltip {
-      @extend .ROMSourceSelector__item__count;
-
-      background: linear-gradient(
-        to bottom right,
-        $aesthetic-white 0%,
-        $aesthetic-pepsi-blue 25%,
-        $aesthetic-pepsi-blue 75%,
-        $aesthetic-black 100%
-      );
+        background: linear-gradient(
+          to bottom right,
+          $aesthetic-white 0%,
+          $aesthetic-pepsi-blue 25%,
+          $aesthetic-pepsi-blue 75%,
+          $aesthetic-black 100%
+        );
+      }
     }
   }
 }

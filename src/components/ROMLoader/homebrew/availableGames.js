@@ -18,11 +18,5 @@ export const AVAILABLE_GAMES = [
     link: "https://github.com/AntonioND/geometrix",
     ROMPath: `${basePath}/geometrix/geometrix.gbc`,
     imagePath: `${basePath}/geometrix/geometrix.png`
-  },
-  {
-    title: "airaki",
-    link: "https://github.com/furrtek/Airaki",
-    ROMPath: `${basePath}/airaki/airaki.gbc`,
-    imagePath: `${basePath}/airaki/airaki.png`
   }
 ];
