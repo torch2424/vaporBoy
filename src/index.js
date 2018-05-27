@@ -30,6 +30,13 @@ export default class App extends Component {
     });
   }
 
+  hideROMLoader() {
+    this.setState({
+      ...this.state,
+      showROMLoader: false
+    });
+  }
+
   componentDidMount() {
     document.addEventListener("deviceready", () => {
       console.log("Cordova Launched Device Ready!");
@@ -58,7 +65,12 @@ export default class App extends Component {
 
     return (
       <div>
-        <ROMLoader show={this.state.showROMLoader} />
+        <ROMLoader
+          show={this.state.showROMLoader}
+          hide={() => {
+            this.hideROMLoader();
+          }}
+        />
         {currentLayout}
       </div>
     );
