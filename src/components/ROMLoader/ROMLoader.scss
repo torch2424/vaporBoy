@@ -7,23 +7,43 @@
   bottom: 0px;
   left: 0px;
   width: 100vw;
-  height: 35vh;
+  min-height: 20vh;
+  padding-bottom: 20px;
 
   z-index: 2;
   background-color: $aesthetic-75-transparent;
   color: $aesthetic-white;
 
-  transform: translate(0px, 40vh);
+  transform: translate(0px, 100%);
   opacity: 0;
-  transition: transform 0.5s, opacity 0.5s;
+  transition: transform 0.5s, opacity 0.5s, height 0.5s;
 
   &--show {
     transform: translate(0px, 0vh);
     opacity: 1;
   }
 
-  .initial-load-row {
+  &__close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+
+    font-size: 2rem;
+    margin: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: $aesthetic-white;
+
+    display: block;
+    background-color: transparent;
+    border: none;
+    border-color: transparent;
+    padding: 0px;
+  }
+
+  &__initial-load-row {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -31,19 +51,38 @@
     padding: 0px;
     margin: 0px;
 
-    fill: white;
-    color: white;
+    fill: $aesthetic-white;
 
-    li {
+    &__item {
       padding: 0px;
       margin: 0px;
-    }
+      width: 25%;
+      min-width: 150px;
+      margin-left: 20px;
+      margin-right: 20px;
 
-    button {
-      background-color: transparent;
-      border: none;
-      border-color: transparent;
-      padding: 0px;
+      button {
+        display: block;
+        background-color: transparent;
+        border: none;
+        border-color: transparent;
+        padding: 0px;
+
+        width: 100%;
+      }
+
+      svg {
+        width: 50%;
+        max-width: 120px;
+      }
+
+      &__label {
+        width: 100%;
+        color: $aesthetic-white;
+        text-align: center;
+        font-size: 1.5rem;
+        margin-top: 5px;
+      }
     }
   }
 }

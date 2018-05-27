@@ -50,28 +50,49 @@ export default class ROMLoader extends Component {
 
         {/* Our initial screen */}
         <h1>ROM Loader</h1>
-        <button onClick={() => this.hideROMLoader()}>Close</button>
 
-        <ul class="initial-load-row">
-          <li class="initial-load-row__item">
+        <button class="ROMLoader__close" onClick={() => this.hideROMLoader()}>
+          X
+        </button>
+
+        <ul class="ROMLoader__initial-load-row">
+          <li class="ROMLoader__initial-load-row__item">
             <button>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path fill="none" d="M0 0h24v24H0V0z" />
                 <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z" />
                 <path fill="none" d="M0 0h24v24H0V0z" />
                 <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 10l-2.5-1.5L15 12V4h5v8z" />
               </svg>
-              <div class="initial-load-row__item__label">My Collection</div>
+              <div class="ROMLoader__initial-load-row__item__label">
+                My Collection
+              </div>
             </button>
-            <div class="initial-load-row__item__count" />
+            <div class="ROMLoader__initial-load-row__item__count" />
           </li>
-          <li class="initial-load-row__item" />
-          <li class="initial-load-row__item" />
+          <li class="ROMLoader__initial-load-row__item">
+            <button>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6h1.9c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 12H6V10h12v10z" />
+              </svg>
+              <div class="ROMLoader__initial-load-row__item__label">
+                Open Source ROMs
+              </div>
+              <div class="ROMLoader__initial-load-row__item__count" />
+            </button>
+          </li>
+          <li class="ROMLoader__initial-load-row__item">
+            <button onClick={() => this.triggerLocalFileUpload()}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z" />
+              </svg>
+              <div class="ROMLoader__initial-load-row__item__label">
+                Open from device
+              </div>
+            </button>
+          </li>
         </ul>
       </div>
     );
