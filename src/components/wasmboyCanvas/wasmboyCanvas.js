@@ -13,7 +13,7 @@ export default class WasmBoyCanvas extends Component {
       const wasmboyInitTask = async () => {
         await WasmBoy.config({}, canvasElement);
         console.log("WasmBoy is configured!");
-        await WasmBoy.loadROM("assets/openSourceGames/tobutobugirl.gb");
+        await WasmBoy.loadROM("assets/homebrew/tobutobugirl/tobutobugirl.gb");
         console.log("TobuTobuGirl loaded!");
         await WasmBoy.play();
       };
