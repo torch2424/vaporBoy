@@ -1,6 +1,7 @@
 import { Component } from "preact";
 
 import ROMSourceSelector from "./ROMSourceSelector/ROMSourceSelector";
+import MyCollection from "./myCollection/myCollection";
 import Homebrew from "./homebrew/homebrew";
 
 export default class ROMLoader extends Component {
@@ -8,7 +9,7 @@ export default class ROMLoader extends Component {
     super();
     this.setState({
       viewMyCollection: false,
-      viewHomebrew: true
+      viewHomebrew: false
     });
   }
 
@@ -31,7 +32,6 @@ export default class ROMLoader extends Component {
   }
 
   viewHomebrew() {
-    console.log("ayyeee");
     this.setState({
       viewMyCollection: false,
       viewHomebrew: true
@@ -49,6 +49,9 @@ export default class ROMLoader extends Component {
         }}
       />
     );
+    if (this.state.viewMyCollection) {
+      currentView = <MyCollection />;
+    }
     if (this.state.viewHomebrew) {
       currentView = <Homebrew />;
     }

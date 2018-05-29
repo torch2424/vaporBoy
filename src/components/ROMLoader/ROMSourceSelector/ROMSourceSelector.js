@@ -1,12 +1,31 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { ROMCollection } from "../../../services/ROMCollection";
+
 import { AVAILABLE_GAMES } from "../homebrew/availableGames";
 
 export default class ROMSourceSelector extends Component {
   constructor() {
     super();
-    this.setState({});
+    this.setState({
+      collection: false
+    });
+  }
+
+  componentDidMount() {
+    // Get the current ROM Collection
+    const getCollectionTask = async () => {
+      const collection = await ROMCollection.getCollection();
+      console.log(collection);
+      this.setState({
+        ...this.state,
+        collection
+      });
+    };
+
+    // Kick off our tasks
+    getCollectionTask();
   }
 
   triggerLocalFileUpload() {
@@ -19,6 +38,7 @@ export default class ROMSourceSelector extends Component {
       await WasmBoy.loadROM(event.target.files[0]);
       console.log("Wasmboy Ready!");
       await WasmBoy.play();
+      await ROMCollection.saveCurrentWasmBoyROMToCollection();
     };
 
     loadFileTask();
@@ -27,23 +47,21 @@ export default class ROMSourceSelector extends Component {
   render() {
     // Number of roms in our collection
     let numberOfROMsInCollection = 0;
+    if (this.state.collection) {
+      numberOfROMsInCollection = Object.keys(this.state.collection).length;
+    }
 
     // Number of Open Source Games
     let numberOfHomebrew = AVAILABLE_GAMES.length;
 
-    return (
-      <div class="ROMSourceSelector">
-        {/*Our Hidden Input for uploading files*/}
-        <input
-          type="file"
-          id="ROMFileInput"
-          class="hidden"
-          accept=".gb, .gbc, .zip"
-          onChange={event => {
-            this.loadLocalFile(event);
-          }}
-        />
-
+    // Our buttons for selecting the source
+    let sourceOptions = (
+      <div class="ROMSourceSelector__donut">
+        <div class="donut" />
+      </div>
+    );
+    if (this.state.collection) {
+      sourceOptions = (
         <ul class="ROMSourceSelector__list">
           <li class="ROMSourceSelector__list__item">
             <button
@@ -101,6 +119,23 @@ export default class ROMSourceSelector extends Component {
             </div>
           </li>
         </ul>
+      );
+    }
+
+    return (
+      <div class="ROMSourceSelector">
+        {/*Our Hidden Input for uploading files*/}
+        <input
+          type="file"
+          id="ROMFileInput"
+          class="hidden"
+          accept=".gb, .gbc, .zip"
+          onChange={event => {
+            this.loadLocalFile(event);
+          }}
+        />
+
+        {sourceOptions}
       </div>
     );
   }
