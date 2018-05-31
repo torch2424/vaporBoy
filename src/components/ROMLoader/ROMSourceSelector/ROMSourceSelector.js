@@ -118,6 +118,8 @@ export default class ROMSourceSelector extends Component {
           }}
         />
 
+        <h1>ROM Loader</h1>
+
         {sourceOptions}
       </div>
     );

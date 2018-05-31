@@ -101,8 +101,6 @@ export default class ROMLoader extends Component {
             this.props.show ? "ROMLoader ROMLoader--show" : "ROMLoader"
           }
         >
-          <h1 class="ROMLoader__title">ROM Loader</h1>
-
           <button class="ROMLoader__close" onClick={() => this.hideROMLoader()}>
             X
           </button>
