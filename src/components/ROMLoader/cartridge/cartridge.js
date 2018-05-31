@@ -17,10 +17,17 @@ export default class Cartridge extends Component {
     let cartridgeContent = "";
 
     if (this.props.imageUrl) {
-      cartridgeContent = <img src={this.props.imageUrl} />;
+      cartridgeContent = (
+        <img
+          class="cartridge__content__centered-container__image"
+          src={this.props.imageUrl}
+        />
+      );
     } else if (this.props.text) {
       cartridgeContent = (
-        <div class="cartridge__content__text">{this.props.text}</div>
+        <div class="cartridge__content__centered-container__text">
+          {this.props.text}
+        </div>
       );
     }
 
@@ -34,7 +41,11 @@ export default class Cartridge extends Component {
     return (
       <div class="cartridge">
         {/* Our Cartridge content */}
-        <div class="cartridge__content">{cartridgeContent}</div>
+        <div class="cartridge__content">
+          <div class="cartridge__content__centered-container">
+            {cartridgeContent}
+          </div>
+        </div>
 
         {/* Our Cartridge overlay */}
         <button class="cartridge__overlay" onClick={() => this.onClick()}>
