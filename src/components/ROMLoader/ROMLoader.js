@@ -1,5 +1,7 @@
 import { Component } from "preact";
 
+import { ROMCollection } from "../../services/ROMCollection";
+
 import ROMSourceSelector from "./ROMSourceSelector/ROMSourceSelector";
 import MyCollection from "./myCollection/myCollection";
 import Homebrew from "./homebrew/homebrew";
@@ -9,8 +11,28 @@ export default class ROMLoader extends Component {
     super();
     this.setState({
       viewMyCollection: false,
-      viewHomebrew: false
+      viewHomebrew: false,
+      collection: undefined
     });
+  }
+
+  componentDidMount() {
+    this.updateCollection();
+  }
+
+  updateCollection() {
+    // Get the current ROM Collection
+    const getCollectionTask = async () => {
+      const collection = await ROMCollection.getCollection();
+      console.log(collection);
+      this.setState({
+        ...this.state,
+        collection
+      });
+    };
+
+    // Kick off our tasks
+    getCollectionTask();
   }
 
   hideROMLoader() {
@@ -47,10 +69,12 @@ export default class ROMLoader extends Component {
         viewHomebrew={() => {
           this.viewHomebrew();
         }}
+        updateCollection={() => this.updateCollection()}
+        collection={this.state.collection}
       />
     );
     if (this.state.viewMyCollection) {
-      currentView = <MyCollection />;
+      currentView = <MyCollection collection={this.state.collection} />;
     }
     if (this.state.viewHomebrew) {
       currentView = <Homebrew />;

@@ -13,20 +13,7 @@ export default class ROMSourceSelector extends Component {
     });
   }
 
-  componentDidMount() {
-    // Get the current ROM Collection
-    const getCollectionTask = async () => {
-      const collection = await ROMCollection.getCollection();
-      console.log(collection);
-      this.setState({
-        ...this.state,
-        collection
-      });
-    };
-
-    // Kick off our tasks
-    getCollectionTask();
-  }
+  componentDidMount() {}
 
   triggerLocalFileUpload() {
     document.getElementById("ROMFileInput").click();
@@ -39,6 +26,9 @@ export default class ROMSourceSelector extends Component {
       console.log("Wasmboy Ready!");
       await WasmBoy.play();
       await ROMCollection.saveCurrentWasmBoyROMToCollection();
+      if (this.props.updateCollection) {
+        this.props.updateCollection();
+      }
     };
 
     loadFileTask();
@@ -47,8 +37,8 @@ export default class ROMSourceSelector extends Component {
   render() {
     // Number of roms in our collection
     let numberOfROMsInCollection = 0;
-    if (this.state.collection) {
-      numberOfROMsInCollection = Object.keys(this.state.collection).length;
+    if (this.props.collection) {
+      numberOfROMsInCollection = Object.keys(this.props.collection).length;
     }
 
     // Number of Open Source Games
@@ -60,7 +50,7 @@ export default class ROMSourceSelector extends Component {
         <div class="donut" />
       </div>
     );
-    if (this.state.collection) {
+    if (this.props.collection) {
       sourceOptions = (
         <ul class="ROMSourceSelector__list">
           <li class="ROMSourceSelector__list__item">
