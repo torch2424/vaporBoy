@@ -92,20 +92,28 @@ export default class ROMLoader extends Component {
       );
     }
 
-    return (
-      <div
-        className={this.props.show ? "ROMLoader ROMLoader--show" : "ROMLoader"}
-      >
-        <h1 class="ROMLoader__title">ROM Loader</h1>
+    // Show a loader while we perform async tasks
+    let renderedRomLoader = <div class="donut" />;
+    if (this.state.collection) {
+      renderedRomLoader = (
+        <div
+          className={
+            this.props.show ? "ROMLoader ROMLoader--show" : "ROMLoader"
+          }
+        >
+          <h1 class="ROMLoader__title">ROM Loader</h1>
 
-        <button class="ROMLoader__close" onClick={() => this.hideROMLoader()}>
-          X
-        </button>
+          <button class="ROMLoader__close" onClick={() => this.hideROMLoader()}>
+            X
+          </button>
 
-        {backButton}
+          {backButton}
 
-        <div class="ROMLoader__current-view">{currentView}</div>
-      </div>
-    );
+          <div class="ROMLoader__current-view">{currentView}</div>
+        </div>
+      );
+    }
+
+    return <div>{renderedRomLoader}</div>;
   }
 }
