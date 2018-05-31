@@ -1,5 +1,6 @@
 // Desktop Layout for vaporboy
 import { Component } from "preact";
+import { WasmBoy } from "wasmboy";
 
 // Our Components
 import SGBBorder from "./sgbBorder/sgbBorder";
@@ -25,6 +26,15 @@ export default class VaporBoyDesktop extends Component {
   componentWillUnmount() {
     document.documentElement.classList.remove("vaporboy-desktop-bg");
     document.body.classList.remove("vaporboy-desktop-bg");
+  }
+
+  resetWasmBoy() {
+    const resetWasmBoyTask = async () => {
+      await WasmBoy.reset();
+      await WasmBoy.play();
+    };
+
+    resetWasmBoyTask();
   }
 
   render() {
@@ -94,12 +104,11 @@ export default class VaporBoyDesktop extends Component {
                       Load ROM...
                     </button>
                   </li>
-                  <li class="aesthetic-windows-95-dropdown-menu-item">
-                    <button>Menu Item 2</button>
-                  </li>
                   <hr />
                   <li class="aesthetic-windows-95-dropdown-menu-item">
-                    <button>Menu Item 3</button>
+                    <button onClick={() => this.resetWasmBoy()}>
+                      Reset...
+                    </button>
                   </li>
                 </ul>
               </div>
