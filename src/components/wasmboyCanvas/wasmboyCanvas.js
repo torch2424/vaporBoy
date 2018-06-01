@@ -40,8 +40,10 @@ export default class WasmBoyCanvas extends Component {
   render() {
     return (
       <div class="wasmboy-canvas">
-        <div class="insert-cartridge">
+        <div class="wasmboy-canvas__insert-cartridge">
           <img src="assets/vaporboyvhs.png" />
+          <h1>V A P O R B O Y</h1>
+          <h3>Please insert a cartridge...</h3>
         </div>
         <canvas id="wasmboy-canvas" />
       </div>

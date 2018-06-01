@@ -1,11 +1,47 @@
 .wasmboy-canvas {
+  position: relative;
   width: 100%;
   height: 100%;
   min-width: 160px;
   min-height: 144px;
 
-  canvas {
+  &__insert-cartridge {
+    position: absolute;
     width: 100%;
     height: 100%;
+    z-index: 1;
+    background: linear-gradient(
+      to bottom right,
+      $aesthetic-light-purple,
+      $aesthetic-pink
+    );
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    img {
+      display: block;
+      width: 50%;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-style: italic;
+      color: $aesthetic-white;
+    }
+
+    h3 {
+      font-style: italic;
+      color: $aesthetic-white;
+    }
+  }
+
+  canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
   }
 }
