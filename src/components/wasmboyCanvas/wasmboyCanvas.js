@@ -3,6 +3,11 @@ import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
 export default class WasmBoyCanvas extends Component {
+  constructor() {
+    super();
+    this.setState({});
+  }
+
   componentDidMount() {
     // Check if we are already ready and initialized
     // (this is to avoid resetting a game on layout changes)
@@ -15,6 +20,7 @@ export default class WasmBoyCanvas extends Component {
         console.log("WasmBoy is configured!");
 
         // Paint vaporboy on the canvas
+        this.paintVaporBoy();
       };
 
       wasmboyInitTask();
@@ -32,6 +38,13 @@ export default class WasmBoyCanvas extends Component {
   }
 
   render() {
-    return <canvas id="wasmboy-canvas" />;
+    return (
+      <div class="wasmboy-canvas">
+        <div class="insert-cartridge">
+          <img src="assets/vaporboyvhs.png" />
+        </div>
+        <canvas id="wasmboy-canvas" />
+      </div>
+    );
   }
 }

@@ -133,7 +133,7 @@ export default class VaporBoyDesktop extends Component {
             <div class="aesthetic-windows-95-container vaporboy-desktop__game-container">
               {/* Actual Game Content Here */}
 
-              <div className="wasmboy-canvas">
+              <div className="wasmboy-canvas-container">
                 <WasmBoyCanvas />
               </div>
               <div className="sgb-border">
