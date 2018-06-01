@@ -5,6 +5,11 @@
   min-width: 160px;
   min-height: 144px;
 
+  &.aesthetic-effect-crt::before,
+  &.aesthetic-effect-crt::after {
+    z-index: 100;
+  }
+
   &__insert-cartridge {
     position: absolute;
     top: 0px;
