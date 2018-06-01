@@ -18,9 +18,6 @@ export default class WasmBoyCanvas extends Component {
       const wasmboyInitTask = async () => {
         await WasmBoy.config({}, canvasElement);
         console.log("WasmBoy is configured!");
-
-        // Paint vaporboy on the canvas
-        this.paintVaporBoy();
       };
 
       wasmboyInitTask();
@@ -45,7 +42,9 @@ export default class WasmBoyCanvas extends Component {
           <h1>V A P O R B O Y</h1>
           <h3>Please insert a cartridge...</h3>
         </div>
-        <canvas id="wasmboy-canvas" />
+        <div class="wasmboy-canvas__canvas-container">
+          <canvas id="wasmboy-canvas" />
+        </div>
       </div>
     );
   }

@@ -11,18 +11,23 @@
   width: 100vw;
   height: 100vh;
 
-  .wasmboy-canvas {
+  .wasmboy-canvas-container {
     width: 100%;
     height: 100%;
     text-align: center;
 
-    canvas {
-      width: auto;
-      height: 100%;
+    // Hide the insert cartridge
+    .wasmboy-canvas__canvas-container {
+      background-color: $aesthetic-black;
 
-      @media only screen and (orientation: portrait) {
-        width: 100%;
-        height: auto;
+      canvas {
+        width: auto;
+        height: 100%;
+
+        @media only screen and (orientation: portrait) {
+          width: 100%;
+          height: auto;
+        }
       }
     }
   }
@@ -31,13 +36,15 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    z-index: 2;
+    z-index: 5;
 
     button {
-      background-color: transparent;
-      border-color: transparent;
+      background-color: $aesthetic-50-transparent;
+
       cursor: pointer;
       outline: none;
+
+      border-color: transparent;
     }
 
     &__exit-expand {

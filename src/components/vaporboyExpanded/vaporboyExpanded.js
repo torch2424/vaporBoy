@@ -29,9 +29,10 @@ export default class VaporBoyExpanded extends Component {
   render() {
     return (
       <div class="vaporboy-expanded">
-        <div className="wasmboy-canvas">
+        <div className="wasmboy-canvas-container">
           <WasmBoyCanvas />
         </div>
+
         <div class="vaporboy-expanded__controls">
           <button
             class="vaporboy-expanded__controls__exit-expand"
