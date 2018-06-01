@@ -30,18 +30,22 @@
 
     img {
       display: block;
-      width: 50%;
+      height: 50%;
     }
 
     h1 {
       font-weight: bold;
       font-style: italic;
       color: $aesthetic-white;
+      margin-top: 5px;
+      margin-bottom: 5px;
     }
 
     h3 {
       font-style: italic;
       color: $aesthetic-white;
+      margin-top: 5px;
+      margin-bottom: 5px;
     }
   }
 

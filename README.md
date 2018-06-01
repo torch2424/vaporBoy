@@ -8,7 +8,13 @@ Installing Preact Sass: https://github.com/developit/preact-cli/issues/443
 
 Setting up cordova (simply build to www, and use custom preact template): https://cordova.apache.org/
 
-Borders: http://www.vgmuseum.com/features/sgb/#4s
+SGB Borders: http://www.vgmuseum.com/features/sgb/#4s
+
+GBA Overlay (Base): http://www.rlauncher.com/forum/showthread.php?2929-What-Icons-do-we-need-for-the-RL-interface
+
+https://retropie.org.uk/forum/topic/9152/handheld-overlays-psd-png-cfg
+
+https://obsproject.com/forum/threads/gamepad-display.12508/page-5
 
 Cartridges: https://blueamnesiac.deviantart.com/art/Nintendo-Game-Boy-Cartridge-Gold-457938773
 
