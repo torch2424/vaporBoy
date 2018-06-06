@@ -12,6 +12,26 @@
 
   background-color: #5f68ab;
 
+  svg {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 10vw;
+    height: 10vw;
+
+    circle {
+      stroke: #fdfbff;
+    }
+
+    text {
+      font-size: 5vw;
+      font-weight: bold;
+      font-family: sans-serif;
+
+      stroke: #a8b1bb;
+    }
+  }
+
   &__game-container {
     position: relative;
 
