@@ -74,6 +74,8 @@ export default class GameboyButton extends Component {
             {this.getButtonText()}
           </text>
         </svg>
+
+        <div class="gameboy-button__external-text">Start</div>
       </div>
     );
   }

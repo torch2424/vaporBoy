@@ -21,4 +21,13 @@
       text-transform: capitalize;
     }
   }
+
+  &__external-text {
+    text-transform: capitalize;
+    font-family: "BenchNine", sans-serif;
+
+    color: #5f68ab;
+    font-size: 2rem;
+    text-shadow: 0px 0px 2px #fdfbff;
+  }
 }
