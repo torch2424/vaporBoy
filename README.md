@@ -16,6 +16,18 @@ https://retropie.org.uk/forum/topic/9152/handheld-overlays-psd-png-cfg
 
 https://obsproject.com/forum/threads/gamepad-display.12508/page-5
 
+https://weheartit.com/entry/198414863
+
+https://www.youtube.com/watch?v=5ihHjBFLjRQ
+
+Gameboy Button SVGs (Manually written with snippets from):
+
+https://fonts.google.com/specimen/BenchNine?selection.family=BenchNine
+
+http://distantfuturejosh.com/kungfu/
+
+view-source:http://distantfuturejosh.com/kungfu/img/d-pad-shadow.svg
+
 Cartridges: https://blueamnesiac.deviantart.com/art/Nintendo-Game-Boy-Cartridge-Gold-457938773
 
 http://hyperspin-fe.com/profile/3039-subzero/content/?type=forums_topic_post&page=76
