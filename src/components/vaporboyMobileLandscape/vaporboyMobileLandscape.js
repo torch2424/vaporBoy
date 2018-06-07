@@ -32,6 +32,14 @@ export default class VaporBoyMobileLandscape extends Component {
             <div class="dpad">
               <GameboyDpad />
             </div>
+
+            <div class="start-button">
+              <GameboyButton button={"start"} />
+            </div>
+
+            <div class="select-button">
+              <GameboyButton button={"select"} />
+            </div>
           </div>
         </div>
       </div>

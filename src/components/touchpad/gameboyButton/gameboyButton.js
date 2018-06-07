@@ -10,7 +10,11 @@ export default class GameboyButton extends Component {
   componentDidMount() {}
 
   getButtonText() {
-    if (this.props.button) {
+    if (
+      this.props.button &&
+      this.props.button !== "start" &&
+      this.props.button !== "select"
+    ) {
       return this.props.button;
     }
 

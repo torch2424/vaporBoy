@@ -76,8 +76,8 @@
 
         position: absolute;
         z-index: 1;
-        top: calc(50% - 8vw);
-        right: 15%;
+        top: calc(50% - 7vw);
+        right: 14%;
       }
 
       .a-button {
@@ -86,8 +86,8 @@
 
         position: absolute;
         z-index: 1;
-        top: calc(50% - 12vw);
-        right: 2%;
+        top: calc(50% - 13vw);
+        right: 1%;
       }
 
       .dpad {
@@ -96,8 +96,28 @@
 
         position: absolute;
         z-index: 1;
-        top: calc(50% - 12vw);
-        left: 8%;
+        top: calc(50% - 13vw);
+        left: 7%;
+      }
+
+      .start-button {
+        width: 5vw;
+        height: 5vw;
+
+        position: absolute;
+        z-index: 1;
+        left: 20%;
+        top: 60%;
+      }
+
+      .select-button {
+        width: 5vw;
+        height: 5vw;
+
+        position: absolute;
+        z-index: 1;
+        left: 18%;
+        top: 73%;
       }
     }
   }
