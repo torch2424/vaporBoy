@@ -18,7 +18,7 @@
   &__game-container {
     position: relative;
 
-    $gbaBorderHeight: 75vh;
+    $gbaBorderHeight: 40vw;
     width: calc(1.18 * #{$gbaBorderHeight});
     height: $gbaBorderHeight;
 
@@ -70,14 +70,34 @@
       width: 100vw;
       height: 100vh;
 
+      .b-button {
+        width: 10vw;
+        height: 10vw;
+
+        position: absolute;
+        z-index: 1;
+        top: calc(50% - 8vw);
+        right: 15%;
+      }
+
       .a-button {
         width: 10vw;
         height: 10vw;
+
+        position: absolute;
+        z-index: 1;
+        top: calc(50% - 12vw);
+        right: 2%;
       }
 
       .dpad {
-        width: 10vw;
-        height: 10vw;
+        width: 17vw;
+        height: 17vw;
+
+        position: absolute;
+        z-index: 1;
+        top: calc(50% - 12vw);
+        left: 8%;
       }
     }
   }

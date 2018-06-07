@@ -23,8 +23,11 @@ export default class VaporBoyMobileLandscape extends Component {
 
         <div className="vaporboy-mobile-landscape__touchpad-overlay">
           <div className="button-layout">
+            <div class="b-button">
+              <GameboyButton button={"B"} />
+            </div>
             <div class="a-button">
-              <GameboyButton />
+              <GameboyButton button={"A"} />
             </div>
             <div class="dpad">
               <GameboyDpad />

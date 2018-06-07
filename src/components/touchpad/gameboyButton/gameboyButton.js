@@ -9,6 +9,14 @@ export default class GameboyButton extends Component {
 
   componentDidMount() {}
 
+  getButtonText() {
+    if (this.props.button) {
+      return this.props.button;
+    }
+
+    return "";
+  }
+
   render() {
     return (
       <div class="gameboy-button">
@@ -59,7 +67,7 @@ export default class GameboyButton extends Component {
             fill="url(#ButtonLetterFill)"
             stroke="url(#ButtonLetterStroke)"
           >
-            B
+            {this.getButtonText()}
           </text>
         </svg>
       </div>
