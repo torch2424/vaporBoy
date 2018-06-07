@@ -19,10 +19,16 @@ export default class VaporBoyMobileLandscape extends Component {
           <div className="gba-border">
             <img src="assets/borders/gbaBorder.png" />
           </div>
+        </div>
 
-          <div>
-            <GameboyButton />
-            <GameboyDpad />
+        <div className="vaporboy-mobile-landscape__touchpad-overlay">
+          <div className="button-layout">
+            <div class="a-button">
+              <GameboyButton />
+            </div>
+            <div class="dpad">
+              <GameboyDpad />
+            </div>
           </div>
         </div>
       </div>
