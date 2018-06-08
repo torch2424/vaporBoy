@@ -6,7 +6,7 @@ import ROMSourceSelector from "./ROMSourceSelector/ROMSourceSelector";
 import MyCollection from "./myCollection/myCollection";
 import Homebrew from "./homebrew/homebrew";
 
-export default class ROMLoader extends Component {
+export default class ControlPanel extends Component {
   constructor() {
     super();
     this.setState({
@@ -35,7 +35,7 @@ export default class ROMLoader extends Component {
     getCollectionTask();
   }
 
-  hideROMLoader() {
+  hideControlPanel() {
     this.props.hide();
   }
 
@@ -80,38 +80,42 @@ export default class ROMLoader extends Component {
       currentView = <Homebrew />;
     }
 
-    let backButton = <div />;
-    if (this.state.viewMyCollection || this.state.viewHomebrew) {
-      backButton = (
-        <button class="ROMLoader__back" onClick={() => this.goToPreviousView()}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M0 0h24v24H0z" fill="none" />
-            <path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z" />
-          </svg>
-        </button>
-      );
-    }
-
     // Show a loader while we perform async tasks
-    let renderedRomLoader = <div class="donut" />;
+    let renderedView = <div class="donut" />;
     if (this.state.collection) {
-      renderedRomLoader = (
-        <div
-          className={
-            this.props.show ? "ROMLoader ROMLoader--show" : "ROMLoader"
-          }
-        >
-          <button class="ROMLoader__close" onClick={() => this.hideROMLoader()}>
-            X
-          </button>
-
-          {backButton}
-
-          <div class="ROMLoader__current-view">{currentView}</div>
-        </div>
-      );
+      renderedView = currentView;
     }
 
-    return <div>{renderedRomLoader}</div>;
+    return (
+      <div
+        className={
+          this.props.show
+            ? "control-panel control-panel--show"
+            : "control-panel"
+        }
+      >
+        <div class="control-panel__modal">
+          <div class="aesthetic-windows-95-modal">
+            <div class="aesthetic-windows-95-modal-title-bar">
+              <div class="aesthetic-windows-95-modal-title-bar-text">
+                Control Panel
+              </div>
+
+              <div class="aesthetic-windows-95-modal-title-bar-controls">
+                <div class="aesthetic-windows-95-button-title-bar">
+                  <button onclick={() => this.hideControlPanel()}>X</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="aesthetic-windows-95-modal-content">
+              <div>I am the modal content</div>
+
+              <div class="control-panel__modal__view">{renderedView}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 }

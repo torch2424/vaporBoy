@@ -6,14 +6,14 @@ import { WasmBoy } from "wasmboy";
 import VaporBoyDesktop from "./components/vaporboyDesktop/vaporboyDesktop";
 import VaporBoyMobileLandscape from "./components/vaporboyMobileLandscape/vaporboyMobileLandscape";
 import VaporBoyExpanded from "./components/vaporboyExpanded/vaporboyExpanded";
-import ROMLoader from "./components/ROMLoader/ROMLoader";
+import ControlPanel from "./components/controlPanel/controlPanel";
 
 export default class App extends Component {
   constructor() {
     super();
     this.setState({
       expanded: false,
-      showROMLoader: false
+      showROMLoader: true
     });
   }
 
@@ -74,7 +74,7 @@ export default class App extends Component {
 
     return (
       <div>
-        <ROMLoader
+        <ControlPanel
           show={this.state.showROMLoader}
           hide={() => {
             this.hideROMLoader();

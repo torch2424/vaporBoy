@@ -17,11 +17,11 @@
 @import "components/vaporboyDesktop/sgbBorder/sgbBorder";
 @import "components/vaporboyExpanded/vaporboyExpanded";
 @import "components/wasmboyCanvas/wasmboyCanvas";
-@import "components/ROMLoader/ROMLoader";
-@import "components/ROMLoader/ROMSourceSelector/ROMSourceSelector";
-@import "components/ROMLoader/homebrew/homebrew";
-@import "components/ROMLoader/myCollection/myCollection";
-@import "components/ROMLoader/cartridge/cartridge";
+@import "components/controlPanel/controlPanel";
+@import "components/controlPanel/ROMSourceSelector/ROMSourceSelector";
+@import "components/controlPanel/homebrew/homebrew";
+@import "components/controlPanel/myCollection/myCollection";
+@import "components/controlPanel/cartridge/cartridge";
 @import "components/touchpad/gameboyButton/gameboyButton";
 @import "components/touchpad/gameboyDpad/gameboyDpad";
 
