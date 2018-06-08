@@ -1,3 +1,23 @@
+@import url("https://fonts.googleapis.com/css?family=BenchNine");
+
+@-webkit-keyframes power-flicker {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .vaporboy-mobile-landscape {
   position: fixed;
   top: 0px;
@@ -52,7 +72,8 @@
     }
   }
 
-  &__touchpad-overlay {
+  &__feature-overlay {
+    pointer-events: none;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -61,6 +82,84 @@
     height: 100vh;
 
     z-index: 1;
+
+    .feature-layout {
+      position: relative;
+      top: 0px;
+      left: 0px;
+
+      width: 100vw;
+      height: 100vh;
+
+      .power {
+        position: absolute;
+        top: 5%;
+        right: 10%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &__light {
+          width: 3vw;
+          height: 3vw;
+          background: radial-gradient(
+            farthest-corner at 1.5vw 1.65vw,
+            #87f175 0%,
+            #87f175 15%,
+            #58a13b,
+            95%,
+            rgba(255, 255, 255, 0.15) 100%
+          );
+          border-radius: 50%;
+          box-shadow: 0px 0px 3px 3px rgba(124, 232, 104, 0.65);
+
+          animation: power-flicker 0.0000025s infinite;
+        }
+
+        &__text {
+          margin-left: 10px;
+          text-transform: capitalize;
+          font-family: "BenchNine", sans-serif;
+
+          color: #5f68ab;
+          font-size: 4vw;
+          text-shadow: 0px 0px 2px #fdfbff;
+        }
+      }
+
+      .speaker {
+        position: absolute;
+        right: 7%;
+        bottom: 20%;
+
+        transform: rotate(-11deg);
+
+        :not(:first-child) {
+          margin-top: 5px;
+        }
+
+        div {
+          width: 16vw;
+          height: 2vh;
+
+          border: 2px solid rgba(0, 0, 0, 0.35);
+          background-color: rgba(0, 0, 0, 0.4);
+          border-radius: 25px;
+        }
+      }
+    }
+  }
+
+  &__touchpad-overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 2;
 
     .button-layout {
       position: relative;
@@ -76,7 +175,7 @@
 
         position: absolute;
         z-index: 1;
-        top: calc(50% - 7vw);
+        top: calc(50% - 10vw);
         right: 14%;
       }
 
@@ -86,7 +185,7 @@
 
         position: absolute;
         z-index: 1;
-        top: calc(50% - 13vw);
+        top: calc(50% - 14vw);
         right: 1%;
       }
 
@@ -96,28 +195,28 @@
 
         position: absolute;
         z-index: 1;
-        top: calc(50% - 13vw);
+        top: calc(50% - 15vw);
         left: 7%;
       }
 
       .start-button {
-        width: 5vw;
-        height: 5vw;
+        width: 4vw;
+        height: 4vw;
 
         position: absolute;
         z-index: 1;
         left: 20%;
-        top: 60%;
+        bottom: 29%;
       }
 
       .select-button {
-        width: 5vw;
-        height: 5vw;
+        width: 4vw;
+        height: 4vw;
 
         position: absolute;
         z-index: 1;
         left: 18%;
-        top: 73%;
+        bottom: 17%;
       }
     }
   }

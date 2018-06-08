@@ -21,6 +21,21 @@ export default class VaporBoyMobileLandscape extends Component {
           </div>
         </div>
 
+        <div className="vaporboy-mobile-landscape__feature-overlay">
+          <div className="feature-layout">
+            <div class="power">
+              <div class="power__light" />
+              <div class="power__text">Power</div>
+            </div>
+            <div class="speaker">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+          </div>
+        </div>
+
         <div className="vaporboy-mobile-landscape__touchpad-overlay">
           <div className="button-layout">
             <div class="b-button">

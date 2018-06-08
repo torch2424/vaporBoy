@@ -22,6 +22,14 @@ export default class GameboyButton extends Component {
   }
 
   render() {
+    // Find if we have External Text
+    let externalText = "";
+    if (this.props.button === "start" || this.props.button === "select") {
+      externalText = (
+        <div class="gameboy-button__external-text">{this.props.button}</div>
+      );
+    }
+
     return (
       <div class="gameboy-button">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -75,7 +83,7 @@ export default class GameboyButton extends Component {
           </text>
         </svg>
 
-        <div class="gameboy-button__external-text">Start</div>
+        {externalText}
       </div>
     );
   }
