@@ -10,8 +10,7 @@ export default class ControlPanel extends Component {
   constructor() {
     super();
     this.setState({
-      viewMyCollection: false,
-      viewHomebrew: false,
+      viewStack: [],
       collection: undefined
     });
   }
@@ -40,27 +39,33 @@ export default class ControlPanel extends Component {
   }
 
   goToPreviousView() {
+    this.state.viewStack.pop();
     this.setState({
-      viewMyCollection: false,
-      viewHomebrew: false
+      ...this.state
     });
   }
 
   viewMyCollection() {
+    const myCollectionView = {
+      title: "My Collection",
+      view: <MyCollection collection={this.state.collection} />
+    };
+
+    this.state.viewStack.push(myCollectionView);
     this.setState({
-      viewMyCollection: true,
-      viewHomebrew: false
+      ...this.state
     });
   }
 
   viewHomebrew() {
+    this.state.viewStack.push(<Homebrew />);
     this.setState({
-      viewMyCollection: false,
-      viewHomebrew: true
+      ...this.state
     });
   }
 
   render() {
+    // Set the current view to the default view
     let currentView = (
       <ROMSourceSelector
         viewMyCollection={() => {
@@ -73,11 +78,10 @@ export default class ControlPanel extends Component {
         collection={this.state.collection}
       />
     );
-    if (this.state.viewMyCollection) {
-      currentView = <MyCollection collection={this.state.collection} />;
-    }
-    if (this.state.viewHomebrew) {
-      currentView = <Homebrew />;
+    // Set our current title to the default title
+    const title = "Control Panel";
+    if (this.state.viewStack.length > 0) {
+      currentView = this.state.viewStack[this.state.viewStack.length - 1];
     }
 
     // Show a loader while we perform async tasks
