@@ -2,6 +2,7 @@ import { Component } from "preact";
 
 import { ROMCollection } from "../../services/ROMCollection";
 
+import ControlPanelSelect from "./controlPanelSelect/controlPanelSelect";
 import ROMSourceSelector from "./ROMSourceSelector/ROMSourceSelector";
 import MyCollection from "./myCollection/myCollection";
 import Homebrew from "./homebrew/homebrew";
@@ -45,6 +46,29 @@ export default class ControlPanel extends Component {
     });
   }
 
+  viewROMSourceSelector() {
+    const ROMSourceSelectorView = {
+      title: "ROM Source",
+      view: (
+        <ROMSourceSelector
+          viewMyCollection={() => {
+            this.viewMyCollection();
+          }}
+          viewHomebrew={() => {
+            this.viewHomebrew();
+          }}
+          updateCollection={() => this.updateCollection()}
+          collection={this.state.collection}
+        />
+      )
+    };
+
+    this.state.viewStack.push(ROMSourceSelectorView);
+    this.setState({
+      ...this.state
+    });
+  }
+
   viewMyCollection() {
     const myCollectionView = {
       title: "My Collection",
@@ -72,15 +96,8 @@ export default class ControlPanel extends Component {
   render() {
     // Set the current view to the default base component
     let currentView = (
-      <ROMSourceSelector
-        viewMyCollection={() => {
-          this.viewMyCollection();
-        }}
-        viewHomebrew={() => {
-          this.viewHomebrew();
-        }}
-        updateCollection={() => this.updateCollection()}
-        collection={this.state.collection}
+      <ControlPanelSelect
+        viewROMSourceSelector={() => this.viewROMSourceSelector()}
       />
     );
 
