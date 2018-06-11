@@ -1,2 +1,27 @@
 .control-panel-select {
+  padding: 10px;
+
+  &__grid {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    &__item {
+      padding: 0px;
+      margin: 0px;
+      cursor: pointer;
+
+      button {
+        padding: 0px;
+        border: none;
+        background-color: transparent;
+        font-size: 1.5rem;
+      }
+    }
+  }
 }

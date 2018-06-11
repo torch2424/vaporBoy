@@ -10,14 +10,16 @@ export default class ControlPanelSelect extends Component {
 
   render() {
     return (
-      <ul class="control-panel-select">
-        <li class="control-panel-select__item">
-          <button onclick={() => this.props.viewROMSourceSelector()}>
-            <div>💾</div>
-            <div>Select a ROM</div>
-          </button>
-        </li>
-      </ul>
+      <div class="control-panel-select">
+        <ul class="control-panel-select__grid">
+          <li class="control-panel-select__grid__item">
+            <button onclick={() => this.props.viewROMSourceSelector()}>
+              <div>💾</div>
+              <div>Select a ROM</div>
+            </button>
+          </li>
+        </ul>
+      </div>
     );
   }
 }
