@@ -58,7 +58,12 @@ export default class ControlPanel extends Component {
   }
 
   viewHomebrew() {
-    this.state.viewStack.push(<Homebrew />);
+    const homebrewView = {
+      title: "Homebrew",
+      view: <Homebrew />
+    };
+
+    this.state.viewStack.push(homebrewView);
     this.setState({
       ...this.state
     });
@@ -79,10 +84,13 @@ export default class ControlPanel extends Component {
       />
     );
     // Set our current title to the default title
-    const title = "Control Panel";
     if (this.state.viewStack.length > 0) {
-      currentView = this.state.viewStack[this.state.viewStack.length - 1];
+      currentView = this.state.viewStack[this.state.viewStack.length - 1].view;
     }
+    let currentTitle = "Control Panel";
+    this.state.viewStack.forEach(view => {
+      currentTitle += ` - ${view.title}`;
+    });
 
     // Show a loader while we perform async tasks
     let renderedView = <div class="donut" />;
@@ -102,7 +110,7 @@ export default class ControlPanel extends Component {
           <div class="aesthetic-windows-95-modal">
             <div class="aesthetic-windows-95-modal-title-bar">
               <div class="aesthetic-windows-95-modal-title-bar-text">
-                Control Panel
+                {currentTitle}
               </div>
 
               <div class="aesthetic-windows-95-modal-title-bar-controls">
@@ -113,7 +121,18 @@ export default class ControlPanel extends Component {
             </div>
 
             <div class="aesthetic-windows-95-modal-content">
-              <div>I am the modal content</div>
+              <div class="control-panel__modal__controls">
+                <div class="aesthetic-windows-95-button">
+                  <button
+                    disabled={this.state.viewStack.length <= 0}
+                    onclick={() => this.goToPreviousView()}
+                  >
+                    ⬅️
+                  </button>
+                </div>
+              </div>
+
+              <hr />
 
               <div class="control-panel__modal__view">{renderedView}</div>
             </div>

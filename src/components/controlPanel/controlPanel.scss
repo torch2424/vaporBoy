@@ -26,6 +26,10 @@
       height: 100%;
     }
 
+    &__controls {
+      margin-bottom: 5px;
+    }
+
     &__view {
       @include windows-95-push-in;
       background-color: $aesthetic-white;

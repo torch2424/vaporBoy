@@ -13,7 +13,7 @@ export default class App extends Component {
     super();
     this.setState({
       expanded: false,
-      showROMLoader: true
+      showControlPanel: true
     });
   }
 
@@ -24,17 +24,17 @@ export default class App extends Component {
     });
   }
 
-  showROMLoader() {
+  showControlPanel() {
     this.setState({
       ...this.state,
-      showROMLoader: true
+      showControlPanel: true
     });
   }
 
-  hideROMLoader() {
+  hideControlPanel() {
     this.setState({
       ...this.state,
-      showROMLoader: false
+      showControlPanel: false
     });
   }
 
@@ -50,13 +50,13 @@ export default class App extends Component {
     let vaporboyDesktopLayout = (
       <VaporBoyDesktop
         toggleExpand={() => this.toggleExpand()}
-        showROMLoader={() => this.showROMLoader()}
+        showControlPanel={() => this.showControlPanel()}
       />
     );
     let vaporboyMobileLandscapeLayout = (
       <VaporBoyMobileLandscape
         toggleExpand={() => this.toggleExpand()}
-        showROMLoader={() => this.showROMLoader()}
+        showControlPanel={() => this.showControlPanel()}
       />
     );
     let vaporboyExpandedLayout = (
@@ -66,7 +66,7 @@ export default class App extends Component {
     // Get our current layout
     // TODO: Do some platform detection
     let currentLayout = vaporboyDesktopLayout;
-    currentLayout = vaporboyMobileLandscapeLayout;
+    //currentLayout = vaporboyMobileLandscapeLayout;
 
     if (this.state.expanded) {
       currentLayout = vaporboyExpandedLayout;
@@ -75,9 +75,9 @@ export default class App extends Component {
     return (
       <div>
         <ControlPanel
-          show={this.state.showROMLoader}
+          show={this.state.showControlPanel}
           hide={() => {
-            this.hideROMLoader();
+            this.hideControlPanel();
           }}
         />
         {currentLayout}
