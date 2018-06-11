@@ -27,7 +27,12 @@
     }
 
     &__controls {
+      margin-top: 2px;
       margin-bottom: 5px;
+
+      button:disabled {
+        opacity: 0.25;
+      }
     }
 
     &__view {

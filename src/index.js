@@ -13,6 +13,7 @@ export default class App extends Component {
     super();
     this.setState({
       expanded: false,
+      baseComponent: undefined,
       showControlPanel: true
     });
   }
@@ -27,14 +28,24 @@ export default class App extends Component {
   showControlPanel() {
     this.setState({
       ...this.state,
-      showControlPanel: true
+      showControlPanel: true,
+      baseComponent: undefined
+    });
+  }
+
+  showSaveStates() {
+    this.setState({
+      ...this.state,
+      showControlPanel: true,
+      baseComponent: undefined // TODO: Save State Component
     });
   }
 
   hideControlPanel() {
     this.setState({
       ...this.state,
-      showControlPanel: false
+      showControlPanel: false,
+      baseComponent: undefined
     });
   }
 
@@ -79,6 +90,7 @@ export default class App extends Component {
           hide={() => {
             this.hideControlPanel();
           }}
+          baseComponent={this.state.baseComponent}
         />
         {currentLayout}
       </div>

@@ -70,7 +70,7 @@ export default class ControlPanel extends Component {
   }
 
   render() {
-    // Set the current view to the default view
+    // Set the current view to the default base component
     let currentView = (
       <ROMSourceSelector
         viewMyCollection={() => {
@@ -83,11 +83,22 @@ export default class ControlPanel extends Component {
         collection={this.state.collection}
       />
     );
-    // Set our current title to the default title
+
+    // Next, check if we do have a base component view in the props
+    if (this.props.baseComponent && this.props.baseComponent.view) {
+      currentView = this.props.baseComponent.view;
+    }
+    // Lastly, set the current view to the last item on the view stack
     if (this.state.viewStack.length > 0) {
       currentView = this.state.viewStack[this.state.viewStack.length - 1].view;
     }
+
+    // Next get our current view title
     let currentTitle = "Control Panel";
+    // Next, check if we do have a base component in the props
+    if (this.props.baseComponent && this.props.baseComponent.title) {
+      currentView = this.props.baseComponent.title;
+    }
     this.state.viewStack.forEach(view => {
       currentTitle += ` - ${view.title}`;
     });
