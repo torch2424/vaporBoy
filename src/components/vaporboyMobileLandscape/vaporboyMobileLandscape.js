@@ -1,9 +1,10 @@
 // Desktop Layout for vaporboy
 import { Component } from "preact";
-import { WasmBoy } from "wasmboy";
 
 // Our Components
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
+import ExpandButton from "../touchpad/expandButton/expandButton";
+import ControlPanelButton from "../touchpad/controlPanelButton/controlPanelButton";
 import GameboyButton from "../touchpad/gameboyButton/gameboyButton";
 import GameboyDpad from "../touchpad/gameboyDpad/gameboyDpad";
 
@@ -38,6 +39,18 @@ export default class VaporBoyMobileLandscape extends Component {
 
         <div className="vaporboy-mobile-landscape__touchpad-overlay">
           <div className="button-layout">
+            {/* VaporBoy specific buttons */}
+            <div class="vaporboy-mobile-landscape__touchpad-overlay__expand">
+              <ExpandButton onClick={() => this.props.toggleExpand()} />
+            </div>
+
+            <div class="vaporboy-mobile-landscape__touchpad-overlay__control-panel">
+              <ControlPanelButton
+                onClick={() => this.props.showControlPanel()}
+              />
+            </div>
+
+            {/* Gameboy Buttons */}
             <div class="b-button">
               <GameboyButton button={"B"} />
             </div>

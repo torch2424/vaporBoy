@@ -5,13 +5,13 @@
     opacity: 1;
   }
   25% {
-    opacity: 0.55;
-  }
-  50% {
     opacity: 0.75;
   }
+  50% {
+    opacity: 0.85;
+  }
   75% {
-    opacity: 0.55;
+    opacity: 0.75;
   }
   100% {
     opacity: 1;
@@ -168,6 +168,26 @@
 
       width: 100vw;
       height: 100vh;
+
+      .vaporboy-mobile-landscape__touchpad-overlay__expand {
+        position: absolute;
+        z-index: 1;
+        top: 0px;
+        left: 0px;
+
+        width: 8vmax;
+        background-color: $aesthetic-50-transparent;
+      }
+
+      .vaporboy-mobile-landscape__touchpad-overlay__control-panel {
+        position: absolute;
+        z-index: 1;
+        top: 0px;
+        right: 0px;
+
+        width: 8vmax;
+        background-color: $aesthetic-50-transparent;
+      }
 
       .b-button {
         width: 10vw;

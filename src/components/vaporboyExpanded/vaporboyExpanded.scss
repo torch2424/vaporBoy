@@ -48,8 +48,11 @@
     }
 
     &__expand {
-      width: 10vmax;
-      height: 10vmax;
+      width: 8vmax;
+    }
+
+    &__control-panel {
+      width: 8vmax;
     }
   }
 }

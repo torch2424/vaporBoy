@@ -4,6 +4,7 @@ import { Component } from "preact";
 // Our Components
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
 import ExpandButton from "../touchpad/expandButton/expandButton";
+import ControlPanelButton from "../touchpad/controlPanelButton/controlPanelButton";
 
 // 3P libs
 import * as screenfull from "screenfull";
@@ -37,6 +38,10 @@ export default class VaporBoyExpanded extends Component {
         <div class="vaporboy-expanded__controls">
           <div class="vaporboy-expanded__controls__expand">
             <ExpandButton onClick={() => this.props.toggleExpand()} />
+          </div>
+
+          <div class="vaporboy-expanded__controls__control-panel">
+            <ControlPanelButton onClick={() => this.props.showControlPanel()} />
           </div>
         </div>
       </div>
