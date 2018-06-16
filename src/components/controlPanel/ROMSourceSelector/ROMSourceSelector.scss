@@ -33,7 +33,10 @@
       position: relative;
       padding: 0px;
       margin: 0px;
-      width: 24%;
+
+      margin-left: 5px;
+      margin-right: 5px;
+      width: 12%;
       margin-left: 30px;
       margin-right: 30px;
 
@@ -57,9 +60,16 @@
           opacity: 0.75;
         }
 
-        svg {
-          width: 50%;
+        .ROMSourceSelector__list__item__icon {
+          width: 100%;
           height: auto;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+
+          font-size: 3rem;
         }
 
         .ROMSourceSelector__list__item__label {
@@ -71,14 +81,15 @@
       }
 
       &__count {
+        width: 2rem;
+        height: 2rem;
+
         position: absolute;
         top: 0px;
-        right: calc(50% - 85px);
+        right: -30%;
 
         border-radius: 50%;
         font-size: 1.5rem;
-        width: 2.75rem;
-        height: 2.75rem;
         background: linear-gradient(
           to bottom right,
           $aesthetic-white 0%,

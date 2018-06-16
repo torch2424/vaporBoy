@@ -46,7 +46,6 @@ export default class Homebrew extends Component {
 
     return (
       <div>
-        <h1>Homebrew ROMs</h1>
         <ul class="ROM-list">{homebrewROMs}</ul>
       </div>
     );

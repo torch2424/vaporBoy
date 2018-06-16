@@ -56,7 +56,6 @@ export default class MyCollection extends Component {
 
     return (
       <div>
-        <h1>My Collection</h1>
         <ul class="ROM-list">{collectionROMs}</ul>
       </div>
     );

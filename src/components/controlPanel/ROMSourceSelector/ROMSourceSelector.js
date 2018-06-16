@@ -53,12 +53,8 @@ export default class ROMSourceSelector extends Component {
               this.props.viewMyCollection();
             }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path fill="none" d="M0 0h24v24H0V0z" />
-              <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z" />
-              <path fill="none" d="M0 0h24v24H0V0z" />
-              <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 10l-2.5-1.5L15 12V4h5v8z" />
-            </svg>
+            <div class="ROMSourceSelector__list__item__icon">📚</div>
+
             <div class="ROMSourceSelector__list__item__label">
               My Collection
             </div>
@@ -73,10 +69,8 @@ export default class ROMSourceSelector extends Component {
               this.props.viewHomebrew();
             }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-              <path d="M0 0h24v24H0z" fill="none" />
-            </svg>
+            <div class="ROMSourceSelector__list__item__icon">🍺</div>
+
             <div class="ROMSourceSelector__list__item__label">
               Homebrew ROMs
             </div>
@@ -87,10 +81,8 @@ export default class ROMSourceSelector extends Component {
         </li>
         <li class="ROMSourceSelector__list__item">
           <button onClick={() => this.triggerLocalFileUpload()}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M0 0h24v24H0z" fill="none" />
-              <path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z" />
-            </svg>
+            <div class="ROMSourceSelector__list__item__icon">⬆️</div>
+
             <div class="ROMSourceSelector__list__item__label">
               Open from device
             </div>
@@ -117,9 +109,6 @@ export default class ROMSourceSelector extends Component {
             this.loadLocalFile(event);
           }}
         />
-
-        <h1>ROM Loader</h1>
-
         {sourceOptions}
       </div>
     );
