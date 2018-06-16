@@ -42,13 +42,18 @@ export const getROMSourceSelectorView = componentThis => {
 export const getMyCollectionView = componentThis => {
   return {
     title: "My Collection",
-    view: <MyCollection collection={componentThis.state.collection} />
+    view: (
+      <MyCollection
+        collection={componentThis.state.collection}
+        hide={() => componentThis.hide()}
+      />
+    )
   };
 };
 
 export const getHomebrewView = componentThis => {
   return {
     title: "Homebrew",
-    view: <Homebrew />
+    view: <Homebrew hide={() => componentThis.hide()} />
   };
 };

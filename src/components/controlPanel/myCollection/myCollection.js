@@ -28,6 +28,7 @@ export default class MyCollection extends Component {
     };
 
     loadROMTask();
+    this.props.hide();
   }
 
   render() {

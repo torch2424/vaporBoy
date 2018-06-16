@@ -11,7 +11,7 @@ export default class Homebrew extends Component {
     this.setState({});
   }
 
-  loadHomebrew(availableGame) {
+  loadROM(availableGame) {
     const loadHomebrewTask = async () => {
       await WasmBoy.pause();
       await WasmBoy.loadROM(availableGame.ROMPath);
@@ -20,6 +20,7 @@ export default class Homebrew extends Component {
     };
 
     loadHomebrewTask();
+    this.props.hide();
   }
 
   render() {
@@ -31,7 +32,7 @@ export default class Homebrew extends Component {
             <Cartridge
               imageUrl={game.imagePath}
               onClick={() => {
-                this.loadHomebrew(game);
+                this.loadROM(game);
               }}
             />
           </div>

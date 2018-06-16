@@ -38,7 +38,11 @@ export default class ControlPanel extends Component {
     getCollectionTask();
   }
 
-  hideControlPanel() {
+  hide() {
+    this.setState({
+      ...this.state,
+      viewStack: []
+    });
     this.props.hide();
   }
 
@@ -134,7 +138,7 @@ export default class ControlPanel extends Component {
 
               <div class="aesthetic-windows-95-modal-title-bar-controls">
                 <div class="aesthetic-windows-95-button-title-bar">
-                  <button onclick={() => this.hideControlPanel()}>X</button>
+                  <button onclick={() => this.hide()}>X</button>
                 </div>
               </div>
             </div>
