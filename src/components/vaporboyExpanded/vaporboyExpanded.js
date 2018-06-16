@@ -36,12 +36,16 @@ export default class VaporBoyExpanded extends Component {
         </div>
 
         <div class="vaporboy-expanded__controls">
-          <div class="vaporboy-expanded__controls__expand">
-            <ExpandButton onClick={() => this.props.toggleExpand()} />
-          </div>
+          <div class="vaporboy-expanded__controls__container">
+            <div class="vaporboy-expanded__controls__container__expand">
+              <ExpandButton onClick={() => this.props.toggleExpand()} />
+            </div>
 
-          <div class="vaporboy-expanded__controls__control-panel">
-            <ControlPanelButton onClick={() => this.props.showControlPanel()} />
+            <div class="vaporboy-expanded__controls__container__control-panel">
+              <ControlPanelButton
+                onClick={() => this.props.showControlPanel()}
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -38,21 +38,41 @@
     left: 0px;
     z-index: 5;
 
-    button {
-      background-color: $aesthetic-50-transparent;
+    width: 100%;
+    height: 100%;
 
-      cursor: pointer;
-      outline: none;
+    &__container {
+      position: relative;
+      top: 0px;
+      left: 0px;
 
-      border-color: transparent;
-    }
+      width: 100%;
+      height: 100%;
 
-    &__expand {
-      width: 8vmax;
-    }
+      button {
+        background-color: $aesthetic-50-transparent;
 
-    &__control-panel {
-      width: 8vmax;
+        cursor: pointer;
+        outline: none;
+
+        border-color: transparent;
+      }
+
+      &__expand {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+
+        width: 8vmax;
+      }
+
+      &__control-panel {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+
+        width: 8vmax;
+      }
     }
   }
 }

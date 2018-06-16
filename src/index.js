@@ -82,7 +82,10 @@ export default class App extends Component {
       />
     );
     let vaporboyExpandedLayout = (
-      <VaporBoyExpanded toggleExpand={() => this.toggleExpand()} />
+      <VaporBoyExpanded
+        toggleExpand={() => this.toggleExpand()}
+        showControlPanel={() => this.showControlPanel()}
+      />
     );
 
     // Get our current layout
