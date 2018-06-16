@@ -1,0 +1,13 @@
+.expand-button {
+  svg {
+    fill: none;
+    width: 100%;
+    height: 100%;
+    min-width: 10px;
+    min-height: 10px;
+  }
+
+  &__path {
+    fill: $aesthetic-white;
+  }
+}

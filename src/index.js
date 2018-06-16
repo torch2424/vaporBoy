@@ -14,9 +14,9 @@ export default class App extends Component {
   constructor() {
     super();
     this.setState({
-      expanded: false,
+      expanded: true,
       baseComponent: undefined,
-      showControlPanel: true
+      showControlPanel: false
     });
   }
 
@@ -88,7 +88,7 @@ export default class App extends Component {
     // Get our current layout
     // TODO: Do some platform detection
     let currentLayout = vaporboyDesktopLayout;
-    //currentLayout = vaporboyMobileLandscapeLayout;
+    currentLayout = vaporboyMobileLandscapeLayout;
 
     if (this.state.expanded) {
       currentLayout = vaporboyExpandedLayout;

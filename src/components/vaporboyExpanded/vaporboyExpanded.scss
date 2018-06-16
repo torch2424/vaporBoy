@@ -47,16 +47,9 @@
       border-color: transparent;
     }
 
-    &__exit-expand {
-      svg {
-        fill: none;
-        width: 10vw;
-        height: 10vw;
-      }
-
-      &__path {
-        fill: $aesthetic-white;
-      }
+    &__expand {
+      width: 10vmax;
+      height: 10vmax;
     }
   }
 }
