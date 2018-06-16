@@ -104,6 +104,13 @@ export default class VaporBoyDesktop extends Component {
                       Control Panel
                     </button>
                   </li>
+
+                  <li class="aesthetic-windows-95-dropdown-menu-item">
+                    <button onClick={() => this.props.showROMSourceSelector()}>
+                      Load ROM...
+                    </button>
+                  </li>
+
                   <hr />
                   <li class="aesthetic-windows-95-dropdown-menu-item">
                     <button onClick={() => this.resetWasmBoy()}>

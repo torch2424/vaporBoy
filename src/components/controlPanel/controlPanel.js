@@ -1,11 +1,14 @@
 import { Component } from "preact";
 
-import { ROMCollection } from "../../services/ROMCollection";
+import {
+  CONTROL_PANEL_BASE_COMPONENTS,
+  getControlPanelSelectView,
+  getROMSourceSelectorView,
+  getMyCollectionView,
+  getHomebrewView
+} from "./baseComponent";
 
-import ControlPanelSelect from "./controlPanelSelect/controlPanelSelect";
-import ROMSourceSelector from "./ROMSourceSelector/ROMSourceSelector";
-import MyCollection from "./myCollection/myCollection";
-import Homebrew from "./homebrew/homebrew";
+import { ROMCollection } from "../../services/ROMCollection";
 
 export default class ControlPanel extends Component {
   constructor() {
@@ -39,6 +42,32 @@ export default class ControlPanel extends Component {
     this.props.hide();
   }
 
+  getControlPanelBaseComponent() {
+    if (this.props.baseComponent) {
+      if (
+        this.props.baseComponent ===
+        CONTROL_PANEL_BASE_COMPONENTS.CONTROL_PANEL_SELECT
+      ) {
+        return getControlPanelSelectView(this);
+      } else if (
+        this.props.baseComponent ===
+        CONTROL_PANEL_BASE_COMPONENTS.ROM_SOURCE_SELECTOR
+      ) {
+        return getROMSourceSelectorView(this);
+      } else if (
+        this.props.baseComponent === CONTROL_PANEL_BASE_COMPONENTS.MY_COLLECTION
+      ) {
+        return getMyCollectionView(this);
+      } else if (
+        this.props.baseComponent === CONTROL_PANEL_BASE_COMPONENTS.HOMEBREW
+      ) {
+        return getHomebrewView(this);
+      }
+    }
+
+    return getControlPanelSelectView(this);
+  }
+
   goToPreviousView() {
     this.state.viewStack.pop();
     this.setState({
@@ -47,75 +76,37 @@ export default class ControlPanel extends Component {
   }
 
   viewROMSourceSelector() {
-    const ROMSourceSelectorView = {
-      title: "ROM Source",
-      view: (
-        <ROMSourceSelector
-          viewMyCollection={() => {
-            this.viewMyCollection();
-          }}
-          viewHomebrew={() => {
-            this.viewHomebrew();
-          }}
-          updateCollection={() => this.updateCollection()}
-          collection={this.state.collection}
-        />
-      )
-    };
-
-    this.state.viewStack.push(ROMSourceSelectorView);
+    this.state.viewStack.push(getROMSourceSelectorView(this));
     this.setState({
       ...this.state
     });
   }
 
   viewMyCollection() {
-    const myCollectionView = {
-      title: "My Collection",
-      view: <MyCollection collection={this.state.collection} />
-    };
-
-    this.state.viewStack.push(myCollectionView);
+    this.state.viewStack.push(getMyCollectionView(this));
     this.setState({
       ...this.state
     });
   }
 
   viewHomebrew() {
-    const homebrewView = {
-      title: "Homebrew",
-      view: <Homebrew />
-    };
-
-    this.state.viewStack.push(homebrewView);
+    this.state.viewStack.push(getHomebrewView(this));
     this.setState({
       ...this.state
     });
   }
 
   render() {
-    // Set the current view to the default base component
-    let currentView = (
-      <ControlPanelSelect
-        viewROMSourceSelector={() => this.viewROMSourceSelector()}
-      />
-    );
-
     // Next, check if we do have a base component view in the props
-    if (this.props.baseComponent && this.props.baseComponent.view) {
-      currentView = this.props.baseComponent.view;
-    }
+    const baseComponent = this.getControlPanelBaseComponent();
+    let currentView = baseComponent.view;
+    let currentTitle = baseComponent.title;
+
     // Lastly, set the current view to the last item on the view stack
     if (this.state.viewStack.length > 0) {
       currentView = this.state.viewStack[this.state.viewStack.length - 1].view;
     }
 
-    // Next get our current view title
-    let currentTitle = "Control Panel";
-    // Next, check if we do have a base component in the props
-    if (this.props.baseComponent && this.props.baseComponent.title) {
-      currentView = this.props.baseComponent.title;
-    }
     this.state.viewStack.forEach(view => {
       currentTitle += ` - ${view.title}`;
     });

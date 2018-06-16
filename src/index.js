@@ -3,6 +3,8 @@ import "./index.scss";
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { CONTROL_PANEL_BASE_COMPONENTS } from "./components/controlPanel/baseComponent";
+
 import VaporBoyDesktop from "./components/vaporboyDesktop/vaporboyDesktop";
 import VaporBoyMobileLandscape from "./components/vaporboyMobileLandscape/vaporboyMobileLandscape";
 import VaporBoyExpanded from "./components/vaporboyExpanded/vaporboyExpanded";
@@ -30,6 +32,14 @@ export default class App extends Component {
       ...this.state,
       showControlPanel: true,
       baseComponent: undefined
+    });
+  }
+
+  showROMSourceSelector() {
+    this.setState({
+      ...this.state,
+      showControlPanel: true,
+      baseComponent: CONTROL_PANEL_BASE_COMPONENTS.ROM_SOURCE_SELECTOR
     });
   }
 
@@ -62,6 +72,7 @@ export default class App extends Component {
       <VaporBoyDesktop
         toggleExpand={() => this.toggleExpand()}
         showControlPanel={() => this.showControlPanel()}
+        showROMSourceSelector={() => this.showROMSourceSelector()}
       />
     );
     let vaporboyMobileLandscapeLayout = (
