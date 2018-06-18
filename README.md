@@ -18,6 +18,8 @@ https://obsproject.com/forum/threads/gamepad-display.12508/page-5
 
 https://weheartit.com/entry/198414863
 
+https://weheartit.com/entry/198414863
+
 https://www.youtube.com/watch?v=5ihHjBFLjRQ
 
 Gameboy Button SVGs (Manually written with snippets from):
