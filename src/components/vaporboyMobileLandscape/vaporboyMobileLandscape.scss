@@ -176,7 +176,11 @@
         left: 0px;
 
         width: 8vmax;
-        background-color: $aesthetic-50-transparent;
+
+        button {
+          background-color: $aesthetic-50-transparent;
+          border: none;
+        }
       }
 
       .vaporboy-mobile-landscape__touchpad-overlay__control-panel {
@@ -186,7 +190,11 @@
         right: 0px;
 
         width: 8vmax;
-        background-color: $aesthetic-50-transparent;
+
+        button {
+          background-color: $aesthetic-50-transparent;
+          border: none;
+        }
       }
 
       .b-button {

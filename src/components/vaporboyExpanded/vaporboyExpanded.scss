@@ -16,10 +16,7 @@
     height: 100%;
     text-align: center;
 
-    // Hide the insert cartridge
     .wasmboy-canvas__canvas-container {
-      background-color: $aesthetic-black;
-
       canvas {
         width: auto;
         height: 100%;
