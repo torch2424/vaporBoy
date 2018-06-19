@@ -1,0 +1,55 @@
+.vaporboy-mobile-portrait {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: #8128be;
+
+  &__game-container {
+    position: relative;
+    width: 100vw;
+    height: 45vh;
+    max-width: 60vh;
+
+    z-index: 2;
+
+    .wasmboy-canvas-container {
+      position: absolute;
+      top: 18.35%;
+      left: 20.85%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 58.05%;
+      height: 64.75%;
+
+      z-index: 2;
+    }
+
+    .gbc-border {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+
+      width: calc(100% - 10vw);
+      height: 100%;
+      text-align: center;
+      padding: 5vw;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

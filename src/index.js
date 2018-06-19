@@ -7,6 +7,7 @@ import { CONTROL_PANEL_BASE_COMPONENTS } from "./components/controlPanel/baseCom
 
 import VaporBoyDesktop from "./components/vaporboyDesktop/vaporboyDesktop";
 import VaporBoyMobileLandscape from "./components/vaporboyMobileLandscape/vaporboyMobileLandscape";
+import VaporBoyMobilePortrait from "./components/vaporboyMobilePortrait/vaporboyMobilePortrait";
 import VaporBoyExpanded from "./components/vaporboyExpanded/vaporboyExpanded";
 import ControlPanel from "./components/controlPanel/controlPanel";
 
@@ -14,7 +15,7 @@ export default class App extends Component {
   constructor() {
     super();
     this.setState({
-      expanded: true,
+      expanded: false,
       baseComponent: undefined,
       showControlPanel: false
     });
@@ -81,6 +82,12 @@ export default class App extends Component {
         showControlPanel={() => this.showControlPanel()}
       />
     );
+    let vaporboyMobilePortraitLayout = (
+      <VaporBoyMobilePortrait
+        toggleExpand={() => this.toggleExpand()}
+        showControlPanel={() => this.showControlPanel()}
+      />
+    );
     let vaporboyExpandedLayout = (
       <VaporBoyExpanded
         toggleExpand={() => this.toggleExpand()}
@@ -91,7 +98,7 @@ export default class App extends Component {
     // Get our current layout
     // TODO: Do some platform detection
     let currentLayout = vaporboyDesktopLayout;
-    currentLayout = vaporboyMobileLandscapeLayout;
+    currentLayout = vaporboyMobilePortraitLayout;
 
     if (this.state.expanded) {
       currentLayout = vaporboyExpandedLayout;
