@@ -49,14 +49,6 @@ export default class GameboyButton extends Component {
   }
 
   render() {
-    // Find if we have External Text
-    let externalText = "";
-    if (this.props.button === "start" || this.props.button === "select") {
-      externalText = (
-        <div class="gameboy-button__external-text">{this.props.button}</div>
-      );
-    }
-
     // Get if we are in gbc mode
     const isGbc = !!this.props.isGbc;
 
@@ -74,6 +66,22 @@ export default class GameboyButton extends Component {
     const isGbcStartButton =
       isGbc &&
       (this.props.button === "start" || this.props.button === "select");
+
+    // Find if we have External Text
+    let externalText = "";
+    if (this.props.button === "start" || this.props.button === "select") {
+      externalText = (
+        <div
+          class={
+            isGbc
+              ? "gameboy-button__external-text--gbc"
+              : "gameboy-button__external-text--gba"
+          }
+        >
+          {this.props.button}
+        </div>
+      );
+    }
 
     return (
       <div class={classes.join(" ")}>

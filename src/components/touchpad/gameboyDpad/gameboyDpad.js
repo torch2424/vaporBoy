@@ -22,12 +22,12 @@ const GRADIENTS = {
   BUTTON_TRIANGLE_FILL_HORIZONTAL: {
     ID: "ButtonTriangleFillHorizontal",
     GBA_STOP_COLORS: ["#c9d1dc", "#c9d1dc", "#b0bac2"],
-    GBC_STOP_COLORS: ["#494f54", "#212931"]
+    GBC_STOP_COLORS: ["#494f54", "#1d252c", "#212931"]
   },
   BUTTON_TRIANGLE_STROKE: {
     ID: "ButtonTriangleStroke",
     GBA_STOP_COLORS: ["#aeb4bb", "#c2c8d6", "#f2f5fd"],
-    GBC_STOP_COLORS: ["#494f54", "#212931"]
+    GBC_STOP_COLORS: ["#494f54", "#1d252c", "#212931"]
   }
 };
 

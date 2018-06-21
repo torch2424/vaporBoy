@@ -23,7 +23,14 @@
     }
   }
 
-  &__external-text {
+  // modifer overides
+  &--is-gbc {
+    svg ellipse {
+      stroke: #161620;
+    }
+  }
+
+  &__external-text--gba {
     position: absolute;
     top: -2vw;
     left: calc(-10vw - 10px);
@@ -45,13 +52,6 @@
     padding-left: 10px;
   }
 
-  // modifer overides
-  &--is-gbc {
-    svg ellipse {
-      stroke: #161620;
-    }
-
-    &__external-text {
-    }
+  &__external-text--gbc {
   }
 }
