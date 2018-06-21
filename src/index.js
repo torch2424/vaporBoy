@@ -98,6 +98,7 @@ export default class App extends Component {
     // Get our current layout
     // TODO: Do some platform detection
     let currentLayout = vaporboyDesktopLayout;
+    currentLayout = vaporboyMobileLandscapeLayout;
     currentLayout = vaporboyMobilePortraitLayout;
 
     if (this.state.expanded) {

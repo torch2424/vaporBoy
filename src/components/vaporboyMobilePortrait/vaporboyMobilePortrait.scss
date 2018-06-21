@@ -15,23 +15,26 @@
 
   &__game-container {
     position: relative;
-    width: 100vw;
-    height: 45vh;
-    max-width: 60vh;
+
+    width: calc(100vw - 40px);
+    height: calc(90vw - 40px);
+    max-width: 50vh;
+    max-height: 45vh;
+    padding: 20px;
 
     z-index: 2;
 
     .wasmboy-canvas-container {
       position: absolute;
-      top: 18.35%;
-      left: 20.85%;
+      top: 15.15%;
+      left: 19.55%;
 
       display: flex;
       justify-content: center;
       align-items: center;
 
-      width: 58.05%;
-      height: 64.75%;
+      width: 61.05%;
+      height: 59.45%;
 
       z-index: 2;
     }
@@ -41,15 +44,35 @@
       top: 0px;
       left: 0px;
 
-      width: calc(100% - 10vw);
-      height: 100%;
+      width: calc(100% - 40px);
+      height: calc(100% - 40px);
       text-align: center;
-      padding: 5vw;
+      padding: 20px;
 
       img {
         width: 100%;
         height: 100%;
       }
     }
+
+    .power-light {
+      @include power-light(#ee4e4e);
+
+      position: absolute;
+      top: calc(29% + 10px);
+      left: calc(2.75% + 20px);
+
+      width: 3.15%;
+      height: 3.15%;
+
+      .light {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  &__touchpad-overlay {
+    display: none;
   }
 }

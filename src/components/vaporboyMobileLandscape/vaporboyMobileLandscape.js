@@ -24,9 +24,9 @@ export default class VaporBoyMobileLandscape extends Component {
 
         <div className="vaporboy-mobile-landscape__feature-overlay">
           <div className="feature-layout">
-            <div class="power">
-              <div class="power__light" />
-              <div class="power__text">Power</div>
+            <div class="power-light">
+              <div class="light" />
+              <div class="power-light__text">Power</div>
             </div>
             <div class="speaker">
               <div />

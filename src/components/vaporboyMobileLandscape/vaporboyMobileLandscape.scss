@@ -1,23 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=BenchNine");
 
-@-webkit-keyframes power-flicker {
-  0% {
-    opacity: 1;
-  }
-  25% {
-    opacity: 0.75;
-  }
-  50% {
-    opacity: 0.85;
-  }
-  75% {
-    opacity: 0.75;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
 .vaporboy-mobile-landscape {
   position: fixed;
   top: 0px;
@@ -91,30 +73,16 @@
       width: 100vw;
       height: 100vh;
 
-      .power {
+      .power-light {
+        @include power-light(#87f175);
+
         position: absolute;
         top: 5%;
         right: 10%;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        &__light {
+        .light {
           width: 3vw;
           height: 3vw;
-          background: radial-gradient(
-            farthest-corner at 1.5vw 1.65vw,
-            #87f175 0%,
-            #87f175 15%,
-            #58a13b,
-            95%,
-            rgba(255, 255, 255, 0.15) 100%
-          );
-          border-radius: 50%;
-          box-shadow: 0px 0px 3px 3px rgba(124, 232, 104, 0.65);
-
-          animation: power-flicker 0.0000025s infinite;
         }
 
         &__text {

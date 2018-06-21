@@ -20,14 +20,8 @@ export default class VaporBoyMobilePortrait extends Component {
           <div className="gbc-border">
             <img src="assets/borders/gbcBorder.png" />
           </div>
-        </div>
-
-        <div className="vaporboy-mobile-portrait__feature-overlay">
-          <div className="feature-layout">
-            <div class="power">
-              <div class="power__light" />
-              <div class="power__text">Power</div>
-            </div>
+          <div class="power-light">
+            <div class="light" />
           </div>
         </div>
 
