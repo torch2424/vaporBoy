@@ -72,7 +72,215 @@
     }
   }
 
+  &__feature-overlay {
+    pointer-events: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 1;
+
+    .feature-layout {
+      position: relative;
+      top: 0px;
+      left: 0px;
+
+      width: 100vw;
+      height: 100vh;
+
+      .com-label {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        text-align: center;
+
+        width: calc(100vw - 40px);
+        max-width: 50vh;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 5px;
+        padding-left: 22%;
+
+        &__triangle {
+          svg {
+            width: 10px;
+            height: 10px;
+
+            polygon {
+              fill: transparent;
+              stroke: black;
+              stroke-width: 2px;
+            }
+          }
+        }
+
+        &__text {
+          font-weight: bold;
+        }
+      }
+
+      .speaker {
+        position: absolute;
+        right: 5%;
+        bottom: 5%;
+
+        // CSS grids. WOO!
+        // http://grid.malven.co/
+        display: grid;
+        grid-template-columns: repeat(8, 10px);
+        grid-template-rows: repeat(8, 10px);
+        grid-gap: 1px 1px;
+
+        div {
+          width: 10px;
+          height: 10px;
+          border-radius: 5px;
+          background-color: black;
+
+          // Light dark alternates every row, thus can't use a simple nth child :(
+          &:nth-child(3),
+          &:nth-child(5),
+          &:nth-child(7),
+          &:nth-child(10),
+          &:nth-child(12),
+          &:nth-child(14),
+          &:nth-child(16),
+          &:nth-child(17),
+          &:nth-child(19),
+          &:nth-child(21),
+          &:nth-child(23),
+          &:nth-child(26),
+          &:nth-child(28),
+          &:nth-child(30),
+          &:nth-child(32),
+          &:nth-child(33),
+          &:nth-child(35),
+          &:nth-child(37),
+          &:nth-child(39),
+          &:nth-child(42),
+          &:nth-child(44),
+          &:nth-child(46),
+          &:nth-child(48),
+          &:nth-child(49),
+          &:nth-child(51),
+          &:nth-child(53),
+          &:nth-child(55),
+          &:nth-child(58),
+          &:nth-child(60),
+          &:nth-child(62) {
+            background-color: rgba(255, 255, 255, 0.15);
+          }
+
+          &:nth-child(1),
+          &:nth-child(8),
+          &:nth-child(57),
+          &:nth-child(64) {
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+
   &__touchpad-overlay {
-    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 2;
+
+    .button-layout {
+      position: relative;
+      top: 0px;
+      left: 0px;
+
+      width: 100vw;
+      height: 100vh;
+
+      .vaporboy-mobile-portrait__touchpad-overlay__expand {
+        position: absolute;
+        z-index: 1;
+        top: 0px;
+        left: 0px;
+
+        width: 8vmax;
+
+        button {
+          background-color: $aesthetic-50-transparent;
+          border: none;
+        }
+      }
+
+      .vaporboy-mobile-portrait__touchpad-overlay__control-panel {
+        position: absolute;
+        z-index: 1;
+        top: 0px;
+        right: 0px;
+
+        width: 8vmax;
+
+        button {
+          background-color: $aesthetic-50-transparent;
+          border: none;
+        }
+      }
+
+      .b-button {
+        width: 10vw;
+        height: 10vw;
+
+        position: absolute;
+        z-index: 1;
+        top: calc(50% - 10vw);
+        right: 14%;
+      }
+
+      .a-button {
+        width: 10vw;
+        height: 10vw;
+
+        position: absolute;
+        z-index: 1;
+        top: calc(50% - 14vw);
+        right: 1%;
+      }
+
+      .dpad {
+        width: 17vw;
+        height: 17vw;
+
+        position: absolute;
+        z-index: 1;
+        top: calc(50% - 15vw);
+        left: 7%;
+      }
+
+      .start-button {
+        width: 4vw;
+        height: 4vw;
+
+        position: absolute;
+        z-index: 1;
+        left: 20%;
+        bottom: 29%;
+      }
+
+      .select-button {
+        width: 4vw;
+        height: 4vw;
+
+        position: absolute;
+        z-index: 1;
+        left: 18%;
+        bottom: 17%;
+      }
+    }
   }
 }

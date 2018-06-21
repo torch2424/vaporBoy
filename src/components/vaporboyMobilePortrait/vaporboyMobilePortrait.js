@@ -10,6 +10,12 @@ import GameboyDpad from "../touchpad/gameboyDpad/gameboyDpad";
 
 export default class VaporBoyMobilePortrait extends Component {
   render() {
+    // Generate our div of circles for our cirles
+    const speakerCircles = [];
+    for (let i = 0; i < 64; i++) {
+      speakerCircles.push(<div />);
+    }
+
     return (
       <div class="vaporboy-mobile-portrait">
         {/*Canvas and GBA Border*/}
@@ -22,6 +28,20 @@ export default class VaporBoyMobilePortrait extends Component {
           </div>
           <div class="power-light">
             <div class="light" />
+          </div>
+        </div>
+
+        <div className="vaporboy-mobile-portrait__feature-overlay">
+          <div className="feature-layout">
+            <div class="com-label">
+              <div class="com-label__triangle">
+                <svg>
+                  <polygon points="0, 10, 5,0 10, 10" />
+                </svg>
+              </div>
+              <div class="com-label__text">COMM.</div>
+            </div>
+            <div class="speaker">{speakerCircles}</div>
           </div>
         </div>
 
