@@ -12,4 +12,11 @@
       stroke: #fdfbff;
     }
   }
+
+  // modifer overides
+  &--is-gbc {
+    svg path {
+      stroke: #161620;
+    }
+  }
 }

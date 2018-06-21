@@ -2,6 +2,33 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+// Define our gradient constants
+const GRADIENTS = {
+  BUTTON_BACKGROUND_FILL: {
+    ID: "ButtonBackgroundFill",
+    GBA_STOP_COLORS: ["#cdd5e1", "#f2f5fd"],
+    GBC_STOP_COLORS: ["#494f54", "#212931"]
+  },
+  BUTTON_LETTER_FILL: {
+    ID: "ButtonLetterFill",
+    GBA_STOP_COLORS: ["#aeb4bb", "#f2f5fd"],
+    GBC_STOP_COLORS: ["#1d252c", "#212931"]
+  },
+  BUTTON_LETTER_STROKE: {
+    ID: "ButtonLetterStroke",
+    GBA_STOP_COLORS: ["#aeb4bb", "#c2c8d6", "#f2f5fd"],
+    GBC_STOP_COLORS: ["#1d252c", "#494f54", "#212931"]
+  }
+};
+
+const getStopColor = (gradientObject, stopColorIndex, isGbc) => {
+  if (isGbc) {
+    return gradientObject.GBC_STOP_COLORS[stopColorIndex];
+  }
+
+  return gradientObject.GBA_STOP_COLORS[stopColorIndex];
+};
+
 export default class GameboyButton extends Component {
   constructor() {
     super();
@@ -30,54 +57,127 @@ export default class GameboyButton extends Component {
       );
     }
 
+    // Get if we are in gbc mode
+    const isGbc = !!this.props.isGbc;
+
+    // get our classes
+    const classes = ["gameboy-button"];
+
+    if (isGbc) {
+      classes.push("gameboy-button--is-gbc");
+    }
+
+    if (this.props.button === "start" || this.props.button === "select") {
+      classes.push("gameboy-button--" + this.props.button);
+    }
+
+    const isGbcStartButton =
+      isGbc &&
+      (this.props.button === "start" || this.props.button === "select");
+
     return (
-      <div class="gameboy-button">
+      <div class={classes.join(" ")}>
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <radialGradient
-              id="ButtonBackgroundFill"
+              id={GRADIENTS.BUTTON_BACKGROUND_FILL.ID}
               cx="0.5"
               cy="0.5"
               r="0.75"
               fx="0.5"
               fy="0.95"
             >
-              <stop offset="0%" stop-color="#cdd5e1" />
-              <stop offset="100%" stop-color="#f2f5fd" />
+              <stop
+                offset="0%"
+                stop-color={getStopColor(
+                  GRADIENTS.BUTTON_BACKGROUND_FILL,
+                  0,
+                  isGbc
+                )}
+              />
+              <stop
+                offset="100%"
+                stop-color={getStopColor(
+                  GRADIENTS.BUTTON_BACKGROUND_FILL,
+                  1,
+                  isGbc
+                )}
+              />
             </radialGradient>
 
             <radialGradient
-              id="ButtonLetterFill"
+              id={GRADIENTS.BUTTON_LETTER_FILL.ID}
               cx="0.5"
               cy="0.5"
               r="0.75"
               fx="0.5"
               fy="0.95"
             >
-              <stop offset="0%" stop-color="#aeb4bb" />
-              <stop offset="100%" stop-color="#f2f5fd" />
+              <stop
+                offset="0%"
+                stop-color={getStopColor(
+                  GRADIENTS.BUTTON_LETTER_FILL,
+                  0,
+                  isGbc
+                )}
+              />
+              <stop
+                offset="100%"
+                stop-color={getStopColor(
+                  GRADIENTS.BUTTON_LETTER_FILL,
+                  0,
+                  isGbc
+                )}
+              />
             </radialGradient>
 
             <radialGradient
-              id="ButtonLetterStroke"
+              id={GRADIENTS.BUTTON_LETTER_STROKE.ID}
               cx="0.5"
               cy="0.5"
               r="0.75"
               fx="0.5"
               fy="0.75"
             >
-              <stop offset="0%" stop-color="#aeb4bb" />
-              <stop offset="75%" stop-color="#c2c8d6" />
-              <stop offset="100%" stop-color="#f2f5fd" />
+              <stop
+                offset="0%"
+                stop-color={getStopColor(
+                  GRADIENTS.BUTTON_LETTER_STROKE,
+                  0,
+                  isGbc
+                )}
+              />
+              <stop
+                offset="75%"
+                stop-color={getStopColor(
+                  GRADIENTS.BUTTON_LETTER_STROKE,
+                  1,
+                  isGbc
+                )}
+              />
+              <stop
+                offset="100%"
+                stop-color={getStopColor(
+                  GRADIENTS.BUTTON_LETTER_STROKE,
+                  2,
+                  isGbc
+                )}
+              />
             </radialGradient>
           </defs>
 
-          <circle cx="50" cy="50" r="49" fill="url(#ButtonBackgroundFill)" />
+          <ellipse
+            cx="50"
+            cy="50"
+            rx="49"
+            ry={isGbcStartButton ? "24" : "49"}
+            fill={`url(#${GRADIENTS.BUTTON_BACKGROUND_FILL.ID})`}
+          />
           <text
             x="25"
             y="80"
-            fill="url(#ButtonLetterFill)"
-            stroke="url(#ButtonLetterStroke)"
+            fill={`url(#${GRADIENTS.BUTTON_LETTER_FILL.ID})`}
+            stroke={`url(#${GRADIENTS.BUTTON_LETTER_STROKE.ID})`}
           >
             {this.getButtonText()}
           </text>

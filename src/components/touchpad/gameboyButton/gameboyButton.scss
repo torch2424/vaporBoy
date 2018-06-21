@@ -11,7 +11,7 @@
     width: 100%;
     height: 100%;
 
-    circle {
+    ellipse {
       stroke: #fdfbff;
     }
 
@@ -43,5 +43,15 @@
 
     padding-right: calc(10.15vw - 100%);
     padding-left: 10px;
+  }
+
+  // modifer overides
+  &--is-gbc {
+    svg ellipse {
+      stroke: #161620;
+    }
+
+    &__external-text {
+    }
   }
 }

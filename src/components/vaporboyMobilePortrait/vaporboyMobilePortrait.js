@@ -60,21 +60,21 @@ export default class VaporBoyMobilePortrait extends Component {
 
             {/* Gameboy Buttons */}
             <div class="b-button">
-              <GameboyButton button={"B"} />
+              <GameboyButton button={"B"} isGbc={true} />
             </div>
             <div class="a-button">
-              <GameboyButton button={"A"} />
+              <GameboyButton button={"A"} isGbc={true} />
             </div>
             <div class="dpad">
-              <GameboyDpad />
+              <GameboyDpad isGbc={true} />
             </div>
 
             <div class="start-button">
-              <GameboyButton button={"start"} />
+              <GameboyButton button={"start"} isGbc={true} />
             </div>
 
             <div class="select-button">
-              <GameboyButton button={"select"} />
+              <GameboyButton button={"select"} isGbc={true} />
             </div>
           </div>
         </div>
