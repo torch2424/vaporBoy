@@ -78,7 +78,7 @@ export default class GameboyButton extends Component {
               : "gameboy-button__external-text--gba"
           }
         >
-          {this.props.button}
+          {this.props.button.toUpperCase()}
         </div>
       );
     }

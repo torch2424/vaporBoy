@@ -97,13 +97,15 @@
         align-items: center;
 
         text-align: center;
+        color: #8128be;
+        text-shadow: 0px 0px 1px rgba(250, 250, 250, 0.75);
 
         width: calc(100vw - 40px);
         max-width: 50vh;
         margin-left: auto;
         margin-right: auto;
         padding-top: 5px;
-        padding-left: 22%;
+        padding-left: 21%;
 
         &__triangle {
           svg {
@@ -111,15 +113,14 @@
             height: 10px;
 
             polygon {
-              fill: transparent;
-              stroke: black;
-              stroke-width: 2px;
+              stroke: transparent;
             }
           }
         }
 
         &__text {
           font-weight: bold;
+          margin-left: 5px;
         }
       }
 
@@ -233,53 +234,53 @@
       }
 
       .b-button {
-        width: 10vw;
-        height: 10vw;
+        width: 13vw;
+        height: 13vw;
 
         position: absolute;
         z-index: 1;
-        top: calc(50% - 10vw);
-        right: 14%;
+        bottom: 35.5%;
+        right: 25%;
       }
 
       .a-button {
-        width: 10vw;
-        height: 10vw;
+        width: 13vw;
+        height: 13vw;
 
         position: absolute;
         z-index: 1;
-        top: calc(50% - 14vw);
-        right: 1%;
+        bottom: 40.5%;
+        right: 5%;
       }
 
       .dpad {
-        width: 17vw;
-        height: 17vw;
+        width: 25vw;
+        height: 25vw;
 
         position: absolute;
         z-index: 1;
-        top: calc(50% - 15vw);
+        bottom: 32.5%;
         left: 7%;
       }
 
       .start-button {
-        width: 4vw;
-        height: 4vw;
+        width: 11.5vw;
+        height: 11.5vw;
 
         position: absolute;
         z-index: 1;
-        left: 20%;
-        bottom: 29%;
+        left: 52.5%;
+        bottom: 15%;
       }
 
       .select-button {
-        width: 4vw;
-        height: 4vw;
+        width: 11.5vw;
+        height: 11.5vw;
 
         position: absolute;
         z-index: 1;
-        left: 18%;
-        bottom: 17%;
+        left: 32.5%;
+        bottom: 15%;
       }
     }
   }

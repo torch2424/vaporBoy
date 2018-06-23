@@ -36,7 +36,34 @@ export default class VaporBoyMobilePortrait extends Component {
             <div class="com-label">
               <div class="com-label__triangle">
                 <svg>
-                  <polygon points="0, 10, 5,0 10, 10" />
+                  <defs>
+                    <radialGradient
+                      id="TriangleFill"
+                      cx="0.5"
+                      cy="0.5"
+                      fx="0.5"
+                      fy="0.75"
+                      r="0.80"
+                    >
+                      <stop offset="0%" stop-color="rgba(240, 240, 240, 0.0)" />
+                      <stop
+                        offset="30%"
+                        stop-color="rgba(240, 240, 240, 0.0)"
+                      />
+                      <stop
+                        offset="99%"
+                        stop-color="rgba(240, 240, 240, 0.5)"
+                      />
+                      <stop
+                        offset="100%"
+                        stop-color="rgba(240, 240, 240, 0.0)"
+                      />
+                    </radialGradient>
+                  </defs>
+                  <polygon
+                    points="0, 10, 5,0 10, 10"
+                    fill="url(#TriangleFill)"
+                  />
                 </svg>
               </div>
               <div class="com-label__text">COMM.</div>
