@@ -2,6 +2,7 @@
 import "./index.scss";
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
+import device from "current-device";
 
 import { CONTROL_PANEL_BASE_COMPONENTS } from "./components/controlPanel/baseComponent";
 
@@ -18,6 +19,14 @@ export default class App extends Component {
       expanded: false,
       baseComponent: undefined,
       showControlPanel: false
+    });
+
+    device.onChangeOrientation(newOrientation => {
+      console.log(`New orientation is ${newOrientation}`);
+
+      this.setState({
+        ...this.state
+      });
     });
   }
 
@@ -96,10 +105,14 @@ export default class App extends Component {
     );
 
     // Get our current layout
-    // TODO: Do some platform detection
     let currentLayout = vaporboyDesktopLayout;
-    currentLayout = vaporboyMobileLandscapeLayout;
-    currentLayout = vaporboyMobilePortraitLayout;
+    if (device.mobile() || device.tablet()) {
+      if (device.landscape()) {
+        currentLayout = vaporboyMobileLandscapeLayout;
+      } else {
+        currentLayout = vaporboyMobilePortraitLayout;
+      }
+    }
 
     if (this.state.expanded) {
       currentLayout = vaporboyExpandedLayout;
