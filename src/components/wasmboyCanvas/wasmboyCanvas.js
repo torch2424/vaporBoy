@@ -1,6 +1,7 @@
 // Super Gameboy Border
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
+import { WASMBOY_CONFIG } from "../../wasmboy.config";
 
 export default class WasmBoyCanvas extends Component {
   constructor() {
@@ -16,7 +17,7 @@ export default class WasmBoyCanvas extends Component {
       const canvasElement = document.querySelector("#wasmboy-canvas");
 
       const wasmboyInitTask = async () => {
-        await WasmBoy.config({}, canvasElement);
+        await WasmBoy.config(WASMBOY_CONFIG, canvasElement);
         console.log("WasmBoy is configured!");
       };
 

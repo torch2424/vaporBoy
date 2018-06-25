@@ -1,11 +1,13 @@
 import { Component } from "preact";
+import { WasmBoy } from "wasmboy";
 
 import {
   CONTROL_PANEL_BASE_COMPONENTS,
   getControlPanelSelectView,
   getROMSourceSelectorView,
   getMyCollectionView,
-  getHomebrewView
+  getHomebrewView,
+  getLoadStateListView
 } from "./baseComponent";
 
 import { ROMCollection } from "../../services/ROMCollection";
@@ -15,7 +17,8 @@ export default class ControlPanel extends Component {
     super();
     this.setState({
       viewStack: [],
-      collection: undefined
+      collection: undefined,
+      saveStates: undefined
     });
   }
 
@@ -23,19 +26,43 @@ export default class ControlPanel extends Component {
     this.updateCollection();
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.show) {
+      this.updateCollection();
+    }
+  }
+
   updateCollection() {
     // Get the current ROM Collection
     const getCollectionTask = async () => {
       const collection = await ROMCollection.getCollection();
-      console.log(collection);
       this.setState({
         ...this.state,
         collection
       });
     };
 
+    // Get the current rom save states
+    const getSaveStatesTask = async () => {
+      if (!WasmBoy.isReady()) {
+        return;
+      }
+
+      WasmBoy.getSaveStates()
+        .then(saveStates => {
+          this.setState({
+            ...this.state,
+            saveStates
+          });
+        })
+        .catch(() => {
+          // TODO:
+        });
+    };
+
     // Kick off our tasks
     getCollectionTask();
+    getSaveStatesTask();
   }
 
   hide() {
@@ -95,6 +122,13 @@ export default class ControlPanel extends Component {
 
   viewHomebrew() {
     this.state.viewStack.push(getHomebrewView(this));
+    this.setState({
+      ...this.state
+    });
+  }
+
+  viewLoadStateList() {
+    this.state.viewStack.push(getLoadStateListView(this));
     this.setState({
       ...this.state
     });
