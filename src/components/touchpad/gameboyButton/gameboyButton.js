@@ -47,17 +47,17 @@ export default class GameboyButton extends Component {
     // Get our button
     const keyMapButton = this.props.button.toUpperCase();
     const touchElement = document.getElementById(this.state.elementId);
-    WasmBoy.addTouchInput(keyMapButton, touchElement, "BUTTON").then(
-      gamepadId => {
-        console.log(keyMapButton, touchElement, gamepadId);
-
-        this.setState({
-          ...this.state,
-          keyMapButton: keyMapButton,
-          gamepadId: gamepadId
-        });
-      }
+    const gamepadId = WasmBoy.addTouchInput(
+      keyMapButton,
+      touchElement,
+      "BUTTON"
     );
+
+    this.setState({
+      ...this.state,
+      keyMapButton: keyMapButton,
+      gamepadId: gamepadId
+    });
   }
 
   componentWillUnmount() {

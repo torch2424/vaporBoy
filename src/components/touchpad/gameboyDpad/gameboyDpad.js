@@ -48,30 +48,49 @@ export default class GameboyDpad extends Component {
     this.setState({
       ...this.state,
       elementId: getInputId(),
-      gamepadId: undefined
+      upGamepadId: undefined,
+      downGamepadId: undefined,
+      leftGamepadId: undefined,
+      rightGamepadId: undefined
     });
   }
 
   componentDidMount() {
     const touchElement = document.getElementById(this.state.elementId);
-    WasmBoy.addTouchInput("UP", touchElement, "DPAD", "UP");
-    WasmBoy.addTouchInput("RIGHT", touchElement, "DPAD", "RIGHT");
-    WasmBoy.addTouchInput("DOWN", touchElement, "DPAD", "DOWN");
-    WasmBoy.addTouchInput("LEFT", touchElement, "DPAD", "LEFT").then(
-      gamepadId => {
-        console.log(touchElement, gamepadId);
-
-        this.setState({
-          ...this.state,
-          gamepadId: gamepadId
-        });
-      }
+    const upGamepadId = WasmBoy.addTouchInput("UP", touchElement, "DPAD", "UP");
+    const downGamepadId = WasmBoy.addTouchInput(
+      "DOWN",
+      touchElement,
+      "DPAD",
+      "DOWN"
     );
+    const leftGamepadId = WasmBoy.addTouchInput(
+      "LEFT",
+      touchElement,
+      "DPAD",
+      "LEFT"
+    );
+    const rightGamepadId = WasmBoy.addTouchInput(
+      "RIGHT",
+      touchElement,
+      "DPAD",
+      "RIGHT"
+    );
+
+    this.setState({
+      ...this.state,
+      upGamepadId: upGamepadId,
+      downGamepadId: downGamepadId,
+      leftGamepadId: leftGamepadId,
+      rightGamepadId: rightGamepadId
+    });
   }
 
   componentWillUnmount() {
-    console.log("ayyeee");
-    WasmBoy.removeTouchInput(this.state.keyMapButton, this.state.gamepadId);
+    WasmBoy.removeTouchInput("UP", this.state.upGamepadId);
+    WasmBoy.removeTouchInput("DOWN", this.state.downGamepadId);
+    WasmBoy.removeTouchInput("LEFT", this.state.leftGamepadId);
+    WasmBoy.removeTouchInput("RIGHT", this.state.rightGamepadId);
   }
 
   render() {
