@@ -2,6 +2,8 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { getInputId } from "../touchpad.common";
+
 // Define our gradient constants
 const GRADIENTS = {
   BUTTON_BACKGROUND_FILL: {
@@ -42,9 +44,35 @@ const getStopColor = (gradientObject, stopColorIndex, isGbc) => {
 export default class GameboyDpad extends Component {
   constructor() {
     super();
+
+    this.setState({
+      ...this.state,
+      elementId: getInputId(),
+      gamepadId: undefined
+    });
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const touchElement = document.getElementById(this.state.elementId);
+    WasmBoy.addTouchInput("UP", touchElement, "DPAD", "UP");
+    WasmBoy.addTouchInput("RIGHT", touchElement, "DPAD", "RIGHT");
+    WasmBoy.addTouchInput("DOWN", touchElement, "DPAD", "DOWN");
+    WasmBoy.addTouchInput("LEFT", touchElement, "DPAD", "LEFT").then(
+      gamepadId => {
+        console.log(touchElement, gamepadId);
+
+        this.setState({
+          ...this.state,
+          gamepadId: gamepadId
+        });
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    console.log("ayyeee");
+    WasmBoy.removeTouchInput(this.state.keyMapButton, this.state.gamepadId);
+  }
 
   render() {
     // Get if we are in gbc mode
@@ -59,7 +87,11 @@ export default class GameboyDpad extends Component {
 
     return (
       <div class={classes.join(" ")}>
-        <svg viewBox="0 0 189 189" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          id={this.state.elementId}
+          viewBox="0 0 189 189"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <defs>
             <radialGradient
               id={GRADIENTS.BUTTON_BACKGROUND_FILL.ID}

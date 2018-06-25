@@ -2,6 +2,8 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { getInputId } from "../touchpad.common";
+
 // Define our gradient constants
 const GRADIENTS = {
   BUTTON_BACKGROUND_FILL: {
@@ -32,9 +34,35 @@ const getStopColor = (gradientObject, stopColorIndex, isGbc) => {
 export default class GameboyButton extends Component {
   constructor() {
     super();
+
+    this.setState({
+      ...this.state,
+      elementId: getInputId(),
+      keyMapButton: undefined,
+      gamepadId: undefined
+    });
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    // Get our button
+    const keyMapButton = this.props.button.toUpperCase();
+    const touchElement = document.getElementById(this.state.elementId);
+    WasmBoy.addTouchInput(keyMapButton, touchElement, "BUTTON").then(
+      gamepadId => {
+        console.log(keyMapButton, touchElement, gamepadId);
+
+        this.setState({
+          ...this.state,
+          keyMapButton: keyMapButton,
+          gamepadId: gamepadId
+        });
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    WasmBoy.removeTouchInput(this.state.keyMapButton, this.state.gamepadId);
+  }
 
   getButtonText() {
     if (
@@ -85,7 +113,11 @@ export default class GameboyButton extends Component {
 
     return (
       <div class={classes.join(" ")}>
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          id={this.state.elementId}
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <defs>
             <radialGradient
               id={GRADIENTS.BUTTON_BACKGROUND_FILL.ID}
