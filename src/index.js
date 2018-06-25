@@ -21,9 +21,9 @@ export default class App extends Component {
       showControlPanel: false
     });
 
+    // Add our listener for orientation changes
     device.onChangeOrientation(newOrientation => {
-      console.log(`New orientation is ${newOrientation}`);
-
+      // Re-render the component on changes
       this.setState({
         ...this.state
       });

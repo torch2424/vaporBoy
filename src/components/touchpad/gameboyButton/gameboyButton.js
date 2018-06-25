@@ -53,6 +53,8 @@ export default class GameboyButton extends Component {
       "BUTTON"
     );
 
+    console.log(keyMapButton, touchElement);
+
     this.setState({
       ...this.state,
       keyMapButton: keyMapButton,
