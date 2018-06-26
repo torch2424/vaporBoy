@@ -1,2 +1,25 @@
 .load-state-list {
+  overflow: auto;
+  height: 100%;
+
+  ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+    li {
+      margin: 0px;
+      padding: 0px;
+
+      button {
+        height: 100%;
+      }
+    }
+  }
 }

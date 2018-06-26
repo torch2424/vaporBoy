@@ -21,6 +21,23 @@ export default class ControlPanelSelect extends Component {
     return false;
   }
 
+  saveState() {
+    WasmBoy.saveState()
+      .then(() => {
+        WasmBoy.play()
+          .then(() => {
+            // TODO:
+            this.props.hide();
+          })
+          .catch(() => {
+            // TODO:
+          });
+      })
+      .catch(() => {
+        // TODO:
+      });
+  }
+
   render() {
     return (
       <div class="control-panel-select">
@@ -33,7 +50,7 @@ export default class ControlPanelSelect extends Component {
           </li>
           <li class="control-panel-select__grid__item">
             <button
-              onclick={() => this.props.viewLoadStateList()}
+              onclick={() => this.saveState()}
               disabled={!WasmBoy.isReady()}
             >
               <div>💾</div>

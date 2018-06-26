@@ -23,7 +23,20 @@
     max-height: 876px;
 
     .aesthetic-windows-95-modal {
-      height: 100%;
+      height: calc(100% - 8px);
+
+      display: flex;
+      flex-direction: column;
+
+      .aesthetic-windows-95-modal-title-bar {
+        width: calc(100% - 10px);
+      }
+
+      .aesthetic-windows-95-modal-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
     }
 
     &__controls {
@@ -38,6 +51,10 @@
     &__view {
       @include windows-95-push-in;
       background-color: $aesthetic-white;
+
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
     }
   }
 }

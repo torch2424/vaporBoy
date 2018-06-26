@@ -20,6 +20,7 @@ export const getControlPanelSelectView = componentThis => {
         viewROMSourceSelector={() => componentThis.viewROMSourceSelector()}
         viewLoadStateList={() => componentThis.viewLoadStateList()}
         saveStates={componentThis.state.saveStates}
+        hide={() => componentThis.hide()}
       />
     )
   };
@@ -38,6 +39,7 @@ export const getROMSourceSelectorView = componentThis => {
         }}
         updateCollection={() => componentThis.updateCollection()}
         collection={componentThis.state.collection}
+        hide={() => componentThis.hide()}
       />
     )
   };
