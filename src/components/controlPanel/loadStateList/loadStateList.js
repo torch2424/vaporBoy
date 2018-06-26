@@ -11,9 +11,27 @@ export default class LoadStateList extends Component {
   }
 
   render() {
+    const saveStates = [];
+    if (this.props.saveStates) {
+      this.props.saveStates.forEach(saveState => {
+        const saveStateDate = new Date(saveState.date);
+        saveStates.push(
+          <li>
+            <button>
+              <div>
+                <img src={saveState.screenshotCanvasDataURL} />
+              </div>
+              <div>Date: {saveStateDate.toLocaleString()}</div>
+              <div>isAuto: {saveState.isAuto}</div>
+            </button>
+          </li>
+        );
+      });
+    }
+
     return (
       <div class="load-state-list">
-        <ul />
+        <ul>{saveStates}</ul>
       </div>
     );
   }

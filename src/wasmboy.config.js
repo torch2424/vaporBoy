@@ -13,6 +13,9 @@ export const WASMBOY_CONFIG = {
   saveStateCallback: saveStateObject => {
     // Function called everytime a savestate occurs
     // Used by the WasmBoySystemControls to show screenshots on save states
-    saveStateObject.screenshotCanvasDataURL = canvasElement.toDataURL();
+    const canvasElement = document.getElementById("wasmboy-canvas");
+    if (canvasElement) {
+      saveStateObject.screenshotCanvasDataURL = canvasElement.toDataURL();
+    }
   }
 };
