@@ -3,7 +3,7 @@
 
 # Preact Cli
 node_modules
-/build
+/build/**/*
 /*.log
 
 # Cordova
