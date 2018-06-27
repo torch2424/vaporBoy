@@ -5,6 +5,8 @@ import { Component } from "preact";
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
 import ExpandButton from "../touchpad/expandButton/expandButton";
 import ControlPanelButton from "../touchpad/controlPanelButton/controlPanelButton";
+import GameboyButton from "../touchpad/gameboyButton/gameboyButton";
+import GameboyDpad from "../touchpad/gameboyDpad/gameboyDpad";
 
 // 3P libs
 import * as screenfull from "screenfull";
@@ -48,6 +50,25 @@ export default class VaporBoyExpanded extends Component {
               <ControlPanelButton
                 onClick={() => this.props.showControlPanel()}
               />
+            </div>
+
+            {/* Gameboy Buttons */}
+            <div class="vaporboy-expanded__controls__container__b-button">
+              <GameboyButton button={"B"} isExpanded={true} />
+            </div>
+            <div class="vaporboy-expanded__controls__container__a-button">
+              <GameboyButton button={"A"} isExpanded={true} />
+            </div>
+            <div class="vaporboy-expanded__controls__container__dpad">
+              <GameboyDpad isExpanded={true} />
+            </div>
+
+            <div class="vaporboy-expanded__controls__container__start-button">
+              <GameboyButton button={"start"} isExpanded={true} />
+            </div>
+
+            <div class="vaporboy-expanded__controls__container__select-button">
+              <GameboyButton button={"select"} isExpanded={true} />
             </div>
           </div>
         </div>

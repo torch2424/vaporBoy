@@ -9,17 +9,20 @@ const GRADIENTS = {
   BUTTON_BACKGROUND_FILL: {
     ID: "ButtonBackgroundFill",
     GBA_STOP_COLORS: ["#cdd5e1", "#f2f5fd"],
-    GBC_STOP_COLORS: ["#494f54", "#212931"]
+    GBC_STOP_COLORS: ["#494f54", "#212931"],
+    EXPANDED_STOP_COLORS: ["rgba(0, 0, 0, 0.5)", "rgba(0, 0, 0, 0.5)"]
   },
   BUTTON_LETTER_FILL: {
     ID: "ButtonLetterFill",
     GBA_STOP_COLORS: ["#aeb4bb", "#f2f5fd"],
-    GBC_STOP_COLORS: ["#1d252c", "#212931"]
+    GBC_STOP_COLORS: ["#1d252c", "#212931"],
+    EXPANDED_STOP_COLORS: ["rgba(0, 0, 0, 0.25)", "rgba(0, 0, 0, 0.25)"]
   },
   BUTTON_LETTER_STROKE: {
     ID: "ButtonLetterStroke",
     GBA_STOP_COLORS: ["#aeb4bb", "#c2c8d6", "#f2f5fd"],
-    GBC_STOP_COLORS: ["#1d252c", "#494f54", "#212931"]
+    GBC_STOP_COLORS: ["#1d252c", "#494f54", "#212931"],
+    EXPANDED_STOP_COLORS: ["rgba(0, 0, 0, 0.25)", "rgba(0, 0, 0, 0.25)"]
   }
 };
 
