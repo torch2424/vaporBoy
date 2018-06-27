@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Script to do frontend staging deployments
-# This must be run inside the project `devops/systemctlServices` folder
 
 # redirect stdout/stderr to a file
 exec &> vaporBoyBuild.log
