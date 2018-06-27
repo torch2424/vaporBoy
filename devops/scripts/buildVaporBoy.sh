@@ -17,13 +17,13 @@ rm package-lock.json
 
 npm install
 
-npm run build
+npm run preact:build
 
 # Copy the build output to public/ if successful build
 if [ $? -eq 0 ]; then
    rm -rf public
    mkdir -p public
-   cp -r build/* public/
+   cp -r www/* public/
 else
     echo "Failed Building vaporBoy"
 fi
