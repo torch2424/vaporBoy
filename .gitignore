@@ -1,5 +1,6 @@
 # Devops
 **/.env
+public/**/*
 
 # Preact Cli
 node_modules
