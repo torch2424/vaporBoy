@@ -53,21 +53,21 @@ export default class VaporBoyExpanded extends Component {
             </div>
 
             {/* Gameboy Buttons */}
-            <div class="vaporboy-expanded__controls__container__b-button">
+            <div class="b-button">
               <GameboyButton button={"B"} isExpanded={true} />
             </div>
-            <div class="vaporboy-expanded__controls__container__a-button">
+            <div class="a-button">
               <GameboyButton button={"A"} isExpanded={true} />
             </div>
-            <div class="vaporboy-expanded__controls__container__dpad">
+            <div class="dpad">
               <GameboyDpad isExpanded={true} />
             </div>
 
-            <div class="vaporboy-expanded__controls__container__start-button">
+            <div class="start-button">
               <GameboyButton button={"start"} isExpanded={true} />
             </div>
 
-            <div class="vaporboy-expanded__controls__container__select-button">
+            <div class="select-button">
               <GameboyButton button={"select"} isExpanded={true} />
             </div>
           </div>

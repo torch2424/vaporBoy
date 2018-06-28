@@ -91,6 +91,7 @@ export default class GameboyButton extends Component {
 
   render() {
     // Get if we are in specified modes
+    const isGba = !!this.props.isGba;
     const isGbc = !!this.props.isGbc;
     const isExpanded = !!this.props.isExpanded;
 
@@ -112,17 +113,39 @@ export default class GameboyButton extends Component {
     // Find if we have External Text
     let externalText = "";
     if (this.props.button === "start" || this.props.button === "select") {
+      let externalTextClass = "gameboy-button__external-text";
+      if (isGbc) {
+        externalTextClass += " gameboy-button__external-text--gbc";
+      }
+      if (isGba) {
+        externalTextClass += " gameboy-button__external-text--gba";
+      }
+      if (isExpanded) {
+        externalTextClass += " gameboy-button__external-text--expanded";
+      }
       externalText = (
-        <div
-          class={
-            isGbc
-              ? "gameboy-button__external-text--gbc"
-              : "gameboy-button__external-text--gba"
-          }
-        >
-          {this.props.button.toUpperCase()}
-        </div>
+        <div class={externalTextClass}>{this.props.button.toUpperCase()}</div>
       );
+    }
+
+    // Get our button shape for start/select
+    const buttonSize = {
+      yPosition: "0",
+      yRadius: "50%",
+      height: 100
+    };
+    if (this.props.button === "start" || this.props.button === "select") {
+      if (isGbc) {
+        buttonSize.yPosition = "50";
+        buttonSize.height = "50";
+      }
+      if (isGba) {
+        // Stay default
+      }
+      if (isExpanded) {
+        buttonSize.yPosition = "50";
+        buttonSize.height = "50";
+      }
     }
 
     return (
@@ -227,11 +250,13 @@ export default class GameboyButton extends Component {
             </radialGradient>
           </defs>
 
-          <ellipse
-            cx="50"
-            cy="50"
-            rx="49"
-            ry={isGbcStartButton ? "24" : "49"}
+          <rect
+            x="0"
+            y={buttonSize.yPosition}
+            width="100"
+            height={buttonSize.height}
+            rx="50%"
+            ry={buttonSize.yRadius}
             fill={`url(#${GRADIENTS.BUTTON_BACKGROUND_FILL.ID})`}
           />
           <text

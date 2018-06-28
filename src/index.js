@@ -16,7 +16,7 @@ export default class App extends Component {
   constructor() {
     super();
     this.setState({
-      expanded: false,
+      expanded: true,
       baseComponent: undefined,
       showControlPanel: false
     });
