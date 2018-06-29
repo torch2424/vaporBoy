@@ -10,15 +10,18 @@ const GRADIENTS = {
     ID: "ButtonBackgroundFill",
     GBA_STOP_COLORS: ["#cdd5e1", "#f2f5fd"],
     GBC_STOP_COLORS: ["#494f54", "#212931"],
-    EXPANDED_STOP_COLORS: ["rgba(0, 0, 0, 0.5)", "rgba(0, 0, 0, 0.5)"]
+    EXPANDED_STOP_COLORS: [
+      "rgba(255, 255, 255, 0.5)",
+      "rgba(255, 255, 255, 0.5)"
+    ]
   },
   BUTTON_TRIANGLE_FILL_UP: {
     ID: "ButtonTriangleFillUp",
     GBA_STOP_COLORS: ["#f2f5fd", "#b4bec5"],
     GBC_STOP_COLORS: ["#494f54", "#212931"],
     EXPANDED_STOP_COLORS: [
-      "rgba(255, 255, 255, 0.25)",
-      "rgba(255, 255, 255, 0.25)"
+      "rgba(175, 175, 175, 0.25)",
+      "rgba(175, 175, 175, 0.25)"
     ]
   },
   BUTTON_TRIANGLE_FILL_DOWN: {
@@ -26,8 +29,8 @@ const GRADIENTS = {
     GBA_STOP_COLORS: ["#b4bec5", "#f2f5fd"],
     GBC_STOP_COLORS: ["#494f54", "#212931"],
     EXPANDED_STOP_COLORS: [
-      "rgba(255, 255, 255, 0.25)",
-      "rgba(255, 255, 255, 0.25)"
+      "rgba(175, 175, 175, 0.25)",
+      "rgba(175, 175, 175, 0.25)"
     ]
   },
   BUTTON_TRIANGLE_FILL_HORIZONTAL: {
@@ -35,8 +38,9 @@ const GRADIENTS = {
     GBA_STOP_COLORS: ["#c9d1dc", "#c9d1dc", "#b0bac2"],
     GBC_STOP_COLORS: ["#494f54", "#1d252c", "#212931"],
     EXPANDED_STOP_COLORS: [
-      "rgba(255, 255, 255, 0.25)",
-      "rgba(255, 255, 255, 0.25)"
+      "rgba(175, 175, 175, 0.25)",
+      "rgba(175, 175, 175, 0.25)",
+      "rgba(175, 175, 175, 0.25)"
     ]
   },
   BUTTON_TRIANGLE_STROKE: {
@@ -44,8 +48,9 @@ const GRADIENTS = {
     GBA_STOP_COLORS: ["#aeb4bb", "#c2c8d6", "#f2f5fd"],
     GBC_STOP_COLORS: ["#494f54", "#1d252c", "#212931"],
     EXPANDED_STOP_COLORS: [
-      "rgba(255, 255, 255, 0.25)",
-      "rgba(255, 255, 255, 0.25)"
+      "rgba(175, 175, 175, 0.25)",
+      "rgba(175, 175, 175, 0.25)",
+      "rgba(175, 175, 175, 0.25)"
     ]
   }
 };

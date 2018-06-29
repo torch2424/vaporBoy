@@ -79,9 +79,32 @@
   }
 }
 
+// Hide Virtual gamepad on desktop
+.desktop {
+  .vaporboy-expanded__controls__container {
+    .b-button,
+    .a-button,
+    .dpad,
+    .start-button,
+    .select-button {
+      display: none;
+    }
+  }
+}
+
 // Button Layout Portrait versus Landscape
 .mobile.portrait {
   .vaporboy-expanded__controls__container {
+    .vaporboy-expanded__controls__container__expand {
+      top: initial;
+      bottom: 0px;
+    }
+
+    .vaporboy-expanded__controls__container__control-panel {
+      top: initial;
+      bottom: 0px;
+    }
+
     .b-button {
       width: 19vw;
       height: 19vw;
