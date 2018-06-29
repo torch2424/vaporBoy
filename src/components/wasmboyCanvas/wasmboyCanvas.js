@@ -36,13 +36,21 @@ export default class WasmBoyCanvas extends Component {
   }
 
   render() {
-    return (
-      <div class="wasmboy-canvas">
+    // Our insert cartridge menu
+    let insertCartridge = "";
+    if (!WasmBoy.isReady()) {
+      insertCartridge = (
         <div class="wasmboy-canvas__insert-cartridge">
           <img src="assets/vaporboyvhs.png" />
           <h1>V A P O R B O Y</h1>
           <h3>Please insert a cartridge...</h3>
         </div>
+      );
+    }
+
+    return (
+      <div class="wasmboy-canvas">
+        {insertCartridge}
         <div class="wasmboy-canvas__canvas-container">
           <canvas id="wasmboy-canvas" />
         </div>

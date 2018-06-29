@@ -12,22 +12,11 @@
     width: 100%;
     height: 100%;
 
-    ellipse {
-      stroke: #fdfbff;
-    }
-
     text {
       font-size: 90px;
       font-weight: bold;
       font-family: "BenchNine", sans-serif;
       text-transform: capitalize;
-    }
-  }
-
-  // modifer overides
-  &--is-gbc {
-    svg ellipse {
-      stroke: #161620;
     }
   }
 
@@ -59,8 +48,8 @@
     pointer-events: none;
 
     position: absolute;
-    top: 10vw;
-    left: -2.25vw;
+    bottom: -9vw;
+    left: 1vw;
 
     text-transform: capitalize;
     font-family: "Khand", sans-serif;

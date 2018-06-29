@@ -70,6 +70,143 @@
 
         width: 8vmax;
       }
+
+      // Hide the external text for start/select
+      .gameboy-button__external-text--expanded {
+        display: none;
+      }
+    }
+  }
+}
+
+// Hide Virtual gamepad on desktop
+.desktop {
+  .vaporboy-expanded__controls__container {
+    .b-button,
+    .a-button,
+    .dpad,
+    .start-button,
+    .select-button {
+      display: none;
+    }
+  }
+}
+
+// Button Layout Portrait versus Landscape
+.mobile.portrait {
+  .vaporboy-expanded__controls__container {
+    .vaporboy-expanded__controls__container__expand {
+      top: initial;
+      bottom: 0px;
+    }
+
+    .vaporboy-expanded__controls__container__control-panel {
+      top: initial;
+      bottom: 0px;
+    }
+
+    .b-button {
+      width: 19vw;
+      height: 19vw;
+
+      position: absolute;
+      z-index: 1;
+      bottom: 30.5%;
+      right: 24%;
+    }
+
+    .a-button {
+      width: 19vw;
+      height: 19vw;
+
+      position: absolute;
+      z-index: 1;
+      bottom: 39.5%;
+      right: 3%;
+    }
+
+    .dpad {
+      width: 32vw;
+      height: 32vw;
+
+      position: absolute;
+      z-index: 1;
+      bottom: 30.5%;
+      left: 7%;
+    }
+
+    .start-button {
+      width: 18.5vw;
+      height: 18.5vw;
+
+      position: absolute;
+      z-index: 1;
+      left: 52.5%;
+      bottom: 14%;
+    }
+
+    .select-button {
+      width: 18.5vw;
+      height: 18.5vw;
+
+      position: absolute;
+      z-index: 1;
+      left: 26.5%;
+      bottom: 14%;
+    }
+  }
+}
+
+.mobile.landscape {
+  .vaporboy-expanded__controls__container {
+    .b-button {
+      width: 10vw;
+      height: 10vw;
+
+      position: absolute;
+      z-index: 1;
+      top: calc(50% - 10vw);
+      right: 14%;
+    }
+
+    .a-button {
+      width: 10vw;
+      height: 10vw;
+
+      position: absolute;
+      z-index: 1;
+      top: calc(50% - 14vw);
+      right: 1%;
+    }
+
+    .dpad {
+      width: 17vw;
+      height: 17vw;
+
+      position: absolute;
+      z-index: 1;
+      top: calc(50% - 15vw);
+      left: 2%;
+    }
+
+    .start-button {
+      width: 18.5vh;
+      height: 18.5vh;
+
+      position: absolute;
+      z-index: 1;
+      left: 54.5%;
+      bottom: 7%;
+    }
+
+    .select-button {
+      width: 18.5vh;
+      height: 18.5vh;
+
+      position: absolute;
+      z-index: 1;
+      left: 30.5%;
+      bottom: 7%;
     }
   }
 }

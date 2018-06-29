@@ -9,33 +9,59 @@ const GRADIENTS = {
   BUTTON_BACKGROUND_FILL: {
     ID: "ButtonBackgroundFill",
     GBA_STOP_COLORS: ["#cdd5e1", "#f2f5fd"],
-    GBC_STOP_COLORS: ["#494f54", "#212931"]
+    GBC_STOP_COLORS: ["#494f54", "#212931"],
+    EXPANDED_STOP_COLORS: [
+      "rgba(255, 255, 255, 0.5)",
+      "rgba(255, 255, 255, 0.5)"
+    ]
   },
   BUTTON_TRIANGLE_FILL_UP: {
     ID: "ButtonTriangleFillUp",
     GBA_STOP_COLORS: ["#f2f5fd", "#b4bec5"],
-    GBC_STOP_COLORS: ["#494f54", "#212931"]
+    GBC_STOP_COLORS: ["#494f54", "#212931"],
+    EXPANDED_STOP_COLORS: [
+      "rgba(175, 175, 175, 0.25)",
+      "rgba(175, 175, 175, 0.25)"
+    ]
   },
   BUTTON_TRIANGLE_FILL_DOWN: {
     ID: "ButtonTriangleFillDown",
     GBA_STOP_COLORS: ["#b4bec5", "#f2f5fd"],
-    GBC_STOP_COLORS: ["#494f54", "#212931"]
+    GBC_STOP_COLORS: ["#494f54", "#212931"],
+    EXPANDED_STOP_COLORS: [
+      "rgba(175, 175, 175, 0.25)",
+      "rgba(175, 175, 175, 0.25)"
+    ]
   },
   BUTTON_TRIANGLE_FILL_HORIZONTAL: {
     ID: "ButtonTriangleFillHorizontal",
     GBA_STOP_COLORS: ["#c9d1dc", "#c9d1dc", "#b0bac2"],
-    GBC_STOP_COLORS: ["#494f54", "#1d252c", "#212931"]
+    GBC_STOP_COLORS: ["#494f54", "#1d252c", "#212931"],
+    EXPANDED_STOP_COLORS: [
+      "rgba(175, 175, 175, 0.25)",
+      "rgba(175, 175, 175, 0.25)",
+      "rgba(175, 175, 175, 0.25)"
+    ]
   },
   BUTTON_TRIANGLE_STROKE: {
     ID: "ButtonTriangleStroke",
     GBA_STOP_COLORS: ["#aeb4bb", "#c2c8d6", "#f2f5fd"],
-    GBC_STOP_COLORS: ["#494f54", "#1d252c", "#212931"]
+    GBC_STOP_COLORS: ["#494f54", "#1d252c", "#212931"],
+    EXPANDED_STOP_COLORS: [
+      "rgba(175, 175, 175, 0.25)",
+      "rgba(175, 175, 175, 0.25)",
+      "rgba(175, 175, 175, 0.25)"
+    ]
   }
 };
 
-const getStopColor = (gradientObject, stopColorIndex, isGbc) => {
+const getStopColor = (gradientObject, stopColorIndex, isGbc, isExpanded) => {
   if (isGbc) {
     return gradientObject.GBC_STOP_COLORS[stopColorIndex];
+  }
+
+  if (isExpanded) {
+    return gradientObject.EXPANDED_STOP_COLORS[stopColorIndex];
   }
 
   return gradientObject.GBA_STOP_COLORS[stopColorIndex];
@@ -94,8 +120,9 @@ export default class GameboyDpad extends Component {
   }
 
   render() {
-    // Get if we are in gbc mode
+    // Get if we are in specified modes
     const isGbc = !!this.props.isGbc;
+    const isExpanded = !!this.props.isExpanded;
 
     // get our classes
     const classes = ["gameboy-dpad"];
@@ -125,7 +152,8 @@ export default class GameboyDpad extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_BACKGROUND_FILL,
                   0,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
               <stop
@@ -133,7 +161,8 @@ export default class GameboyDpad extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_BACKGROUND_FILL,
                   1,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
             </radialGradient>
@@ -148,7 +177,8 @@ export default class GameboyDpad extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_TRIANGLE_FILL_UP,
                   0,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
               <stop
@@ -156,7 +186,8 @@ export default class GameboyDpad extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_TRIANGLE_FILL_UP,
                   1,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
             </linearGradient>
@@ -171,7 +202,8 @@ export default class GameboyDpad extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_TRIANGLE_FILL_DOWN,
                   0,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
               <stop
@@ -179,7 +211,8 @@ export default class GameboyDpad extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_TRIANGLE_FILL_DOWN,
                   1,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
             </linearGradient>
@@ -194,7 +227,8 @@ export default class GameboyDpad extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_TRIANGLE_FILL_HORIZONTAL,
                   0,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
               <stop
@@ -202,7 +236,8 @@ export default class GameboyDpad extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_TRIANGLE_FILL_HORIZONTAL,
                   1,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
               <stop
@@ -210,7 +245,8 @@ export default class GameboyDpad extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_TRIANGLE_FILL_HORIZONTAL,
                   2,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
             </linearGradient>
@@ -225,7 +261,8 @@ export default class GameboyDpad extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_TRIANGLE_STROKE,
                   0,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
               <stop
@@ -233,7 +270,8 @@ export default class GameboyDpad extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_TRIANGLE_STROKE,
                   1,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
               <stop
@@ -241,7 +279,8 @@ export default class GameboyDpad extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_TRIANGLE_STROKE,
                   2,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
             </linearGradient>

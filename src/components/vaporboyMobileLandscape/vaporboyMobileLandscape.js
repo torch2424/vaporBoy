@@ -52,21 +52,21 @@ export default class VaporBoyMobileLandscape extends Component {
 
             {/* Gameboy Buttons */}
             <div class="b-button">
-              <GameboyButton button={"B"} />
+              <GameboyButton button={"B"} isGba={true} />
             </div>
             <div class="a-button">
-              <GameboyButton button={"A"} />
+              <GameboyButton button={"A"} isGba={true} />
             </div>
             <div class="dpad">
-              <GameboyDpad />
+              <GameboyDpad isGba={true} />
             </div>
 
             <div class="start-button">
-              <GameboyButton button={"start"} />
+              <GameboyButton button={"start"} isGba={true} />
             </div>
 
             <div class="select-button">
-              <GameboyButton button={"select"} />
+              <GameboyButton button={"select"} isGba={true} />
             </div>
           </div>
         </div>
