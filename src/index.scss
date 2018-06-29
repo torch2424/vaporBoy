@@ -2,6 +2,7 @@
 @import "../node_modules/aesthetic-css/src/variables";
 @import "../node_modules/aesthetic-css/src/mixins";
 @import "../node_modules/aesthetic-css/src/buttons";
+@import "../node_modules/aesthetic-css/src/input";
 @import "../node_modules/aesthetic-css/src/containers";
 @import "../node_modules/aesthetic-css/src/modal";
 @import "../node_modules/aesthetic-css/src/dropdowns";
@@ -27,6 +28,7 @@
 @import "components/controlPanel/myCollection/myCollection";
 @import "components/controlPanel/cartridge/cartridge";
 @import "components/controlPanel/loadStateList/loadStateList";
+@import "components/controlPanel/vaporBoyOptions/vaporBoyOptions";
 @import "components/touchpad/expandButton/expandButton";
 @import "components/touchpad/controlPanelButton/controlPanelButton";
 @import "components/touchpad/gameboyButton/gameboyButton";

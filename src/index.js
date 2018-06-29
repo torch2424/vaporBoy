@@ -4,7 +4,7 @@ import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 import device from "current-device";
 
-import { CONTROL_PANEL_BASE_COMPONENTS } from "./components/controlPanel/baseComponent";
+import { CONTROL_PANEL_VIEWS } from "./components/controlPanel/controlPanelViews";
 
 import VaporBoyDesktop from "./components/vaporboyDesktop/vaporboyDesktop";
 import VaporBoyMobileLandscape from "./components/vaporboyMobileLandscape/vaporboyMobileLandscape";
@@ -49,7 +49,7 @@ export default class App extends Component {
     this.setState({
       ...this.state,
       showControlPanel: true,
-      baseComponent: CONTROL_PANEL_BASE_COMPONENTS.ROM_SOURCE_SELECTOR
+      baseComponent: CONTROL_PANEL_VIEWS.ROM_SOURCE_SELECTOR
     });
   }
 

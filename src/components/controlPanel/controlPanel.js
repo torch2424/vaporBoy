@@ -2,13 +2,14 @@ import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
 import {
-  CONTROL_PANEL_BASE_COMPONENTS,
+  CONTROL_PANEL_VIEWS,
   getControlPanelSelectView,
   getROMSourceSelectorView,
   getMyCollectionView,
   getHomebrewView,
-  getLoadStateListView
-} from "./baseComponent";
+  getLoadStateListView,
+  getOptionsView
+} from "./controlPanelViews";
 
 import { ROMCollection } from "../../services/ROMCollection";
 
@@ -76,22 +77,18 @@ export default class ControlPanel extends Component {
   getControlPanelBaseComponent() {
     if (this.props.baseComponent) {
       if (
-        this.props.baseComponent ===
-        CONTROL_PANEL_BASE_COMPONENTS.CONTROL_PANEL_SELECT
+        this.props.baseComponent === CONTROL_PANEL_VIEWS.CONTROL_PANEL_SELECT
       ) {
         return getControlPanelSelectView(this);
       } else if (
-        this.props.baseComponent ===
-        CONTROL_PANEL_BASE_COMPONENTS.ROM_SOURCE_SELECTOR
+        this.props.baseComponent === CONTROL_PANEL_VIEWS.ROM_SOURCE_SELECTOR
       ) {
         return getROMSourceSelectorView(this);
       } else if (
-        this.props.baseComponent === CONTROL_PANEL_BASE_COMPONENTS.MY_COLLECTION
+        this.props.baseComponent === CONTROL_PANEL_VIEWS.MY_COLLECTION
       ) {
         return getMyCollectionView(this);
-      } else if (
-        this.props.baseComponent === CONTROL_PANEL_BASE_COMPONENTS.HOMEBREW
-      ) {
+      } else if (this.props.baseComponent === CONTROL_PANEL_VIEWS.HOMEBREW) {
         return getHomebrewView(this);
       }
     }
@@ -129,6 +126,13 @@ export default class ControlPanel extends Component {
 
   viewLoadStateList() {
     this.state.viewStack.push(getLoadStateListView(this));
+    this.setState({
+      ...this.state
+    });
+  }
+
+  viewOptions() {
+    this.state.viewStack.push(getOptionsView(this));
     this.setState({
       ...this.state
     });

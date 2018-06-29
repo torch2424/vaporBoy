@@ -66,6 +66,12 @@ export default class ControlPanelSelect extends Component {
               <div>Load State</div>
             </button>
           </li>
+          <li class="control-panel-select__grid__item">
+            <button onclick={() => this.props.viewOptions()}>
+              <div>⚙️</div>
+              <div>Configure Options</div>
+            </button>
+          </li>
         </ul>
       </div>
     );
