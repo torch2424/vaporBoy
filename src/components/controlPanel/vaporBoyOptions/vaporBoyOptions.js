@@ -10,14 +10,21 @@ import {
 export default class VaporBoyOptions extends Component {
   constructor() {
     super();
-    this.setState({});
+    this.setState({
+      stored: {},
+      current: {},
+      enableApplyButton: false
+    });
   }
 
   componentDidMount() {
     // Grab our options from localstorage
-    let vaporBoyOptions = window.localStorage.getItem(VAPORBOY_OPTIONS_KEY);
+    let vaporBoyOptions = JSON.parse(
+      window.localStorage.getItem(VAPORBOY_OPTIONS_KEY)
+    );
     if (vaporBoyOptions) {
       this.setState({
+        ...this.state,
         stored: {
           ...vaporBoyOptions
         },
@@ -29,10 +36,12 @@ export default class VaporBoyOptions extends Component {
       // Fill/save our default options
       window.localStorage.setItem(
         VAPORBOY_OPTIONS_KEY,
-        VAPORBOY_DEFAULT_OPTIONS
+        JSON.stringify(VAPORBOY_DEFAULT_OPTIONS)
       );
       vaporBoyOptions = Object.assign({}, VAPORBOY_DEFAULT_OPTIONS);
     }
+
+    console.log(vaporBoyOptions);
 
     this.setState({
       stored: {
@@ -68,20 +77,34 @@ export default class VaporBoyOptions extends Component {
         let optionElement;
         if (option.type === "boolean") {
           optionElement = (
-            <li class="vaporboy-options__option">
-              <label
-                class="aesthetic-windows-95-checkbox"
-                data-tooltip={option.description}
-              >
+            <li class="vaporboy-options__option--bolean">
+              <label class="aesthetic-windows-95-checkbox">
                 {option.name}
                 <input
                   type="checkbox"
+                  checked={this.state.current[optionKey]}
                   onChange={event =>
                     this.updateOption(event, optionKey, option)
                   }
                 />
                 <span class="aesthetic-windows-95-checkmark" />
               </label>
+            </li>
+          );
+        } else if (option.type === "integer") {
+          optionElement = (
+            <li class="vaporboy-options__option--integer">
+              <div class="vaporboy-options__option--integer__name">
+                {option.name}
+              </div>
+              <input
+                class="aesthetic-windows-95-text-input"
+                type="number"
+                min={option.min}
+                max={option.max}
+                value={this.state.current[optionKey]}
+                onChange={event => this.updateOption(event, optionKey, option)}
+              />
             </li>
           );
         }

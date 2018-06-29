@@ -30,13 +30,18 @@ export const WASMBOY_OPTION_SECTIONS = {
     options: {
       useGbcWhenOptional: {
         name: "Use GBC When Optional",
-        description:
-          'Some ROMS have a flag in the cartridge header, indicating they can be played in a "GB" or "GBC" mode. This will play those ROMs in the "GBC" mode.',
+        descriptionElement: (
+          <div>
+            Some ROMS have a flag in the cartridge header, indicating they can
+            be played in a "GB" or "GBC" mode. This will play those ROMs in the
+            "GBC" mode.
+          </div>
+        ),
         type: "boolean"
       },
       isAudioEnabled: {
         name: "Enable Audio",
-        description: "Enable/Disable Audio Output",
+        descriptionElement: <div>Enable/Disable Audio Output</div>,
         type: "boolean"
       }
     }
@@ -49,7 +54,7 @@ export const WASMBOY_OPTION_SECTIONS = {
         options will vary performance on a wide range, at the sacrafice of
         emulation accuracy. Meaning these options can cause bugs and crashes
         within emulation. For a breakdown of general performance gains, please
-        see the current{" "}
+        see the current
         <a
           href="https://github.com/torch2424/wasmBoy/blob/master/test/performance/results.md"
           target="_blank"
@@ -61,60 +66,114 @@ export const WASMBOY_OPTION_SECTIONS = {
     options: {
       gameboyFPSCap: {
         name: "Maximum Framerate",
-        description:
-          'This will determine how many frames will be attempted to run per second. This can make the game run slower, or faster, and can be used a emulation speed option. For instance, setting the "Maximum Framerate" to 120, will make a game run twice as fast. Though, some devices will not be able to acheive this value, and will give varying results.',
+        descriptionElement: (
+          <div>
+            This will determine how many frames will be attempted to run per
+            second. This can make the game run slower, or faster, and can be
+            used a emulation speed option. For instance, setting the "Maximum
+            Framerate" to 120, will make a game run twice as fast. Though, some
+            devices will not be able to acheive this value, and will give
+            varying results.
+          </div>
+        ),
         type: "integer",
         min: 0,
         max: 400
       },
-      frameskip: {
+      frameSkip: {
         name: "Frame Skip",
-        description:
-          "This defined how many frames will be skipped in the output phase. For instance, the frame will still be run and renedered, but simply will not be output to the canvas element. This ",
+        descriptionElement: (
+          <div>
+            This defined how many frames will be skipped in the output phase.
+            For instance, the frame will still be run and renedered, but simply
+            will not be output to the canvas element.
+          </div>
+        ),
         type: "integer",
         min: 0,
         max: 60
       },
       audioBatchProcessing: {
         name: "Audio Batch Processing",
-        description:
-          "This will avoid updating the audio channels until they need to be for an event, out for requested output.",
+        descriptionElement: (
+          <div>
+            This will avoid updating the audio channels until they need to be
+            for an event, out for requested output.
+          </div>
+        ),
         type: "boolean"
       },
       timersBatchProcessing: {
         name: "Timers Batch Processing",
-        description:
-          "This will avoid updating timers until they need to be updated. Then, timers will all be updated to their respecitve state to fufill the requirment.",
+        descriptionElement: (
+          <div>
+            This will avoid updating timers until they need to be updated. Then,
+            timers will all be updated to their respecitve state to fufill the
+            requirment.
+          </div>
+        ),
         type: "boolean"
       },
       audioAccumulateSamples: {
         name: "Accumulate Audio Samples",
-        description:
-          "This will assume the same audio is being output when there is no changes to any of the Audio channels on the Gameboy. Therefore, the audio samples will not be output until they change, and will simply output the same samples for as long as they have been the same.",
+        descriptionElement: (
+          <div>
+            This will assume the same audio is being output when there is no
+            changes to any of the Audio channels on the Gameboy. Therefore, the
+            audio samples will not be output until they change, and will simply
+            output the same samples for as long as they have been the same.
+          </div>
+        ),
         type: "boolean"
       },
       graphicsBatchProcessing: {
         name: "Graphics Batch Processing",
-        description:
-          "This will avoid updating graphics until they need to be updated. Then, graphics will be update. This does not respect scanline rendering currently, and can lead to major graphical bugs in many games.",
+        descriptionElement: (
+          <div>
+            This will avoid updating graphics until they need to be updated.
+            Then, graphics will be update. This does not respect scanline
+            rendering currently, and can lead to major graphical bugs in many
+            games.
+          </div>
+        ),
         type: "boolean"
       },
       graphicsDisableScanlineRendering: {
         name: "Disable Scanline Rendering",
-        description:
-          "The gameboy draws graphics, one scanline at a time (horizontally), from top to bottom. This will simply calculate the frame at the final scanline. But this will break most scrolling in games.",
+        descriptionElement: (
+          <div>
+            The gameboy draws graphics, one scanline at a time (horizontally),
+            from top to bottom. This will simply calculate the frame at the
+            final scanline. But this will break most scrolling in games.
+          </div>
+        ),
         type: "boolean"
       },
       tileRendering: {
         name: "Tile Rendering",
-        description:
-          "The Gameboy is display is made up of tiles. All graphics must be encoded in 8x8 tile and then drawn to a screen. When we draw scanlines, we will simply draw all 8 pixels and assume the tile will not shift horizontally when drawn (though this is possible to happen)",
+        descriptionElement: (
+          <div>
+            The Gameboy is display is made up of tiles. All graphics must be
+            encoded in 8x8 tile and then drawn to a screen. When we draw
+            scanlines, we will simply draw all 8 pixels and assume the tile will
+            not shift horizontally when drawn (though this is possible to
+            happen.
+          </div>
+        ),
         type: "boolean"
       },
       tileCaching: {
         name: "Tile Caching",
-        description:
-          "The Gameboy is display is made up of tiles. All graphics must be encoded in 8x8 tile and then drawn to a screen. Whenever we draw a line of a tile during the rendering of the scanline, we will cache that line of the tile. If the next tile is the same tile, we will simply copy over those 8 pixels, rather than recompute them for the tile.",
+        descriptionElement: (
+          <div>
+            The Gameboy is display is made up of tiles. All graphics must be
+            encoded in 8x8 tile and then drawn to a screen. Whenever we draw a
+            line of a tile during the rendering of the scanline, we will cache
+            that line of the tile. If the next tile is the same tile, we will
+            simply copy over those 8 pixels, rather than recompute them for the
+            tile.
+          </div>
+        ),
         type: "boolean"
       }
     }
