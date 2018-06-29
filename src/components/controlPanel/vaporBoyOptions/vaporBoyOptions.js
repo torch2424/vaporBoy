@@ -119,6 +119,8 @@ export default class VaporBoyOptions extends Component {
     return (
       <div class="vaporboy-options">
         <ul>{optionsSections}</ul>
+        <button>Apply</button>
+        <button>Reset to default options</button>
       </div>
     );
   }
