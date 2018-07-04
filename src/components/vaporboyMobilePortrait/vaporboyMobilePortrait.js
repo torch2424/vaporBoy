@@ -3,7 +3,6 @@ import { Component } from "preact";
 
 // Our Components
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
-import Touchpad from "../touchpad/touchpad";
 
 export default class VaporBoyMobilePortrait extends Component {
   render() {
@@ -68,8 +67,6 @@ export default class VaporBoyMobilePortrait extends Component {
             <div class="speaker">{speakerCircles}</div>
           </div>
         </div>
-
-        <Touchpad />
       </div>
     );
   }

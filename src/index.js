@@ -1,24 +1,47 @@
 // Our root component
 import "./index.scss";
 import { Component } from "preact";
+
+import { Pubx } from "./services/pubx";
+import { PUBX_CONFIG } from "./pubx.config";
 import { WasmBoy } from "wasmboy";
 import device from "current-device";
-
-import { CONTROL_PANEL_VIEWS } from "./components/controlPanel/controlPanelViews";
 
 import VaporBoyDesktop from "./components/vaporboyDesktop/vaporboyDesktop";
 import VaporBoyMobileLandscape from "./components/vaporboyMobileLandscape/vaporboyMobileLandscape";
 import VaporBoyMobilePortrait from "./components/vaporboyMobilePortrait/vaporboyMobilePortrait";
 import VaporBoyExpanded from "./components/vaporboyExpanded/vaporboyExpanded";
 import ControlPanel from "./components/controlPanel/controlPanel";
+import Touchpad from "./components/touchpad/touchpad";
 
 export default class App extends Component {
   constructor() {
     super();
+
+    // Define our index state
+    const pubxLayoutState = {
+      expanded: false
+    };
+
+    // Send to pubx
+    Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, pubxLayoutState);
+
+    // Subscribe to changes
+    const pubxLayoutSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.LAYOUT_KEY,
+      newState => {
+        // You can spread and overwrite variables, while preserving ones,
+        // as long is in cascading order.
+        this.setState({
+          ...this.state,
+          ...newState
+        });
+      }
+    );
+
     this.setState({
-      expanded: false,
-      baseComponent: undefined,
-      showControlPanel: false
+      ...pubxLayoutState,
+      pubxLayoutSubscriberKey
     });
 
     // Add our listener for orientation changes
@@ -27,45 +50,6 @@ export default class App extends Component {
       this.setState({
         ...this.state
       });
-    });
-  }
-
-  toggleExpand() {
-    this.setState({
-      ...this.state,
-      expanded: !this.state.expanded
-    });
-  }
-
-  showControlPanel() {
-    this.setState({
-      ...this.state,
-      showControlPanel: true,
-      baseComponent: undefined
-    });
-  }
-
-  showROMSourceSelector() {
-    this.setState({
-      ...this.state,
-      showControlPanel: true,
-      baseComponent: CONTROL_PANEL_VIEWS.ROM_SOURCE_SELECTOR
-    });
-  }
-
-  showSaveStates() {
-    this.setState({
-      ...this.state,
-      showControlPanel: true,
-      baseComponent: undefined // TODO: Save State Component
-    });
-  }
-
-  hideControlPanel() {
-    this.setState({
-      ...this.state,
-      showControlPanel: false,
-      baseComponent: undefined
     });
   }
 
@@ -78,31 +62,10 @@ export default class App extends Component {
 
   render() {
     // Define our layouts
-    let vaporboyDesktopLayout = (
-      <VaporBoyDesktop
-        toggleExpand={() => this.toggleExpand()}
-        showControlPanel={() => this.showControlPanel()}
-        showROMSourceSelector={() => this.showROMSourceSelector()}
-      />
-    );
-    let vaporboyMobileLandscapeLayout = (
-      <VaporBoyMobileLandscape
-        toggleExpand={() => this.toggleExpand()}
-        showControlPanel={() => this.showControlPanel()}
-      />
-    );
-    let vaporboyMobilePortraitLayout = (
-      <VaporBoyMobilePortrait
-        toggleExpand={() => this.toggleExpand()}
-        showControlPanel={() => this.showControlPanel()}
-      />
-    );
-    let vaporboyExpandedLayout = (
-      <VaporBoyExpanded
-        toggleExpand={() => this.toggleExpand()}
-        showControlPanel={() => this.showControlPanel()}
-      />
-    );
+    let vaporboyDesktopLayout = <VaporBoyDesktop />;
+    let vaporboyMobileLandscapeLayout = <VaporBoyMobileLandscape />;
+    let vaporboyMobilePortraitLayout = <VaporBoyMobilePortrait />;
+    let vaporboyExpandedLayout = <VaporBoyExpanded />;
 
     // Get our current layout
     let currentLayout = vaporboyDesktopLayout;
@@ -120,14 +83,9 @@ export default class App extends Component {
 
     return (
       <div>
-        <ControlPanel
-          show={this.state.showControlPanel}
-          hide={() => {
-            this.hideControlPanel();
-          }}
-          baseComponent={this.state.baseComponent}
-        />
+        <ControlPanel />
         {currentLayout}
+        <Touchpad />
       </div>
     );
   }

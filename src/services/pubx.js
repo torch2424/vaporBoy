@@ -11,7 +11,7 @@
   subscribers: Json object keyed by random subscriber Ids, that are equal to the callbacks assigned to them
 */
 
-class PubXService {
+class PubxService {
   constructor() {
     // Initialize state to nothing
     this.state = {};
@@ -74,6 +74,7 @@ class PubXService {
     delete this.state[stateKey].subscribers[subscriberId];
   }
 
+  // Function top update a state value. State value is spread so only have to pass the values you want to change
   publish(stateKey, stateValue) {
     // Check if the stateKey exists
     if (!this.state[stateKey]) {
@@ -81,7 +82,10 @@ class PubXService {
     }
 
     // Set the value
-    this.state[stateKey].value = stateValue;
+    this.state[stateKey].value = {
+      ...this.state[stateKey].value,
+      ...stateValue
+    };
 
     // Call our subscribers
     Object.keys(this.state[stateKey].subscribers).forEach(subscriberKey => {
@@ -91,4 +95,4 @@ class PubXService {
 }
 
 // Return a singleton
-export const PubX = new PubXService();
+export const Pubx = new PubxService();

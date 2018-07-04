@@ -1,5 +1,9 @@
 // Desktop Layout for vaporboy
 import { Component } from "preact";
+
+import { Pubx } from "../../services/pubx";
+import { PUBX_CONFIG } from "../../pubx.config";
+
 import ExpandButton from "./expandButton/expandButton";
 import ControlPanelButton from "./controlPanelButton/controlPanelButton";
 import GameboyButton from "./gameboyButton/gameboyButton";
@@ -13,17 +17,30 @@ export default class Touchpad extends Component {
 
   componentDidMount() {}
 
+  toggleExpand() {
+    const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
+    Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
+      expanded: !pubxLayoutState.expanded
+    });
+  }
+
+  showControlPanel() {
+    Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
+      show: true
+    });
+  }
+
   render() {
     return (
       <div class="vaporboy-touchpad">
         <div className="vaporboy-touchpad__button-layout">
           {/* VaporBoy specific buttons */}
           <div class="vaporboy-touchpad__button-layout__expand">
-            <ExpandButton onClick={() => this.props.toggleExpand()} />
+            <ExpandButton onClick={() => this.toggleExpand()} />
           </div>
 
           <div class="vaporboy-touchpad__button-layout__control-panel">
-            <ControlPanelButton onClick={() => this.props.showControlPanel()} />
+            <ControlPanelButton onClick={() => this.showControlPanel()} />
           </div>
 
           {/* Gameboy Buttons */}

@@ -3,7 +3,6 @@ import { Component } from "preact";
 
 // Our Components
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
-import Touchpad from "../touchpad/touchpad";
 
 export default class VaporBoyMobileLandscape extends Component {
   render() {
@@ -33,8 +32,6 @@ export default class VaporBoyMobileLandscape extends Component {
             </div>
           </div>
         </div>
-
-        <Touchpad />
       </div>
     );
   }

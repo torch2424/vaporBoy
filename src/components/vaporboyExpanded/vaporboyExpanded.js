@@ -3,7 +3,6 @@ import { Component } from "preact";
 
 // Our Components
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
-import Touchpad from "../touchpad/touchpad";
 
 // 3P libs
 import * as screenfull from "screenfull";
@@ -17,14 +16,12 @@ export default class VaporBoyExpanded extends Component {
       });
     }
 
-    // Set HTML/Body BG color
-    document.documentElement.classList.add("vaporboy-expanded-bg");
-    document.body.classList.add("vaporboy-expanded-bg");
+    // Set the expanded class
+    document.documentElement.classList.add("expanded");
   }
 
   componentWillUnmount() {
-    document.documentElement.classList.remove("vaporboy-expanded-bg");
-    document.body.classList.remove("vaporboy-expanded-bg");
+    document.documentElement.classList.remove("expanded");
   }
 
   render() {
@@ -33,8 +30,6 @@ export default class VaporBoyExpanded extends Component {
         <div className="wasmboy-canvas-container">
           <WasmBoyCanvas />
         </div>
-
-        <Touchpad />
       </div>
     );
   }

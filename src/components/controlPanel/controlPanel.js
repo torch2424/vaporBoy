@@ -1,6 +1,9 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { Pubx } from "../../services/pubx";
+import { PUBX_CONFIG } from "../../pubx.config";
+
 import {
   CONTROL_PANEL_VIEWS,
   getControlPanelSelectView,
@@ -16,29 +19,50 @@ import { ROMCollection } from "../../services/ROMCollection";
 export default class ControlPanel extends Component {
   constructor() {
     super();
-    this.setState({
+
+    // Define our control panel pubx state
+    const pubxControlPanelState = {
+      show: false,
+      rootView: false,
       viewStack: [],
-      collection: undefined,
-      saveStates: undefined
+      hide: () => {
+        Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
+          rootView: false,
+          viewStack: []
+        });
+      }
+    };
+
+    // Send to pubx
+    Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, pubxControlPanelState);
+
+    // Subscribe to changes
+    const pubxSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.CONTROL_PANEL_KEY,
+      newState => {
+        // You can spread and overwrite variables, while preserving ones,
+        // as long is in cascading order.
+        this.setState({
+          ...this.state,
+          ...newState
+        });
+      }
+    );
+
+    this.setState({
+      ...pubxControlPanelState,
+      pubxSubscriberKey
     });
-  }
 
-  componentDidMount() {
+    // Finally update our collection, for save states and the rom collection
     this.updateCollection();
-  }
-
-  componentWillReceiveProps(newProps) {
-    if (newProps.show) {
-      this.updateCollection();
-    }
   }
 
   updateCollection() {
     // Get the current ROM Collection
     const getCollectionTask = async () => {
       const collection = await ROMCollection.getCollection();
-      this.setState({
-        ...this.state,
+      Pubx.publish(PUBX_CONFIG.ROM_COLLECTION_KEY, {
         collection
       });
     };
@@ -51,8 +75,7 @@ export default class ControlPanel extends Component {
 
       WasmBoy.getSaveStates()
         .then(saveStates => {
-          this.setState({
-            ...this.state,
+          Pubx.publish(PUBX_CONFIG.SAVES_STATES_KEY, {
             saveStates
           });
         })
@@ -66,73 +89,8 @@ export default class ControlPanel extends Component {
     getSaveStatesTask();
   }
 
-  hide() {
-    this.setState({
-      ...this.state,
-      viewStack: []
-    });
-    this.props.hide();
-  }
-
-  getControlPanelBaseComponent() {
-    if (this.props.baseComponent) {
-      if (
-        this.props.baseComponent === CONTROL_PANEL_VIEWS.CONTROL_PANEL_SELECT
-      ) {
-        return getControlPanelSelectView(this);
-      } else if (
-        this.props.baseComponent === CONTROL_PANEL_VIEWS.ROM_SOURCE_SELECTOR
-      ) {
-        return getROMSourceSelectorView(this);
-      } else if (
-        this.props.baseComponent === CONTROL_PANEL_VIEWS.MY_COLLECTION
-      ) {
-        return getMyCollectionView(this);
-      } else if (this.props.baseComponent === CONTROL_PANEL_VIEWS.HOMEBREW) {
-        return getHomebrewView(this);
-      }
-    }
-
-    return getControlPanelSelectView(this);
-  }
-
   goToPreviousView() {
     this.state.viewStack.pop();
-    this.setState({
-      ...this.state
-    });
-  }
-
-  viewROMSourceSelector() {
-    this.state.viewStack.push(getROMSourceSelectorView(this));
-    this.setState({
-      ...this.state
-    });
-  }
-
-  viewMyCollection() {
-    this.state.viewStack.push(getMyCollectionView(this));
-    this.setState({
-      ...this.state
-    });
-  }
-
-  viewHomebrew() {
-    this.state.viewStack.push(getHomebrewView(this));
-    this.setState({
-      ...this.state
-    });
-  }
-
-  viewLoadStateList() {
-    this.state.viewStack.push(getLoadStateListView(this));
-    this.setState({
-      ...this.state
-    });
-  }
-
-  viewOptions() {
-    this.state.viewStack.push(getOptionsView(this));
     this.setState({
       ...this.state
     });
