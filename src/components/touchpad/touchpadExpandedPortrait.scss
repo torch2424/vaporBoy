@@ -1,0 +1,100 @@
+// encapsulate in our classes / media queries
+.mobile.expanded.landscape {
+  .vaporboy-touchpad {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 2;
+
+    &__button-layout {
+      position: relative;
+      top: 0px;
+      left: 0px;
+
+      width: 100vw;
+      height: 100vh;
+
+      &__expand {
+        position: absolute;
+        z-index: 1;
+        bottom: 0px;
+        left: 0px;
+
+        width: 8vmax;
+
+        button {
+          background-color: $aesthetic-50-transparent;
+          border: none;
+        }
+      }
+
+      &__control-panel {
+        position: absolute;
+        z-index: 1;
+        bottom: 0px;
+        right: 0px;
+
+        width: 8vmax;
+
+        button {
+          background-color: $aesthetic-50-transparent;
+          border: none;
+        }
+      }
+
+      &__b-button {
+        width: 19vw;
+        height: 19vw;
+
+        position: absolute;
+        z-index: 1;
+        bottom: 30.5%;
+        right: 24%;
+      }
+
+      &__a-button {
+        width: 19vw;
+        height: 19vw;
+
+        position: absolute;
+        z-index: 1;
+        bottom: 39.5%;
+        right: 3%;
+      }
+
+      &__dpad {
+        width: 32vw;
+        height: 32vw;
+
+        position: absolute;
+        z-index: 1;
+        bottom: 30.5%;
+        left: 7%;
+      }
+
+      &__start-button {
+        width: 18.5vw;
+        height: 18.5vw;
+
+        position: absolute;
+        z-index: 1;
+        left: 52.5%;
+        bottom: 14%;
+      }
+
+      &__select-button {
+        width: 18.5vw;
+        height: 18.5vw;
+
+        position: absolute;
+        z-index: 1;
+        left: 26.5%;
+        bottom: 14%;
+      }
+    }
+  }
+}

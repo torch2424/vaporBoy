@@ -1,0 +1,26 @@
+// Import our component styles
+@import "expandButton/expandButton";
+@import "controlPanelButton/controlPanelButton";
+@import "gameboyButton/gameboyButton";
+@import "gameboyDpad/gameboyDpad";
+
+// Import our layouts
+@import "touchpadMobilePortrait";
+@import "touchpadMobileLandscape";
+@import "touchpadExpandedLandscape";
+@import "touchpadExpandedPortrait";
+
+// Hide Virtual gamepad on desktop
+.desktop {
+  .vaporboy-touchpad {
+    .vaporboy-touchpad__button-layout {
+      .vaporboy-touchpad__button-layout__b-button,
+      .vaporboy-touchpad__button-layout__a-button,
+      .vaporboy-touchpad__button-layout__dpad,
+      .vaporboy-touchpad__button-layout__start-button,
+      .vaporboy-touchpad__button-layout__select-button {
+        display: none;
+      }
+    }
+  }
+}

@@ -8,12 +8,12 @@
 @import "../node_modules/aesthetic-css/src/dropdowns";
 @import "../node_modules/aesthetic-css/src/effects/crt";
 
-// Our Styles
+// Our re-used styles
 @import "styles/tooltip";
 @import "styles/loader";
 @import "styles/power-light";
 
-// Component Styles
+// Top-level Component styles
 @import "components/vaporboyDesktop/vaporboyDesktop";
 @import "components/vaporboyMobileLandscape/vaporboyMobileLandscape";
 @import "components/vaporboyMobilePortrait/vaporboyMobilePortrait";
@@ -21,18 +21,7 @@
 @import "components/vaporboyExpanded/vaporboyExpanded";
 @import "components/wasmboyCanvas/wasmboyCanvas";
 @import "components/controlPanel/controlPanel";
-@import "components/controlPanel/ROMlist";
-@import "components/controlPanel/controlPanelSelect/controlPanelSelect";
-@import "components/controlPanel/ROMSourceSelector/ROMSourceSelector";
-@import "components/controlPanel/homebrew/homebrew";
-@import "components/controlPanel/myCollection/myCollection";
-@import "components/controlPanel/cartridge/cartridge";
-@import "components/controlPanel/loadStateList/loadStateList";
-@import "components/controlPanel/vaporBoyOptions/vaporBoyOptions";
-@import "components/touchpad/expandButton/expandButton";
-@import "components/touchpad/controlPanelButton/controlPanelButton";
-@import "components/touchpad/gameboyButton/gameboyButton";
-@import "components/touchpad/gameboyDpad/gameboyDpad";
+@import "components/touchpad/touchpad";
 
 html,
 body {

@@ -3,10 +3,7 @@ import { Component } from "preact";
 
 // Our Components
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
-import ExpandButton from "../touchpad/expandButton/expandButton";
-import ControlPanelButton from "../touchpad/controlPanelButton/controlPanelButton";
-import GameboyButton from "../touchpad/gameboyButton/gameboyButton";
-import GameboyDpad from "../touchpad/gameboyDpad/gameboyDpad";
+import Touchpad from "../touchpad/touchpad";
 
 export default class VaporBoyMobilePortrait extends Component {
   render() {
@@ -72,39 +69,7 @@ export default class VaporBoyMobilePortrait extends Component {
           </div>
         </div>
 
-        <div className="vaporboy-mobile-portrait__touchpad-overlay">
-          <div className="button-layout">
-            {/* VaporBoy specific buttons */}
-            <div class="vaporboy-mobile-portrait__touchpad-overlay__expand">
-              <ExpandButton onClick={() => this.props.toggleExpand()} />
-            </div>
-
-            <div class="vaporboy-mobile-portrait__touchpad-overlay__control-panel">
-              <ControlPanelButton
-                onClick={() => this.props.showControlPanel()}
-              />
-            </div>
-
-            {/* Gameboy Buttons */}
-            <div class="b-button">
-              <GameboyButton button={"B"} isGbc={true} />
-            </div>
-            <div class="a-button">
-              <GameboyButton button={"A"} isGbc={true} />
-            </div>
-            <div class="dpad">
-              <GameboyDpad isGbc={true} />
-            </div>
-
-            <div class="start-button">
-              <GameboyButton button={"start"} isGbc={true} />
-            </div>
-
-            <div class="select-button">
-              <GameboyButton button={"select"} isGbc={true} />
-            </div>
-          </div>
-        </div>
+        <Touchpad />
       </div>
     );
   }
