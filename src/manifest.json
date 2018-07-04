@@ -1,6 +1,6 @@
 {
-  "name": "vapor-boy",
-  "short_name": "vapor-boy",
+  "name": "Vapor Boy",
+  "short_name": "VaporBoy",
   "start_url": "/",
   "display": "standalone",
   "orientation": "landscape",
@@ -8,7 +8,7 @@
   "theme_color": "#673ab8",
   "icons": [
     {
-      "src": "/assets/vaporboyvhs.png",
+      "src": "/assets/icons/web_hi_res_512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

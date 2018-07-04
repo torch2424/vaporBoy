@@ -9,23 +9,40 @@ const GRADIENTS = {
   BUTTON_BACKGROUND_FILL: {
     ID: "ButtonBackgroundFill",
     GBA_STOP_COLORS: ["#cdd5e1", "#f2f5fd"],
-    GBC_STOP_COLORS: ["#494f54", "#212931"]
+    GBC_STOP_COLORS: ["#494f54", "#212931"],
+    EXPANDED_STOP_COLORS: [
+      "rgba(255, 255, 255, 0.5)",
+      "rgba(255, 255, 255, 0.5)"
+    ]
   },
   BUTTON_LETTER_FILL: {
     ID: "ButtonLetterFill",
     GBA_STOP_COLORS: ["#aeb4bb", "#f2f5fd"],
-    GBC_STOP_COLORS: ["#1d252c", "#212931"]
+    GBC_STOP_COLORS: ["#1d252c", "#212931"],
+    EXPANDED_STOP_COLORS: [
+      "rgba(150, 150, 150, 0.25)",
+      "rgba(150, 150, 150, 0.25)"
+    ]
   },
   BUTTON_LETTER_STROKE: {
     ID: "ButtonLetterStroke",
     GBA_STOP_COLORS: ["#aeb4bb", "#c2c8d6", "#f2f5fd"],
-    GBC_STOP_COLORS: ["#1d252c", "#494f54", "#212931"]
+    GBC_STOP_COLORS: ["#1d252c", "#494f54", "#212931"],
+    EXPANDED_STOP_COLORS: [
+      "rgba(200, 200, 200, 0.25)",
+      "rgba(200, 200, 200, 0.25)",
+      "rgba(200, 200, 200, 0.25)"
+    ]
   }
 };
 
-const getStopColor = (gradientObject, stopColorIndex, isGbc) => {
+const getStopColor = (gradientObject, stopColorIndex, isGbc, isExpanded) => {
   if (isGbc) {
     return gradientObject.GBC_STOP_COLORS[stopColorIndex];
+  }
+
+  if (isExpanded) {
+    return gradientObject.EXPANDED_STOP_COLORS[stopColorIndex];
   }
 
   return gradientObject.GBA_STOP_COLORS[stopColorIndex];
@@ -77,8 +94,10 @@ export default class GameboyButton extends Component {
   }
 
   render() {
-    // Get if we are in gbc mode
+    // Get if we are in specified modes
+    const isGba = !!this.props.isGba;
     const isGbc = !!this.props.isGbc;
+    const isExpanded = !!this.props.isExpanded;
 
     // get our classes
     const classes = ["gameboy-button"];
@@ -98,17 +117,39 @@ export default class GameboyButton extends Component {
     // Find if we have External Text
     let externalText = "";
     if (this.props.button === "start" || this.props.button === "select") {
+      let externalTextClass = "gameboy-button__external-text";
+      if (isGbc) {
+        externalTextClass += " gameboy-button__external-text--gbc";
+      }
+      if (isGba) {
+        externalTextClass += " gameboy-button__external-text--gba";
+      }
+      if (isExpanded) {
+        externalTextClass += " gameboy-button__external-text--expanded";
+      }
       externalText = (
-        <div
-          class={
-            isGbc
-              ? "gameboy-button__external-text--gbc"
-              : "gameboy-button__external-text--gba"
-          }
-        >
-          {this.props.button.toUpperCase()}
-        </div>
+        <div class={externalTextClass}>{this.props.button.toUpperCase()}</div>
       );
+    }
+
+    // Get our button shape for start/select
+    const buttonSize = {
+      yPosition: "0",
+      yRadius: "50%",
+      height: 100
+    };
+    if (this.props.button === "start" || this.props.button === "select") {
+      if (isGbc) {
+        buttonSize.yPosition = "50";
+        buttonSize.height = "50";
+      }
+      if (isGba) {
+        // Stay default
+      }
+      if (isExpanded) {
+        buttonSize.yPosition = "50";
+        buttonSize.height = "50";
+      }
     }
 
     return (
@@ -132,7 +173,8 @@ export default class GameboyButton extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_BACKGROUND_FILL,
                   0,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
               <stop
@@ -140,7 +182,8 @@ export default class GameboyButton extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_BACKGROUND_FILL,
                   1,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
             </radialGradient>
@@ -158,7 +201,8 @@ export default class GameboyButton extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_LETTER_FILL,
                   0,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
               <stop
@@ -166,7 +210,8 @@ export default class GameboyButton extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_LETTER_FILL,
                   0,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
             </radialGradient>
@@ -184,7 +229,8 @@ export default class GameboyButton extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_LETTER_STROKE,
                   0,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
               <stop
@@ -192,7 +238,8 @@ export default class GameboyButton extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_LETTER_STROKE,
                   1,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
               <stop
@@ -200,17 +247,20 @@ export default class GameboyButton extends Component {
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_LETTER_STROKE,
                   2,
-                  isGbc
+                  isGbc,
+                  isExpanded
                 )}
               />
             </radialGradient>
           </defs>
 
-          <ellipse
-            cx="50"
-            cy="50"
-            rx="49"
-            ry={isGbcStartButton ? "24" : "49"}
+          <rect
+            x="0"
+            y={buttonSize.yPosition}
+            width="100"
+            height={buttonSize.height}
+            rx="50%"
+            ry={buttonSize.yRadius}
             fill={`url(#${GRADIENTS.BUTTON_BACKGROUND_FILL.ID})`}
           />
           <text

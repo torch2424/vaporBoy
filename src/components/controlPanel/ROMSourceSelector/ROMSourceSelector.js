@@ -23,8 +23,8 @@ export default class ROMSourceSelector extends Component {
     const loadFileTask = async () => {
       await WasmBoy.pause();
       await WasmBoy.loadROM(event.target.files[0]);
-      console.log("Wasmboy Ready!");
       await WasmBoy.play();
+      this.props.hide();
       await ROMCollection.saveCurrentWasmBoyROMToCollection();
       if (this.props.updateCollection) {
         this.props.updateCollection();

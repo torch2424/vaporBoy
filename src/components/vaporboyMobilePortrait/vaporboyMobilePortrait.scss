@@ -126,19 +126,19 @@
 
       .speaker {
         position: absolute;
-        right: 5%;
-        bottom: 5%;
+        right: 3vw;
+        bottom: 3vw;
 
         // CSS grids. WOO!
         // http://grid.malven.co/
         display: grid;
         grid-template-columns: repeat(8, 10px);
         grid-template-rows: repeat(8, 10px);
-        grid-gap: 1px 1px;
+        grid-gap: 0.1vw 0.1vw;
 
         div {
-          width: 10px;
-          height: 10px;
+          width: 2.5vw;
+          height: 2.5vw;
           border-radius: 5px;
           background-color: black;
 
@@ -234,53 +234,53 @@
       }
 
       .b-button {
-        width: 13vw;
-        height: 13vw;
+        width: 19vw;
+        height: 19vw;
 
         position: absolute;
         z-index: 1;
-        bottom: 35.5%;
-        right: 25%;
+        bottom: 30.5%;
+        right: 24%;
       }
 
       .a-button {
-        width: 13vw;
-        height: 13vw;
+        width: 19vw;
+        height: 19vw;
 
         position: absolute;
         z-index: 1;
-        bottom: 40.5%;
-        right: 5%;
+        bottom: 39.5%;
+        right: 3%;
       }
 
       .dpad {
-        width: 25vw;
-        height: 25vw;
+        width: 32vw;
+        height: 32vw;
 
         position: absolute;
         z-index: 1;
-        bottom: 32.5%;
+        bottom: 30.5%;
         left: 7%;
       }
 
       .start-button {
-        width: 11.5vw;
-        height: 11.5vw;
+        width: 18.5vw;
+        height: 18.5vw;
 
         position: absolute;
         z-index: 1;
         left: 52.5%;
-        bottom: 15%;
+        bottom: 14%;
       }
 
       .select-button {
-        width: 11.5vw;
-        height: 11.5vw;
+        width: 18.5vw;
+        height: 18.5vw;
 
         position: absolute;
         z-index: 1;
-        left: 32.5%;
-        bottom: 15%;
+        left: 26.5%;
+        bottom: 14%;
       }
     }
   }
