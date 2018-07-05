@@ -1,20 +1,38 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { Pubx } from "../../../services/pubx";
+import { PUBX_CONFIG } from "../../../pubx.config";
+
+import ROMSourceSelector from "../ROMSourceSelector/ROMSourceSelector";
+import LoadStateList from "../loadStateList/loadStateList";
+import VaporBoyOptions from "../vaporBoyOptions/vaporBoyOptions";
+
 export default class ControlPanelSelect extends Component {
   constructor() {
     super();
     this.setState({});
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    // Get our pubx states
+    const pubxCollectionState = Pubx.get(PUBX_CONFIG.ROM_COLLECTION_KEY);
+    const pubxSaveStatesState = Pubx.get(PUBX_CONFIG.SAVES_STATES_KEY);
+    const pubxControlPanelState = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY);
+
+    this.setState({
+      ...pubxCollectionState,
+      ...pubxSaveStatesState,
+      ...pubxControlPanelState
+    });
+  }
 
   shouldDisableLoadStates() {
     if (!WasmBoy.isReady()) {
       return true;
     }
 
-    if (!this.props.saveStates) {
+    if (!this.state.saveStates) {
       return true;
     }
 
@@ -27,7 +45,7 @@ export default class ControlPanelSelect extends Component {
         WasmBoy.play()
           .then(() => {
             // TODO:
-            this.props.hide();
+            this.state.hide();
           })
           .catch(() => {
             // TODO:
@@ -38,12 +56,24 @@ export default class ControlPanelSelect extends Component {
       });
   }
 
+  viewROMSourceSelector() {
+    this.state.addComponentToViewStack("ROM Source", <ROMSourceSelector />);
+  }
+
+  viewLoadStateList() {
+    this.state.addComponentToViewStack("Load State", <LoadStateList />);
+  }
+
+  viewOptions() {
+    this.state.addComponentToViewStack("Options", <VaporBoyOptions />);
+  }
+
   render() {
     return (
       <div class="control-panel-select">
         <ul class="control-panel-select__grid">
           <li class="control-panel-select__grid__item">
-            <button onclick={() => this.props.viewROMSourceSelector()}>
+            <button onclick={() => this.viewROMSourceSelector()}>
               <div>🎮</div>
               <div>Select a ROM</div>
             </button>
@@ -59,7 +89,7 @@ export default class ControlPanelSelect extends Component {
           </li>
           <li class="control-panel-select__grid__item">
             <button
-              onclick={() => this.props.viewLoadStateList()}
+              onclick={() => this.viewLoadStateList()}
               disabled={this.shouldDisableLoadStates()}
             >
               <div>📂</div>
@@ -67,7 +97,7 @@ export default class ControlPanelSelect extends Component {
             </button>
           </li>
           <li class="control-panel-select__grid__item">
-            <button onclick={() => this.props.viewOptions()}>
+            <button onclick={() => this.viewOptions()}>
               <div>⚙️</div>
               <div>Configure Options</div>
             </button>

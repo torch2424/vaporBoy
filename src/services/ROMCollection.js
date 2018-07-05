@@ -2,6 +2,9 @@
 import { WasmBoy } from "wasmboy";
 import { idbKeyval } from "./idb";
 
+import { Pubx } from "./pubx";
+import { PUBX_CONFIG } from "../pubx.config";
+
 // Our key for our vaporboy collection
 const IDB_COLLECTION_KEY = "vaporboy_collection";
 
@@ -32,6 +35,37 @@ class ROMCollectionService {
     };
 
     return getCollectionTask();
+  }
+
+  updateCollection() {
+    // Get the current ROM Collection
+    const getCollectionTask = async () => {
+      const collection = await this.getCollection();
+      Pubx.publish(PUBX_CONFIG.ROM_COLLECTION_KEY, {
+        collection
+      });
+    };
+
+    // Get the current rom save states
+    const getSaveStatesTask = async () => {
+      if (!WasmBoy.isReady()) {
+        return;
+      }
+
+      WasmBoy.getSaveStates()
+        .then(saveStates => {
+          Pubx.publish(PUBX_CONFIG.SAVES_STATES_KEY, {
+            saveStates
+          });
+        })
+        .catch(() => {
+          // TODO:
+        });
+    };
+
+    // Kick off our tasks
+    getCollectionTask();
+    getSaveStatesTask();
   }
 
   saveCurrentWasmBoyROMToCollection() {

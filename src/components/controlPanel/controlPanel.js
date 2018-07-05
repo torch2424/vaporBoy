@@ -4,17 +4,8 @@ import { WasmBoy } from "wasmboy";
 import { Pubx } from "../../services/pubx";
 import { PUBX_CONFIG } from "../../pubx.config";
 
-import {
-  CONTROL_PANEL_VIEWS,
-  getControlPanelSelectView,
-  getROMSourceSelectorView,
-  getMyCollectionView,
-  getHomebrewView,
-  getLoadStateListView,
-  getOptionsView
-} from "./controlPanelViews";
-
 import { ROMCollection } from "../../services/ROMCollection";
+import ControlPanelSelect from "./controlPanelSelect/controlPanelSelect";
 
 export default class ControlPanel extends Component {
   constructor() {
@@ -25,6 +16,18 @@ export default class ControlPanel extends Component {
       show: false,
       rootView: false,
       viewStack: [],
+      addComponentToViewStack: (title, component) => {
+        const viewStack = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY).viewStack;
+
+        viewStack.push({
+          title,
+          view: component
+        });
+
+        Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
+          viewStack
+        });
+      },
       hide: () => {
         Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
           rootView: false,
@@ -40,6 +43,12 @@ export default class ControlPanel extends Component {
     const pubxSubscriberKey = Pubx.subscribe(
       PUBX_CONFIG.CONTROL_PANEL_KEY,
       newState => {
+        // Check if we are being shown/hidden
+        if (newState.show && newState.show !== this.state.show) {
+          // Finally update our collection, for save states and the rom collection
+          ROMCollection.updateCollection();
+        }
+
         // You can spread and overwrite variables, while preserving ones,
         // as long is in cascading order.
         this.setState({
@@ -55,38 +64,7 @@ export default class ControlPanel extends Component {
     });
 
     // Finally update our collection, for save states and the rom collection
-    this.updateCollection();
-  }
-
-  updateCollection() {
-    // Get the current ROM Collection
-    const getCollectionTask = async () => {
-      const collection = await ROMCollection.getCollection();
-      Pubx.publish(PUBX_CONFIG.ROM_COLLECTION_KEY, {
-        collection
-      });
-    };
-
-    // Get the current rom save states
-    const getSaveStatesTask = async () => {
-      if (!WasmBoy.isReady()) {
-        return;
-      }
-
-      WasmBoy.getSaveStates()
-        .then(saveStates => {
-          Pubx.publish(PUBX_CONFIG.SAVES_STATES_KEY, {
-            saveStates
-          });
-        })
-        .catch(() => {
-          // TODO:
-        });
-    };
-
-    // Kick off our tasks
-    getCollectionTask();
-    getSaveStatesTask();
+    ROMCollection.updateCollection();
   }
 
   goToPreviousView() {
@@ -98,9 +76,8 @@ export default class ControlPanel extends Component {
 
   render() {
     // Next, check if we do have a base component view in the props
-    const baseComponent = this.getControlPanelBaseComponent();
-    let currentView = baseComponent.view;
-    let currentTitle = baseComponent.title;
+    let currentView = <ControlPanelSelect />;
+    let currentTitle = "Control Panel";
 
     // Lastly, set the current view to the last item on the view stack
     if (this.state.viewStack.length > 0) {
@@ -111,16 +88,10 @@ export default class ControlPanel extends Component {
       currentTitle += ` - ${view.title}`;
     });
 
-    // Show a loader while we perform async tasks
-    let renderedView = <div class="donut" />;
-    if (this.state.collection) {
-      renderedView = currentView;
-    }
-
     return (
       <div
         className={
-          this.props.show
+          this.state.show
             ? "control-panel control-panel--show"
             : "control-panel"
         }
@@ -134,7 +105,7 @@ export default class ControlPanel extends Component {
 
               <div class="aesthetic-windows-95-modal-title-bar-controls">
                 <div class="aesthetic-windows-95-button-title-bar">
-                  <button onclick={() => this.hide()}>X</button>
+                  <button onclick={() => this.state.hide()}>X</button>
                 </div>
               </div>
             </div>
@@ -153,7 +124,7 @@ export default class ControlPanel extends Component {
 
               <hr />
 
-              <div class="control-panel__modal__view">{renderedView}</div>
+              <div class="control-panel__modal__view">{currentView}</div>
             </div>
           </div>
         </div>
