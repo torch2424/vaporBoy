@@ -16,8 +16,12 @@ export default class LoadStateList extends Component {
     const pubxControlPanelState = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY);
 
     this.setState({
-      ...pubxSaveStatesState,
-      ...pubxControlPanelState
+      saveStates: {
+        ...pubxSaveStatesState
+      },
+      controlPanel: {
+        ...pubxControlPanelState
+      }
     });
   }
 
@@ -27,7 +31,7 @@ export default class LoadStateList extends Component {
         WasmBoy.play()
           .then(() => {
             // TODO:
-            this.state.hideControlPanel();
+            this.state.controlPanel.hideControlPanel();
           })
           .catch(() => {
             // TODO:
@@ -40,9 +44,9 @@ export default class LoadStateList extends Component {
 
   render() {
     const saveStates = [];
-    if (this.state.saveStates) {
+    if (this.state.saveStates && this.state.saveStates.saveStates) {
       // Sort our save states by newest
-      this.state.saveStates.sort((a, b) => {
+      this.state.saveStates.saveStates.sort((a, b) => {
         if (a.date > b.date) {
           return -1;
         }
@@ -55,7 +59,7 @@ export default class LoadStateList extends Component {
       });
 
       // Add them to our sae state DOM array
-      this.state.saveStates.forEach(saveState => {
+      this.state.saveStates.saveStates.forEach(saveState => {
         const saveStateDate = new Date(saveState.date);
         saveStates.push(
           <li>

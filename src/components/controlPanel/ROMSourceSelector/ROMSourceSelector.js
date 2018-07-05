@@ -23,16 +23,25 @@ export default class ROMSourceSelector extends Component {
     const pubxInfoModalState = Pubx.get(PUBX_CONFIG.INFO_MODAL_KEY);
 
     this.setState({
-      ...pubxCollectionState,
-      ...pubxControlPanelState,
-      ...pubxInfoModalState
+      collection: {
+        ...pubxCollectionState
+      },
+      controlPanel: {
+        ...pubxControlPanelState
+      },
+      infoModal: {
+        ...pubxInfoModalState
+      }
     });
 
     // Subscribe to our collection state
     Pubx.subscribe(PUBX_CONFIG.ROM_COLLECTION_KEY, newState => {
       this.setState({
         ...this.state,
-        ...newState
+        collection: {
+          ...this.state.colleciton,
+          ...newState
+        }
       });
     });
   }
@@ -46,7 +55,7 @@ export default class ROMSourceSelector extends Component {
       await WasmBoy.pause();
       await WasmBoy.loadROM(event.target.files[0]);
       await WasmBoy.play();
-      this.state.hideControlPanel();
+      this.state.controlPanel.hideControlPanel();
       await ROMCollection.saveCurrentWasmBoyROMToCollection();
       ROMCollection.updateCollection();
     };
@@ -55,18 +64,21 @@ export default class ROMSourceSelector extends Component {
   }
 
   viewMyCollection() {
-    this.state.addComponentToControlPanelViewStack(
+    this.state.controlPanel.addComponentToControlPanelViewStack(
       "My Collection",
       <MyCollection />
     );
   }
 
   viewHomebrew() {
-    this.state.addComponentToControlPanelViewStack("Homebrew", <Homebrew />);
+    this.state.controlPanel.addComponentToControlPanelViewStack(
+      "Homebrew",
+      <Homebrew />
+    );
   }
 
   uploadRomInfoModal() {
-    this.state.showInfoModal(
+    this.state.controlPanel.showInfoModal(
       "Help - Uploading Roms",
       'Uploaded ROMs will automatically be stored in "My Collection" for offline playing using IndexedDb.'
     );
@@ -75,8 +87,9 @@ export default class ROMSourceSelector extends Component {
   render() {
     // Number of roms in our collection
     let numberOfROMsInCollection = 0;
-    if (this.state.collection) {
-      numberOfROMsInCollection = Object.keys(this.state.collection).length;
+    if (this.state.collection && this.state.collection.collection) {
+      numberOfROMsInCollection = Object.keys(this.state.collection.collection)
+        .length;
     }
 
     // Number of Open Source Games

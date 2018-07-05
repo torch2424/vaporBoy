@@ -56,13 +56,18 @@ export default class ControlPanel extends Component {
         // as long is in cascading order.
         this.setState({
           ...this.state,
-          ...newState
+          controlPanel: {
+            ...this.state.controlPanel,
+            ...newState
+          }
         });
       }
     );
 
     this.setState({
-      ...pubxControlPanelState,
+      controlPanel: {
+        ...pubxControlPanelState
+      },
       pubxControlPanelSubscriberKey
     });
 
@@ -79,14 +84,16 @@ export default class ControlPanel extends Component {
   }
 
   goToPreviousView() {
-    this.state.viewStack.pop();
-    this.setState({
-      ...this.state
+    const viewStack = this.state.controlPanel.viewStack;
+    viewStack.pop();
+
+    Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
+      viewStack
     });
   }
 
   render() {
-    if (!this.state.show) {
+    if (!this.state.controlPanel || !this.state.controlPanel.show) {
       return <div />;
     }
 
@@ -94,12 +101,16 @@ export default class ControlPanel extends Component {
     let currentView = <ControlPanelSelect />;
     let currentTitle = "Control Panel";
 
+    console.log(this.state);
+
     // Lastly, set the current view to the last item on the view stack
-    if (this.state.viewStack.length > 0) {
-      currentView = this.state.viewStack[this.state.viewStack.length - 1].view;
+    if (this.state.controlPanel.viewStack.length > 0) {
+      currentView = this.state.controlPanel.viewStack[
+        this.state.controlPanel.viewStack.length - 1
+      ].view;
     }
 
-    this.state.viewStack.forEach(view => {
+    this.state.controlPanel.viewStack.forEach(view => {
       currentTitle += ` - ${view.title}`;
     });
 
@@ -114,7 +125,9 @@ export default class ControlPanel extends Component {
 
               <div class="aesthetic-windows-95-modal-title-bar-controls">
                 <div class="aesthetic-windows-95-button-title-bar">
-                  <button onclick={() => this.state.hideControlPanel()}>
+                  <button
+                    onclick={() => this.state.controlPanel.hideControlPanel()}
+                  >
                     X
                   </button>
                 </div>
@@ -125,7 +138,7 @@ export default class ControlPanel extends Component {
               <div class="control-panel__modal__controls">
                 <div class="aesthetic-windows-95-button">
                   <button
-                    disabled={this.state.viewStack.length <= 0}
+                    disabled={this.state.controlPanel.viewStack.length <= 0}
                     onclick={() => this.goToPreviousView()}
                   >
                     ⬅️

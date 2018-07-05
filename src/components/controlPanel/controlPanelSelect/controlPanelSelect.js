@@ -25,15 +25,24 @@ export default class ControlPanelSelect extends Component {
       newState => {
         this.setState({
           ...this.state,
-          ...newState
+          saveStates: {
+            ...this.state.saveStates,
+            ...newState
+          }
         });
       }
     );
 
     this.setState({
-      ...pubxCollectionState,
-      ...pubxSaveStatesState,
-      ...pubxControlPanelState,
+      collection: {
+        ...pubxCollectionState
+      },
+      saveStates: {
+        ...pubxSaveStatesState
+      },
+      controlPanel: {
+        ...pubxControlPanelState
+      },
       pubxSaveStatesSubscriberKey
     });
   }
@@ -51,7 +60,7 @@ export default class ControlPanelSelect extends Component {
       return true;
     }
 
-    if (!this.state.saveStates) {
+    if (!this.state.saveStates || !this.state.saveStates.saveStates) {
       return true;
     }
 
@@ -64,7 +73,7 @@ export default class ControlPanelSelect extends Component {
         WasmBoy.play()
           .then(() => {
             // TODO:
-            this.state.hideControlPanel();
+            this.state.controlPanel.hideControlPanel();
           })
           .catch(() => {
             // TODO:
@@ -76,21 +85,21 @@ export default class ControlPanelSelect extends Component {
   }
 
   viewROMSourceSelector() {
-    this.state.addComponentToControlPanelViewStack(
+    this.state.controlPanel.addComponentToControlPanelViewStack(
       "ROM Source",
       <ROMSourceSelector />
     );
   }
 
   viewLoadStateList() {
-    this.state.addComponentToControlPanelViewStack(
+    this.state.controlPanel.addComponentToControlPanelViewStack(
       "Load State",
       <LoadStateList />
     );
   }
 
   viewOptions() {
-    this.state.addComponentToControlPanelViewStack(
+    this.state.controlPanel.addComponentToControlPanelViewStack(
       "Options",
       <VaporBoyOptions />
     );

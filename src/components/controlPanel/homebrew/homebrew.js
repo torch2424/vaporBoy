@@ -19,7 +19,9 @@ export default class Homebrew extends Component {
     const pubxControlPanelState = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY);
 
     this.setState({
-      ...pubxControlPanelState
+      controlPanel: {
+        ...pubxControlPanelState
+      }
     });
   }
 
@@ -32,7 +34,7 @@ export default class Homebrew extends Component {
     };
 
     loadHomebrewTask();
-    this.state.hideControlPanel();
+    this.state.controlPanel.hideControlPanel();
   }
 
   render() {

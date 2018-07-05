@@ -35,13 +35,18 @@ export default class App extends Component {
         // as long is in cascading order.
         this.setState({
           ...this.state,
-          ...newState
+          layout: {
+            ...this.state.layout,
+            ...newState
+          }
         });
       }
     );
 
     this.setState({
-      ...pubxLayoutState,
+      layout: {
+        ...pubxLayoutState
+      },
       pubxLayoutSubscriberKey
     });
 
@@ -78,7 +83,7 @@ export default class App extends Component {
       }
     }
 
-    if (this.state.expanded) {
+    if (this.state.layout.expanded) {
       currentLayout = vaporboyExpandedLayout;
     }
 

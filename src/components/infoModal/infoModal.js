@@ -35,12 +35,17 @@ export default class WasmBoyCanvas extends Component {
     Pubx.subscribe(PUBX_CONFIG.INFO_MODAL_KEY, newState => {
       this.setState({
         ...this.state,
-        ...newState
+        infoModal: {
+          ...this.state.infoModal,
+          ...newState
+        }
       });
     });
 
     this.setState({
-      ...pubxInfoModalState
+      infoModal: {
+        ...pubxInfoModalState
+      }
     });
   }
 
