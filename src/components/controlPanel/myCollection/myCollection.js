@@ -1,6 +1,9 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { Pubx } from "../../../services/pubx";
+import { PUBX_CONFIG } from "../../../pubx.config";
+
 import Cartridge from "../cartridge/cartridge";
 
 export default class MyCollection extends Component {
@@ -9,7 +12,16 @@ export default class MyCollection extends Component {
     this.setState({});
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    // Get our pubx states
+    const pubxCollectionState = Pubx.get(PUBX_CONFIG.ROM_COLLECTION_KEY);
+    const pubxControlPanelState = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY);
+
+    this.setState({
+      ...pubxCollectionState,
+      ...pubxControlPanelState
+    });
+  }
 
   getROMImageUrl(collectionROM) {
     return undefined;
@@ -28,14 +40,14 @@ export default class MyCollection extends Component {
     };
 
     loadROMTask();
-    this.props.hide();
+    this.state.hideControlPanel();
   }
 
   render() {
     let collectionROMs = [];
-    if (this.props.collection) {
-      Object.keys(this.props.collection).forEach(collectionROMKey => {
-        const collectionROM = this.props.collection[collectionROMKey];
+    if (this.state.collection) {
+      Object.keys(this.state.collection).forEach(collectionROMKey => {
+        const collectionROM = this.state.collection[collectionROMKey];
 
         collectionROMs.push(
           <li class="ROM-list__item">

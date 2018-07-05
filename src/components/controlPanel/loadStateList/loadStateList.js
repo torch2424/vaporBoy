@@ -1,13 +1,25 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { Pubx } from "../../../services/pubx";
+import { PUBX_CONFIG } from "../../../pubx.config";
+
 export default class LoadStateList extends Component {
   constructor() {
     super();
     this.setState({});
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    // Get our pubx states
+    const pubxSaveStatesState = Pubx.get(PUBX_CONFIG.SAVES_STATES_KEY);
+    const pubxControlPanelState = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY);
+
+    this.setState({
+      ...pubxSaveStatesState,
+      ...pubxControlPanelState
+    });
+  }
 
   loadState(saveState) {
     WasmBoy.loadState(saveState)
@@ -15,7 +27,7 @@ export default class LoadStateList extends Component {
         WasmBoy.play()
           .then(() => {
             // TODO:
-            this.props.hide();
+            this.state.hideControlPanel();
           })
           .catch(() => {
             // TODO:
@@ -28,9 +40,9 @@ export default class LoadStateList extends Component {
 
   render() {
     const saveStates = [];
-    if (this.props.saveStates) {
+    if (this.state.saveStates) {
       // Sort our save states by newest
-      this.props.saveStates.sort((a, b) => {
+      this.state.saveStates.sort((a, b) => {
         if (a.date > b.date) {
           return -1;
         }
@@ -43,7 +55,7 @@ export default class LoadStateList extends Component {
       });
 
       // Add them to our sae state DOM array
-      this.props.saveStates.forEach(saveState => {
+      this.state.saveStates.forEach(saveState => {
         const saveStateDate = new Date(saveState.date);
         saveStates.push(
           <li>

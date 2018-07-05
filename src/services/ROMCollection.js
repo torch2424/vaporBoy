@@ -64,8 +64,11 @@ class ROMCollectionService {
     };
 
     // Kick off our tasks
-    getCollectionTask();
-    getSaveStatesTask();
+    return (async () => {
+      await getCollectionTask();
+      await getSaveStatesTask();
+      return true;
+    })();
   }
 
   saveCurrentWasmBoyROMToCollection() {

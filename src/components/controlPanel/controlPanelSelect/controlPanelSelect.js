@@ -11,7 +11,6 @@ import VaporBoyOptions from "../vaporBoyOptions/vaporBoyOptions";
 export default class ControlPanelSelect extends Component {
   constructor() {
     super();
-    this.setState({});
   }
 
   componentDidMount() {
@@ -20,11 +19,31 @@ export default class ControlPanelSelect extends Component {
     const pubxSaveStatesState = Pubx.get(PUBX_CONFIG.SAVES_STATES_KEY);
     const pubxControlPanelState = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY);
 
+    // Subscribe to our save states for enabling/disabling loading
+    const pubxSaveStatesSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.SAVES_STATES_KEY,
+      newState => {
+        this.setState({
+          ...this.state,
+          ...newState
+        });
+      }
+    );
+
     this.setState({
       ...pubxCollectionState,
       ...pubxSaveStatesState,
-      ...pubxControlPanelState
+      ...pubxControlPanelState,
+      pubxSaveStatesSubscriberKey
     });
+  }
+
+  componentWillUnmount() {
+    // unsubscribe from the state
+    Pubx.unsubscribe(
+      PUBX_CONFIG.SAVES_STATES_KEY,
+      this.state.pubxSaveStatesSubscriberKey
+    );
   }
 
   shouldDisableLoadStates() {
@@ -45,7 +64,7 @@ export default class ControlPanelSelect extends Component {
         WasmBoy.play()
           .then(() => {
             // TODO:
-            this.state.hide();
+            this.state.hideControlPanel();
           })
           .catch(() => {
             // TODO:
@@ -57,15 +76,24 @@ export default class ControlPanelSelect extends Component {
   }
 
   viewROMSourceSelector() {
-    this.state.addComponentToViewStack("ROM Source", <ROMSourceSelector />);
+    this.state.addComponentToControlPanelViewStack(
+      "ROM Source",
+      <ROMSourceSelector />
+    );
   }
 
   viewLoadStateList() {
-    this.state.addComponentToViewStack("Load State", <LoadStateList />);
+    this.state.addComponentToControlPanelViewStack(
+      "Load State",
+      <LoadStateList />
+    );
   }
 
   viewOptions() {
-    this.state.addComponentToViewStack("Options", <VaporBoyOptions />);
+    this.state.addComponentToControlPanelViewStack(
+      "Options",
+      <VaporBoyOptions />
+    );
   }
 
   render() {

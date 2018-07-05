@@ -18,12 +18,9 @@
 
   z-index: 5;
 
-  display: none;
-  &--show {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &__modal {
     width: 100%;
@@ -64,8 +61,8 @@
       background-color: $aesthetic-white;
 
       flex-grow: 1;
-      display: flex;
-      flex-direction: column;
+      display: block;
+      overflow: auto;
     }
   }
 }

@@ -1,19 +1,39 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { Pubx } from "../../../services/pubx";
+import { PUBX_CONFIG } from "../../../pubx.config";
 import { ROMCollection } from "../../../services/ROMCollection";
 
 import { AVAILABLE_GAMES } from "../homebrew/availableGames";
 
+import MyCollection from "../myCollection/myCollection";
+import Homebrew from "../homebrew/homebrew";
+
 export default class ROMSourceSelector extends Component {
   constructor() {
     super();
-    this.setState({
-      collection: false
-    });
+    this.setState({});
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    // Get our pubx states
+    const pubxCollectionState = Pubx.get(PUBX_CONFIG.ROM_COLLECTION_KEY);
+    const pubxControlPanelState = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY);
+
+    this.setState({
+      ...pubxCollectionState,
+      ...pubxControlPanelState
+    });
+
+    // Subscribe to our collection state
+    Pubx.subscribe(PUBX_CONFIG.ROM_COLLECTION_KEY, newState => {
+      this.setState({
+        ...this.state,
+        ...newState
+      });
+    });
+  }
 
   triggerLocalFileUpload() {
     document.getElementById("ROMFileInput").click();
@@ -24,21 +44,30 @@ export default class ROMSourceSelector extends Component {
       await WasmBoy.pause();
       await WasmBoy.loadROM(event.target.files[0]);
       await WasmBoy.play();
-      this.props.hide();
+      this.state.hideControlPanel();
       await ROMCollection.saveCurrentWasmBoyROMToCollection();
-      if (this.props.updateCollection) {
-        this.props.updateCollection();
-      }
+      ROMCollection.updateCollection();
     };
 
     loadFileTask();
   }
 
+  viewMyCollection() {
+    this.state.addComponentToControlPanelViewStack(
+      "My Collection",
+      <MyCollection />
+    );
+  }
+
+  viewHomebrew() {
+    this.state.addComponentToControlPanelViewStack("Homebrew", <Homebrew />);
+  }
+
   render() {
     // Number of roms in our collection
     let numberOfROMsInCollection = 0;
-    if (this.props.collection) {
-      numberOfROMsInCollection = Object.keys(this.props.collection).length;
+    if (this.state.collection) {
+      numberOfROMsInCollection = Object.keys(this.state.collection).length;
     }
 
     // Number of Open Source Games
@@ -50,7 +79,7 @@ export default class ROMSourceSelector extends Component {
         <li class="ROMSourceSelector__list__item">
           <button
             onClick={() => {
-              this.props.viewMyCollection();
+              this.viewMyCollection();
             }}
           >
             <div class="ROMSourceSelector__list__item__icon">📚</div>
@@ -66,7 +95,7 @@ export default class ROMSourceSelector extends Component {
         <li class="ROMSourceSelector__list__item">
           <button
             onClick={() => {
-              this.props.viewHomebrew();
+              this.viewHomebrew();
             }}
           >
             <div class="ROMSourceSelector__list__item__icon">🍺</div>

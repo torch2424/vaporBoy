@@ -20,6 +20,14 @@
       margin-top: 10px;
       margin-bottom: 10px;
 
+      width: 30%;
+      min-width: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      text-align: center;
+
       button {
         padding: 0px;
         border: none;

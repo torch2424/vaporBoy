@@ -10,13 +10,15 @@ import ControlPanelSelect from "./controlPanelSelect/controlPanelSelect";
 export default class ControlPanel extends Component {
   constructor() {
     super();
+  }
 
+  componentDidMount() {
     // Define our control panel pubx state
     const pubxControlPanelState = {
       show: false,
       rootView: false,
       viewStack: [],
-      addComponentToViewStack: (title, component) => {
+      addComponentToControlPanelViewStack: (title, component) => {
         const viewStack = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY).viewStack;
 
         viewStack.push({
@@ -28,8 +30,9 @@ export default class ControlPanel extends Component {
           viewStack
         });
       },
-      hide: () => {
+      hideControlPanel: () => {
         Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
+          show: false,
           rootView: false,
           viewStack: []
         });
@@ -40,7 +43,7 @@ export default class ControlPanel extends Component {
     Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, pubxControlPanelState);
 
     // Subscribe to changes
-    const pubxSubscriberKey = Pubx.subscribe(
+    const pubxControlPanelSubscriberKey = Pubx.subscribe(
       PUBX_CONFIG.CONTROL_PANEL_KEY,
       newState => {
         // Check if we are being shown/hidden
@@ -60,11 +63,19 @@ export default class ControlPanel extends Component {
 
     this.setState({
       ...pubxControlPanelState,
-      pubxSubscriberKey
+      pubxControlPanelSubscriberKey
     });
 
     // Finally update our collection, for save states and the rom collection
     ROMCollection.updateCollection();
+  }
+
+  componentWillUnmount() {
+    // unsubscribe from the state
+    Pubx.unsubscribe(
+      PUBX_CONFIG.CONTROL_PANEL_KEY,
+      this.state.pubxControlPanelSubscriberKey
+    );
   }
 
   goToPreviousView() {
@@ -75,6 +86,10 @@ export default class ControlPanel extends Component {
   }
 
   render() {
+    if (!this.state.show) {
+      return <div />;
+    }
+
     // Next, check if we do have a base component view in the props
     let currentView = <ControlPanelSelect />;
     let currentTitle = "Control Panel";
@@ -89,13 +104,7 @@ export default class ControlPanel extends Component {
     });
 
     return (
-      <div
-        className={
-          this.state.show
-            ? "control-panel control-panel--show"
-            : "control-panel"
-        }
-      >
+      <div class="control-panel">
         <div class="control-panel__modal">
           <div class="aesthetic-windows-95-modal">
             <div class="aesthetic-windows-95-modal-title-bar">
@@ -105,7 +114,9 @@ export default class ControlPanel extends Component {
 
               <div class="aesthetic-windows-95-modal-title-bar-controls">
                 <div class="aesthetic-windows-95-button-title-bar">
-                  <button onclick={() => this.state.hide()}>X</button>
+                  <button onclick={() => this.state.hideControlPanel()}>
+                    X
+                  </button>
                 </div>
               </div>
             </div>

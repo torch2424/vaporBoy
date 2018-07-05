@@ -1,6 +1,9 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { Pubx } from "../../../services/pubx";
+import { PUBX_CONFIG } from "../../../pubx.config";
+
 import {
   VAPORBOY_OPTIONS_KEY,
   VAPORBOY_DEFAULT_OPTIONS,
