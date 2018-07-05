@@ -20,10 +20,12 @@ export default class ROMSourceSelector extends Component {
     // Get our pubx states
     const pubxCollectionState = Pubx.get(PUBX_CONFIG.ROM_COLLECTION_KEY);
     const pubxControlPanelState = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY);
+    const pubxInfoModalState = Pubx.get(PUBX_CONFIG.INFO_MODAL_KEY);
 
     this.setState({
       ...pubxCollectionState,
-      ...pubxControlPanelState
+      ...pubxControlPanelState,
+      ...pubxInfoModalState
     });
 
     // Subscribe to our collection state
@@ -61,6 +63,13 @@ export default class ROMSourceSelector extends Component {
 
   viewHomebrew() {
     this.state.addComponentToControlPanelViewStack("Homebrew", <Homebrew />);
+  }
+
+  uploadRomInfoModal() {
+    this.state.showInfoModal(
+      "Help - Uploading Roms",
+      'Uploaded ROMs will automatically be stored in "My Collection" for offline playing using IndexedDb.'
+    );
   }
 
   render() {
@@ -116,12 +125,12 @@ export default class ROMSourceSelector extends Component {
               Open from device
             </div>
           </button>
-          <div
+          <button
             class="ROMSourceSelector__list__item__tooltip"
-            data-tooltip="Uploaded ROMs will automatically be stored in &quot;My Collection&quot; for offline playing using IndexedDb."
+            onClick={() => this.uploadRomInfoModal()}
           >
             i
-          </div>
+          </button>
         </li>
       </ul>
     );

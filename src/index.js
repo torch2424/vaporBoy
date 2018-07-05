@@ -12,6 +12,7 @@ import VaporBoyMobileLandscape from "./components/vaporboyMobileLandscape/vaporb
 import VaporBoyMobilePortrait from "./components/vaporboyMobilePortrait/vaporboyMobilePortrait";
 import VaporBoyExpanded from "./components/vaporboyExpanded/vaporboyExpanded";
 import ControlPanel from "./components/controlPanel/controlPanel";
+import InfoModal from "./components/infoModal/infoModal";
 import Touchpad from "./components/touchpad/touchpad";
 
 export default class App extends Component {
@@ -83,6 +84,7 @@ export default class App extends Component {
 
     return (
       <div>
+        <InfoModal />
         <ControlPanel />
         {currentLayout}
         <Touchpad />
