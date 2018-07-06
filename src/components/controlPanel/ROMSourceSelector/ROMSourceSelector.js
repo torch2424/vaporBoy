@@ -20,7 +20,9 @@ export default class ROMSourceSelector extends Component {
     // Get our pubx states
     const pubxCollectionState = Pubx.get(PUBX_CONFIG.ROM_COLLECTION_KEY);
     const pubxControlPanelState = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY);
-    const pubxInfoModalState = Pubx.get(PUBX_CONFIG.INFO_MODAL_KEY);
+    const pubxConfirmationModalState = Pubx.get(
+      PUBX_CONFIG.CONFIRMATION_MODAL_KEY
+    );
 
     this.setState({
       collection: {
@@ -29,8 +31,8 @@ export default class ROMSourceSelector extends Component {
       controlPanel: {
         ...pubxControlPanelState
       },
-      infoModal: {
-        ...pubxInfoModalState
+      confirmationModal: {
+        ...pubxConfirmationModalState
       }
     });
 
@@ -77,8 +79,8 @@ export default class ROMSourceSelector extends Component {
     );
   }
 
-  uploadRomInfoModal() {
-    this.state.infoModal.showInfoModal(
+  uploadRomConfirmationModal() {
+    this.state.confirmationModal.showConfirmationModal(
       "Help - Uploading Roms",
       <div>
         Uploaded ROMs will automatically be stored in "My Collection" for
@@ -143,7 +145,7 @@ export default class ROMSourceSelector extends Component {
           </button>
           <button
             class="ROMSourceSelector__list__item__tooltip"
-            onClick={() => this.uploadRomInfoModal()}
+            onClick={() => this.uploadRomConfirmationModal()}
           >
             i
           </button>

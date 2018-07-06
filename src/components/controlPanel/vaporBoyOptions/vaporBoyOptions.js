@@ -22,7 +22,9 @@ export default class VaporBoyOptions extends Component {
 
   componentDidMount() {
     // Get our info modal state
-    const pubxInfoModalState = Pubx.get(PUBX_CONFIG.INFO_MODAL_KEY);
+    const pubxConfirmationModalState = Pubx.get(
+      PUBX_CONFIG.CONFIRMATION_MODAL_KEY
+    );
 
     // Grab our options from localstorage
     let vaporBoyOptions = JSON.parse(
@@ -46,14 +48,33 @@ export default class VaporBoyOptions extends Component {
       current: {
         ...vaporBoyOptions
       },
-      infoModal: {
-        ...pubxInfoModalState
+      confirmationModal: {
+        ...pubxConfirmationModalState
       }
     });
   }
 
   showOptionInfo(option) {
-    this.state.infoModal.showInfoModal(option.name, option.descriptionElement);
+    this.state.confirmationModal.showConfirmationModal(
+      option.name,
+      option.descriptionElement
+    );
+  }
+
+  confirmReset() {
+    Pubx.get(PUBX_CONFIG.CONFIRMATION_MODAL_KEY).showConfirmationModal(
+      "Reset to Default options",
+      <div>
+        Are you sure you would like to reset to the Default Vaporboy Options?
+      </div>,
+      () => {
+        // If confirm, reset
+      }
+    );
+  }
+
+  applyOptions() {
+    // TODO:
   }
 
   render() {
@@ -130,10 +151,12 @@ export default class VaporBoyOptions extends Component {
         <ul>{optionsSections}</ul>
         <div class="vaporboy-options__apply-options">
           <div class="aesthetic-windows-95-button">
-            <button>Reset to default options</button>
+            <button onClick={() => this.confirmReset()}>
+              Reset to default options
+            </button>
           </div>
           <div class="aesthetic-windows-95-button">
-            <button>Apply</button>
+            <button onClick={() => this.applyOptions()}>Apply</button>
           </div>
         </div>
       </div>
