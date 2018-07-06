@@ -2,6 +2,9 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { Pubx } from "../../../services/pubx";
+import { PUBX_CONFIG } from "../../../pubx.config";
+
 import { getInputId } from "../touchpad.common";
 
 // Define our gradient constants
@@ -61,6 +64,8 @@ export default class GameboyButton extends Component {
   }
 
   componentDidMount() {
+    const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
+
     // Get our button
     const keyMapButton = this.props.button.toUpperCase();
     const touchElement = document.getElementById(this.state.elementId);
@@ -73,7 +78,10 @@ export default class GameboyButton extends Component {
     this.setState({
       ...this.state,
       keyMapButton: keyMapButton,
-      gamepadId: gamepadId
+      gamepadId: gamepadId,
+      layout: {
+        ...pubxLayoutState
+      }
     });
   }
 
@@ -94,10 +102,15 @@ export default class GameboyButton extends Component {
   }
 
   render() {
-    // Get if we are in specified modes
-    const isGba = !!this.props.isGba;
-    const isGbc = !!this.props.isGbc;
-    const isExpanded = !!this.props.isExpanded;
+    // Get if we are in specified modes, using pubx layout
+    let isGba = false;
+    let isGbc = false;
+    let isExpanded = false;
+    if (this.state.layout) {
+      isGba = this.state.layout.isGba();
+      isGbc = this.state.layout.isGbc();
+      isExpanded = this.state.layout.isExpandedMobile();
+    }
 
     // get our classes
     const classes = ["gameboy-button"];

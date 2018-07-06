@@ -21,7 +21,26 @@ export default class App extends Component {
 
     // Define our index state
     const pubxLayoutState = {
-      expanded: false
+      expanded: false,
+      mobile: device.mobile(),
+      landscape: device.landscape(),
+      portrait: device.portrait(),
+      isGba: () => {
+        const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
+        return (
+          !pubxLayoutState.expanded && device.mobile() && device.landscape()
+        );
+      },
+      isGbc: () => {
+        const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
+        return (
+          !pubxLayoutState.expanded && device.mobile() && device.portrait()
+        );
+      },
+      isExpandedMobile: () => {
+        const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
+        return pubxLayoutState.expanded && device.mobile();
+      }
     };
 
     // Send to pubx
@@ -52,9 +71,10 @@ export default class App extends Component {
 
     // Add our listener for orientation changes
     device.onChangeOrientation(newOrientation => {
-      // Re-render the component on changes
-      this.setState({
-        ...this.state
+      Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
+        mobile: device.mobile(),
+        landscape: device.landscape(),
+        portrait: device.portrait()
       });
     });
   }
