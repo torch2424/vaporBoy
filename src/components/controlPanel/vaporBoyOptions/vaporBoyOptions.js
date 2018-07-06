@@ -21,21 +21,15 @@ export default class VaporBoyOptions extends Component {
   }
 
   componentDidMount() {
+    // Get our info modal state
+    const pubxInfoModalState = Pubx.get(PUBX_CONFIG.INFO_MODAL_KEY);
+
     // Grab our options from localstorage
     let vaporBoyOptions = JSON.parse(
       window.localStorage.getItem(VAPORBOY_OPTIONS_KEY)
     );
-    if (vaporBoyOptions) {
-      this.setState({
-        ...this.state,
-        stored: {
-          ...vaporBoyOptions
-        },
-        current: {
-          ...vaporBoyOptions
-        }
-      });
-    } else {
+    // If we dont have vapor boy options, generate them
+    if (!vaporBoyOptions) {
       // Fill/save our default options
       window.localStorage.setItem(
         VAPORBOY_OPTIONS_KEY,
@@ -44,16 +38,22 @@ export default class VaporBoyOptions extends Component {
       vaporBoyOptions = Object.assign({}, VAPORBOY_DEFAULT_OPTIONS);
     }
 
-    console.log(vaporBoyOptions);
-
     this.setState({
+      ...this.state,
       stored: {
         ...vaporBoyOptions
       },
       current: {
         ...vaporBoyOptions
+      },
+      infoModal: {
+        ...pubxInfoModalState
       }
     });
+  }
+
+  showOptionInfo(option) {
+    this.state.infoModal.showInfoModal(option.name, option.descriptionElement);
   }
 
   render() {
@@ -80,7 +80,7 @@ export default class VaporBoyOptions extends Component {
         let optionElement;
         if (option.type === "boolean") {
           optionElement = (
-            <li class="vaporboy-options__option--bolean">
+            <li class="vaporboy-options__option">
               <label class="aesthetic-windows-95-checkbox">
                 {option.name}
                 <input
@@ -92,14 +92,15 @@ export default class VaporBoyOptions extends Component {
                 />
                 <span class="aesthetic-windows-95-checkmark" />
               </label>
+
+              <div class="vaporboy-options__option__description-element">
+                {option.descriptionElement}
+              </div>
             </li>
           );
         } else if (option.type === "integer") {
           optionElement = (
-            <li class="vaporboy-options__option--integer">
-              <div class="vaporboy-options__option--integer__name">
-                {option.name}
-              </div>
+            <li class="vaporboy-options__option">
               <input
                 class="aesthetic-windows-95-text-input"
                 type="number"
@@ -108,6 +109,11 @@ export default class VaporBoyOptions extends Component {
                 value={this.state.current[optionKey]}
                 onChange={event => this.updateOption(event, optionKey, option)}
               />
+              <div class="vaporboy-options__option__name">{option.name}</div>
+
+              <div class="vaporboy-options__option__description-element">
+                {option.descriptionElement}
+              </div>
             </li>
           );
         }
@@ -122,8 +128,14 @@ export default class VaporBoyOptions extends Component {
     return (
       <div class="vaporboy-options">
         <ul>{optionsSections}</ul>
-        <button>Apply</button>
-        <button>Reset to default options</button>
+        <div class="vaporboy-options__apply-options">
+          <div class="aesthetic-windows-95-button">
+            <button>Reset to default options</button>
+          </div>
+          <div class="aesthetic-windows-95-button">
+            <button>Apply</button>
+          </div>
+        </div>
       </div>
     );
   }

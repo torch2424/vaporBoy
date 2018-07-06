@@ -78,9 +78,12 @@ export default class ROMSourceSelector extends Component {
   }
 
   uploadRomInfoModal() {
-    this.state.controlPanel.showInfoModal(
+    this.state.infoModal.showInfoModal(
       "Help - Uploading Roms",
-      'Uploaded ROMs will automatically be stored in "My Collection" for offline playing using IndexedDb.'
+      <div>
+        Uploaded ROMs will automatically be stored in "My Collection" for
+        offline playing using IndexedDb.
+      </div>
     );
   }
 

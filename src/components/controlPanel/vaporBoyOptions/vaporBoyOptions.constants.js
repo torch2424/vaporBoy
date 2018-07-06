@@ -54,7 +54,7 @@ export const WASMBOY_OPTION_SECTIONS = {
         options will vary performance on a wide range, at the sacrafice of
         emulation accuracy. Meaning these options can cause bugs and crashes
         within emulation. For a breakdown of general performance gains, please
-        see the current
+        see the current <span />
         <a
           href="https://github.com/torch2424/wasmBoy/blob/master/test/performance/results.md"
           target="_blank"

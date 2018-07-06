@@ -14,11 +14,11 @@ export default class WasmBoyCanvas extends Component {
       show: false,
       title: "",
       text: "",
-      showInfoModal: (title, text) => {
+      showInfoModal: (title, contentElement) => {
         Pubx.publish(PUBX_CONFIG.INFO_MODAL_KEY, {
           show: true,
           title,
-          text
+          contentElement
         });
       },
       hideInfoModal: () => {
@@ -50,7 +50,7 @@ export default class WasmBoyCanvas extends Component {
   }
 
   render() {
-    if (!this.state.show) {
+    if (!this.state.infoModal || !this.state.infoModal.show) {
       return <div />;
     }
 
@@ -60,22 +60,26 @@ export default class WasmBoyCanvas extends Component {
           <div class="aesthetic-windows-95-modal">
             <div class="aesthetic-windows-95-modal-title-bar">
               <div class="aesthetic-windows-95-modal-title-bar-text">
-                {this.state.title}
+                {this.state.infoModal.title}
               </div>
 
               <div class="aesthetic-windows-95-modal-title-bar-controls">
                 <div class="aesthetic-windows-95-button-title-bar">
-                  <button onclick={() => this.state.hideInfoModal()}>X</button>
+                  <button onclick={() => this.state.infoModal.hideInfoModal()}>
+                    X
+                  </button>
                 </div>
               </div>
             </div>
 
             <div class="aesthetic-windows-95-modal-content">
-              <div class="vaporboy-info-modal__modal__text">
-                {this.state.text}
+              <div class="vaporboy-info-modal__modal__content">
+                {this.state.infoModal.contentElement}
               </div>
               <div class="aesthetic-windows-95-button">
-                <button onClick={() => this.state.hideInfoModal()}>OK</button>
+                <button onClick={() => this.state.infoModal.hideInfoModal()}>
+                  OK
+                </button>
               </div>
             </div>
           </div>

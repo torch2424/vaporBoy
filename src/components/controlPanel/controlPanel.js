@@ -47,7 +47,10 @@ export default class ControlPanel extends Component {
       PUBX_CONFIG.CONTROL_PANEL_KEY,
       newState => {
         // Check if we are being shown/hidden
-        if (newState.show && newState.show !== this.state.show) {
+        if (
+          !this.state.controlPanel ||
+          (newState.show && newState.show !== this.state.controlPanel.show)
+        ) {
           // Finally update our collection, for save states and the rom collection
           ROMCollection.updateCollection();
         }
@@ -100,8 +103,6 @@ export default class ControlPanel extends Component {
     // Next, check if we do have a base component view in the props
     let currentView = <ControlPanelSelect />;
     let currentTitle = "Control Panel";
-
-    console.log(this.state);
 
     // Lastly, set the current view to the last item on the view stack
     if (this.state.controlPanel.viewStack.length > 0) {
