@@ -69,12 +69,33 @@ export default class VaporBoyOptions extends Component {
       </div>,
       () => {
         // If confirm, reset
+
+        // Save the state
+        const resetOptionsTask = async () => {
+          // await WasmBoy.saveState();
+          // window.localStorage.setItem(
+          //   VAPORBOY_OPTIONS_KEY,
+          //   JSON.stringify(VAPORBOY_DEFAULT_OPTIONS)
+          // );
+        };
+
+        // Run the task
+        resetOptionsTask();
       }
     );
   }
 
-  applyOptions() {
-    // TODO:
+  confirmApply() {
+    Pubx.get(PUBX_CONFIG.CONFIRMATION_MODAL_KEY).showConfirmationModal(
+      "Apply Options",
+      <div>
+        This will reset any currently running ROM. A save state will be made.
+        Apply options?
+      </div>,
+      () => {
+        // If confirm, apply
+      }
+    );
   }
 
   render() {
@@ -156,7 +177,7 @@ export default class VaporBoyOptions extends Component {
             </button>
           </div>
           <div class="aesthetic-windows-95-button">
-            <button onClick={() => this.applyOptions()}>Apply</button>
+            <button onClick={() => this.confirmApply()}>Apply</button>
           </div>
         </div>
       </div>
