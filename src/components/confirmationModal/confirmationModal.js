@@ -10,42 +10,6 @@ export default class ConfirmationModal extends Component {
   }
 
   componentDidMount() {
-    const pubxConfirmationModalState = {
-      show: false,
-      title: "",
-      text: "",
-      confirmCallback: false,
-      cancelCallback: false,
-      showConfirmationModal: (
-        title,
-        contentElement,
-        confirmCallback,
-        cancelCallback
-      ) => {
-        Pubx.publish(PUBX_CONFIG.CONFIRMATION_MODAL_KEY, {
-          show: true,
-          title,
-          contentElement,
-          confirmCallback,
-          cancelCallback
-        });
-      },
-      hideConfirmationModal: () => {
-        Pubx.publish(PUBX_CONFIG.CONFIRMATION_MODAL_KEY, {
-          show: false,
-          title: "",
-          text: "",
-          confirmCallback: false,
-          cancelCallback: false
-        });
-      }
-    };
-
-    Pubx.publish(
-      PUBX_CONFIG.CONFIRMATION_MODAL_KEY,
-      pubxConfirmationModalState
-    );
-
     const pubxConfirmationModalSubscriberKey = Pubx.subscribe(
       PUBX_CONFIG.CONFIRMATION_MODAL_KEY,
       newState => {
@@ -61,7 +25,7 @@ export default class ConfirmationModal extends Component {
 
     this.setState({
       confirmationModal: {
-        ...pubxConfirmationModalState
+        ...Pubx.get(PUBX_CONFIG.CONFIRMATION_MODAL_KEY)
       },
       pubxConfirmationModalSubscriberKey
     });

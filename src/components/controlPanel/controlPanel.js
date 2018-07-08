@@ -13,35 +13,6 @@ export default class ControlPanel extends Component {
   }
 
   componentDidMount() {
-    // Define our control panel pubx state
-    const pubxControlPanelState = {
-      show: false,
-      rootView: false,
-      viewStack: [],
-      addComponentToControlPanelViewStack: (title, component) => {
-        const viewStack = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY).viewStack;
-
-        viewStack.push({
-          title,
-          view: component
-        });
-
-        Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
-          viewStack
-        });
-      },
-      hideControlPanel: () => {
-        Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
-          show: false,
-          rootView: false,
-          viewStack: []
-        });
-      }
-    };
-
-    // Send to pubx
-    Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, pubxControlPanelState);
-
     // Subscribe to changes
     const pubxControlPanelSubscriberKey = Pubx.subscribe(
       PUBX_CONFIG.CONTROL_PANEL_KEY,
@@ -69,13 +40,10 @@ export default class ControlPanel extends Component {
 
     this.setState({
       controlPanel: {
-        ...pubxControlPanelState
+        ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
       },
       pubxControlPanelSubscriberKey
     });
-
-    // Finally update our collection, for save states and the rom collection
-    ROMCollection.updateCollection();
   }
 
   componentWillUnmount() {

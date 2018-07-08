@@ -15,12 +15,9 @@ export default class Homebrew extends Component {
   }
 
   componentDidMount() {
-    // Get our pubx states
-    const pubxControlPanelState = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY);
-
     this.setState({
       controlPanel: {
-        ...pubxControlPanelState
+        ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
       }
     });
   }

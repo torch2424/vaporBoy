@@ -13,16 +13,12 @@ export default class MyCollection extends Component {
   }
 
   componentDidMount() {
-    // Get our pubx states
-    const pubxCollectionState = Pubx.get(PUBX_CONFIG.ROM_COLLECTION_KEY);
-    const pubxControlPanelState = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY);
-
     this.setState({
       collection: {
-        ...pubxCollectionState
+        ...Pubx.get(PUBX_CONFIG.ROM_COLLECTION_KEY)
       },
       controlPanel: {
-        ...pubxControlPanelState
+        ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
       }
     });
   }

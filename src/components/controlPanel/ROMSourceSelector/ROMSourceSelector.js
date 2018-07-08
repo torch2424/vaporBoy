@@ -17,35 +17,39 @@ export default class ROMSourceSelector extends Component {
   }
 
   componentDidMount() {
-    // Get our pubx states
-    const pubxCollectionState = Pubx.get(PUBX_CONFIG.ROM_COLLECTION_KEY);
-    const pubxControlPanelState = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY);
-    const pubxConfirmationModalState = Pubx.get(
-      PUBX_CONFIG.CONFIRMATION_MODAL_KEY
+    // Subscribe to our collection state
+    const pubxRomCollectionSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.ROM_COLLECTION_KEY,
+      newState => {
+        this.setState({
+          ...this.state,
+          collection: {
+            ...this.state.colleciton,
+            ...newState
+          }
+        });
+      }
     );
 
     this.setState({
       collection: {
-        ...pubxCollectionState
+        ...Pubx.get(PUBX_CONFIG.ROM_COLLECTION_KEY)
       },
       controlPanel: {
-        ...pubxControlPanelState
+        ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
       },
       confirmationModal: {
-        ...pubxConfirmationModalState
-      }
+        ...Pubx.get(PUBX_CONFIG.CONFIRMATION_MODAL_KEY)
+      },
+      pubxRomCollectionSubscriberKey
     });
+  }
 
-    // Subscribe to our collection state
-    Pubx.subscribe(PUBX_CONFIG.ROM_COLLECTION_KEY, newState => {
-      this.setState({
-        ...this.state,
-        collection: {
-          ...this.state.colleciton,
-          ...newState
-        }
-      });
-    });
+  componentWillUnmount() {
+    Pubx.unsubscribe(
+      PUBX_CONFIG.ROM_COLLECTION_KEY,
+      this.state.pubxRomCollectionSubscriberKey
+    );
   }
 
   triggerLocalFileUpload() {

@@ -11,16 +11,12 @@ export default class LoadStateList extends Component {
   }
 
   componentDidMount() {
-    // Get our pubx states
-    const pubxSaveStatesState = Pubx.get(PUBX_CONFIG.SAVES_STATES_KEY);
-    const pubxControlPanelState = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY);
-
     this.setState({
       saveStates: {
-        ...pubxSaveStatesState
+        ...Pubx.get(PUBX_CONFIG.SAVES_STATES_KEY)
       },
       controlPanel: {
-        ...pubxControlPanelState
+        ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
       }
     });
   }

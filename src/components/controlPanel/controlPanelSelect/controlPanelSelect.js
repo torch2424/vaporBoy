@@ -14,11 +14,6 @@ export default class ControlPanelSelect extends Component {
   }
 
   componentDidMount() {
-    // Get our pubx states
-    const pubxCollectionState = Pubx.get(PUBX_CONFIG.ROM_COLLECTION_KEY);
-    const pubxSaveStatesState = Pubx.get(PUBX_CONFIG.SAVES_STATES_KEY);
-    const pubxControlPanelState = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY);
-
     // Subscribe to our save states for enabling/disabling loading
     const pubxSaveStatesSubscriberKey = Pubx.subscribe(
       PUBX_CONFIG.SAVES_STATES_KEY,
@@ -35,13 +30,13 @@ export default class ControlPanelSelect extends Component {
 
     this.setState({
       collection: {
-        ...pubxCollectionState
+        ...Pubx.get(PUBX_CONFIG.ROM_COLLECTION_KEY)
       },
       saveStates: {
-        ...pubxSaveStatesState
+        ...Pubx.get(PUBX_CONFIG.SAVES_STATES_KEY)
       },
       controlPanel: {
-        ...pubxControlPanelState
+        ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
       },
       pubxSaveStatesSubscriberKey
     });

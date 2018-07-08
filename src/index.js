@@ -19,32 +19,24 @@ export default class App extends Component {
   constructor() {
     super();
 
-    // Define our index state
-    const pubxLayoutState = {
-      expanded: false,
-      mobile: device.mobile(),
-      landscape: device.landscape(),
-      portrait: device.portrait(),
-      isGba: () => {
-        const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
-        return (
-          !pubxLayoutState.expanded && device.mobile() && device.landscape()
-        );
-      },
-      isGbc: () => {
-        const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
-        return (
-          !pubxLayoutState.expanded && device.mobile() && device.portrait()
-        );
-      },
-      isExpandedMobile: () => {
-        const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
-        return pubxLayoutState.expanded && device.mobile();
-      }
-    };
+    // Initialize our Pubx
+    PUBX_CONFIG.INITIALIZE();
 
-    // Send to pubx
-    Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, pubxLayoutState);
+    // Add our listener for orientation changes
+    device.onChangeOrientation(newOrientation => {
+      Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
+        mobile: device.mobile(),
+        landscape: device.landscape(),
+        portrait: device.portrait()
+      });
+    });
+  }
+
+  componentDidMount() {
+    document.addEventListener("deviceready", () => {
+      console.log("Cordova Launched Device Ready!");
+    });
+    console.log("WasmBoy:", WasmBoy);
 
     // Subscribe to changes
     const pubxLayoutSubscriberKey = Pubx.subscribe(
@@ -64,26 +56,10 @@ export default class App extends Component {
 
     this.setState({
       layout: {
-        ...pubxLayoutState
+        ...Pubx.get(PUBX_CONFIG.LAYOUT_KEY)
       },
       pubxLayoutSubscriberKey
     });
-
-    // Add our listener for orientation changes
-    device.onChangeOrientation(newOrientation => {
-      Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
-        mobile: device.mobile(),
-        landscape: device.landscape(),
-        portrait: device.portrait()
-      });
-    });
-  }
-
-  componentDidMount() {
-    document.addEventListener("deviceready", () => {
-      console.log("Cordova Launched Device Ready!");
-    });
-    console.log("WasmBoy:", WasmBoy);
   }
 
   render() {
@@ -103,7 +79,7 @@ export default class App extends Component {
       }
     }
 
-    if (this.state.layout.expanded) {
+    if (this.state.layout && this.state.layout.expanded) {
       currentLayout = vaporboyExpandedLayout;
     }
 
