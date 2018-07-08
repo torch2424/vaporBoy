@@ -5,10 +5,10 @@ import { Pubx } from "../../../services/pubx";
 import { PUBX_CONFIG } from "../../../pubx.config";
 
 import {
-  VAPORBOY_OPTIONS_KEY,
-  VAPORBOY_DEFAULT_OPTIONS,
-  WASMBOY_OPTION_SECTIONS
-} from "./vaporBoyOptions.constants";
+  VAPORBOY_OPTIONS_LOCALSTORAGE_KEY,
+  VAPORBOY_DEFAULT_OPTIONS
+} from "../../../vaporboyOptions.config";
+import { VAPORBOY_OPTION_SECTIONS } from "./vaporBoyOptions.sections";
 
 export default class VaporBoyOptions extends Component {
   constructor() {
@@ -21,35 +21,62 @@ export default class VaporBoyOptions extends Component {
   }
 
   componentDidMount() {
-    // Get our info modal state
-    const pubxConfirmationModalState = Pubx.get(
-      PUBX_CONFIG.CONFIRMATION_MODAL_KEY
+    // Subscribe to options changes
+    const pubxVaporBoyOptionsSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.VAPORBOY_OPTIONS_KEY,
+      newState => {
+        this.setState({
+          ...this.state,
+          stored: {
+            ...newState
+          },
+          current: {
+            ...newState
+          }
+        });
+      }
     );
-
-    // Grab our options from localstorage
-    let vaporBoyOptions = JSON.parse(
-      window.localStorage.getItem(VAPORBOY_OPTIONS_KEY)
-    );
-    // If we dont have vapor boy options, generate them
-    if (!vaporBoyOptions) {
-      // Fill/save our default options
-      window.localStorage.setItem(
-        VAPORBOY_OPTIONS_KEY,
-        JSON.stringify(VAPORBOY_DEFAULT_OPTIONS)
-      );
-      vaporBoyOptions = Object.assign({}, VAPORBOY_DEFAULT_OPTIONS);
-    }
 
     this.setState({
       ...this.state,
       stored: {
-        ...vaporBoyOptions
+        ...Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY)
       },
       current: {
-        ...vaporBoyOptions
+        ...Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY)
       },
       confirmationModal: {
-        ...pubxConfirmationModalState
+        ...Pubx.get(PUBX_CONFIG.CONFIRMATION_MODAL_KEY)
+      },
+      controlPanel: {
+        ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
+      },
+      pubxVaporBoyOptionsSubscriberKey
+    });
+  }
+
+  componentWillUnmount() {
+    Pubx.unsubscribe(
+      PUBX_CONFIG.VAPORBOY_OPTIONS_KEY,
+      this.state.pubxVaporBoyOptionsSubscriberKey
+    );
+  }
+
+  updateOption(event, optionKey, option) {
+    const current = {
+      ...this.state.current
+    };
+
+    if (option.type === "integer") {
+      current[optionKey] = parseInt(event.target.value, 10);
+    } else if (option.type === "boolean") {
+      current[optionKey] = event.target.checked;
+    }
+
+    this.setState({
+      ...this.state,
+      current: {
+        ...current
       }
     });
   }
@@ -72,11 +99,19 @@ export default class VaporBoyOptions extends Component {
 
         // Save the state
         const resetOptionsTask = async () => {
-          // await WasmBoy.saveState();
-          // window.localStorage.setItem(
-          //   VAPORBOY_OPTIONS_KEY,
-          //   JSON.stringify(VAPORBOY_DEFAULT_OPTIONS)
-          // );
+          if (WasmBoy.isReady()) {
+            await WasmBoy.saveState();
+          }
+
+          window.localStorage.setItem(
+            VAPORBOY_OPTIONS_LOCALSTORAGE_KEY,
+            JSON.stringify(VAPORBOY_DEFAULT_OPTIONS)
+          );
+          Pubx.publish(
+            PUBX_CONFIG.VAPORBOY_OPTIONS_KEY,
+            VAPORBOY_DEFAULT_OPTIONS
+          );
+          this.state.controlPanel.hideControlPanel();
         };
 
         // Run the task
@@ -94,15 +129,31 @@ export default class VaporBoyOptions extends Component {
       </div>,
       () => {
         // If confirm, apply
+
+        const applyOptionsTask = async () => {
+          if (WasmBoy.isReady()) {
+            await WasmBoy.saveState();
+          }
+
+          window.localStorage.setItem(
+            VAPORBOY_OPTIONS_LOCALSTORAGE_KEY,
+            JSON.stringify(this.state.current)
+          );
+          Pubx.publish(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY, this.state.current);
+          this.state.controlPanel.hideControlPanel();
+        };
+
+        // Run the task
+        applyOptionsTask();
       }
     );
   }
 
   render() {
     const optionsSections = [];
-    Object.keys(WASMBOY_OPTION_SECTIONS).forEach(sectionKey => {
+    Object.keys(VAPORBOY_OPTION_SECTIONS).forEach(sectionKey => {
       // Get our section
-      const section = WASMBOY_OPTION_SECTIONS[sectionKey];
+      const section = VAPORBOY_OPTION_SECTIONS[sectionKey];
 
       optionsSections.push(
         <div class="vaporboy-options__section-header">

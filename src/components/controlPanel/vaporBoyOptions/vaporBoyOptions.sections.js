@@ -1,34 +1,13 @@
-// Our options key
-export const VAPORBOY_OPTIONS_KEY = "vaporBoyOptions";
-
-// Our default options
-export const VAPORBOY_DEFAULT_OPTIONS = {
-  useGbcWhenOptional: true,
-  isAudioEnabled: true,
-  frameSkip: 1,
-  audioBatchProcessing: true,
-  timersBatchProcessing: false,
-  audioAccumulateSamples: true,
-  graphicsBatchProcessing: false,
-  graphicsDisableScanlineRendering: false,
-  tileRendering: true,
-  tileCaching: true,
-  gameboyFPSCap: 60,
-  updateGraphicsCallback: false,
-  updateAudioCallback: false,
-  saveStateCallback: false
-};
-
 // Our available options and their types
 // https://github.com/torch2424/wasmBoy/wiki/%5BWIP%5D-Lib-API#wasmboyoptions
-export const WASMBOY_OPTION_SECTIONS = {
+export const VAPORBOY_OPTION_SECTIONS = {
   gameplay: {
     name: "Gameplay",
     descriptionElement: (
       <div>Options pertaining to the actual experience of playing the ROM</div>
     ),
     options: {
-      useGbcWhenOptional: {
+      isGbcEnabled: {
         name: "Use GBC When Optional",
         descriptionElement: (
           <div>
@@ -64,7 +43,7 @@ export const WASMBOY_OPTION_SECTIONS = {
       </div>
     ),
     options: {
-      gameboyFPSCap: {
+      gameboyFrameRate: {
         name: "Maximum Framerate",
         descriptionElement: (
           <div>
