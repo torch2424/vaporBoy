@@ -1,19 +1,56 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { Pubx } from "../../../services/pubx";
+import { PUBX_CONFIG } from "../../../pubx.config";
 import { ROMCollection } from "../../../services/ROMCollection";
 
 import { AVAILABLE_GAMES } from "../homebrew/availableGames";
 
+import MyCollection from "../myCollection/myCollection";
+import Homebrew from "../homebrew/homebrew";
+
 export default class ROMSourceSelector extends Component {
   constructor() {
     super();
+    this.setState({});
+  }
+
+  componentDidMount() {
+    // Subscribe to our collection state
+    const pubxRomCollectionSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.ROM_COLLECTION_KEY,
+      newState => {
+        this.setState({
+          ...this.state,
+          collection: {
+            ...this.state.colleciton,
+            ...newState
+          }
+        });
+      }
+    );
+
     this.setState({
-      collection: false
+      collection: {
+        ...Pubx.get(PUBX_CONFIG.ROM_COLLECTION_KEY)
+      },
+      controlPanel: {
+        ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
+      },
+      confirmationModal: {
+        ...Pubx.get(PUBX_CONFIG.CONFIRMATION_MODAL_KEY)
+      },
+      pubxRomCollectionSubscriberKey
     });
   }
 
-  componentDidMount() {}
+  componentWillUnmount() {
+    Pubx.unsubscribe(
+      PUBX_CONFIG.ROM_COLLECTION_KEY,
+      this.state.pubxRomCollectionSubscriberKey
+    );
+  }
 
   triggerLocalFileUpload() {
     document.getElementById("ROMFileInput").click();
@@ -24,21 +61,44 @@ export default class ROMSourceSelector extends Component {
       await WasmBoy.pause();
       await WasmBoy.loadROM(event.target.files[0]);
       await WasmBoy.play();
-      this.props.hide();
+      this.state.controlPanel.hideControlPanel();
       await ROMCollection.saveCurrentWasmBoyROMToCollection();
-      if (this.props.updateCollection) {
-        this.props.updateCollection();
-      }
+      ROMCollection.updateCollection();
     };
 
     loadFileTask();
   }
 
+  viewMyCollection() {
+    this.state.controlPanel.addComponentToControlPanelViewStack(
+      "My Collection",
+      <MyCollection />
+    );
+  }
+
+  viewHomebrew() {
+    this.state.controlPanel.addComponentToControlPanelViewStack(
+      "Homebrew",
+      <Homebrew />
+    );
+  }
+
+  uploadRomConfirmationModal() {
+    this.state.confirmationModal.showConfirmationModal(
+      "Help - Uploading Roms",
+      <div>
+        Uploaded ROMs will automatically be stored in "My Collection" for
+        offline playing using IndexedDb.
+      </div>
+    );
+  }
+
   render() {
     // Number of roms in our collection
     let numberOfROMsInCollection = 0;
-    if (this.props.collection) {
-      numberOfROMsInCollection = Object.keys(this.props.collection).length;
+    if (this.state.collection && this.state.collection.collection) {
+      numberOfROMsInCollection = Object.keys(this.state.collection.collection)
+        .length;
     }
 
     // Number of Open Source Games
@@ -50,7 +110,7 @@ export default class ROMSourceSelector extends Component {
         <li class="ROMSourceSelector__list__item">
           <button
             onClick={() => {
-              this.props.viewMyCollection();
+              this.viewMyCollection();
             }}
           >
             <div class="ROMSourceSelector__list__item__icon">📚</div>
@@ -66,7 +126,7 @@ export default class ROMSourceSelector extends Component {
         <li class="ROMSourceSelector__list__item">
           <button
             onClick={() => {
-              this.props.viewHomebrew();
+              this.viewHomebrew();
             }}
           >
             <div class="ROMSourceSelector__list__item__icon">🍺</div>
@@ -87,12 +147,12 @@ export default class ROMSourceSelector extends Component {
               Open from device
             </div>
           </button>
-          <div
+          <button
             class="ROMSourceSelector__list__item__tooltip"
-            data-tooltip="Uploaded ROMs will automatically be stored in &quot;My Collection&quot; for offline playing using IndexedDb."
+            onClick={() => this.uploadRomConfirmationModal()}
           >
             i
-          </div>
+          </button>
         </li>
       </ul>
     );

@@ -1,168 +1,90 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
-import {
-  CONTROL_PANEL_BASE_COMPONENTS,
-  getControlPanelSelectView,
-  getROMSourceSelectorView,
-  getMyCollectionView,
-  getHomebrewView,
-  getLoadStateListView
-} from "./baseComponent";
+import { Pubx } from "../../services/pubx";
+import { PUBX_CONFIG } from "../../pubx.config";
 
 import { ROMCollection } from "../../services/ROMCollection";
+import ControlPanelSelect from "./controlPanelSelect/controlPanelSelect";
 
 export default class ControlPanel extends Component {
   constructor() {
     super();
-    this.setState({
-      viewStack: [],
-      collection: undefined,
-      saveStates: undefined
-    });
   }
 
   componentDidMount() {
-    this.updateCollection();
-  }
+    // Subscribe to changes
+    const pubxControlPanelSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.CONTROL_PANEL_KEY,
+      newState => {
+        // Check if we are being shown/hidden
+        if (
+          !this.state.controlPanel ||
+          (newState.show && newState.show !== this.state.controlPanel.show)
+        ) {
+          // Finally update our collection, for save states and the rom collection
+          ROMCollection.updateCollection();
+        }
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.show) {
-      this.updateCollection();
-    }
-  }
-
-  updateCollection() {
-    // Get the current ROM Collection
-    const getCollectionTask = async () => {
-      const collection = await ROMCollection.getCollection();
-      this.setState({
-        ...this.state,
-        collection
-      });
-    };
-
-    // Get the current rom save states
-    const getSaveStatesTask = async () => {
-      if (!WasmBoy.isReady()) {
-        return;
-      }
-
-      WasmBoy.getSaveStates()
-        .then(saveStates => {
-          this.setState({
-            ...this.state,
-            saveStates
-          });
-        })
-        .catch(() => {
-          // TODO:
+        // You can spread and overwrite variables, while preserving ones,
+        // as long is in cascading order.
+        this.setState({
+          ...this.state,
+          controlPanel: {
+            ...this.state.controlPanel,
+            ...newState
+          }
         });
-    };
-
-    // Kick off our tasks
-    getCollectionTask();
-    getSaveStatesTask();
-  }
-
-  hide() {
-    this.setState({
-      ...this.state,
-      viewStack: []
-    });
-    this.props.hide();
-  }
-
-  getControlPanelBaseComponent() {
-    if (this.props.baseComponent) {
-      if (
-        this.props.baseComponent ===
-        CONTROL_PANEL_BASE_COMPONENTS.CONTROL_PANEL_SELECT
-      ) {
-        return getControlPanelSelectView(this);
-      } else if (
-        this.props.baseComponent ===
-        CONTROL_PANEL_BASE_COMPONENTS.ROM_SOURCE_SELECTOR
-      ) {
-        return getROMSourceSelectorView(this);
-      } else if (
-        this.props.baseComponent === CONTROL_PANEL_BASE_COMPONENTS.MY_COLLECTION
-      ) {
-        return getMyCollectionView(this);
-      } else if (
-        this.props.baseComponent === CONTROL_PANEL_BASE_COMPONENTS.HOMEBREW
-      ) {
-        return getHomebrewView(this);
       }
-    }
+    );
 
-    return getControlPanelSelectView(this);
+    this.setState({
+      controlPanel: {
+        ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
+      },
+      pubxControlPanelSubscriberKey
+    });
+  }
+
+  componentWillUnmount() {
+    // unsubscribe from the state
+    Pubx.unsubscribe(
+      PUBX_CONFIG.CONTROL_PANEL_KEY,
+      this.state.pubxControlPanelSubscriberKey
+    );
   }
 
   goToPreviousView() {
-    this.state.viewStack.pop();
-    this.setState({
-      ...this.state
-    });
-  }
+    const viewStack = this.state.controlPanel.viewStack;
+    viewStack.pop();
 
-  viewROMSourceSelector() {
-    this.state.viewStack.push(getROMSourceSelectorView(this));
-    this.setState({
-      ...this.state
-    });
-  }
-
-  viewMyCollection() {
-    this.state.viewStack.push(getMyCollectionView(this));
-    this.setState({
-      ...this.state
-    });
-  }
-
-  viewHomebrew() {
-    this.state.viewStack.push(getHomebrewView(this));
-    this.setState({
-      ...this.state
-    });
-  }
-
-  viewLoadStateList() {
-    this.state.viewStack.push(getLoadStateListView(this));
-    this.setState({
-      ...this.state
+    Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
+      viewStack
     });
   }
 
   render() {
-    // Next, check if we do have a base component view in the props
-    const baseComponent = this.getControlPanelBaseComponent();
-    let currentView = baseComponent.view;
-    let currentTitle = baseComponent.title;
-
-    // Lastly, set the current view to the last item on the view stack
-    if (this.state.viewStack.length > 0) {
-      currentView = this.state.viewStack[this.state.viewStack.length - 1].view;
+    if (!this.state.controlPanel || !this.state.controlPanel.show) {
+      return <div />;
     }
 
-    this.state.viewStack.forEach(view => {
+    // Next, check if we do have a base component view in the props
+    let currentView = <ControlPanelSelect />;
+    let currentTitle = "Control Panel";
+
+    // Lastly, set the current view to the last item on the view stack
+    if (this.state.controlPanel.viewStack.length > 0) {
+      currentView = this.state.controlPanel.viewStack[
+        this.state.controlPanel.viewStack.length - 1
+      ].view;
+    }
+
+    this.state.controlPanel.viewStack.forEach(view => {
       currentTitle += ` - ${view.title}`;
     });
 
-    // Show a loader while we perform async tasks
-    let renderedView = <div class="donut" />;
-    if (this.state.collection) {
-      renderedView = currentView;
-    }
-
     return (
-      <div
-        className={
-          this.props.show
-            ? "control-panel control-panel--show"
-            : "control-panel"
-        }
-      >
+      <div class="control-panel">
         <div class="control-panel__modal">
           <div class="aesthetic-windows-95-modal">
             <div class="aesthetic-windows-95-modal-title-bar">
@@ -172,7 +94,11 @@ export default class ControlPanel extends Component {
 
               <div class="aesthetic-windows-95-modal-title-bar-controls">
                 <div class="aesthetic-windows-95-button-title-bar">
-                  <button onclick={() => this.hide()}>X</button>
+                  <button
+                    onclick={() => this.state.controlPanel.hideControlPanel()}
+                  >
+                    X
+                  </button>
                 </div>
               </div>
             </div>
@@ -181,7 +107,7 @@ export default class ControlPanel extends Component {
               <div class="control-panel__modal__controls">
                 <div class="aesthetic-windows-95-button">
                   <button
-                    disabled={this.state.viewStack.length <= 0}
+                    disabled={this.state.controlPanel.viewStack.length <= 0}
                     onclick={() => this.goToPreviousView()}
                   >
                     ⬅️
@@ -191,7 +117,7 @@ export default class ControlPanel extends Component {
 
               <hr />
 
-              <div class="control-panel__modal__view">{renderedView}</div>
+              <div class="control-panel__modal__view">{currentView}</div>
             </div>
           </div>
         </div>

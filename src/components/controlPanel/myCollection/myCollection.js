@@ -1,6 +1,9 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { Pubx } from "../../../services/pubx";
+import { PUBX_CONFIG } from "../../../pubx.config";
+
 import Cartridge from "../cartridge/cartridge";
 
 export default class MyCollection extends Component {
@@ -9,7 +12,16 @@ export default class MyCollection extends Component {
     this.setState({});
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.setState({
+      collection: {
+        ...Pubx.get(PUBX_CONFIG.ROM_COLLECTION_KEY)
+      },
+      controlPanel: {
+        ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
+      }
+    });
+  }
 
   getROMImageUrl(collectionROM) {
     return undefined;
@@ -28,31 +40,35 @@ export default class MyCollection extends Component {
     };
 
     loadROMTask();
-    this.props.hide();
+    this.state.controlPanel.hideControlPanel();
   }
 
   render() {
     let collectionROMs = [];
-    if (this.props.collection) {
-      Object.keys(this.props.collection).forEach(collectionROMKey => {
-        const collectionROM = this.props.collection[collectionROMKey];
+    if (this.state.collection && this.state.collection.collection) {
+      Object.keys(this.state.collection.collection).forEach(
+        collectionROMKey => {
+          const collectionROM = this.state.collection.collection[
+            collectionROMKey
+          ];
 
-        collectionROMs.push(
-          <li class="ROM-list__item">
-            <div class="ROM-list__item__cartridge">
-              <Cartridge
-                imageUrl={this.getROMImageUrl(collectionROM)}
-                onClick={() => {
-                  this.loadROM(collectionROM);
-                }}
-              />
-            </div>
-            <div class="ROM-list__item__label">
-              {this.getROMTitle(collectionROM)}
-            </div>
-          </li>
-        );
-      });
+          collectionROMs.push(
+            <li class="ROM-list__item">
+              <div class="ROM-list__item__cartridge">
+                <Cartridge
+                  imageUrl={this.getROMImageUrl(collectionROM)}
+                  onClick={() => {
+                    this.loadROM(collectionROM);
+                  }}
+                />
+              </div>
+              <div class="ROM-list__item__label">
+                {this.getROMTitle(collectionROM)}
+              </div>
+            </li>
+          );
+        }
+      );
     }
 
     return (

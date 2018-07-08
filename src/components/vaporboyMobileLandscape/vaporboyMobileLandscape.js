@@ -3,10 +3,6 @@ import { Component } from "preact";
 
 // Our Components
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
-import ExpandButton from "../touchpad/expandButton/expandButton";
-import ControlPanelButton from "../touchpad/controlPanelButton/controlPanelButton";
-import GameboyButton from "../touchpad/gameboyButton/gameboyButton";
-import GameboyDpad from "../touchpad/gameboyDpad/gameboyDpad";
 
 export default class VaporBoyMobileLandscape extends Component {
   render() {
@@ -33,40 +29,6 @@ export default class VaporBoyMobileLandscape extends Component {
               <div />
               <div />
               <div />
-            </div>
-          </div>
-        </div>
-
-        <div className="vaporboy-mobile-landscape__touchpad-overlay">
-          <div className="button-layout">
-            {/* VaporBoy specific buttons */}
-            <div class="vaporboy-mobile-landscape__touchpad-overlay__expand">
-              <ExpandButton onClick={() => this.props.toggleExpand()} />
-            </div>
-
-            <div class="vaporboy-mobile-landscape__touchpad-overlay__control-panel">
-              <ControlPanelButton
-                onClick={() => this.props.showControlPanel()}
-              />
-            </div>
-
-            {/* Gameboy Buttons */}
-            <div class="b-button">
-              <GameboyButton button={"B"} isGba={true} />
-            </div>
-            <div class="a-button">
-              <GameboyButton button={"A"} isGba={true} />
-            </div>
-            <div class="dpad">
-              <GameboyDpad isGba={true} />
-            </div>
-
-            <div class="start-button">
-              <GameboyButton button={"start"} isGba={true} />
-            </div>
-
-            <div class="select-button">
-              <GameboyButton button={"select"} isGba={true} />
             </div>
           </div>
         </div>

@@ -1,6 +1,9 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { Pubx } from "../../../services/pubx";
+import { PUBX_CONFIG } from "../../../pubx.config";
+
 import Cartridge from "../cartridge/cartridge";
 
 import { AVAILABLE_GAMES } from "./availableGames";
@@ -9,6 +12,14 @@ export default class Homebrew extends Component {
   constructor() {
     super();
     this.setState({});
+  }
+
+  componentDidMount() {
+    this.setState({
+      controlPanel: {
+        ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
+      }
+    });
   }
 
   loadROM(availableGame) {
@@ -20,7 +31,7 @@ export default class Homebrew extends Component {
     };
 
     loadHomebrewTask();
-    this.props.hide();
+    this.state.controlPanel.hideControlPanel();
   }
 
   render() {

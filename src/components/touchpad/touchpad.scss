@@ -1,0 +1,37 @@
+// Import our component styles
+@import "expandButton/expandButton";
+@import "controlPanelButton/controlPanelButton";
+@import "gameboyButton/gameboyButton";
+@import "gameboyDpad/gameboyDpad";
+
+// Import our layouts
+@import "touchpadMobilePortrait";
+@import "touchpadMobileLandscape";
+@import "touchpadExpandedLandscape";
+@import "touchpadExpandedPortrait";
+
+// Stop allowing elements on the touch pad from being selected
+// https://stackoverflow.com/questions/21003535/anyway-to-prevent-the-blue-highlighting-of-elements-in-chrome-when-clicking-quic
+.vaporboy-touchpad * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+// Hide Virtual gamepad on desktop
+.desktop {
+  .vaporboy-touchpad {
+    .vaporboy-touchpad__button-layout {
+      .vaporboy-touchpad__button-layout__b-button,
+      .vaporboy-touchpad__button-layout__a-button,
+      .vaporboy-touchpad__button-layout__dpad,
+      .vaporboy-touchpad__button-layout__start-button,
+      .vaporboy-touchpad__button-layout__select-button {
+        display: none;
+      }
+    }
+  }
+}

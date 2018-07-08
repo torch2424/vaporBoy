@@ -1,0 +1,55 @@
+.vaporboy-info-modal {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 7;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  &__modal {
+    width: 100%;
+
+    max-width: 400px;
+
+    .aesthetic-windows-95-modal {
+      height: calc(100% - 8px);
+
+      display: flex;
+      flex-direction: column;
+
+      .aesthetic-windows-95-modal-title-bar {
+        width: calc(100% - 10px);
+        min-height: 20px;
+      }
+
+      .aesthetic-windows-95-modal-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+    }
+
+    &__content {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    &__buttons {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .aesthetic-windows-95-button {
+        margin-right: 20px;
+      }
+    }
+  }
+}

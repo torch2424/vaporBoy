@@ -3,10 +3,6 @@ import { Component } from "preact";
 
 // Our Components
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
-import ExpandButton from "../touchpad/expandButton/expandButton";
-import ControlPanelButton from "../touchpad/controlPanelButton/controlPanelButton";
-import GameboyButton from "../touchpad/gameboyButton/gameboyButton";
-import GameboyDpad from "../touchpad/gameboyDpad/gameboyDpad";
 
 // 3P libs
 import * as screenfull from "screenfull";
@@ -20,14 +16,12 @@ export default class VaporBoyExpanded extends Component {
       });
     }
 
-    // Set HTML/Body BG color
-    document.documentElement.classList.add("vaporboy-expanded-bg");
-    document.body.classList.add("vaporboy-expanded-bg");
+    // Set the expanded class
+    document.documentElement.classList.add("expanded");
   }
 
   componentWillUnmount() {
-    document.documentElement.classList.remove("vaporboy-expanded-bg");
-    document.body.classList.remove("vaporboy-expanded-bg");
+    document.documentElement.classList.remove("expanded");
   }
 
   render() {
@@ -35,42 +29,6 @@ export default class VaporBoyExpanded extends Component {
       <div class="vaporboy-expanded">
         <div className="wasmboy-canvas-container">
           <WasmBoyCanvas />
-        </div>
-
-        <div class="vaporboy-expanded__controls">
-          <div class="vaporboy-expanded__controls__container">
-            <div class="vaporboy-expanded__controls__container__expand">
-              <ExpandButton
-                expanded={true}
-                onClick={() => this.props.toggleExpand()}
-              />
-            </div>
-
-            <div class="vaporboy-expanded__controls__container__control-panel">
-              <ControlPanelButton
-                onClick={() => this.props.showControlPanel()}
-              />
-            </div>
-
-            {/* Gameboy Buttons */}
-            <div class="b-button">
-              <GameboyButton button={"B"} isExpanded={true} />
-            </div>
-            <div class="a-button">
-              <GameboyButton button={"A"} isExpanded={true} />
-            </div>
-            <div class="dpad">
-              <GameboyDpad isExpanded={true} />
-            </div>
-
-            <div class="start-button">
-              <GameboyButton button={"start"} isExpanded={true} />
-            </div>
-
-            <div class="select-button">
-              <GameboyButton button={"select"} isExpanded={true} />
-            </div>
-          </div>
         </div>
       </div>
     );

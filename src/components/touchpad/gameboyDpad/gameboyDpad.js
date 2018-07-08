@@ -2,6 +2,9 @@
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
 
+import { Pubx } from "../../../services/pubx";
+import { PUBX_CONFIG } from "../../../pubx.config";
+
 import { getInputId } from "../touchpad.common";
 
 // Define our gradient constants
@@ -82,6 +85,8 @@ export default class GameboyDpad extends Component {
   }
 
   componentDidMount() {
+    const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
+
     const touchElement = document.getElementById(this.state.elementId);
     const upGamepadId = WasmBoy.addTouchInput("UP", touchElement, "DPAD", "UP");
     const downGamepadId = WasmBoy.addTouchInput(
@@ -108,7 +113,10 @@ export default class GameboyDpad extends Component {
       upGamepadId: upGamepadId,
       downGamepadId: downGamepadId,
       leftGamepadId: leftGamepadId,
-      rightGamepadId: rightGamepadId
+      rightGamepadId: rightGamepadId,
+      layout: {
+        ...pubxLayoutState
+      }
     });
   }
 
@@ -120,9 +128,15 @@ export default class GameboyDpad extends Component {
   }
 
   render() {
-    // Get if we are in specified modes
-    const isGbc = !!this.props.isGbc;
-    const isExpanded = !!this.props.isExpanded;
+    // Get if we are in specified modes, using pubx layout
+    let isGba = false;
+    let isGbc = false;
+    let isExpanded = false;
+    if (this.state.layout) {
+      isGba = this.state.layout.isGba();
+      isGbc = this.state.layout.isGbc();
+      isExpanded = this.state.layout.isExpandedMobile();
+    }
 
     // get our classes
     const classes = ["gameboy-dpad"];

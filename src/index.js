@@ -1,71 +1,34 @@
 // Our root component
 import "./index.scss";
 import { Component } from "preact";
+
+import { Pubx } from "./services/pubx";
+import { PUBX_CONFIG } from "./pubx.config";
 import { WasmBoy } from "wasmboy";
 import device from "current-device";
-
-import { CONTROL_PANEL_BASE_COMPONENTS } from "./components/controlPanel/baseComponent";
 
 import VaporBoyDesktop from "./components/vaporboyDesktop/vaporboyDesktop";
 import VaporBoyMobileLandscape from "./components/vaporboyMobileLandscape/vaporboyMobileLandscape";
 import VaporBoyMobilePortrait from "./components/vaporboyMobilePortrait/vaporboyMobilePortrait";
 import VaporBoyExpanded from "./components/vaporboyExpanded/vaporboyExpanded";
 import ControlPanel from "./components/controlPanel/controlPanel";
+import ConfirmationModal from "./components/confirmationModal/confirmationModal";
+import Touchpad from "./components/touchpad/touchpad";
 
 export default class App extends Component {
   constructor() {
     super();
-    this.setState({
-      expanded: false,
-      baseComponent: undefined,
-      showControlPanel: false
-    });
+
+    // Initialize our Pubx
+    PUBX_CONFIG.INITIALIZE();
 
     // Add our listener for orientation changes
     device.onChangeOrientation(newOrientation => {
-      // Re-render the component on changes
-      this.setState({
-        ...this.state
+      Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
+        mobile: device.mobile(),
+        landscape: device.landscape(),
+        portrait: device.portrait()
       });
-    });
-  }
-
-  toggleExpand() {
-    this.setState({
-      ...this.state,
-      expanded: !this.state.expanded
-    });
-  }
-
-  showControlPanel() {
-    this.setState({
-      ...this.state,
-      showControlPanel: true,
-      baseComponent: undefined
-    });
-  }
-
-  showROMSourceSelector() {
-    this.setState({
-      ...this.state,
-      showControlPanel: true,
-      baseComponent: CONTROL_PANEL_BASE_COMPONENTS.ROM_SOURCE_SELECTOR
-    });
-  }
-
-  showSaveStates() {
-    this.setState({
-      ...this.state,
-      showControlPanel: true,
-      baseComponent: undefined // TODO: Save State Component
-    });
-  }
-
-  hideControlPanel() {
-    this.setState({
-      ...this.state,
-      showControlPanel: false,
-      baseComponent: undefined
     });
   }
 
@@ -74,35 +37,37 @@ export default class App extends Component {
       console.log("Cordova Launched Device Ready!");
     });
     console.log("WasmBoy:", WasmBoy);
+
+    // Subscribe to changes
+    const pubxLayoutSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.LAYOUT_KEY,
+      newState => {
+        // You can spread and overwrite variables, while preserving ones,
+        // as long is in cascading order.
+        this.setState({
+          ...this.state,
+          layout: {
+            ...this.state.layout,
+            ...newState
+          }
+        });
+      }
+    );
+
+    this.setState({
+      layout: {
+        ...Pubx.get(PUBX_CONFIG.LAYOUT_KEY)
+      },
+      pubxLayoutSubscriberKey
+    });
   }
 
   render() {
     // Define our layouts
-    let vaporboyDesktopLayout = (
-      <VaporBoyDesktop
-        toggleExpand={() => this.toggleExpand()}
-        showControlPanel={() => this.showControlPanel()}
-        showROMSourceSelector={() => this.showROMSourceSelector()}
-      />
-    );
-    let vaporboyMobileLandscapeLayout = (
-      <VaporBoyMobileLandscape
-        toggleExpand={() => this.toggleExpand()}
-        showControlPanel={() => this.showControlPanel()}
-      />
-    );
-    let vaporboyMobilePortraitLayout = (
-      <VaporBoyMobilePortrait
-        toggleExpand={() => this.toggleExpand()}
-        showControlPanel={() => this.showControlPanel()}
-      />
-    );
-    let vaporboyExpandedLayout = (
-      <VaporBoyExpanded
-        toggleExpand={() => this.toggleExpand()}
-        showControlPanel={() => this.showControlPanel()}
-      />
-    );
+    let vaporboyDesktopLayout = <VaporBoyDesktop />;
+    let vaporboyMobileLandscapeLayout = <VaporBoyMobileLandscape />;
+    let vaporboyMobilePortraitLayout = <VaporBoyMobilePortrait />;
+    let vaporboyExpandedLayout = <VaporBoyExpanded />;
 
     // Get our current layout
     let currentLayout = vaporboyDesktopLayout;
@@ -114,20 +79,16 @@ export default class App extends Component {
       }
     }
 
-    if (this.state.expanded) {
+    if (this.state.layout && this.state.layout.expanded) {
       currentLayout = vaporboyExpandedLayout;
     }
 
     return (
       <div>
-        <ControlPanel
-          show={this.state.showControlPanel}
-          hide={() => {
-            this.hideControlPanel();
-          }}
-          baseComponent={this.state.baseComponent}
-        />
+        <ConfirmationModal />
+        <ControlPanel />
         {currentLayout}
+        <Touchpad />
       </div>
     );
   }

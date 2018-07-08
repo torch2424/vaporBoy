@@ -1,7 +1,9 @@
 // Super Gameboy Border
 import { Component } from "preact";
 import { WasmBoy } from "wasmboy";
-import { WASMBOY_CONFIG } from "../../wasmboy.config";
+
+import { Pubx } from "../../services/pubx";
+import { PUBX_CONFIG } from "../../pubx.config";
 
 export default class WasmBoyCanvas extends Component {
   constructor() {
@@ -10,22 +12,14 @@ export default class WasmBoyCanvas extends Component {
   }
 
   componentDidMount() {
+    // Get our HTML5 Canvas element
+    const canvasElement = document.querySelector("#wasmboy-canvas");
+
     // Check if we are already ready and initialized
     // (this is to avoid resetting a game on layout changes)
     if (!WasmBoy.isReady()) {
-      // Get our HTML5 Canvas element
-      const canvasElement = document.querySelector("#wasmboy-canvas");
-
-      const wasmboyInitTask = async () => {
-        await WasmBoy.config(WASMBOY_CONFIG, canvasElement);
-        console.log("WasmBoy is configured!");
-      };
-
-      wasmboyInitTask();
+      this.configWasmBoy(canvasElement);
     } else if (WasmBoy.isPlaying()) {
-      // Get our HTML5 Canvas element
-      const canvasElement = document.querySelector("#wasmboy-canvas");
-
       const setCanvasTask = async () => {
         await WasmBoy.setCanvas(canvasElement);
         await WasmBoy.play();
@@ -33,6 +27,52 @@ export default class WasmBoyCanvas extends Component {
 
       setCanvasTask();
     }
+
+    // Also, subscribe to options changes
+    const pubxVaporBoyOptionsSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.VAPORBOY_OPTIONS_KEY,
+      () => {
+        this.configWasmBoy(canvasElement);
+      }
+    );
+
+    this.setState({
+      ...this.state,
+      pubxVaporBoyOptionsSubscriberKey
+    });
+  }
+
+  componentWillUnmount() {
+    Pubx.unsubscribe(
+      PUBX_CONFIG.VAPORBOY_OPTIONS_KEY,
+      this.state.pubxVaporBoyOptionsSubscriberKey
+    );
+  }
+
+  configWasmBoy(canvasElement) {
+    const wasmBoyConfigTask = async () => {
+      console.log(
+        "Current Pubx Vaporboy Options",
+        Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY)
+      );
+
+      const wasmboyConfig = {
+        ...Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY),
+        saveStateCallback: saveStateObject => {
+          // Function called everytime a savestate occurs
+          // Used by the WasmBoySystemControls to show screenshots on save states
+          const canvasElement = document.getElementById("wasmboy-canvas");
+          if (canvasElement) {
+            saveStateObject.screenshotCanvasDataURL = canvasElement.toDataURL();
+          }
+        }
+      };
+
+      await WasmBoy.config(wasmboyConfig, canvasElement);
+      console.log("WasmBoy is configured!");
+    };
+
+    return wasmBoyConfigTask();
   }
 
   render() {
