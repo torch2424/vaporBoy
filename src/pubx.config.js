@@ -1,5 +1,6 @@
 import device from "current-device";
 import { Pubx } from "./services/pubx";
+import { VAPORBOY_DEFAULT_OPTIONS } from "./vaporboyOptions.config";
 import { VAPORBOY_OPTIONS_LOCALSTORAGE_KEY } from "./vaporboyOptions.config";
 
 export const PUBX_CONFIG = {
