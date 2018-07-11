@@ -25,7 +25,7 @@ export const VAPORBOY_EFFECTS_SECTIONS = {
     settings: {
       bassBoost: {
         name: "Bass Boost",
-        descriptionElement: <div>TODO: Right now it's a low pass filter</div>,
+        descriptionElement: <div>Bass Boost all ROM audio Output.</div>,
         type: "boolean"
       }
     }
@@ -55,7 +55,12 @@ export const VAPORBOY_EFFECTS_SECTIONS = {
       },
       rainbow: {
         name: "Rainbow Pallete",
-        descriptionElement: <div>Rainbow TODO:</div>,
+        descriptionElement: (
+          <div>
+            Randomizes every pixel to a certain color, based on the average RGB
+            value. Essentially adds a rainbow static to the video output.
+          </div>
+        ),
         type: "boolean"
       }
     }
