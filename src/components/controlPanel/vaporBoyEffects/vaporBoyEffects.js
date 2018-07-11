@@ -4,29 +4,29 @@ import { Pubx } from "../../../services/pubx";
 import { PUBX_CONFIG } from "../../../pubx.config";
 
 import {
-  VAPORBOY_OPTIONS_LOCALSTORAGE_KEY,
-  VAPORBOY_DEFAULT_OPTIONS
-} from "../../../vaporboyOptions.config";
-import { VAPORBOY_OPTION_SECTIONS } from "./vaporBoyOptions.sections";
+  VAPORBOY_EFFECTS_LOCALSTORAGE_KEY,
+  VAPORBOY_DEFAULT_EFFECTS
+} from "../../../vaporboyEffects.config";
+import { VAPORBOY_EFFECTS_SECTIONS } from "./vaporBoyEffects.sections";
 
 import SettingsDisplay from "../settingsDisplay";
 
-export default class VaporBoyOptions extends Component {
+export default class VaporBoyEffects extends Component {
   constructor() {
     super();
     this.setState({
-      options: {}
+      effects: {}
     });
   }
 
   componentDidMount() {
     // Subscribe to options changes
-    const pubxVaporBoyOptionsSubscriberKey = Pubx.subscribe(
-      PUBX_CONFIG.VAPORBOY_OPTIONS_KEY,
+    const pubxVaporBoyEffectsSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.VAPORBOY_EFFECTS_KEY,
       newState => {
         this.setState({
           ...this.state,
-          options: {
+          effects: {
             ...newState
           }
         });
@@ -35,46 +35,44 @@ export default class VaporBoyOptions extends Component {
 
     this.setState({
       ...this.state,
-      options: {
-        ...Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY)
+      effects: {
+        ...Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY)
       },
-      pubxVaporBoyOptionsSubscriberKey
+      pubxVaporBoyEffectsSubscriberKey
     });
   }
 
   componentWillUnmount() {
     Pubx.unsubscribe(
-      PUBX_CONFIG.VAPORBOY_OPTIONS_KEY,
-      this.state.pubxVaporBoyOptionsSubscriberKey
+      PUBX_CONFIG.VAPORBOY_EFFECTS_KEY,
+      this.state.pubxVaporBoyEffectsSubscriberKey
     );
   }
 
   render() {
-    if (!this.state.options || Object.keys(this.state.options).length <= 0) {
+    if (!this.state.effects || Object.keys(this.state.effects).length <= 0) {
       return <div class="donut-loader" />;
     }
 
-    const currentSettings = this.state.options;
-    const settingsSections = VAPORBOY_OPTION_SECTIONS;
-    const localStorageKey = VAPORBOY_OPTIONS_LOCALSTORAGE_KEY;
-    const pubxConfigKey = PUBX_CONFIG.VAPORBOY_OPTIONS_KEY;
-    const resetTitle = "Reset to Default options";
+    const currentSettings = this.state.effects;
+    const settingsSections = VAPORBOY_EFFECTS_SECTIONS;
+    const localStorageKey = VAPORBOY_EFFECTS_LOCALSTORAGE_KEY;
+    const pubxConfigKey = PUBX_CONFIG.VAPORBOY_EFFECTS_KEY;
+    const resetTitle = "Clear All Effects";
     const resetElement = (
-      <div>
-        Are you sure you would like to reset to the Default Vaporboy Options?
-      </div>
+      <div>Are you sure you would like to clear all VaporBoy effects?</div>
     );
-    const defaultSettings = VAPORBOY_DEFAULT_OPTIONS;
-    const applyTitle = "Apply Options";
+    const defaultSettings = VAPORBOY_DEFAULT_EFFECTS;
+    const applyTitle = "Apply Effects";
     const applyElement = (
       <div>
         This will reset any currently running ROM. A save state will be made.
-        Apply options?
+        Apply effects?
       </div>
     );
 
     return (
-      <div class="vaporboy-options">
+      <div class="vaporboy-effects">
         <SettingsDisplay
           currentSettings={currentSettings}
           settingsSections={settingsSections}

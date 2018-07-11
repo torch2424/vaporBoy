@@ -1,5 +1,6 @@
 // Import our sub components
 @import "ROMlist";
+@import "settingsDisplay";
 @import "controlPanelSelect/controlPanelSelect";
 @import "ROMSourceSelector/ROMSourceSelector";
 @import "homebrew/homebrew";
@@ -7,6 +8,7 @@
 @import "cartridge/cartridge";
 @import "loadStateList/loadStateList";
 @import "vaporBoyOptions/vaporBoyOptions";
+@import "vaporBoyEffects/vaporBoyEffects";
 
 .control-panel {
   position: fixed;

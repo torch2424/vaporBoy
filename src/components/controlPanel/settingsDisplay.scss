@@ -1,0 +1,83 @@
+.vaporboy-settings {
+  padding: 10px;
+
+  ul {
+    list-style-type: none;
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+
+    li {
+      padding: 0px;
+    }
+  }
+
+  &__section-header {
+    margin-top: 25px;
+
+    &:first-child {
+      margin-top: 0px;
+    }
+
+    &__title {
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+
+    &__description {
+      padding-bottom: 10px;
+      border-bottom: solid 1px $aesthetic-50-transparent;
+    }
+  }
+
+  &__setting {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-bottom: solid 1px $aesthetic-50-transparent;
+
+    input {
+      width: 100px;
+    }
+
+    input[type="checkbox"] {
+      width: 0px;
+    }
+
+    &__name {
+      display: inline-block;
+      margin-left: 5px;
+    }
+
+    &__description-element {
+      margin-top: 5px;
+      padding-left: 20px;
+      padding-bottom: 5px;
+      opacity: 0.75;
+    }
+  }
+
+  &__apply-settings {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .aesthetic-windows-95-button {
+      flex: 1;
+      margin-left: 20px;
+      margin-right: 20px;
+
+      button {
+        font-size: 1rem;
+
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+      }
+    }
+  }
+}

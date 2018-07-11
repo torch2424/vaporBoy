@@ -6,7 +6,7 @@ export const VAPORBOY_OPTION_SECTIONS = {
     descriptionElement: (
       <div>Options pertaining to the actual experience of playing the ROM</div>
     ),
-    options: {
+    settings: {
       isGbcEnabled: {
         name: "Use GBC When Optional",
         descriptionElement: (
@@ -42,7 +42,7 @@ export const VAPORBOY_OPTION_SECTIONS = {
         </a>.
       </div>
     ),
-    options: {
+    settings: {
       gameboyFrameRate: {
         name: "Maximum Framerate",
         descriptionElement: (
