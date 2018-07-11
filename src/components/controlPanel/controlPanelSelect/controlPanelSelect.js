@@ -7,6 +7,7 @@ import { PUBX_CONFIG } from "../../../pubx.config";
 import ROMSourceSelector from "../ROMSourceSelector/ROMSourceSelector";
 import LoadStateList from "../loadStateList/loadStateList";
 import VaporBoyOptions from "../vaporBoyOptions/vaporBoyOptions";
+import VaporBoyEffects from "../vaporBoyEffects/vaporBoyEffects";
 
 export default class ControlPanelSelect extends Component {
   constructor() {
@@ -100,6 +101,13 @@ export default class ControlPanelSelect extends Component {
     );
   }
 
+  viewEffects() {
+    this.state.controlPanel.addComponentToControlPanelViewStack(
+      "Effects",
+      <VaporBoyEffects />
+    );
+  }
+
   render() {
     return (
       <div class="control-panel-select">
@@ -132,6 +140,12 @@ export default class ControlPanelSelect extends Component {
             <button onclick={() => this.viewOptions()}>
               <div>⚙️</div>
               <div>Configure Options</div>
+            </button>
+          </li>
+          <li class="control-panel-select__grid__item">
+            <button onclick={() => this.viewEffects()}>
+              <div>✨</div>
+              <div>Configure Effects</div>
             </button>
           </li>
         </ul>

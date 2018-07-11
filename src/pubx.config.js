@@ -1,7 +1,13 @@
 import device from "current-device";
 import { Pubx } from "./services/pubx";
-import { VAPORBOY_DEFAULT_OPTIONS } from "./vaporboyOptions.config";
-import { VAPORBOY_OPTIONS_LOCALSTORAGE_KEY } from "./vaporboyOptions.config";
+import {
+  VAPORBOY_DEFAULT_OPTIONS,
+  VAPORBOY_OPTIONS_LOCALSTORAGE_KEY
+} from "./vaporboyOptions.config";
+import {
+  VAPORBOY_DEFAULT_EFFECTS,
+  VAPORBOY_EFFECTS_LOCALSTORAGE_KEY
+} from "./vaporboyEffects.config";
 
 export const PUBX_CONFIG = {
   LAYOUT_KEY: "LAYOUT_KEY",
@@ -10,11 +16,13 @@ export const PUBX_CONFIG = {
   SAVES_STATES_KEY: "SAVE_STATES_KEY",
   CONFIRMATION_MODAL_KEY: "CONFIRMATION_MODAL_KEY",
   VAPORBOY_OPTIONS_KEY: "VAPORBOY_OPTIONS_KEY",
+  VAPORBOY_EFFECTS_KEY: "VAPORBOY_EFFECTS_KEY",
   INITIALIZE: () => {
     initializePubxLayout();
     initializePubxControlPanel();
     initializePubxConfirmationModal();
     initializePubxVaporBoyOptions();
+    initializePubxVaporBoyEffects();
   }
 };
 
@@ -123,4 +131,25 @@ const initializePubxVaporBoyOptions = () => {
   }
 
   Pubx.publish(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY, vaporBoyOptions);
+};
+
+const initializePubxVaporBoyEffects = () => {
+  // Vaporboy Effects
+  // Grab our effects settings from localstorage
+  let vaporBoyOptions = JSON.parse(
+    window.localStorage.getItem(VAPORBOY_EFFECTS_LOCALSTORAGE_KEY)
+  );
+  // If we dont have vapor boy options, generate them
+  if (!vaporBoyOptions) {
+    // Fill/save our default options
+    window.localStorage.setItem(
+      VAPORBOY_EFFECTS_LOCALSTORAGE_KEY,
+      JSON.stringify({
+        ...VAPORBOY_DEFAULT_EFFECTS
+      })
+    );
+    vaporBoyOptions = Object.assign({}, VAPORBOY_DEFAULT_EFFECTS);
+  }
+
+  Pubx.publish(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY, vaporBoyOptions);
 };
