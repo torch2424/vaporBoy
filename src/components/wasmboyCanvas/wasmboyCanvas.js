@@ -5,6 +5,13 @@ import { WasmBoy } from "wasmboy";
 import { Pubx } from "../../services/pubx";
 import { PUBX_CONFIG } from "../../pubx.config";
 
+// Import our effects
+import {
+  invertedEffect,
+  monochromeEffect,
+  rainbowEffect
+} from "../../vaporboyEffects.config";
+
 export default class WasmBoyCanvas extends Component {
   constructor() {
     super();
@@ -28,9 +35,15 @@ export default class WasmBoyCanvas extends Component {
       setCanvasTask();
     }
 
-    // Also, subscribe to options changes
+    // Also, subscribe to options/effects changes
     const pubxVaporBoyOptionsSubscriberKey = Pubx.subscribe(
       PUBX_CONFIG.VAPORBOY_OPTIONS_KEY,
+      () => {
+        this.configWasmBoy(canvasElement);
+      }
+    );
+    const pubxVaporBoyEffectsSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.VAPORBOY_EFFECTS_KEY,
       () => {
         this.configWasmBoy(canvasElement);
       }
@@ -38,7 +51,8 @@ export default class WasmBoyCanvas extends Component {
 
     this.setState({
       ...this.state,
-      pubxVaporBoyOptionsSubscriberKey
+      pubxVaporBoyOptionsSubscriberKey,
+      pubxVaporBoyEffectsSubscriberKey
     });
   }
 
@@ -47,23 +61,41 @@ export default class WasmBoyCanvas extends Component {
       PUBX_CONFIG.VAPORBOY_OPTIONS_KEY,
       this.state.pubxVaporBoyOptionsSubscriberKey
     );
+    Pubx.unsubscribe(
+      PUBX_CONFIG.VAPORBOY_EFFECTS_KEY,
+      this.state.pubxVaporBoyEffectsSubscriberKey
+    );
   }
 
   configWasmBoy(canvasElement) {
     const wasmBoyConfigTask = async () => {
-      console.log(
-        "Current Pubx Vaporboy Options",
-        Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY)
-      );
+      const vaporboyOptions = Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY);
+      const vaporboyEffects = Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY);
+
+      console.log("Current Pubx Vaporboy Options", vaporboyOptions);
+      console.log("Current Pubx Vaporboy Effects", vaporboyEffects);
 
       const wasmboyConfig = {
-        ...Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY),
+        ...vaporboyOptions,
         saveStateCallback: saveStateObject => {
           // Function called everytime a savestate occurs
           // Used by the WasmBoySystemControls to show screenshots on save states
           const canvasElement = document.getElementById("wasmboy-canvas");
           if (canvasElement) {
             saveStateObject.screenshotCanvasDataURL = canvasElement.toDataURL();
+          }
+        },
+        updateGraphicsCallback: imageDataArray => {
+          if (vaporboyEffects.rainbow) {
+            rainbowEffect(imageDataArray);
+          }
+
+          if (vaporboyEffects.inverted) {
+            invertedEffect(imageDataArray);
+          }
+
+          if (vaporboyEffects.monochrome) {
+            monochromeEffect(imageDataArray);
           }
         }
       };

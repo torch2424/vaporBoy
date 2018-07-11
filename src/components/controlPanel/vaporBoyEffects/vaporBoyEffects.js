@@ -50,6 +50,10 @@ export default class VaporBoyEffects extends Component {
   }
 
   render() {
+    if (!this.state.effects || Object.keys(this.state.effects).length <= 0) {
+      return <div class="donut-loader" />;
+    }
+
     const currentSettings = this.state.effects;
     const settingsSections = VAPORBOY_EFFECTS_SECTIONS;
     const localStorageKey = VAPORBOY_EFFECTS_LOCALSTORAGE_KEY;

@@ -112,8 +112,7 @@ export default class SettingsDisplay extends Component {
 
   confirmApply() {
     Pubx.get(PUBX_CONFIG.CONFIRMATION_MODAL_KEY).showConfirmationModal(
-      this,
-      props.applyTitle,
+      this.props.applyTitle,
       this.props.applyElement,
       () => {
         // If confirm, apply

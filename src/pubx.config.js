@@ -136,11 +136,11 @@ const initializePubxVaporBoyOptions = () => {
 const initializePubxVaporBoyEffects = () => {
   // Vaporboy Effects
   // Grab our effects settings from localstorage
-  let vaporBoyOptions = JSON.parse(
+  let vaporBoyEffects = JSON.parse(
     window.localStorage.getItem(VAPORBOY_EFFECTS_LOCALSTORAGE_KEY)
   );
   // If we dont have vapor boy options, generate them
-  if (!vaporBoyOptions) {
+  if (!vaporBoyEffects) {
     // Fill/save our default options
     window.localStorage.setItem(
       VAPORBOY_EFFECTS_LOCALSTORAGE_KEY,
@@ -148,8 +148,8 @@ const initializePubxVaporBoyEffects = () => {
         ...VAPORBOY_DEFAULT_EFFECTS
       })
     );
-    vaporBoyOptions = Object.assign({}, VAPORBOY_DEFAULT_EFFECTS);
+    vaporBoyEffects = Object.assign({}, VAPORBOY_DEFAULT_EFFECTS);
   }
 
-  Pubx.publish(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY, vaporBoyOptions);
+  Pubx.publish(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY, vaporBoyEffects);
 };
