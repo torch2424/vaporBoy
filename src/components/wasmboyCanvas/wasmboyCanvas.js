@@ -7,6 +7,9 @@ import { PUBX_CONFIG } from "../../pubx.config";
 
 // Import our effects
 import {
+  vaporAudioEffect,
+  vaporVideoEffect,
+  bassBoostEffect,
   invertedEffect,
   monochromeEffect,
   rainbowEffect
@@ -69,11 +72,21 @@ export default class WasmBoyCanvas extends Component {
 
   configWasmBoy(canvasElement) {
     const wasmBoyConfigTask = async () => {
-      const vaporboyOptions = Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY);
-      const vaporboyEffects = Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY);
+      const vaporboyOptions = {
+        ...Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY)
+      };
+      const vaporboyEffects = {
+        ...Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY)
+      };
 
       console.log("Current Pubx Vaporboy Options", vaporboyOptions);
       console.log("Current Pubx Vaporboy Effects", vaporboyEffects);
+
+      if (vaporboyEffects.vapor) {
+        vaporboyOptions.gameboyFrameRate = Math.floor(
+          vaporboyOptions.gameboyFrameRate * 0.875
+        );
+      }
 
       const wasmboyConfig = {
         ...vaporboyOptions,
@@ -85,7 +98,25 @@ export default class WasmBoyCanvas extends Component {
             saveStateObject.screenshotCanvasDataURL = canvasElement.toDataURL();
           }
         },
+        updateAudioCallback: (audioContext, audioBufferSourceNode) => {
+          // Chain connect the audio nodes
+          let audioNode = audioBufferSourceNode;
+
+          if (vaporboyEffects.vapor) {
+            audioNode = vaporAudioEffect(audioContext, audioNode);
+          }
+
+          if (vaporboyEffects.bassBoost) {
+            audioNode = bassBoostEffect(audioContext, audioNode);
+          }
+
+          return audioNode;
+        },
         updateGraphicsCallback: imageDataArray => {
+          if (vaporboyEffects.vapor) {
+            vaporVideoEffect(imageDataArray);
+          }
+
           if (vaporboyEffects.rainbow) {
             rainbowEffect(imageDataArray);
           }

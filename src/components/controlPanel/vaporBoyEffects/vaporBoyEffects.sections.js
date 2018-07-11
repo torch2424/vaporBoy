@@ -5,7 +5,17 @@ export const VAPORBOY_EFFECTS_SECTIONS = {
     descriptionElement: (
       <div>Effects that modify boht audio and video output of the ROM.</div>
     ),
-    settings: {}
+    settings: {
+      vapor: {
+        name: "Vapor Mode",
+        descriptionElement: (
+          <div>
+            This will add some <i>A E S T H E T I C</i> to any ROM.
+          </div>
+        ),
+        type: "boolean"
+      }
+    }
   },
   audio: {
     name: "Audio",
