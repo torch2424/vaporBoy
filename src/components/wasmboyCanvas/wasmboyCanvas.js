@@ -93,9 +93,8 @@ export default class WasmBoyCanvas extends Component {
         saveStateCallback: saveStateObject => {
           // Function called everytime a savestate occurs
           // Used by the WasmBoySystemControls to show screenshots on save states
-          const canvasElement = document.getElementById("wasmboy-canvas");
-          if (canvasElement) {
-            saveStateObject.screenshotCanvasDataURL = canvasElement.toDataURL();
+          if (WasmBoy.getCanvas()) {
+            saveStateObject.screenshotCanvasDataURL = WasmBoy.getCanvas().toDataURL();
           }
         },
         updateAudioCallback: (audioContext, audioBufferSourceNode) => {
