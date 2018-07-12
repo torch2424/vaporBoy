@@ -47,38 +47,38 @@
       }
 
       &__b-button {
-        width: 10vw;
-        height: 10vw;
+        width: 12vw;
+        height: 12vw;
 
         position: absolute;
         z-index: 1;
-        top: calc(50% - 10vw);
-        right: 14%;
+        top: calc(50% - 5vw);
+        right: 15%;
       }
 
       &__a-button {
-        width: 10vw;
-        height: 10vw;
+        width: 12vw;
+        height: 12vw;
 
         position: absolute;
         z-index: 1;
-        top: calc(50% - 14vw);
+        top: calc(50% - 13vw);
         right: 1%;
       }
 
       &__dpad {
-        width: 17vw;
-        height: 17vw;
+        width: 20vw;
+        height: 20vw;
 
         position: absolute;
         z-index: 1;
-        top: calc(50% - 15vw);
-        left: 2%;
+        top: calc(50% - 13vw);
+        left: 5%;
       }
 
       &__start-button {
-        width: 18.5vh;
-        height: 18.5vh;
+        width: 22.5vh;
+        height: 22.5vh;
 
         position: absolute;
         z-index: 1;
@@ -87,8 +87,8 @@
       }
 
       &__select-button {
-        width: 18.5vh;
-        height: 18.5vh;
+        width: 22.5vh;
+        height: 22.5vh;
 
         position: absolute;
         z-index: 1;
