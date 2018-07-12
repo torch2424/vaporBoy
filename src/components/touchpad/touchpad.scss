@@ -35,3 +35,12 @@
     }
   }
 }
+
+// Add a black stroke to expanded semi transparent expanded buttons
+.expanded {
+  // Add black stroke around semi white background
+  .gameboy-button svg rect,
+  .gameboy-dpad svg path {
+    stroke: #000;
+  }
+}

@@ -108,7 +108,32 @@ export default class ControlPanelSelect extends Component {
     );
   }
 
+  playROM() {
+    WasmBoy.play();
+    this.state.controlPanel.hideControlPanel();
+  }
+
+  pauseROM() {
+    WasmBoy.pause();
+    this.state.controlPanel.hideControlPanel();
+  }
+
   render() {
+    let playPause = (
+      <button onclick={() => this.playROM()} disabled={!WasmBoy.isReady()}>
+        <div>▶️</div>
+        <div>Resume Playing</div>
+      </button>
+    );
+    if (WasmBoy.isPlaying()) {
+      playPause = (
+        <button onclick={() => this.pauseROM()} disabled={!WasmBoy.isReady()}>
+          <div>⏸️</div>
+          <div>Pause ROM</div>
+        </button>
+      );
+    }
+
     return (
       <div class="control-panel-select">
         <ul class="control-panel-select__grid">
@@ -148,6 +173,7 @@ export default class ControlPanelSelect extends Component {
               <div>Configure Effects</div>
             </button>
           </li>
+          <li class="control-panel-select__grid__item">{playPause}</li>
         </ul>
       </div>
     );

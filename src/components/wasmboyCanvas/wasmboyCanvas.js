@@ -41,22 +41,63 @@ export default class WasmBoyCanvas extends Component {
     // Also, subscribe to options/effects changes
     const pubxVaporBoyOptionsSubscriberKey = Pubx.subscribe(
       PUBX_CONFIG.VAPORBOY_OPTIONS_KEY,
-      () => {
+      newState => {
         this.configWasmBoy(canvasElement);
+        this.setState({
+          ...this.state,
+          options: {
+            ...newState
+          }
+        });
       }
     );
     const pubxVaporBoyEffectsSubscriberKey = Pubx.subscribe(
       PUBX_CONFIG.VAPORBOY_EFFECTS_KEY,
-      () => {
+      newState => {
         this.configWasmBoy(canvasElement);
+        this.setState({
+          ...this.state,
+          effects: {
+            ...newState
+          }
+        });
       }
     );
 
+    // All paths to vaporboys
+    const vaporboys = [
+      "assets/vaporboyarizona.png",
+      "assets/vaporboybluebeach.png",
+      "assets/vaporboyvhs.png"
+    ];
     this.setState({
       ...this.state,
+      options: {
+        ...Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY)
+      },
+      effects: {
+        ...Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY)
+      },
       pubxVaporBoyOptionsSubscriberKey,
-      pubxVaporBoyEffectsSubscriberKey
+      pubxVaporBoyEffectsSubscriberKey,
+      isMounted: true,
+      vaporboyImage: vaporboys[Math.floor(Math.random() * vaporboys.length)]
     });
+
+    // Re-render every second for the debug menu
+    const debugMenuUpdate = () => {
+      if (this.state.isMounted) {
+        setTimeout(() => {
+          if (this.state.options.showDebugMenu) {
+            this.setState({
+              ...this.state
+            });
+          }
+          debugMenuUpdate();
+        }, 1000);
+      }
+    };
+    debugMenuUpdate();
   }
 
   componentWillUnmount() {
@@ -68,6 +109,11 @@ export default class WasmBoyCanvas extends Component {
       PUBX_CONFIG.VAPORBOY_EFFECTS_KEY,
       this.state.pubxVaporBoyEffectsSubscriberKey
     );
+
+    this.setState({
+      ...this.state,
+      isMounted: false
+    });
   }
 
   configWasmBoy(canvasElement) {
@@ -93,9 +139,8 @@ export default class WasmBoyCanvas extends Component {
         saveStateCallback: saveStateObject => {
           // Function called everytime a savestate occurs
           // Used by the WasmBoySystemControls to show screenshots on save states
-          const canvasElement = document.getElementById("wasmboy-canvas");
-          if (canvasElement) {
-            saveStateObject.screenshotCanvasDataURL = canvasElement.toDataURL();
+          if (WasmBoy.getCanvas()) {
+            saveStateObject.screenshotCanvasDataURL = WasmBoy.getCanvas().toDataURL();
           }
         },
         updateAudioCallback: (audioContext, audioBufferSourceNode) => {
@@ -132,31 +177,50 @@ export default class WasmBoyCanvas extends Component {
       };
 
       await WasmBoy.config(wasmboyConfig, canvasElement);
-      console.log("WasmBoy is configured!");
     };
 
     return wasmBoyConfigTask();
   }
 
   render() {
+    // Add any extra classes from our effects
+    const canvasClasses = ["wasmboy-canvas"];
+    if (this.state.effects && this.state.effects.crt) {
+      canvasClasses.push("aesthetic-effect-crt");
+    }
+
     // Our insert cartridge menu
-    let insertCartridge = "";
+    let insertCartridge = <div />;
+    // TODO: Change to loaded and played
     if (!WasmBoy.isReady()) {
       insertCartridge = (
         <div class="wasmboy-canvas__insert-cartridge">
-          <img src="assets/vaporboyvhs.png" />
+          <img src={this.state.vaporboyImage} />
           <h1>V A P O R B O Y</h1>
           <h3>Please insert a cartridge...</h3>
         </div>
       );
     }
 
+    // Get a debug/fps overlay
+    let debugOverlay = <div />;
+    if (this.state.options && this.state.options.showDebugMenu) {
+      debugOverlay = (
+        <div class="wasmboy-canvas__debug-overlay">
+          <div class="wasmboy-canvas__debug-overlay__fps">
+            FPS: {WasmBoy.getFPS()}
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div class="wasmboy-canvas">
-        {insertCartridge}
+      <div class={canvasClasses.join(" ")}>
         <div class="wasmboy-canvas__canvas-container">
           <canvas id="wasmboy-canvas" />
         </div>
+        {insertCartridge}
+        {debugOverlay}
       </div>
     );
   }

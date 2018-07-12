@@ -9,7 +9,8 @@ export const VAPORBOY_DEFAULT_EFFECTS = {
   bassBoost: false,
   monochrome: false,
   inverted: false,
-  rainbow: false
+  rainbow: false,
+  crt: false
 };
 
 // Audio nodes and things

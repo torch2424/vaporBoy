@@ -1,9 +1,10 @@
 {
   "name": "Vapor Boy",
   "short_name": "VaporBoy",
+  "description": "An A E S T H E T I C GBC Emulator.",
   "start_url": "/",
-  "display": "standalone",
-  "orientation": "landscape",
+  "display": "fullscreen",
+  "orientation": "any",
   "background_color": "#fff",
   "theme_color": "#673ab8",
   "icons": [
