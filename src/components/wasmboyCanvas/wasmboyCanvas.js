@@ -138,12 +138,19 @@ export default class WasmBoyCanvas extends Component {
   }
 
   render() {
+    // All paths to vaporboys
+    const vaporboys = [
+      "assets/vaporboyarizona.png",
+      "assets/vaporboybluebeach.png",
+      "assets/vaporboyvhs.png"
+    ];
+
     // Our insert cartridge menu
     let insertCartridge = "";
     if (!WasmBoy.isReady()) {
       insertCartridge = (
         <div class="wasmboy-canvas__insert-cartridge">
-          <img src="assets/vaporboyvhs.png" />
+          <img src={vaporboys[Math.floor(Math.random() * vaporboys.length)]} />
           <h1>V A P O R B O Y</h1>
           <h3>Please insert a cartridge...</h3>
         </div>
