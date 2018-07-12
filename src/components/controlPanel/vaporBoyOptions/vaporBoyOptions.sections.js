@@ -156,5 +156,23 @@ export const VAPORBOY_OPTION_SECTIONS = {
         type: "boolean"
       }
     }
+  },
+  debug: {
+    name: "Debug",
+    descriptionElement: (
+      <div>Options that pertain to helping debug vaporboy/wasmboy.</div>
+    ),
+    settings: {
+      showDebugMenu: {
+        name: "Show Debug Menu",
+        descriptionElement: (
+          <div>
+            Reveals a live updating (once per second) debug menu, with things
+            like a FPS Counter.
+          </div>
+        ),
+        type: "boolean"
+      }
+    }
   }
 };

@@ -13,5 +13,6 @@ export const VAPORBOY_DEFAULT_OPTIONS = {
   graphicsDisableScanlineRendering: false,
   tileRendering: true,
   tileCaching: true,
-  gameboyFrameRate: 60
+  gameboyFrameRate: 60,
+  showDebugMenu: false
 };
