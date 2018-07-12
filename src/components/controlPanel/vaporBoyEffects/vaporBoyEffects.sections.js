@@ -36,6 +36,13 @@ export const VAPORBOY_EFFECTS_SECTIONS = {
       <div>Options that pertain to video output of the ROM.</div>
     ),
     settings: {
+      crt: {
+        name: "CRT Display",
+        descriptionElement: (
+          <div>Add a CRT like effect to the video output element.</div>
+        ),
+        type: "boolean"
+      },
       monochrome: {
         name: "Monochrome Palette",
         descriptionElement: (

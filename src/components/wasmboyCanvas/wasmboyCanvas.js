@@ -43,12 +43,18 @@ export default class WasmBoyCanvas extends Component {
       PUBX_CONFIG.VAPORBOY_OPTIONS_KEY,
       () => {
         this.configWasmBoy(canvasElement);
+        this.setState({
+          ...this.state
+        });
       }
     );
     const pubxVaporBoyEffectsSubscriberKey = Pubx.subscribe(
       PUBX_CONFIG.VAPORBOY_EFFECTS_KEY,
       () => {
         this.configWasmBoy(canvasElement);
+        this.setState({
+          ...this.state
+        });
       }
     );
 
@@ -157,8 +163,17 @@ export default class WasmBoyCanvas extends Component {
       );
     }
 
+    // Add any extra classes from our effects
+    const canvasClasses = ["wasmboy-canvas"];
+    const vaporboyEffects = {
+      ...Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY)
+    };
+    if (vaporboyEffects.crt) {
+      canvasClasses.push("aesthetic-effect-crt");
+    }
+
     return (
-      <div class="wasmboy-canvas">
+      <div class={canvasClasses.join(" ")}>
         {insertCartridge}
         <div class="wasmboy-canvas__canvas-container">
           <canvas id="wasmboy-canvas" />
