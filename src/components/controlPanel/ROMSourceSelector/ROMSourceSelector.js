@@ -57,16 +57,32 @@ export default class ROMSourceSelector extends Component {
   }
 
   loadLocalFile(event) {
-    const loadFileTask = async () => {
-      await WasmBoy.pause();
-      await WasmBoy.loadROM(event.target.files[0]);
-      await WasmBoy.play();
-      this.state.controlPanel.hideControlPanel();
-      await ROMCollection.saveCurrentWasmBoyROMToCollection();
-      ROMCollection.updateCollection();
-    };
+    // Ask if you would like to add to my collection
+    this.state.confirmationModal.showConfirmationModal({
+      title: "Add ROM To My Collection?",
+      contentElement: (
+        <div>
+          Would you like to add this ROM to your collection? It will save the
+          ROM in your browser storage, and allow you to scrape information about
+          the ROM.
+        </div>
+      ),
+      confirmCallback: () => {
+        // If Confirm, show the rom scraper
+      },
+      cancelCallback: () => {
+        // If Cancel, simply load the ROM
+        const loadFileTask = async () => {
+          await WasmBoy.pause();
+          await WasmBoy.loadROM(event.target.files[0]);
+          await WasmBoy.play();
+          this.state.controlPanel.hideControlPanel();
+        };
 
-    loadFileTask();
+        loadFileTask();
+      },
+      cancelText: "Skip"
+    });
   }
 
   viewMyCollection() {
@@ -84,13 +100,15 @@ export default class ROMSourceSelector extends Component {
   }
 
   uploadRomConfirmationModal() {
-    this.state.confirmationModal.showConfirmationModal(
-      "Help - Uploading Roms",
-      <div>
-        Uploaded ROMs will automatically be stored in "My Collection" for
-        offline playing using IndexedDb.
-      </div>
-    );
+    this.state.confirmationModal.showConfirmationModal({
+      title: "Help - Uploading Roms",
+      contentElement: (
+        <div>
+          Uploaded ROMs will automatically be stored in "My Collection" for
+          offline playing using IndexedDb.
+        </div>
+      )
+    });
   }
 
   render() {

@@ -85,18 +85,33 @@ const initializePubxConfirmationModal = () => {
     text: "",
     confirmCallback: false,
     cancelCallback: false,
-    showConfirmationModal: (
-      title,
-      contentElement,
-      confirmCallback,
-      cancelCallback
-    ) => {
+    showConfirmationModal: passedParams => {
+      // Set up our modal params, with defaults
+      const confirmationModalParams = {
+        title: "",
+        contentElement: <div />,
+        confirmCallback: undefined,
+        cancelCallback: undefined,
+        confirmText: "OK",
+        cancelText: "Cancel"
+      };
+
+      if (passedParams) {
+        Object.keys(confirmationModalParams).forEach(paramKey => {
+          if (passedParams[paramKey]) {
+            confirmationModalParams[paramKey] = passedParams[paramKey];
+          }
+        });
+      }
+
       Pubx.publish(PUBX_CONFIG.CONFIRMATION_MODAL_KEY, {
         show: true,
-        title,
-        contentElement,
-        confirmCallback,
-        cancelCallback
+        title: confirmationModalParams.title,
+        contentElement: confirmationModalParams.contentElement,
+        confirmCallback: confirmationModalParams.confirmCallback,
+        cancelCallback: confirmationModalParams.cancelCallback,
+        confirmText: confirmationModalParams.confirmText,
+        cancelText: confirmationModalParams.cancelText
       });
     },
     hideConfirmationModal: () => {

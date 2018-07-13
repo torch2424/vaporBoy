@@ -62,13 +62,17 @@ export default class ConfirmationModal extends Component {
     // Get our buttons for the confirmation
     const buttons = [
       <div class="aesthetic-windows-95-button">
-        <button onClick={() => this.confirmButtonClick()}>OK</button>
+        <button onClick={() => this.confirmButtonClick()}>
+          {this.state.confirmationModal.confirmText}
+        </button>
       </div>
     ];
     if (this.state.confirmationModal.confirmCallback) {
       buttons.push(
         <div class="aesthetic-windows-95-button">
-          <button onClick={() => this.cancelButtonClick()}>Cancel</button>
+          <button onClick={() => this.cancelButtonClick()}>
+            {this.state.confirmationModal.cancelText}
+          </button>
         </div>
       );
     }
