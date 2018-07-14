@@ -57,32 +57,35 @@ export default class ROMSourceSelector extends Component {
   }
 
   loadLocalFile(event) {
-    // Ask if you would like to add to my collection
-    this.state.confirmationModal.showConfirmationModal({
-      title: "Add ROM To My Collection?",
-      contentElement: (
-        <div>
-          Would you like to add this ROM to your collection? It will save the
-          ROM in your browser storage, and allow you to scrape information about
-          the ROM.
-        </div>
-      ),
-      confirmCallback: () => {
-        // If Confirm, show the rom scraper
-      },
-      cancelCallback: () => {
-        // If Cancel, simply load the ROM
-        const loadFileTask = async () => {
-          await WasmBoy.pause();
-          await WasmBoy.loadROM(event.target.files[0]);
-          await WasmBoy.play();
-          this.state.controlPanel.hideControlPanel();
-        };
+    const loadROMTask = async () => {
+      await WasmBoy.pause();
+      await WasmBoy.loadROM(event.target.files[0]);
 
-        loadFileTask();
-      },
-      cancelText: "Skip"
-    });
+      // Ask if you would like to add to my collection
+      this.state.confirmationModal.showConfirmationModal({
+        title: "Add ROM To My Collection?",
+        contentElement: (
+          <div>
+            Would you like to add this ROM to your collection? It will save the
+            ROM in your browser storage, and allow you to scrape information
+            about the ROM.
+          </div>
+        ),
+        confirmCallback: () => {
+          // If Confirm, show the rom scraper
+        },
+        cancelCallback: () => {
+          // If Cancel, simply play the ROM
+          const playROMTask = async () => {
+            await WasmBoy.play();
+            this.state.controlPanel.hideControlPanel();
+          };
+          playROMTask();
+        },
+        cancelText: "Skip"
+      });
+    };
+    loadROMTask();
   }
 
   viewMyCollection() {
