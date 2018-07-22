@@ -19,7 +19,7 @@ npm install
 
 npm run preact:build
 
-# Copy the build output to public/ if successful build
+#  Copy the build output to public/ if successful build
 if [ $? -eq 0 ]; then
    rm -rf public
    mkdir -p public
