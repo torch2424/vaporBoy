@@ -2,6 +2,8 @@
 
 A GB / GBC Emulator PWA. Powered by wasmBoy.
 
+[![Build Status](https://travis-ci.org/torch2424/vaporBoy.svg?branch=master)](https://travis-ci.org/torch2424/vaporBoy)
+
 This uses [Preact](https://preactjs.com/) for it's frontend application framework and PWA support, was geenrated using [preact-cli](https://github.com/developit/preact-cli) and wrapped in [Cordova](https://cordova.apache.org/) for Android and iOS deployment, and [electron](https://electronjs.org/) with [electron-builder](https://github.com/electron-userland/electron-builder) for desktop application support.
 
 Installing Preact Sass: https://github.com/developit/preact-cli/issues/443
