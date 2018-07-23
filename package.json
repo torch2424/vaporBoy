@@ -9,6 +9,8 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "npm run preact:dev",
+    "serve":
+      "echo \"NOTE: This is meant for testing build output, not a development server...\" && sleep 2 && npm run preact:serve",
     "precommit": "pretty-quick --staged",
     "prettier:fix":
       "npx prettier --write '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*'",
@@ -18,7 +20,7 @@
       "preact build --template src/template.html --dest www --config src/preact.config.js --no-prerender",
     "preact:build:watch":
       "npx chokidar '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*' -c \"npm run preact:build\"",
-    "preact:serve": "npm run build && preact serve",
+    "preact:serve": "npm run preact:build && preact serve --dir www",
     "preact:dev": "preact watch --template src/template.html",
     "preact:lint": "eslint src",
     "cordova:serve": "npx cordova run browser",
