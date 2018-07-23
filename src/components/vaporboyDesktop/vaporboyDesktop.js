@@ -6,15 +6,27 @@ import { WasmBoy } from "wasmboy";
 import SGBBorder from "./sgbBorder/sgbBorder";
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
 
+import { Pubx } from "../../services/pubx";
+import { PUBX_CONFIG } from "../../pubx.config";
+
 // 3P libs
 import * as screenfull from "screenfull";
 
 export default class VaporBoyDesktop extends Component {
   componentDidMount() {
+    // Bind our Pubx to state
+    this.setState({
+      controlPanel: {
+        ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
+      }
+    });
+
     if (screenfull.enabled) {
       screenfull.on("change", () => {
         // Set the state to re-render and update our fullscreen icon
-        this.setState();
+        this.setState({
+          ...this.state
+        });
       });
     }
 
@@ -35,6 +47,20 @@ export default class VaporBoyDesktop extends Component {
     };
 
     resetWasmBoyTask();
+  }
+
+  showControlPanel() {
+    Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
+      show: true
+    });
+  }
+
+  toggleExpand() {
+    const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
+
+    Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
+      expanded: !pubxLayoutState.expanded
+    });
   }
 
   render() {
@@ -100,18 +126,13 @@ export default class VaporBoyDesktop extends Component {
                 </button>
                 <ul class="aesthetic-windows-95-dropdown-menu">
                   <li class="aesthetic-windows-95-dropdown-menu-item">
-                    <button onClick={() => this.props.showControlPanel()}>
+                    <button onClick={() => this.showControlPanel()}>
                       Control Panel
                     </button>
                   </li>
 
-                  <li class="aesthetic-windows-95-dropdown-menu-item">
-                    <button onClick={() => this.props.showROMSourceSelector()}>
-                      Load ROM...
-                    </button>
-                  </li>
-
                   <hr />
+
                   <li class="aesthetic-windows-95-dropdown-menu-item">
                     <button onClick={() => this.resetWasmBoy()}>
                       Reset...
@@ -126,7 +147,7 @@ export default class VaporBoyDesktop extends Component {
                 </button>
                 <ul class="aesthetic-windows-95-dropdown-menu">
                   <li class="aesthetic-windows-95-dropdown-menu-item">
-                    <button onClick={() => this.props.toggleExpand()}>
+                    <button onClick={() => this.toggleExpand()}>
                       Expand Game
                     </button>
                   </li>
