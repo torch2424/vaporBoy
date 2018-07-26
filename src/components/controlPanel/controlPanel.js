@@ -130,7 +130,15 @@ export default class ControlPanel extends Component {
 
               <hr />
 
-              <div class="control-panel__modal__view">{currentView}</div>
+              <div
+                class={
+                  this.state.controlPanel.required
+                    ? "control-panel__modal__view"
+                    : "control-panel__modal__view control-panel__modal__view--contained"
+                }
+              >
+                {currentView}
+              </div>
             </div>
           </div>
         </div>

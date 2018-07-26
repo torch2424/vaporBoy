@@ -3,6 +3,7 @@
 @import "settingsDisplay";
 @import "controlPanelSelect/controlPanelSelect";
 @import "ROMSourceSelector/ROMSourceSelector";
+@import "ROMScraper/ROMScraper";
 @import "homebrew/homebrew";
 @import "myCollection/myCollection";
 @import "cartridge/cartridge";
@@ -59,12 +60,14 @@
     }
 
     &__view {
-      @include windows-95-push-in;
-      background-color: $aesthetic-white;
-
       flex-grow: 1;
       display: block;
       overflow: auto;
+
+      &--contained {
+        @include windows-95-push-in;
+        background-color: $aesthetic-white;
+      }
     }
   }
 }
