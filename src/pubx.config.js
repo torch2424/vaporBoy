@@ -52,7 +52,7 @@ const initializePubxControlPanel = () => {
   // Control Panel
   const pubxControlPanelState = {
     show: false,
-    rootView: false,
+    required: false,
     viewStack: [],
     addComponentToControlPanelViewStack: (title, component) => {
       const viewStack = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY).viewStack;
@@ -69,7 +69,7 @@ const initializePubxControlPanel = () => {
     hideControlPanel: () => {
       Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
         show: false,
-        rootView: false,
+        required: false,
         viewStack: []
       });
     }

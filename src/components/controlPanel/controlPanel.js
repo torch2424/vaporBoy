@@ -79,9 +79,15 @@ export default class ControlPanel extends Component {
       ].view;
     }
 
-    this.state.controlPanel.viewStack.forEach(view => {
-      currentTitle += ` - ${view.title}`;
-    });
+    if (this.state.controlPanel.required) {
+      currentTitle = this.state.controlPanel.viewStack[
+        this.state.controlPanel.viewStack.length - 1
+      ].title;
+    } else {
+      this.state.controlPanel.viewStack.forEach(view => {
+        currentTitle += ` - ${view.title}`;
+      });
+    }
 
     return (
       <div class="control-panel">
@@ -92,22 +98,29 @@ export default class ControlPanel extends Component {
                 {currentTitle}
               </div>
 
-              <div class="aesthetic-windows-95-modal-title-bar-controls">
-                <div class="aesthetic-windows-95-button-title-bar">
-                  <button
-                    onclick={() => this.state.controlPanel.hideControlPanel()}
-                  >
-                    X
-                  </button>
+              {this.state.controlPanel.required ? (
+                ""
+              ) : (
+                <div class="aesthetic-windows-95-modal-title-bar-controls">
+                  <div class="aesthetic-windows-95-button-title-bar">
+                    <button
+                      onclick={() => this.state.controlPanel.hideControlPanel()}
+                    >
+                      X
+                    </button>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <div class="aesthetic-windows-95-modal-content">
               <div class="control-panel__modal__controls">
                 <div class="aesthetic-windows-95-button">
                   <button
-                    disabled={this.state.controlPanel.viewStack.length <= 0}
+                    disabled={
+                      this.state.controlPanel.viewStack.length <= 0 ||
+                      this.state.controlPanel.required
+                    }
                     onclick={() => this.goToPreviousView()}
                   >
                     ⬅️

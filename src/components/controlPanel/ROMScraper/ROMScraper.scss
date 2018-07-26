@@ -1,0 +1,123 @@
+// Cartridge hover animation
+@keyframes cartridge-hover {
+  0% {
+    transform: rotate3d(1, 1, 1, 0deg);
+    width: 100%;
+    height: 100%;
+  }
+  50% {
+    transform: rotate3d(1, 1, 1, 5deg);
+    width: 102%;
+    height: 102%;
+  }
+  100% {
+    transform: rotate3d(1, 1, 1, 0deg);
+    width: 105%;
+    height: 105%;
+  }
+}
+
+.cartridge {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 50px;
+  min-height: 50px;
+
+  transform: rotate3d(1, 1, 1, 0deg);
+
+  transition: transform 0.25s, width 0.25s, height 0.25s;
+
+  &:hover {
+    animation: cartridge-hover 0.25s;
+    transform: rotate3d(1, 1, 1, 0deg);
+    width: 105%;
+    height: 105%;
+  }
+
+  &__content {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__centered-container {
+      width: 62%;
+      height: 59%;
+      margin-top: 19%;
+      background-color: $aesthetic-white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &__text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 1.25rem;
+        text-align: center;
+        word-wrap: break-word;
+
+        width: 100%;
+        height: 100%;
+        padding-left: 20%;
+        padding-right: 20%;
+      }
+
+      &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &__default-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+
+        background: linear-gradient(
+          to bottom right,
+          $aesthetic-light-purple,
+          $aesthetic-light-blue
+        );
+
+        img {
+          width: 100%;
+          height: 95%;
+          object-fit: contain;
+        }
+      }
+    }
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+
+    background-color: transparent;
+    border: none;
+    border-color: transparent;
+    padding: 0px;
+    cursor: pointer;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

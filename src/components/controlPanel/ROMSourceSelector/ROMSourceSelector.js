@@ -9,6 +9,7 @@ import { AVAILABLE_GAMES } from "../homebrew/availableGames";
 
 import MyCollection from "../myCollection/myCollection";
 import Homebrew from "../homebrew/homebrew";
+import ROMScraper from "../ROMScraper/ROMScraper";
 
 export default class ROMSourceSelector extends Component {
   constructor() {
@@ -73,6 +74,16 @@ export default class ROMSourceSelector extends Component {
         ),
         confirmCallback: () => {
           // If Confirm, show the rom scraper
+          // Clear the view stack, and add our ROM Scraper
+          Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
+            viewStack: [
+              {
+                title: "ROM Scraper",
+                view: <ROMScraper rom={event.target.files[0]} />
+              }
+            ],
+            required: true
+          });
         },
         cancelCallback: () => {
           // If Cancel, simply play the ROM
