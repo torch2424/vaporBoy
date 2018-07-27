@@ -13,7 +13,8 @@
 
       input {
         flex-grow: 1;
-        font-size: 20px;
+        font-size: 16px;
+        padding: 4px;
       }
 
       .aesthetic-windows-95-button {
@@ -23,8 +24,12 @@
     }
 
     &__results {
+      @include windows-95-push-in;
+      background-color: $aesthetic-white;
+
       margin-top: 10px;
       margin-bottom: 10px;
+      padding: 4px;
 
       &__initial-search {
         font-size: 16px;
@@ -41,6 +46,10 @@
     * {
       margin-left: 5px;
       margin-right: 5px;
+    }
+
+    button[disabled] {
+      opacity: 0.5;
     }
   }
 }

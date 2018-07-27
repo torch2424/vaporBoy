@@ -3,7 +3,16 @@ import { Component } from "preact";
 export default class ROMScraper extends Component {
   constructor() {
     super();
-    this.setState({});
+    this.setState({
+      activeTabIndex: 0
+    });
+  }
+
+  setActiveTabIndex(activeTabIndex) {
+    this.setState({
+      ...this.state,
+      activeTabIndex: activeTabIndex
+    });
   }
 
   render() {
@@ -24,7 +33,7 @@ export default class ROMScraper extends Component {
 
         <div class="ROMScraper__search__results">
           <div class="ROMScraper__search__results__initial-search">
-            Results Will Show Here
+            Results Will Show Here...
           </div>
         </div>
       </div>
@@ -41,20 +50,37 @@ export default class ROMScraper extends Component {
       </div>
     );
 
+    let currentTabElement = searchElement;
+    if (this.state.activeTabIndex === 1) {
+      currentTabElement = manualInputElement;
+    }
+
     return (
       <div class="ROMScraper">
         <div class="aesthetic-windows-95-tabbed-container">
           <div class="aesthetic-windows-95-tabbed-container-tabs">
-            <div class="aesthetic-windows-95-tabbed-container-tabs-button is-active">
-              <button>Search</button>
+            <div
+              class={
+                "aesthetic-windows-95-tabbed-container-tabs-button " +
+                (this.state.activeTabIndex === 0 ? "is-active" : "")
+              }
+            >
+              <button onClick={() => this.setActiveTabIndex(0)}>Search</button>
             </div>
-            <div class="aesthetic-windows-95-tabbed-container-tabs-button">
-              <button>Manual Input</button>
+            <div
+              class={
+                "aesthetic-windows-95-tabbed-container-tabs-button " +
+                (this.state.activeTabIndex === 1 ? "is-active" : "")
+              }
+            >
+              <button onClick={() => this.setActiveTabIndex(1)}>
+                Manual Input
+              </button>
             </div>
           </div>
 
           <div class="aesthetic-windows-95-container">
-            {searchElement}
+            {currentTabElement}
 
             <div class="ROMScraper__submit">
               <div class="aesthetic-windows-95-button">
@@ -62,7 +88,9 @@ export default class ROMScraper extends Component {
               </div>
 
               <div class="aesthetic-windows-95-button">
-                <button>Submit</button>
+                <button disabled={this.state.activeTabIndex === 0}>
+                  Submit
+                </button>
               </div>
             </div>
           </div>
