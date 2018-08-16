@@ -1,0 +1,32 @@
+.search-input {
+  &__search-bar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    input {
+      flex-grow: 1;
+      font-size: 16px;
+      padding: 4px;
+    }
+
+    .aesthetic-windows-95-button {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+
+  &__results {
+    @include windows-95-push-in;
+    background-color: $aesthetic-white;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 4px;
+
+    &__initial-search {
+      font-size: 16px;
+      font-style: italic;
+    }
+  }
+}

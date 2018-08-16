@@ -68,8 +68,8 @@ export default class ROMSourceSelector extends Component {
         contentElement: (
           <div>
             Would you like to add this ROM to your collection? It will save the
-            ROM in your browser storage, and allow you to scrape information
-            about the ROM.
+            ROM in your browser storage, and allow you to scrape/input
+            information about the ROM.
           </div>
         ),
         confirmCallback: () => {
@@ -78,7 +78,7 @@ export default class ROMSourceSelector extends Component {
           Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
             viewStack: [
               {
-                title: "ROM Scraper",
+                title: `ROM Scraper - ${event.target.files[0].name}`,
                 view: <ROMScraper rom={event.target.files[0]} />
               }
             ],

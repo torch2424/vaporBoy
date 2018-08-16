@@ -43,6 +43,12 @@
         min-height: 20px;
       }
 
+      .aesthetic-windows-95-modal-title-bar-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       .aesthetic-windows-95-modal-content {
         display: flex;
         flex-direction: column;
