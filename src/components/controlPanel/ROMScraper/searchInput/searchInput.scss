@@ -1,8 +1,24 @@
+// Import direct children
+@import "searchResult/searchResult";
+
 .search-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  align-items: flex-start;
+  text-align: center;
+
+  h1 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
   &__search-bar {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    width: 100%;
 
     input {
       flex-grow: 1;
@@ -23,6 +39,13 @@
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 4px;
+
+    flex-grow: 1;
+    flex-basis: 0;
+    min-height: 0;
+
+    width: calc(100% - 20px);
+    overflow-y: auto;
 
     &__initial-search {
       font-size: 16px;

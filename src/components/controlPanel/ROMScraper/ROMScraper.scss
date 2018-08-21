@@ -4,9 +4,30 @@
 
 .ROMScraper {
   padding-top: 2px;
+  width: 100%;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
 
   h1 {
     text-align: left;
+  }
+
+  .aesthetic-windows-95-tabbed-container {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+
+    .aesthetic-windows-95-container {
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+
+      .ROMScraper__submit {
+        height: 20px;
+        margin-bottom: 5px;
+      }
+    }
   }
 
   &__submit {

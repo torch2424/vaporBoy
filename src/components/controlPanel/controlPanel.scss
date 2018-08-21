@@ -69,6 +69,7 @@
       flex-grow: 1;
       display: block;
       overflow: auto;
+      display: flex;
 
       &--contained {
         @include windows-95-push-in;
