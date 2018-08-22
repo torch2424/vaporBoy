@@ -7,6 +7,8 @@ export default class SearchResult extends Component {
   }
 
   render() {
+    const formattedDate = new Date(this.props.date).toDateString();
+
     return (
       <button class="search-result">
         <div class="search-result__image">
@@ -18,7 +20,7 @@ export default class SearchResult extends Component {
             {this.props.title}
           </div>
 
-          <div class="search-result__description__date">{this.props.date}</div>
+          <div class="search-result__description__date">{formattedDate}</div>
         </div>
       </button>
     );

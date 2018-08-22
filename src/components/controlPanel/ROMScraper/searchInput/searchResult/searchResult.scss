@@ -9,12 +9,12 @@
   }
 
   &__image {
-    $imageSize: 200px;
+    $imageSize: 40vw;
     min-width: $imageSize;
-    max-width: $imageSize;
+    max-width: 200px;
     width: $imageSize;
     min-height: $imageSize;
-    max-height: $imageSize;
+    max-height: 200px;
     height: $imageSize;
 
     img {
