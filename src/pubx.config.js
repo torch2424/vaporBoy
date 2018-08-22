@@ -12,15 +12,17 @@ import {
 export const PUBX_CONFIG = {
   LAYOUT_KEY: "LAYOUT_KEY",
   CONTROL_PANEL_KEY: "CONTROL_PANEL_KEY",
-  ROM_COLLECTION_KEY: "ROM_COLLECTION_KEY",
-  SAVES_STATES_KEY: "SAVE_STATES_KEY",
   CONFIRMATION_MODAL_KEY: "CONFIRMATION_MODAL_KEY",
+  ROM_COLLECTION_KEY: "ROM_COLLECTION_KEY",
+  ROM_SCRAPER_KEY: "ROM_SCRAPER_KEY",
+  SAVES_STATES_KEY: "SAVE_STATES_KEY",
   VAPORBOY_OPTIONS_KEY: "VAPORBOY_OPTIONS_KEY",
   VAPORBOY_EFFECTS_KEY: "VAPORBOY_EFFECTS_KEY",
   INITIALIZE: () => {
     initializePubxLayout();
     initializePubxControlPanel();
     initializePubxConfirmationModal();
+    initializePubxRomScraper();
     initializePubxVaporBoyOptions();
     initializePubxVaporBoyEffects();
   }
@@ -125,6 +127,14 @@ const initializePubxConfirmationModal = () => {
     }
   };
   Pubx.publish(PUBX_CONFIG.CONFIRMATION_MODAL_KEY, pubxConfirmationModalState);
+};
+
+const initializePubxRomScraper = () => {
+  const pubxRomScraperState = {
+    activeTabIndex: 0,
+    romInfo: undefined
+  };
+  Pubx.publish(PUBX_CONFIG.ROM_SCRAPER_KEY, pubxRomScraperState);
 };
 
 const initializePubxVaporBoyOptions = () => {

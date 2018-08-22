@@ -1,18 +1,51 @@
 import { Component } from "preact";
+
+import { Pubx } from "../../../services/pubx";
+import { PUBX_CONFIG } from "../../../pubx.config";
+
 import SearchInput from "./searchInput/searchInput";
 import ManualInput from "./manualInput/manualInput";
 
 export default class ROMScraper extends Component {
   constructor() {
     super();
+
     this.setState({
-      activeTabIndex: 0
+      romScraper: {
+        ...Pubx.get(PUBX_CONFIG.ROM_SCRAPER_KEY)
+      }
     });
   }
 
-  setActiveTabIndex(activeTabIndex) {
+  componentDidMount() {
+    const pubxRomScraperSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.ROM_SCRAPER_KEY,
+      newState => {
+        this.setState({
+          ...this.state,
+          romScraper: {
+            ...newState
+          }
+        });
+      }
+    );
+
     this.setState({
       ...this.state,
+      pubxRomScraperSubscriberKey: pubxRomScraperSubscriberKey
+    });
+  }
+
+  componentWillUnmount() {
+    // unsubscribe from the state
+    Pubx.unsubscribe(
+      PUBX_CONFIG.ROM_SCRAPER_KEY,
+      this.state.pubxRomScraperSubscriberKey
+    );
+  }
+
+  setActiveTabIndex(activeTabIndex) {
+    Pubx.publish(PUBX_CONFIG.ROM_SCRAPER_KEY, {
       activeTabIndex: activeTabIndex
     });
   }
@@ -23,7 +56,7 @@ export default class ROMScraper extends Component {
     const manualInputElement = <ManualInput />;
 
     let currentTabElement = searchElement;
-    if (this.state.activeTabIndex === 1) {
+    if (this.state.romScraper.activeTabIndex === 1) {
       currentTabElement = manualInputElement;
     }
 
@@ -34,7 +67,7 @@ export default class ROMScraper extends Component {
             <div
               class={
                 "aesthetic-windows-95-tabbed-container-tabs-button " +
-                (this.state.activeTabIndex === 0 ? "is-active" : "")
+                (this.state.romScraper.activeTabIndex === 0 ? "is-active" : "")
               }
             >
               <button onClick={() => this.setActiveTabIndex(0)}>Search</button>
@@ -42,7 +75,7 @@ export default class ROMScraper extends Component {
             <div
               class={
                 "aesthetic-windows-95-tabbed-container-tabs-button " +
-                (this.state.activeTabIndex === 1 ? "is-active" : "")
+                (this.state.romScraper.activeTabIndex === 1 ? "is-active" : "")
               }
             >
               <button onClick={() => this.setActiveTabIndex(1)}>
