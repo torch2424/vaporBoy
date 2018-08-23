@@ -1,0 +1,67 @@
+// Import direct children
+@import "searchResult/searchResult";
+
+.search-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  align-items: flex-start;
+  text-align: center;
+
+  h1 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  &__search-bar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+
+    input {
+      flex-grow: 1;
+      font-size: 16px;
+      padding: 4px;
+    }
+
+    .aesthetic-windows-95-button {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+
+  &__selected-ROM {
+    min-height: 35px;
+    margin-top: 10px;
+  }
+
+  &__loading {
+    flex-grow: 1;
+
+    min-height: 100px;
+    width: 100%;
+  }
+
+  &__results {
+    @include windows-95-push-in;
+    background-color: $aesthetic-white;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 4px;
+
+    flex-grow: 1;
+    flex-basis: 0;
+    min-height: 0;
+
+    width: calc(100% - 20px);
+    overflow-y: auto;
+
+    &__initial-search {
+      font-size: 16px;
+      font-style: italic;
+    }
+  }
+}

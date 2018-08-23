@@ -12,15 +12,17 @@ import {
 export const PUBX_CONFIG = {
   LAYOUT_KEY: "LAYOUT_KEY",
   CONTROL_PANEL_KEY: "CONTROL_PANEL_KEY",
-  ROM_COLLECTION_KEY: "ROM_COLLECTION_KEY",
-  SAVES_STATES_KEY: "SAVE_STATES_KEY",
   CONFIRMATION_MODAL_KEY: "CONFIRMATION_MODAL_KEY",
+  ROM_COLLECTION_KEY: "ROM_COLLECTION_KEY",
+  ROM_SCRAPER_KEY: "ROM_SCRAPER_KEY",
+  SAVES_STATES_KEY: "SAVE_STATES_KEY",
   VAPORBOY_OPTIONS_KEY: "VAPORBOY_OPTIONS_KEY",
   VAPORBOY_EFFECTS_KEY: "VAPORBOY_EFFECTS_KEY",
   INITIALIZE: () => {
     initializePubxLayout();
     initializePubxControlPanel();
     initializePubxConfirmationModal();
+    initializePubxROMScraper();
     initializePubxVaporBoyOptions();
     initializePubxVaporBoyEffects();
   }
@@ -52,7 +54,7 @@ const initializePubxControlPanel = () => {
   // Control Panel
   const pubxControlPanelState = {
     show: false,
-    rootView: false,
+    required: false,
     viewStack: [],
     addComponentToControlPanelViewStack: (title, component) => {
       const viewStack = Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY).viewStack;
@@ -69,7 +71,7 @@ const initializePubxControlPanel = () => {
     hideControlPanel: () => {
       Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
         show: false,
-        rootView: false,
+        required: false,
         viewStack: []
       });
     }
@@ -85,18 +87,33 @@ const initializePubxConfirmationModal = () => {
     text: "",
     confirmCallback: false,
     cancelCallback: false,
-    showConfirmationModal: (
-      title,
-      contentElement,
-      confirmCallback,
-      cancelCallback
-    ) => {
+    showConfirmationModal: passedParams => {
+      // Set up our modal params, with defaults
+      const confirmationModalParams = {
+        title: "",
+        contentElement: <div />,
+        confirmCallback: undefined,
+        cancelCallback: undefined,
+        confirmText: "OK",
+        cancelText: "Cancel"
+      };
+
+      if (passedParams) {
+        Object.keys(confirmationModalParams).forEach(paramKey => {
+          if (passedParams[paramKey]) {
+            confirmationModalParams[paramKey] = passedParams[paramKey];
+          }
+        });
+      }
+
       Pubx.publish(PUBX_CONFIG.CONFIRMATION_MODAL_KEY, {
         show: true,
-        title,
-        contentElement,
-        confirmCallback,
-        cancelCallback
+        title: confirmationModalParams.title,
+        contentElement: confirmationModalParams.contentElement,
+        confirmCallback: confirmationModalParams.confirmCallback,
+        cancelCallback: confirmationModalParams.cancelCallback,
+        confirmText: confirmationModalParams.confirmText,
+        cancelText: confirmationModalParams.cancelText
       });
     },
     hideConfirmationModal: () => {
@@ -110,6 +127,15 @@ const initializePubxConfirmationModal = () => {
     }
   };
   Pubx.publish(PUBX_CONFIG.CONFIRMATION_MODAL_KEY, pubxConfirmationModalState);
+};
+
+const initializePubxROMScraper = () => {
+  const pubxROMScraperState = {
+    activeTabIndex: 0,
+    ROMInfo: undefined,
+    selectedROMIndex: -1
+  };
+  Pubx.publish(PUBX_CONFIG.ROM_SCRAPER_KEY, pubxROMScraperState);
 };
 
 const initializePubxVaporBoyOptions = () => {

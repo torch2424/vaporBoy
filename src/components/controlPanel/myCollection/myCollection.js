@@ -24,7 +24,7 @@ export default class MyCollection extends Component {
   }
 
   getROMImageUrl(collectionROM) {
-    return undefined;
+    return collectionROM.imageAsDataURL;
   }
 
   getROMTitle(collectionROM) {

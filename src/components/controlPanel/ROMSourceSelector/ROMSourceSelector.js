@@ -9,6 +9,7 @@ import { AVAILABLE_GAMES } from "../homebrew/availableGames";
 
 import MyCollection from "../myCollection/myCollection";
 import Homebrew from "../homebrew/homebrew";
+import ROMScraper from "../ROMScraper/ROMScraper";
 
 export default class ROMSourceSelector extends Component {
   constructor() {
@@ -57,16 +58,45 @@ export default class ROMSourceSelector extends Component {
   }
 
   loadLocalFile(event) {
-    const loadFileTask = async () => {
+    const loadROMTask = async () => {
       await WasmBoy.pause();
       await WasmBoy.loadROM(event.target.files[0]);
-      await WasmBoy.play();
-      this.state.controlPanel.hideControlPanel();
-      await ROMCollection.saveCurrentWasmBoyROMToCollection();
-      ROMCollection.updateCollection();
-    };
 
-    loadFileTask();
+      // Ask if you would like to add to my collection
+      this.state.confirmationModal.showConfirmationModal({
+        title: "Add ROM To My Collection?",
+        contentElement: (
+          <div>
+            Would you like to add this ROM to your collection? It will save the
+            ROM in your browser storage, and allow you to scrape/input
+            information about the ROM.
+          </div>
+        ),
+        confirmCallback: () => {
+          // If Confirm, show the rom scraper
+          // Clear the view stack, and add our ROM Scraper
+          Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
+            viewStack: [
+              {
+                title: `ROM Scraper - ${event.target.files[0].name}`,
+                view: <ROMScraper rom={event.target.files[0]} />
+              }
+            ],
+            required: true
+          });
+        },
+        cancelCallback: () => {
+          // If Cancel, simply play the ROM
+          const playROMTask = async () => {
+            await WasmBoy.play();
+            this.state.controlPanel.hideControlPanel();
+          };
+          playROMTask();
+        },
+        cancelText: "Skip"
+      });
+    };
+    loadROMTask();
   }
 
   viewMyCollection() {
@@ -84,13 +114,15 @@ export default class ROMSourceSelector extends Component {
   }
 
   uploadRomConfirmationModal() {
-    this.state.confirmationModal.showConfirmationModal(
-      "Help - Uploading Roms",
-      <div>
-        Uploaded ROMs will automatically be stored in "My Collection" for
-        offline playing using IndexedDb.
-      </div>
-    );
+    this.state.confirmationModal.showConfirmationModal({
+      title: "Help - Uploading Roms",
+      contentElement: (
+        <div>
+          Uploaded ROMs will automatically be stored in "My Collection" for
+          offline playing using IndexedDb.
+        </div>
+      )
+    });
   }
 
   render() {
@@ -112,6 +144,7 @@ export default class ROMSourceSelector extends Component {
             onClick={() => {
               this.viewMyCollection();
             }}
+            disabled={numberOfROMsInCollection <= 0}
           >
             <div class="ROMSourceSelector__list__item__icon">📚</div>
 
@@ -165,6 +198,7 @@ export default class ROMSourceSelector extends Component {
           id="ROMFileInput"
           class="hidden"
           accept=".gb, .gbc, .zip"
+          value={undefined}
           onChange={event => {
             this.loadLocalFile(event);
           }}

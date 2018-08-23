@@ -71,7 +71,7 @@ class ROMCollectionService {
     })();
   }
 
-  saveCurrentWasmBoyROMToCollection() {
+  saveCurrentWasmBoyROMToCollection(title, imageDataURL) {
     const saveCurrentWasmBoyROMToCollectionTask = async () => {
       const cartridgeInfo = await WasmBoy._getCartridgeInfo();
 
@@ -81,8 +81,8 @@ class ROMCollectionService {
       // Use the cartrdige header to set our ROM, and other info we want to keep
       collectionObject[cartridgeInfo.header] = {
         ROM: cartridgeInfo.ROM,
-        titleAsString: cartridgeInfo.titleAsString,
-        titleSetByUser: false,
+        titleAsString: title || cartridgeInfo.titleAsString,
+        imageAsDataURL: imageDataURL,
         CGBFlag: cartridgeInfo.CGBFlag,
         SGBFlag: cartridgeInfo.SGBFlag
       };

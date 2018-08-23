@@ -77,17 +77,17 @@ export default class SettingsDisplay extends Component {
   }
 
   showSettingInfo(setting) {
-    this.state.confirmationModal.showConfirmationModal(
-      setting.name,
-      setting.descriptionElement
-    );
+    this.state.confirmationModal.showConfirmationModal({
+      title: setting.name,
+      contentElement: setting.descriptionElement
+    });
   }
 
   confirmReset() {
-    Pubx.get(PUBX_CONFIG.CONFIRMATION_MODAL_KEY).showConfirmationModal(
-      this.props.resetTitle,
-      this.props.resetElement,
-      () => {
+    Pubx.get(PUBX_CONFIG.CONFIRMATION_MODAL_KEY).showConfirmationModal({
+      title: this.props.resetTitle,
+      contentElement: this.props.resetElement,
+      confirmCallback: () => {
         // If confirm, reset
 
         // Save the state
@@ -107,14 +107,14 @@ export default class SettingsDisplay extends Component {
         // Run the task
         resetSettingsTask();
       }
-    );
+    });
   }
 
   confirmApply() {
-    Pubx.get(PUBX_CONFIG.CONFIRMATION_MODAL_KEY).showConfirmationModal(
-      this.props.applyTitle,
-      this.props.applyElement,
-      () => {
+    Pubx.get(PUBX_CONFIG.CONFIRMATION_MODAL_KEY).showConfirmationModal({
+      title: this.props.applyTitle,
+      contentElement: this.props.applyElement,
+      confirmCallback: () => {
         // If confirm, apply
 
         const applyOptionsTask = async () => {
@@ -133,7 +133,7 @@ export default class SettingsDisplay extends Component {
         // Run the task
         applyOptionsTask();
       }
-    );
+    });
   }
 
   render() {
