@@ -22,7 +22,7 @@ export const PUBX_CONFIG = {
     initializePubxLayout();
     initializePubxControlPanel();
     initializePubxConfirmationModal();
-    initializePubxRomScraper();
+    initializePubxROMScraper();
     initializePubxVaporBoyOptions();
     initializePubxVaporBoyEffects();
   }
@@ -129,12 +129,13 @@ const initializePubxConfirmationModal = () => {
   Pubx.publish(PUBX_CONFIG.CONFIRMATION_MODAL_KEY, pubxConfirmationModalState);
 };
 
-const initializePubxRomScraper = () => {
-  const pubxRomScraperState = {
+const initializePubxROMScraper = () => {
+  const pubxROMScraperState = {
     activeTabIndex: 0,
-    romInfo: undefined
+    ROMInfo: undefined,
+    selectedROMIndex: -1
   };
-  Pubx.publish(PUBX_CONFIG.ROM_SCRAPER_KEY, pubxRomScraperState);
+  Pubx.publish(PUBX_CONFIG.ROM_SCRAPER_KEY, pubxROMScraperState);
 };
 
 const initializePubxVaporBoyOptions = () => {

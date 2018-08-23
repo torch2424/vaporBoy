@@ -1,22 +1,35 @@
 import { Component } from "preact";
 import SearchResult from "./searchResult/searchResult";
 
+import { Pubx } from "../../../../services/pubx";
+import { PUBX_CONFIG } from "../../../../pubx.config";
+
 export default class SearchInput extends Component {
   constructor() {
     super();
     this.setState({
       loading: false,
       results: [],
-      selectedGame: undefined,
-      selectedGameIndex: undefined
+      ROMScraper: {}
     });
   }
 
-  gameSelected(gameInfo, index) {
+  componentDidMount() {
+    const pubxROMScraperSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.ROM_SCRAPER_KEY,
+      newState => {
+        this.setState({
+          ...this.state,
+          ROMScraper: {
+            ...newState
+          }
+        });
+      }
+    );
+
     this.setState({
       ...this.state,
-      selectedGame: gameInfo,
-      selectedGameIndex: index
+      pubxROMScraperSubscriberKey: pubxROMScraperSubscriberKey
     });
   }
 
@@ -30,13 +43,15 @@ export default class SearchInput extends Component {
       return;
     }
 
+    Pubx.publish(PUBX_CONFIG.ROM_SCRAPER_KEY, {
+      selectedROMIndex: -1
+    });
+
     // Set that we are loading
     this.setState({
       ...this.state,
       loading: true,
-      executedSearch: this.state.currentSearch,
-      selectedGame: undefined,
-      selectedGameIndex: undefined
+      executedSearch: this.state.currentSearch
     });
 
     console.log("search", this.state);
@@ -53,14 +68,14 @@ export default class SearchInput extends Component {
       .then(response => {
         console.log(response);
         const results = [];
-        response.results.forEach(game => {
+        response.results.forEach((result, index) => {
           results.push(
             <SearchResult
-              image={game.image.small_url}
-              title={game.name}
-              date={game.original_release_date}
+              image={result.image.small_url}
+              title={result.name}
+              date={result.original_release_date}
               isSelected={false}
-              onSelect={(gameInfo, index) => this.gameSelected(gameInfo, index)}
+              index={index}
             />
           );
         });
@@ -80,9 +95,26 @@ export default class SearchInput extends Component {
       </div>
     );
     if (this.state.loading) {
-      results = <div class="donut" />;
+      results = (
+        <div class="search-input__loading">
+          <div class="donut" />
+        </div>
+      );
     } else if (this.state.results && this.state.results.length > 0) {
       results = this.state.results;
+    }
+
+    let selectedROM = <div class="search-input__selected-ROM" />;
+    if (
+      this.state.ROMScraper &&
+      this.state.ROMScraper.ROMInfo &&
+      this.state.ROMScraper.ROMInfo.title
+    ) {
+      selectedROM = (
+        <div class="search-input__selected-ROM">
+          Selected ROM: {this.state.ROMScraper.ROMInfo.title}
+        </div>
+      );
     }
 
     return (
@@ -110,6 +142,8 @@ export default class SearchInput extends Component {
             <button onClick={e => this.performSearch()}>Search</button>
           </div>
         </div>
+
+        {selectedROM}
 
         <div class="search-input__results">{results}</div>
       </div>

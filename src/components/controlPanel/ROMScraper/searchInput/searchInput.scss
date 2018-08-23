@@ -32,6 +32,17 @@
     }
   }
 
+  &__selected-ROM {
+    min-height: 20px;
+  }
+
+  &__loading {
+    flex-grow: 1;
+
+    min-height: 100px;
+    width: 100%;
+  }
+
   &__results {
     @include windows-95-push-in;
     background-color: $aesthetic-white;
