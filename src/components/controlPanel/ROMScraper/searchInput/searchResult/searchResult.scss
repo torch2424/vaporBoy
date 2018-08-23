@@ -4,18 +4,20 @@
   justify-content: center;
   align-items: center;
 
+  background-color: transparent;
+  border: none;
+
   &--selected {
     background-color: $aesthetic-light-blue;
   }
 
-  $imageSize: 40vw;
-  $imageMax: 200px;
+  $imageSize: 200px;
 
   &--loading {
     width: 100%;
     min-height: $imageSize;
     height: $imageSize;
-    max-height: $imageMax;
+    max-height: $imageSize;
 
     display: flex;
     justify-content: center;
@@ -24,10 +26,10 @@
 
   &__image {
     min-width: $imageSize;
-    max-width: $imageMax;
+    max-width: $imageSize;
     width: $imageSize;
     min-height: $imageSize;
-    max-height: $imageMax;
+    max-height: $imageSize;
     height: $imageSize;
 
     img {

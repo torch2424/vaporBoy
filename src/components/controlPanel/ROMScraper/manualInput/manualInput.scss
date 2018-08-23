@@ -37,6 +37,10 @@
       margin-bottom: 5px;
     }
 
+    .aesthetic-windows-95-button {
+      margin-bottom: 10px;
+    }
+
     &__container {
       @include windows-95-push-in;
       background-color: $aesthetic-white;
