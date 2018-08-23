@@ -86,7 +86,7 @@ export default class ManualInput extends Component {
             type="text"
             placeholder="Title"
             value={this.state.ROMScraper.ROMInfo.title}
-            onKeyDown={e =>
+            onChange={e =>
               Pubx.publish(PUBX_CONFIG.ROM_SCRAPER_KEY, {
                 ROMInfo: {
                   ...Pubx.get(PUBX_CONFIG.ROM_SCRAPER_KEY).ROMInfo,
