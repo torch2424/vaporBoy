@@ -41,6 +41,14 @@ export default class SearchInput extends Component {
     });
   }
 
+  componentWillUnmount() {
+    // unsubscribe from the state
+    Pubx.unsubscribe(
+      PUBX_CONFIG.ROM_SCRAPER_KEY,
+      this.state.pubxROMScraperSubscriberKey
+    );
+  }
+
   performSearch() {
     // First search if we are already loading, or if we even changed our current search
     if (

@@ -1,2 +1,26 @@
 .manual-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-grow: 1;
+  align-items: flex-start;
+  text-align: center;
+
+  h1 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  &__title {
+    text-align: left;
+    width: calc(100% - 6px);
+
+    &__label {
+      margin-bottom: 5px;
+    }
+
+    .aesthetic-windows-95-text-input {
+      width: 100%;
+    }
+  }
 }
