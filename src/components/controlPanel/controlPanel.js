@@ -114,19 +114,23 @@ export default class ControlPanel extends Component {
             </div>
 
             <div class="aesthetic-windows-95-modal-content">
-              <div class="control-panel__modal__controls">
-                <div class="aesthetic-windows-95-button">
-                  <button
-                    disabled={
-                      this.state.controlPanel.viewStack.length <= 0 ||
-                      this.state.controlPanel.required
-                    }
-                    onclick={() => this.goToPreviousView()}
-                  >
-                    ⬅️
-                  </button>
+              {this.state.controlPanel.required ? (
+                ""
+              ) : (
+                <div class="control-panel__modal__controls">
+                  <div class="aesthetic-windows-95-button">
+                    <button
+                      disabled={
+                        this.state.controlPanel.viewStack.length <= 0 ||
+                        this.state.controlPanel.required
+                      }
+                      onclick={() => this.goToPreviousView()}
+                    >
+                      ⬅️
+                    </button>
+                  </div>
                 </div>
-              </div>
+              )}
 
               <hr />
 

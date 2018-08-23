@@ -8,13 +8,26 @@
     background-color: $aesthetic-light-blue;
   }
 
+  $imageSize: 40vw;
+  $imageMax: 200px;
+
+  &--loading {
+    width: 100%;
+    min-height: $imageSize;
+    height: $imageSize;
+    max-height: $imageMax;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__image {
-    $imageSize: 40vw;
     min-width: $imageSize;
-    max-width: 200px;
+    max-width: $imageMax;
     width: $imageSize;
     min-height: $imageSize;
-    max-height: 200px;
+    max-height: $imageMax;
     height: $imageSize;
 
     img {

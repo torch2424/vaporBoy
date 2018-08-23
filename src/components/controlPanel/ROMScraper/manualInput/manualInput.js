@@ -40,9 +40,40 @@ export default class ManualInput extends Component {
     );
   }
 
+  triggerLocalFileUpload() {
+    document.getElementById("ManualInputImage").click();
+  }
+
+  loadLocalFile(event) {
+    // Convert image to data url
+    const fileReader = new FileReader();
+
+    fileReader.onload = onloadEvent => {
+      Pubx.publish(PUBX_CONFIG.ROM_SCRAPER_KEY, {
+        ROMInfo: {
+          ...Pubx.get(PUBX_CONFIG.ROM_SCRAPER_KEY).ROMInfo,
+          image: onloadEvent.target.result
+        }
+      });
+    };
+
+    fileReader.readAsDataURL(event.target.files[0]);
+  }
+
   render() {
     return (
       <div class="manual-input">
+        {/*Our Hidden Input for uploading files*/}
+        <input
+          type="file"
+          id="ManualInputImage"
+          class="hidden"
+          accept="image/*"
+          onChange={event => {
+            this.loadLocalFile(event);
+          }}
+        />
+
         <h1>Manual Input</h1>
 
         <div class="manual-input__title">
@@ -68,6 +99,21 @@ export default class ManualInput extends Component {
         <div class="manual-input__image">
           <div class="manual-input__image__label">
             Upload and image for the ROM:
+          </div>
+
+          <div class="aesthetic-windows-95-button">
+            <button onClick={() => this.triggerLocalFileUpload()}>
+              Upload
+            </button>
+          </div>
+
+          <div class="manual-input__image__container">
+            {!this.state.ROMScraper.ROMInfo ||
+            !this.state.ROMScraper.ROMInfo.image ? (
+              ""
+            ) : (
+              <img src={this.state.ROMScraper.ROMInfo.image} />
+            )}
           </div>
         </div>
       </div>
