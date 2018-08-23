@@ -10,7 +10,11 @@ export default class SearchInput extends Component {
     this.setState({
       loading: false,
       results: [],
-      ROMScraper: {}
+      currentSearch: undefined,
+      executedSearch: undefined,
+      ROMScraper: {
+        ...Pubx.get(PUBX_CONFIG.ROM_SCRAPER_KEY)
+      }
     });
   }
 
@@ -29,6 +33,10 @@ export default class SearchInput extends Component {
 
     this.setState({
       ...this.state,
+      loading: false,
+      results: [],
+      currentSearch: undefined,
+      executedSearch: undefined,
       pubxROMScraperSubscriberKey: pubxROMScraperSubscriberKey
     });
   }
@@ -54,8 +62,6 @@ export default class SearchInput extends Component {
       executedSearch: this.state.currentSearch
     });
 
-    console.log("search", this.state);
-
     // Fetch from the vaporboy api
     fetch(
       `https://vaporboy.net/scrape/giantbomb?format=json&filter=name:${
@@ -66,7 +72,6 @@ export default class SearchInput extends Component {
         return response.json();
       })
       .then(response => {
-        console.log(response);
         const results = [];
         response.results.forEach((result, index) => {
           results.push(
@@ -104,7 +109,7 @@ export default class SearchInput extends Component {
       results = this.state.results;
     }
 
-    let selectedROM = <div class="search-input__selected-ROM" />;
+    let selectedROM = <div class="search-input__selected-ROM">&nbsp;</div>;
     if (
       this.state.ROMScraper &&
       this.state.ROMScraper.ROMInfo &&
@@ -126,6 +131,7 @@ export default class SearchInput extends Component {
             class="aesthetic-windows-95-text-input"
             type="text"
             placeholder="Search for a GB or GBC game..."
+            value={this.state.currentSearch}
             onKeyDown={e =>
               this.setState({
                 ...this.state,

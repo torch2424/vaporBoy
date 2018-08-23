@@ -46,7 +46,8 @@ export default class ROMScraper extends Component {
 
   setActiveTabIndex(activeTabIndex) {
     Pubx.publish(PUBX_CONFIG.ROM_SCRAPER_KEY, {
-      activeTabIndex: activeTabIndex
+      activeTabIndex: activeTabIndex,
+      ROMInfo: {}
     });
   }
 
@@ -60,13 +61,11 @@ export default class ROMScraper extends Component {
   }
 
   render() {
-    const searchElement = <SearchInput />;
-
-    const manualInputElement = <ManualInput />;
-
-    let currentTabElement = searchElement;
-    if (this.state.ROMScraper.activeTabIndex === 1) {
-      currentTabElement = manualInputElement;
+    let currentTabElement = <div />;
+    if (this.state.ROMScraper.activeTabIndex === 0) {
+      currentTabElement = <SearchInput />;
+    } else if (this.state.ROMScraper.activeTabIndex === 1) {
+      currentTabElement = <ManualInput />;
     }
 
     return (

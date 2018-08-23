@@ -87,9 +87,11 @@ class PubxService {
       ...stateValue
     };
 
-    // Call our subscribers
+    // Call our subscribers, passing back the entire new state
     Object.keys(this.state[stateKey].subscribers).forEach(subscriberKey => {
-      this.state[stateKey].subscribers[subscriberKey](stateValue);
+      this.state[stateKey].subscribers[subscriberKey]({
+        ...this.state[stateKey].value
+      });
     });
   }
 }

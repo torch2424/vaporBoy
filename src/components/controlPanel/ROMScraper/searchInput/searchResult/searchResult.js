@@ -15,7 +15,7 @@ export default class SearchResult extends Component {
     Pubx.publish(PUBX_CONFIG.ROM_SCRAPER_KEY, {
       ROMInfo: {
         title: this.props.title,
-        image: this.props.image
+        imageUrl: this.props.image
       },
       selectedROMIndex: this.props.index
     });
@@ -25,11 +25,6 @@ export default class SearchResult extends Component {
     const formattedDate = new Date(this.props.date).toDateString();
 
     let rootElementClass = "search-result";
-    console.log(
-      "result render",
-      this.props.index,
-      Pubx.get(PUBX_CONFIG.ROM_SCRAPER_KEY).selectedROMIndex
-    );
     if (
       this.props.index ===
       Pubx.get(PUBX_CONFIG.ROM_SCRAPER_KEY).selectedROMIndex
