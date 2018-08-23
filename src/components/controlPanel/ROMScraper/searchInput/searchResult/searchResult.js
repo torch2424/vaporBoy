@@ -24,7 +24,7 @@ export default class SearchResult extends Component {
               Pubx.publish(PUBX_CONFIG.ROM_SCRAPER_KEY, {
                 ROMInfo: {
                   title: this.props.title,
-                  imageUrl: onloadEvent.target.result
+                  imageDataURL: onloadEvent.target.result
                 },
                 selectedROMIndex: this.props.index
               });

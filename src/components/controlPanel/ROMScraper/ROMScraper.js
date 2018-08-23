@@ -1,7 +1,10 @@
 import { Component } from "preact";
+import { WasmBoy } from "wasmboy";
 
 import { Pubx } from "../../../services/pubx";
 import { PUBX_CONFIG } from "../../../pubx.config";
+
+import { ROMCollection } from "../../../services/ROMCollection";
 
 import SearchInput from "./searchInput/searchInput";
 import ManualInput from "./manualInput/manualInput";
@@ -13,7 +16,11 @@ export default class ROMScraper extends Component {
     this.setState({
       ROMScraper: {
         ...Pubx.get(PUBX_CONFIG.ROM_SCRAPER_KEY)
-      }
+      },
+      controlPanel: {
+        ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
+      },
+      submitting: false
     });
   }
 
@@ -60,6 +67,28 @@ export default class ROMScraper extends Component {
     );
   }
 
+  skipAddToCollection() {
+    // If Skip, simply play the ROM
+    const playROMTask = async () => {
+      await WasmBoy.play();
+      this.state.controlPanel.hideControlPanel();
+    };
+    playROMTask();
+  }
+
+  addROMToCollection() {
+    const addROMToCollectionTask = async () => {
+      await ROMCollection.saveCurrentWasmBoyROMToCollection(
+        this.state.ROMScraper.ROMInfo.title,
+        this.state.ROMScraper.ROMInfo.imageDataURL
+      );
+      ROMCollection.updateCollection();
+      await WasmBoy.play();
+      this.state.controlPanel.hideControlPanel();
+    };
+    addROMToCollectionTask();
+  }
+
   render() {
     let currentTabElement = <div />;
     if (this.state.ROMScraper.activeTabIndex === 0) {
@@ -97,11 +126,16 @@ export default class ROMScraper extends Component {
 
             <div class="ROMScraper__submit">
               <div class="aesthetic-windows-95-button">
-                <button>Skip</button>
+                <button onClick={() => this.skipAddToCollection()}>Skip</button>
               </div>
 
               <div class="aesthetic-windows-95-button">
-                <button disabled={this.shouldDisableSubmit()}>Submit</button>
+                <button
+                  disabled={this.shouldDisableSubmit()}
+                  onClick={() => this.addROMToCollection()}
+                >
+                  Submit
+                </button>
               </div>
             </div>
           </div>

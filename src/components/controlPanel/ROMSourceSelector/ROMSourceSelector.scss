@@ -60,6 +60,10 @@
           opacity: 0.75;
         }
 
+        &:disabled {
+          opacity: 0.5 !important;
+        }
+
         .ROMSourceSelector__list__item__icon {
           width: 100%;
           height: auto;

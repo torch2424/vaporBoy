@@ -52,7 +52,7 @@ export default class ManualInput extends Component {
       Pubx.publish(PUBX_CONFIG.ROM_SCRAPER_KEY, {
         ROMInfo: {
           ...Pubx.get(PUBX_CONFIG.ROM_SCRAPER_KEY).ROMInfo,
-          image: onloadEvent.target.result
+          imageDataURL: onloadEvent.target.result
         }
       });
     };
@@ -69,6 +69,7 @@ export default class ManualInput extends Component {
           id="ManualInputImage"
           class="hidden"
           accept="image/*"
+          value={undefined}
           onChange={event => {
             this.loadLocalFile(event);
           }}
@@ -109,10 +110,10 @@ export default class ManualInput extends Component {
 
           <div class="manual-input__image__container">
             {!this.state.ROMScraper.ROMInfo ||
-            !this.state.ROMScraper.ROMInfo.image ? (
+            !this.state.ROMScraper.ROMInfo.imageDataURL ? (
               ""
             ) : (
-              <img src={this.state.ROMScraper.ROMInfo.image} />
+              <img src={this.state.ROMScraper.ROMInfo.imageDataURL} />
             )}
           </div>
         </div>

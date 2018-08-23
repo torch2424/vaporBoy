@@ -144,6 +144,7 @@ export default class ROMSourceSelector extends Component {
             onClick={() => {
               this.viewMyCollection();
             }}
+            disabled={numberOfROMsInCollection <= 0}
           >
             <div class="ROMSourceSelector__list__item__icon">📚</div>
 
@@ -197,6 +198,7 @@ export default class ROMSourceSelector extends Component {
           id="ROMFileInput"
           class="hidden"
           accept=".gb, .gbc, .zip"
+          value={undefined}
           onChange={event => {
             this.loadLocalFile(event);
           }}
