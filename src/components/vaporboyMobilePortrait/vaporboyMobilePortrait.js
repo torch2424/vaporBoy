@@ -9,15 +9,9 @@ export default class VaporBoyMobilePortrait extends Component {
     super();
   }
 
-  componentDidMount() {
-    document.documentElement.classList.add("mobile");
-    document.documentElement.classList.add("portrait");
-  }
+  componentDidMount() {}
 
-  componentWillUnmount() {
-    document.documentElement.classList.remove("mobile");
-    document.documentElement.classList.remove("portrait");
-  }
+  componentWillUnmount() {}
 
   render() {
     // Generate our div of circles for our cirles

@@ -9,15 +9,9 @@ export default class VaporBoyMobileLandscape extends Component {
     super();
   }
 
-  componentDidMount() {
-    document.documentElement.classList.add("mobile");
-    document.documentElement.classList.add("landscape");
-  }
+  componentDidMount() {}
 
-  componentWillUnmount() {
-    document.documentElement.classList.remove("mobile");
-    document.documentElement.classList.remove("landscape");
-  }
+  componentWillUnmount() {}
 
   render() {
     return (

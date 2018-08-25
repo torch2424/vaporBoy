@@ -29,14 +29,9 @@ export default class VaporBoyDesktop extends Component {
         });
       });
     }
-
-    // Set HTML/Body BG color
-    document.documentElement.classList.add("desktop");
   }
 
-  componentWillUnmount() {
-    document.documentElement.classList.remove("desktop");
-  }
+  componentWillUnmount() {}
 
   resetWasmBoy() {
     const resetWasmBoyTask = async () => {

@@ -29,6 +29,30 @@ export default class App extends Component {
       const portrait = window.matchMedia("screen and (orientation: portrait)")
         .matches;
 
+      // Clear all of our classes
+      document.documentElement.className = "";
+
+      // Get our document class list
+      const documentClassList = document.documentElement.classList;
+
+      // Add all Media query based on mobile vs desktop
+      if (mobile) {
+        documentClassList.add("mobile");
+      } else {
+        documentClassList.add("desktop");
+      }
+      if (landscape) {
+        documentClassList.add("landscape");
+      }
+      if (portrait) {
+        documentClassList.add("portrait");
+      }
+
+      // Add our expanded class
+      if (this.state.layout && this.state.layout.expanded) {
+        documentClassList.add("expanded");
+      }
+
       Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
         mobile: mobile,
         landscape: landscape && mobile,
@@ -47,7 +71,8 @@ export default class App extends Component {
     changeLayout();
 
     this.setState({
-      layout: {}
+      layout: {},
+      changeLayout: changeLayout
     });
   }
 
@@ -60,6 +85,9 @@ export default class App extends Component {
     const pubxLayoutSubscriberKey = Pubx.subscribe(
       PUBX_CONFIG.LAYOUT_KEY,
       newState => {
+        // First check if expanded is not the current state
+        const wasExpanded = this.state.layout.expanded;
+
         // You can spread and overwrite variables, while preserving ones,
         // as long is in cascading order.
         this.setState({
@@ -69,6 +97,10 @@ export default class App extends Component {
             ...newState
           }
         });
+
+        if (!wasExpanded && newState.expanded) {
+          this.state.changeLayout();
+        }
       }
     );
 

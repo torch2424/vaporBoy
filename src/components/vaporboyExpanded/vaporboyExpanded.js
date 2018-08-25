@@ -15,14 +15,9 @@ export default class VaporBoyExpanded extends Component {
         this.setState();
       });
     }
-
-    // Set the expanded class
-    document.documentElement.classList.add("expanded");
   }
 
-  componentWillUnmount() {
-    document.documentElement.classList.remove("expanded");
-  }
+  componentWillUnmount() {}
 
   render() {
     return (
