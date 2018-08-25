@@ -5,6 +5,20 @@ import { Component } from "preact";
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
 
 export default class VaporBoyMobileLandscape extends Component {
+  constructor() {
+    super();
+  }
+
+  componentDidMount() {
+    document.documentElement.classList.add("mobile");
+    document.documentElement.classList.add("landscape");
+  }
+
+  componentWillUnmount() {
+    document.documentElement.classList.remove("mobile");
+    document.documentElement.classList.remove("landscape");
+  }
+
   render() {
     return (
       <div class="vaporboy-mobile-landscape">

@@ -1,4 +1,3 @@
-import device from "current-device";
 import { Pubx } from "./services/pubx";
 import {
   VAPORBOY_DEFAULT_OPTIONS,
@@ -31,20 +30,28 @@ export const PUBX_CONFIG = {
 const initializePubxLayout = () => {
   const pubxLayoutState = {
     expanded: false,
-    mobile: device.mobile(),
-    landscape: device.landscape(),
-    portrait: device.portrait(),
+    mobile: false,
+    landscape: false,
+    portrait: false,
     isGba: () => {
       const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
-      return !pubxLayoutState.expanded && device.mobile() && device.landscape();
+      return (
+        !pubxLayoutState.expanded &&
+        pubxLayoutState.mobile &&
+        pubxLayoutState.landscape
+      );
     },
     isGbc: () => {
       const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
-      return !pubxLayoutState.expanded && device.mobile() && device.portrait();
+      return (
+        !pubxLayoutState.expanded &&
+        pubxLayoutState.mobile &&
+        pubxLayoutState.portrait
+      );
     },
     isExpandedMobile: () => {
       const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
-      return pubxLayoutState.expanded && device.mobile();
+      return pubxLayoutState.expanded && pubxLayoutState.mobile;
     }
   };
   Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, pubxLayoutState);

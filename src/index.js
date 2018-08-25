@@ -5,7 +5,6 @@ import { Component } from "preact";
 import { Pubx } from "./services/pubx";
 import { PUBX_CONFIG } from "./pubx.config";
 import { WasmBoy } from "wasmboy";
-import device from "current-device";
 
 import VaporBoyDesktop from "./components/vaporboyDesktop/vaporboyDesktop";
 import VaporBoyMobileLandscape from "./components/vaporboyMobileLandscape/vaporboyMobileLandscape";
@@ -22,13 +21,33 @@ export default class App extends Component {
     // Initialize our Pubx
     PUBX_CONFIG.INITIALIZE();
 
-    // Add our listener for orientation changes
-    device.onChangeOrientation(newOrientation => {
+    // Function to change out layout, called by resize events and things
+    const changeLayout = () => {
+      const mobile = window.matchMedia("(max-width: 801px)").matches;
+      const landscape = window.matchMedia("screen and (orientation: landscape)")
+        .matches;
+      const portrait = window.matchMedia("screen and (orientation: portrait)")
+        .matches;
+
       Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
-        mobile: device.mobile(),
-        landscape: device.landscape(),
-        portrait: device.portrait()
+        mobile: mobile,
+        landscape: landscape && mobile,
+        portrait: portrait && mobile
       });
+    };
+
+    window.addEventListener("resize", () => {
+      changeLayout();
+    });
+
+    window.addEventListener("orientationchange", () => {
+      changeLayout();
+    });
+
+    changeLayout();
+
+    this.setState({
+      layout: {}
     });
   }
 
@@ -36,7 +55,6 @@ export default class App extends Component {
     document.addEventListener("deviceready", () => {
       console.log("Cordova Launched Device Ready!");
     });
-    console.log("WasmBoy:", WasmBoy);
 
     // Subscribe to changes
     const pubxLayoutSubscriberKey = Pubx.subscribe(
@@ -69,17 +87,19 @@ export default class App extends Component {
     let vaporboyMobilePortraitLayout = <VaporBoyMobilePortrait />;
     let vaporboyExpandedLayout = <VaporBoyExpanded />;
 
+    console.log(this.state.layout);
+
     // Get our current layout
     let currentLayout = vaporboyDesktopLayout;
-    if (device.mobile() || device.tablet()) {
-      if (device.landscape()) {
+    if (this.state.layout.mobile) {
+      if (this.state.layout.landscape) {
         currentLayout = vaporboyMobileLandscapeLayout;
       } else {
         currentLayout = vaporboyMobilePortraitLayout;
       }
     }
 
-    if (this.state.layout && this.state.layout.expanded) {
+    if (this.state.layout.expanded) {
       currentLayout = vaporboyExpandedLayout;
     }
 

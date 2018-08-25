@@ -5,6 +5,20 @@ import { Component } from "preact";
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
 
 export default class VaporBoyMobilePortrait extends Component {
+  constructor() {
+    super();
+  }
+
+  componentDidMount() {
+    document.documentElement.classList.add("mobile");
+    document.documentElement.classList.add("portrait");
+  }
+
+  componentWillUnmount() {
+    document.documentElement.classList.remove("mobile");
+    document.documentElement.classList.remove("portrait");
+  }
+
   render() {
     // Generate our div of circles for our cirles
     const speakerCircles = [];

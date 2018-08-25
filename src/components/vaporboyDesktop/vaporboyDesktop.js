@@ -31,13 +31,11 @@ export default class VaporBoyDesktop extends Component {
     }
 
     // Set HTML/Body BG color
-    document.documentElement.classList.add("vaporboy-desktop-bg");
-    document.body.classList.add("vaporboy-desktop-bg");
+    document.documentElement.classList.add("desktop");
   }
 
   componentWillUnmount() {
-    document.documentElement.classList.remove("vaporboy-desktop-bg");
-    document.body.classList.remove("vaporboy-desktop-bg");
+    document.documentElement.classList.remove("desktop");
   }
 
   resetWasmBoy() {
