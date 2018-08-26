@@ -198,6 +198,9 @@ export default class WasmBoyCanvas extends Component {
           <img src={this.state.vaporboyImage} />
           <h1>V A P O R B O Y</h1>
           <h3>Please insert a cartridge...</h3>
+          <div class="wasmboy-canvas__insert-cartridge__instructions">
+            File > Control Panel (⚙️) > Select a ROM
+          </div>
         </div>
       );
     }

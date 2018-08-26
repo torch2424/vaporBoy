@@ -22,6 +22,7 @@
       $aesthetic-light-purple,
       $aesthetic-pink
     );
+    color: $aesthetic-white;
 
     display: flex;
     justify-content: center;
@@ -48,6 +49,10 @@
       color: $aesthetic-white;
       margin-top: 5px;
       margin-bottom: 5px;
+    }
+
+    &__instructions {
+      font-size: 0.75rem;
     }
   }
 
