@@ -18,7 +18,9 @@ export default class VaporBoyDesktop extends Component {
     this.setState({
       controlPanel: {
         ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
-      }
+      },
+      fileMenuActiveClass: "",
+      viewMenuActiveClass: ""
     });
 
     if (screenfull.enabled) {
@@ -29,9 +31,17 @@ export default class VaporBoyDesktop extends Component {
         });
       });
     }
+
+    document.addEventListener("click", () => {
+      this.closeDropdowns();
+    });
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    document.removeEventListener("click", () => {
+      this.closeDropdowns();
+    });
+  }
 
   resetWasmBoy() {
     const resetWasmBoyTask = async () => {
@@ -53,6 +63,24 @@ export default class VaporBoyDesktop extends Component {
 
     Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
       expanded: !pubxLayoutState.expanded
+    });
+  }
+
+  showDropdown(event, stateKey) {
+    event.stopPropagation();
+    this.closeDropdowns();
+    const newState = {
+      ...this.state
+    };
+    newState[stateKey] = "is-active";
+    this.setState(newState);
+  }
+
+  closeDropdowns() {
+    this.setState({
+      ...this.state,
+      fileMenuActiveClass: "",
+      viewMenuActiveClass: ""
     });
   }
 
@@ -114,10 +142,19 @@ export default class VaporBoyDesktop extends Component {
             {/* Drop Down Lists */}
             <div class="vaporboy-desktop__dropdowns">
               <div class="aesthetic-windows-95-dropdown">
-                <button class="aesthetic-windows-95-dropdown-trigger">
+                <button
+                  class="aesthetic-windows-95-dropdown-trigger"
+                  onClick={event =>
+                    this.showDropdown(event, "fileMenuActiveClass")
+                  }
+                >
                   File
                 </button>
-                <ul class="aesthetic-windows-95-dropdown-menu">
+                <ul
+                  class={`aesthetic-windows-95-dropdown-menu ${
+                    this.state.fileMenuActiveClass
+                  }`}
+                >
                   <li class="aesthetic-windows-95-dropdown-menu-item">
                     <button onClick={() => this.showControlPanel()}>
                       Control Panel
@@ -135,10 +172,19 @@ export default class VaporBoyDesktop extends Component {
               </div>
 
               <div class="aesthetic-windows-95-dropdown">
-                <button class="aesthetic-windows-95-dropdown-trigger">
+                <button
+                  class="aesthetic-windows-95-dropdown-trigger"
+                  onClick={event =>
+                    this.showDropdown(event, "viewMenuActiveClass")
+                  }
+                >
                   View
                 </button>
-                <ul class="aesthetic-windows-95-dropdown-menu">
+                <ul
+                  class={`aesthetic-windows-95-dropdown-menu ${
+                    this.state.viewMenuActiveClass
+                  }`}
+                >
                   <li class="aesthetic-windows-95-dropdown-menu-item">
                     <button onClick={() => this.toggleExpand()}>
                       Expand Game
