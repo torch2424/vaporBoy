@@ -49,17 +49,28 @@ export default class VaporBoyMobilePortrait extends Component {
                       fy="0.75"
                       r="0.80"
                     >
-                      <stop offset="0%" stop-color="rgba(240, 240, 240, 0.0)" />
+                      {/*
+                        Stop Opacity is for Safari
+                        https://stackoverflow.com/questions/31729206                      
+                      */}
+                      <stop
+                        offset="0%"
+                        stop-opacity="0.0"
+                        stop-color="rgba(240, 240, 240, 0.0)"
+                      />
                       <stop
                         offset="30%"
+                        stop-opacity="0.0"
                         stop-color="rgba(240, 240, 240, 0.0)"
                       />
                       <stop
                         offset="99%"
+                        stop-opacity="0.5"
                         stop-color="rgba(240, 240, 240, 0.5)"
                       />
                       <stop
                         offset="100%"
+                        stop-opacity="0.0"
                         stop-color="rgba(240, 240, 240, 0.0)"
                       />
                     </radialGradient>
