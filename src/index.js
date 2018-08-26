@@ -13,6 +13,7 @@ import VaporBoyExpanded from "./components/vaporboyExpanded/vaporboyExpanded";
 import ControlPanel from "./components/controlPanel/controlPanel";
 import ConfirmationModal from "./components/confirmationModal/confirmationModal";
 import Touchpad from "./components/touchpad/touchpad";
+import Notification from "./components/notification/notification";
 
 export default class App extends Component {
   constructor() {
@@ -141,6 +142,7 @@ export default class App extends Component {
         <ControlPanel />
         {currentLayout}
         <Touchpad />
+        <Notification />
       </div>
     );
   }

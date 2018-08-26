@@ -8,6 +8,7 @@
 @import "../node_modules/aesthetic-css/src/dropdowns";
 @import "../node_modules/aesthetic-css/src/effects/crt";
 @import "../node_modules/aesthetic-css/src/tabs";
+@import "../node_modules/aesthetic-css/src/notification";
 
 // Our re-used styles
 @import "styles/tooltip";
@@ -24,6 +25,7 @@
 @import "components/controlPanel/controlPanel";
 @import "components/confirmationModal/confirmationModal";
 @import "components/touchpad/touchpad";
+@import "components/notification/notification";
 
 html,
 body {
