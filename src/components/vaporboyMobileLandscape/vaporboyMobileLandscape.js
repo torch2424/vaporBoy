@@ -5,6 +5,14 @@ import { Component } from "preact";
 import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
 
 export default class VaporBoyMobileLandscape extends Component {
+  constructor() {
+    super();
+  }
+
+  componentDidMount() {}
+
+  componentWillUnmount() {}
+
   render() {
     return (
       <div class="vaporboy-mobile-landscape">

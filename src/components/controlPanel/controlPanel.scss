@@ -53,6 +53,10 @@
         display: flex;
         flex-direction: column;
         flex-grow: 1;
+
+        // Overflow Firefox flex fix
+        // https://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox
+        min-height: 0px;
       }
     }
 

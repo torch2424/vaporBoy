@@ -4,7 +4,8 @@
   list-style-type: none;
   padding: 5px;
 
-  width: 100%;
+  // Subtracting the padding to keep it without overflow-x
+  width: calc(100% - 10px);
   flex-grow: 1;
 
   display: flex;
