@@ -1,0 +1,43 @@
+.about {
+  padding: 5px;
+  width: calc(100% - 10px);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+
+  h1 {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  h3 {
+    font-size: 1.35rem;
+    font-style: italic;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  p,
+  li {
+    font-size: 1.15rem;
+  }
+
+  li {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0px;
+    margin-top: 0px;
+  }
+}

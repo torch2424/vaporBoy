@@ -32,6 +32,11 @@ body {
   font: 14px/1.21 "Times New Roman", Times, serif;
   font-weight: 400;
   margin-top: 10px;
+
+  // Disable pull to refresh on Chrome and Firefox
+  // https://stackoverflow.com/questions/36212722/how-to-prevent-pull-down-to-refresh-of-mobile-chrome
+  // https://developers.google.com/web/updates/2017/11/overscroll-behavior
+  overscroll-behavior-y: contain;
 }
 
 button {

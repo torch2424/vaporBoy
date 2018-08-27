@@ -10,6 +10,7 @@
 @import "loadStateList/loadStateList";
 @import "vaporBoyOptions/vaporBoyOptions";
 @import "vaporBoyEffects/vaporBoyEffects";
+@import "about/about";
 
 .control-panel {
   position: fixed;
@@ -24,6 +25,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  // All Dividers
+  hr {
+    border-color: $aesthetic-windows-95-grey-border;
+    width: 100%;
+  }
 
   &__modal {
     width: 100%;
@@ -62,7 +69,10 @@
 
     &__controls {
       margin-top: 2px;
-      margin-bottom: 5px;
+
+      .aesthetic-windows-95-button {
+        width: 50px;
+      }
 
       button:disabled {
         opacity: 0.25;

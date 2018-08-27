@@ -6,6 +6,8 @@ import { Pubx } from "./services/pubx";
 import { PUBX_CONFIG } from "./pubx.config";
 import { WasmBoy } from "wasmboy";
 
+import { NOTIFICATION_MESSAGES } from "./notification.messages";
+
 import VaporBoyDesktop from "./components/vaporboyDesktop/vaporboyDesktop";
 import VaporBoyMobileLandscape from "./components/vaporboyMobileLandscape/vaporboyMobileLandscape";
 import VaporBoyMobilePortrait from "./components/vaporboyMobilePortrait/vaporboyMobilePortrait";
@@ -111,6 +113,11 @@ export default class App extends Component {
       },
       pubxLayoutSubscriberKey
     });
+
+    // Print the beta disclaimer
+    Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+      NOTIFICATION_MESSAGES.BETA_VERSION
+    );
   }
 
   render() {

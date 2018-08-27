@@ -10,6 +10,7 @@ import ROMSourceSelector from "../ROMSourceSelector/ROMSourceSelector";
 import LoadStateList from "../loadStateList/loadStateList";
 import VaporBoyOptions from "../vaporBoyOptions/vaporBoyOptions";
 import VaporBoyEffects from "../vaporBoyEffects/vaporBoyEffects";
+import About from "../about/about";
 
 export default class ControlPanelSelect extends Component {
   constructor() {
@@ -118,6 +119,13 @@ export default class ControlPanelSelect extends Component {
     );
   }
 
+  viewAbout() {
+    this.state.controlPanel.addComponentToControlPanelViewStack(
+      "About",
+      <About />
+    );
+  }
+
   playROM() {
     WasmBoy.play();
     this.state.controlPanel.hideControlPanel();
@@ -190,6 +198,12 @@ export default class ControlPanelSelect extends Component {
             </button>
           </li>
           <li class="control-panel-select__grid__item">{playPause}</li>
+          <li class="control-panel-select__grid__item">
+            <button onclick={() => this.viewAbout()}>
+              <div>ℹ️</div>
+              <div>About</div>
+            </button>
+          </li>
         </ul>
       </div>
     );
