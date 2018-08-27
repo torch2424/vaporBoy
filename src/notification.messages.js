@@ -1,4 +1,6 @@
 export const NOTIFICATION_MESSAGES = {
+  BETA_VERSION:
+    "VaporBoy is still in Beta! This is still a work in progress, and not all ROMs will run correctly. Expect bugs. 🐛 Find more information in Control Panel > About.",
   LOAD_ROM: "Loaded ROM! 😄",
   PAUSE_ROM: "Paused ROM... ⏸️",
   RESUME_ROM: "Resuming ROM... ▶️",
