@@ -4,6 +4,8 @@ import { WasmBoy } from "wasmboy";
 import { Pubx } from "../../../services/pubx";
 import { PUBX_CONFIG } from "../../../pubx.config";
 
+import { NOTIFICATION_MESSAGES } from "../../../notification.messages";
+
 export default class LoadStateList extends Component {
   constructor() {
     super();
@@ -26,15 +28,21 @@ export default class LoadStateList extends Component {
       .then(() => {
         WasmBoy.play()
           .then(() => {
-            // TODO:
             this.state.controlPanel.hideControlPanel();
+            Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+              NOTIFICATION_MESSAGES.LOAD_STATE
+            );
           })
           .catch(() => {
-            // TODO:
+            Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+              NOTIFICATION_MESSAGES.ERROR_RESUME_ROM
+            );
           });
       })
       .catch(() => {
-        // TODO:
+        Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+          NOTIFICATION_MESSAGES.ERROR_LOAD_STATE
+        );
       });
   }
 

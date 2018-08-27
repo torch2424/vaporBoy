@@ -1,0 +1,17 @@
+.notification {
+  position: fixed;
+  bottom: 10px;
+  right: 30px;
+  max-width: 200px;
+
+  z-index: 2147483647;
+
+  .dismiss {
+    font-size: 1.15rem;
+  }
+
+  .aesthetic-notification-content {
+    margin-top: 16px;
+    font-size: 1.15rem;
+  }
+}

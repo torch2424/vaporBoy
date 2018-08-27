@@ -125,9 +125,6 @@ export default class WasmBoyCanvas extends Component {
         ...Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY)
       };
 
-      console.log("Current Pubx Vaporboy Options", vaporboyOptions);
-      console.log("Current Pubx Vaporboy Effects", vaporboyEffects);
-
       if (vaporboyEffects.vapor) {
         vaporboyOptions.gameboyFrameRate = Math.floor(
           vaporboyOptions.gameboyFrameRate * 0.875
@@ -198,6 +195,9 @@ export default class WasmBoyCanvas extends Component {
           <img src={this.state.vaporboyImage} />
           <h1>V A P O R B O Y</h1>
           <h3>Please insert a cartridge...</h3>
+          <div class="wasmboy-canvas__insert-cartridge__instructions">
+            File > Control Panel (⚙️) > Select a ROM
+          </div>
         </div>
       );
     }

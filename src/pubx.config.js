@@ -17,6 +17,7 @@ export const PUBX_CONFIG = {
   SAVES_STATES_KEY: "SAVE_STATES_KEY",
   VAPORBOY_OPTIONS_KEY: "VAPORBOY_OPTIONS_KEY",
   VAPORBOY_EFFECTS_KEY: "VAPORBOY_EFFECTS_KEY",
+  NOTIFICATION_KEY: "NOTIFICATION_KEY",
   INITIALIZE: () => {
     initializePubxLayout();
     initializePubxControlPanel();
@@ -24,6 +25,7 @@ export const PUBX_CONFIG = {
     initializePubxROMScraper();
     initializePubxVaporBoyOptions();
     initializePubxVaporBoyEffects();
+    initializePubxNotification();
   }
 };
 
@@ -185,4 +187,20 @@ const initializePubxVaporBoyEffects = () => {
   }
 
   Pubx.publish(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY, vaporBoyEffects);
+};
+
+const initializePubxNotification = () => {
+  const pubxNotificationState = {
+    text: "",
+    isVisible: false,
+    isError: false,
+    showNotification: (text, isError) => {
+      Pubx.publish(PUBX_CONFIG.NOTIFICATION_KEY, {
+        text: text,
+        isVisible: true,
+        isError: isError ? true : false
+      });
+    }
+  };
+  Pubx.publish(PUBX_CONFIG.NOTIFICATION_KEY, pubxNotificationState);
 };

@@ -4,6 +4,8 @@ import { WasmBoy } from "wasmboy";
 import { Pubx } from "../../services/pubx";
 import { PUBX_CONFIG } from "../../pubx.config";
 
+import { NOTIFICATION_MESSAGES } from "../../notification.messages";
+
 /*
 PROPS:
 
@@ -101,11 +103,19 @@ export default class SettingsDisplay extends Component {
             JSON.stringify(this.props.defaultSettings)
           );
           Pubx.publish(this.props.pubxConfigKey, this.props.defaultSettings);
+
+          Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+            NOTIFICATION_MESSAGES.RESET_SETTINGS
+          );
           this.state.controlPanel.hideControlPanel();
         };
 
         // Run the task
-        resetSettingsTask();
+        resetSettingsTask().catch(() => {
+          Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+            NOTIFICATION_MESSAGES.ERROR_RESET_SETTINGS
+          );
+        });
       }
     });
   }
@@ -127,11 +137,19 @@ export default class SettingsDisplay extends Component {
             JSON.stringify(this.state.current)
           );
           Pubx.publish(this.props.pubxConfigKey, this.state.current);
+
+          Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+            NOTIFICATION_MESSAGES.APPLY_SETTINGS
+          );
           this.state.controlPanel.hideControlPanel();
         };
 
         // Run the task
-        applyOptionsTask();
+        applyOptionsTask().catch(() => {
+          Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+            NOTIFICATION_MESSAGES.ERROR_APPLY_SETTINGS
+          );
+        });
       }
     });
   }

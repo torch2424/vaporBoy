@@ -9,6 +9,8 @@ import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
 import { Pubx } from "../../services/pubx";
 import { PUBX_CONFIG } from "../../pubx.config";
 
+import { NOTIFICATION_MESSAGES } from "../../notification.messages";
+
 // 3P libs
 import * as screenfull from "screenfull";
 
@@ -47,9 +49,17 @@ export default class VaporBoyDesktop extends Component {
     const resetWasmBoyTask = async () => {
       await WasmBoy.reset();
       await WasmBoy.play();
+
+      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+        NOTIFICATION_MESSAGES.RESET_ROM
+      );
     };
 
-    resetWasmBoyTask();
+    resetWasmBoyTask().catch(() => {
+      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+        NOTIFICATION_MESSAGES.ERROR_RESET_ROM
+      );
+    });
   }
 
   showControlPanel() {

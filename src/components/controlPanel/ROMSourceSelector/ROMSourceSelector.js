@@ -5,6 +5,8 @@ import { Pubx } from "../../../services/pubx";
 import { PUBX_CONFIG } from "../../../pubx.config";
 import { ROMCollection } from "../../../services/ROMCollection";
 
+import { NOTIFICATION_MESSAGES } from "../../../notification.messages";
+
 import { AVAILABLE_GAMES } from "../homebrew/availableGames";
 
 import MyCollection from "../myCollection/myCollection";
@@ -86,12 +88,19 @@ export default class ROMSourceSelector extends Component {
           });
         },
         cancelCallback: () => {
-          // If Cancel, simply play the ROM
           const playROMTask = async () => {
             await WasmBoy.play();
+
+            Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+              NOTIFICATION_MESSAGES.LOAD_ROM
+            );
             this.state.controlPanel.hideControlPanel();
           };
-          playROMTask();
+          playROMTask().catch(() => {
+            Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+              NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
+            );
+          });
         },
         cancelText: "Skip"
       });
@@ -118,8 +127,8 @@ export default class ROMSourceSelector extends Component {
       title: "Help - Uploading Roms",
       contentElement: (
         <div>
-          Uploaded ROMs will automatically be stored in "My Collection" for
-          offline playing using IndexedDb.
+          Uploaded ROMs can be stored in "My Collection" for offline playing
+          using IndexedDb.
         </div>
       )
     });

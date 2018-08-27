@@ -4,6 +4,8 @@ import { WasmBoy } from "wasmboy";
 import { Pubx } from "../../../services/pubx";
 import { PUBX_CONFIG } from "../../../pubx.config";
 
+import { NOTIFICATION_MESSAGES } from "../../../notification.messages";
+
 import { ROMCollection } from "../../../services/ROMCollection";
 
 import SearchInput from "./searchInput/searchInput";
@@ -71,9 +73,17 @@ export default class ROMScraper extends Component {
     // If Skip, simply play the ROM
     const playROMTask = async () => {
       await WasmBoy.play();
+
+      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+        NOTIFICATION_MESSAGES.LOAD_ROM
+      );
       this.state.controlPanel.hideControlPanel();
     };
-    playROMTask();
+    playROMTask().catch(() => {
+      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+        NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
+      );
+    });
   }
 
   addROMToCollection() {
@@ -84,9 +94,19 @@ export default class ROMScraper extends Component {
       );
       ROMCollection.updateCollection();
       await WasmBoy.play();
+
+      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+        `${NOTIFICATION_MESSAGES.ADD_ROM_TO_COLLECTION}
+
+        ${NOTIFICATION_MESSAGES.LOAD_ROM}`
+      );
       this.state.controlPanel.hideControlPanel();
     };
-    addROMToCollectionTask();
+    addROMToCollectionTask().catch(() => {
+      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+        NOTIFICATION_MESSAGES.ERROR_ADD_ROM_TO_COLLECTION
+      );
+    });
   }
 
   render() {
