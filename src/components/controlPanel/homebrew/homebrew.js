@@ -4,6 +4,8 @@ import { WasmBoy } from "wasmboy";
 import { Pubx } from "../../../services/pubx";
 import { PUBX_CONFIG } from "../../../pubx.config";
 
+import { NOTIFICATION_MESSAGES } from "../../../notification.messages";
+
 import Cartridge from "../cartridge/cartridge";
 
 import { AVAILABLE_GAMES } from "./availableGames";
@@ -26,12 +28,19 @@ export default class Homebrew extends Component {
     const loadHomebrewTask = async () => {
       await WasmBoy.pause();
       await WasmBoy.loadROM(availableGame.ROMPath);
-      console.log("Wasmboy Ready!");
       await WasmBoy.play();
+
+      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+        NOTIFICATION_MESSAGES.LOAD_ROM
+      );
+      this.state.controlPanel.hideControlPanel();
     };
 
-    loadHomebrewTask();
-    this.state.controlPanel.hideControlPanel();
+    loadHomebrewTask().catch(() => {
+      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+        NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
+      );
+    });
   }
 
   render() {

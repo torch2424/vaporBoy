@@ -4,6 +4,8 @@ import { WasmBoy } from "wasmboy";
 import { Pubx } from "../../../services/pubx";
 import { PUBX_CONFIG } from "../../../pubx.config";
 
+import { NOTIFICATION_MESSAGES } from "../../../notification.messages";
+
 import ROMSourceSelector from "../ROMSourceSelector/ROMSourceSelector";
 import LoadStateList from "../loadStateList/loadStateList";
 import VaporBoyOptions from "../vaporBoyOptions/vaporBoyOptions";
@@ -68,15 +70,23 @@ export default class ControlPanelSelect extends Component {
       .then(() => {
         WasmBoy.play()
           .then(() => {
-            // TODO:
             this.state.controlPanel.hideControlPanel();
+            Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+              NOTIFICATION_MESSAGES.SAVE_STATE
+            );
           })
           .catch(() => {
-            // TODO:
+            Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+              `${NOTIFICATION_MESSAGES.SAVE_STATE} ${
+                NOTIFICATION_MESSAGES.ERROR_RESUME_ROM
+              }`
+            );
           });
       })
       .catch(() => {
-        // TODO:
+        Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+          NOTIFICATION_MESSAGES.ERROR_SAVE_STATE
+        );
       });
   }
 
@@ -111,11 +121,17 @@ export default class ControlPanelSelect extends Component {
   playROM() {
     WasmBoy.play();
     this.state.controlPanel.hideControlPanel();
+    Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+      NOTIFICATION_MESSAGES.RESUME_ROM
+    );
   }
 
   pauseROM() {
     WasmBoy.pause();
     this.state.controlPanel.hideControlPanel();
+    Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+      NOTIFICATION_MESSAGES.PAUSE_ROM
+    );
   }
 
   render() {

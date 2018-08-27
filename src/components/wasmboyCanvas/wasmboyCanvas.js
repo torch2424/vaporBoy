@@ -125,9 +125,6 @@ export default class WasmBoyCanvas extends Component {
         ...Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY)
       };
 
-      console.log("Current Pubx Vaporboy Options", vaporboyOptions);
-      console.log("Current Pubx Vaporboy Effects", vaporboyEffects);
-
       if (vaporboyEffects.vapor) {
         vaporboyOptions.gameboyFrameRate = Math.floor(
           vaporboyOptions.gameboyFrameRate * 0.875

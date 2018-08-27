@@ -4,6 +4,8 @@ import { WasmBoy } from "wasmboy";
 import { Pubx } from "../../../services/pubx";
 import { PUBX_CONFIG } from "../../../pubx.config";
 
+import { NOTIFICATION_MESSAGES } from "../../../notification.messages";
+
 import Cartridge from "../cartridge/cartridge";
 
 export default class MyCollection extends Component {
@@ -37,10 +39,18 @@ export default class MyCollection extends Component {
       await WasmBoy.loadROM(collectionROM.ROM);
       console.log("Wasmboy Ready!");
       await WasmBoy.play();
+
+      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+        NOTIFICATION_MESSAGES.LOAD_ROM
+      );
+      this.state.controlPanel.hideControlPanel();
     };
 
-    loadROMTask();
-    this.state.controlPanel.hideControlPanel();
+    loadROMTask().catch(() => {
+      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+        NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
+      );
+    });
   }
 
   render() {

@@ -120,8 +120,6 @@ export default class App extends Component {
     let vaporboyMobilePortraitLayout = <VaporBoyMobilePortrait />;
     let vaporboyExpandedLayout = <VaporBoyExpanded />;
 
-    console.log(this.state.layout);
-
     // Get our current layout
     let currentLayout = vaporboyDesktopLayout;
     if (this.state.layout.mobile) {

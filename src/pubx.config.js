@@ -193,10 +193,12 @@ const initializePubxNotification = () => {
   const pubxNotificationState = {
     text: "",
     isVisible: false,
-    showNotification: text => {
+    isError: false,
+    showNotification: (text, isError) => {
       Pubx.publish(PUBX_CONFIG.NOTIFICATION_KEY, {
         text: text,
-        isVisible: true
+        isVisible: true,
+        isError: isError ? true : false
       });
     }
   };
