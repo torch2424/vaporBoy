@@ -83,42 +83,6 @@
           margin-top: 5px;
         }
       }
-
-      &__count {
-        width: 2rem;
-        height: 2rem;
-
-        position: absolute;
-        top: 0px;
-        right: -30%;
-
-        border-radius: 50%;
-        font-size: 1.5rem;
-        background: linear-gradient(
-          to bottom right,
-          $aesthetic-white 0%,
-          $aesthetic-pepsi-red 25%,
-          $aesthetic-pepsi-red 75%,
-          $aesthetic-black 100%
-        );
-        border: 2px solid $aesthetic-white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-
-      &__tooltip {
-        @extend .ROMSourceSelector__list__item__count;
-
-        background: linear-gradient(
-          to bottom right,
-          $aesthetic-white 0%,
-          $aesthetic-pepsi-blue 25%,
-          $aesthetic-pepsi-blue 75%,
-          $aesthetic-black 100%
-        );
-      }
     }
   }
 }

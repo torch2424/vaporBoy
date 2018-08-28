@@ -43,6 +43,14 @@ export default class Homebrew extends Component {
     });
   }
 
+  showHomebrewInfo(game) {
+    console.log(game);
+    Pubx.get(PUBX_CONFIG.CONFIRMATION_MODAL_KEY).showConfirmationModal({
+      title: `Homebrew Info - ${game.title}`,
+      contentElement: game.infoElement
+    });
+  }
+
   render() {
     let homebrewROMs = [];
     AVAILABLE_GAMES.forEach(game => {
@@ -56,10 +64,14 @@ export default class Homebrew extends Component {
               }}
             />
           </div>
-          <div class="ROM-list__item__label">
-            <a href={game.link} target="_blank">
-              {game.title}
-            </a>
+          <div class="ROM-list__item__label">{game.title}</div>
+          <div class="ROM-list__item__list-button">
+            <button
+              class="list-button--info"
+              onClick={() => this.showHomebrewInfo(game)}
+            >
+              i
+            </button>
           </div>
         </li>
       );

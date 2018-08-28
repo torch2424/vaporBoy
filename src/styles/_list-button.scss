@@ -1,0 +1,47 @@
+.list-button {
+  width: 2rem;
+  height: 2rem;
+
+  position: absolute;
+  top: 0px;
+  right: -30%;
+
+  border-radius: 50%;
+  font-size: 1.5rem;
+  background: linear-gradient(
+    to bottom right,
+    $aesthetic-white 0%,
+    $aesthetic-arizona-green 35%,
+    $aesthetic-arizona-green 75%,
+    $aesthetic-arizona-pink 100%
+  );
+  border: 2px solid $aesthetic-white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.list-button--info {
+  @extend .list-button;
+
+  background: linear-gradient(
+    to bottom right,
+    $aesthetic-pepsi-white 0%,
+    $aesthetic-light-blue 35%,
+    $aesthetic-light-blue 80%,
+    $aesthetic-black 100%
+  );
+}
+
+.list-button--edit {
+  @extend .list-button;
+
+  background: linear-gradient(
+    to bottom right,
+    $aesthetic-pepsi-white 0%,
+    $aesthetic-pepsi-grey 35%,
+    $aesthetic-pepsi-grey 80%,
+    $aesthetic-black 100%
+  );
+}
