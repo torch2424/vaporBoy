@@ -37,6 +37,8 @@
 .list-button--edit {
   @extend .list-button;
 
+  font-size: 1rem;
+  padding-left: 10px;
   background: linear-gradient(
     to bottom right,
     $aesthetic-pepsi-white 0%,

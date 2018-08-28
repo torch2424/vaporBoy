@@ -81,7 +81,7 @@ export default class ROMSourceSelector extends Component {
             viewStack: [
               {
                 title: `ROM Scraper - ${event.target.files[0].name}`,
-                view: <ROMScraper rom={event.target.files[0]} />
+                view: <ROMScraper />
               }
             ],
             required: true

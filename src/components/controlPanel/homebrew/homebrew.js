@@ -44,7 +44,6 @@ export default class Homebrew extends Component {
   }
 
   showHomebrewInfo(game) {
-    console.log(game);
     Pubx.get(PUBX_CONFIG.CONFIRMATION_MODAL_KEY).showConfirmationModal({
       title: `Homebrew Info - ${game.title}`,
       contentElement: game.infoElement
