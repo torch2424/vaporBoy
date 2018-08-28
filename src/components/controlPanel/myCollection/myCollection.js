@@ -7,6 +7,7 @@ import { PUBX_CONFIG } from "../../../pubx.config";
 import { NOTIFICATION_MESSAGES } from "../../../notification.messages";
 
 import Cartridge from "../cartridge/cartridge";
+import ROMScraper from "../ROMScraper/ROMScraper";
 
 export default class MyCollection extends Component {
   constructor() {
@@ -53,6 +54,25 @@ export default class MyCollection extends Component {
     });
   }
 
+  editROM(collectionROM) {
+    // Load the ROM, and then launch the editor
+    const editRomTask = async () => {
+      await WasmBoy.pause();
+      await WasmBoy.loadROM(collectionROM.ROM);
+
+      Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
+        viewStack: [
+          {
+            title: `ROM Scraper - ${collectionROM.titleAsString}`,
+            view: <ROMScraper rom={collectionROM.ROM} />
+          }
+        ],
+        required: true
+      });
+    };
+    editRomTask();
+  }
+
   render() {
     let collectionROMs = [];
     if (this.state.collection && this.state.collection.collection) {
@@ -74,6 +94,14 @@ export default class MyCollection extends Component {
               </div>
               <div class="ROM-list__item__label">
                 {this.getROMTitle(collectionROM)}
+              </div>
+              <div class="ROM-list__item__list-button">
+                <button
+                  class="list-button--edit"
+                  onClick={() => this.editROM(collectionROM)}
+                >
+                  ✏️
+                </button>
               </div>
             </li>
           );

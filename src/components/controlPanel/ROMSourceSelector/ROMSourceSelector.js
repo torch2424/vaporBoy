@@ -81,7 +81,7 @@ export default class ROMSourceSelector extends Component {
             viewStack: [
               {
                 title: `ROM Scraper - ${event.target.files[0].name}`,
-                view: <ROMScraper rom={event.target.files[0]} />
+                view: <ROMScraper />
               }
             ],
             required: true
@@ -161,9 +161,7 @@ export default class ROMSourceSelector extends Component {
               My Collection
             </div>
           </button>
-          <div class="ROMSourceSelector__list__item__count">
-            {numberOfROMsInCollection}
-          </div>
+          <div class="list-button">{numberOfROMsInCollection}</div>
         </li>
         <li class="ROMSourceSelector__list__item">
           <button
@@ -177,9 +175,7 @@ export default class ROMSourceSelector extends Component {
               Homebrew ROMs
             </div>
           </button>
-          <div class="ROMSourceSelector__list__item__count">
-            {numberOfHomebrew}
-          </div>
+          <div class="list-button">{numberOfHomebrew}</div>
         </li>
         <li class="ROMSourceSelector__list__item">
           <button onClick={() => this.triggerLocalFileUpload()}>
@@ -190,7 +186,7 @@ export default class ROMSourceSelector extends Component {
             </div>
           </button>
           <button
-            class="ROMSourceSelector__list__item__tooltip"
+            class="list-button--info"
             onClick={() => this.uploadRomConfirmationModal()}
           >
             i

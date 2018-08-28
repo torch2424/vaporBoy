@@ -1,5 +1,8 @@
 import { Component } from "preact";
 
+import { Pubx } from "../../../services/pubx";
+import { PUBX_CONFIG } from "../../../pubx.config";
+
 export default class Cartridge extends Component {
   constructor() {
     super();
@@ -40,6 +43,30 @@ export default class Cartridge extends Component {
           {this.props.text}
         </div>
       );
+    }
+
+    // Our cartridge action
+    let cartridgeAction = "";
+    if (this.props.infoModalObject) {
+      cartridgeAction = (
+        <button
+          class="list-button--info"
+          onClick={() =>
+            Pubx.get(PUBX_CONFIG.CONFIRMATION_MODAL_KEY).showConfirmationModal(
+              this.props.infoModalObject
+            )
+          }
+        >
+          i
+        </button>
+      );
+    } else if (this.props.editCallback) {
+      <button
+        class="list-button--edit"
+        onClick={() => this.props.editCallback()}
+      >
+        ✏️
+      </button>;
     }
 
     // Our cartridge overlay color
