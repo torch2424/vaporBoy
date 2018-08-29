@@ -268,6 +268,7 @@ export default class ROMSourceSelector extends Component {
           </button>
         </li>
         <li class="ROMSourceSelector__list__item">
+          {/* mimeTypes, application/zip = .zip, application/octetstream = .gb,.gbc*/}
           <GooglePicker
             clientId={VAPORBOY_GOOGLE_PICKER_CLIENT_ID}
             scope={["https://www.googleapis.com/auth/drive.readonly"]}
@@ -280,6 +281,7 @@ export default class ROMSourceSelector extends Component {
             multiselect={false}
             navHidden={true}
             authImmediate={false}
+            mimeTypes={["application/zip", "application/octet-stream"]}
             viewId={"DOCS"}
           >
             <button>
