@@ -17,17 +17,8 @@ export default class LoadingModal extends Component {
     const pubxLoadingSubscriberKey = Pubx.subscribe(
       PUBX_CONFIG.LOADING_KEY,
       newState => {
-        // If we added a new promise to the stack, start loading
-        if (
-          this.state.loading.promiseStack.length < newState.promiseStack.length
-        ) {
-          this.startLoading(newState.promiseStack);
-        }
-
-        // Check if the promise stack was cleared
-        if (newState.promiseStack.length <= 0) {
-          this.stopLoading();
-        }
+        // Preserve our old promise stack
+        const oldPromiseStack = this.state.loading.promiseStack;
 
         this.setState({
           ...this.state,
@@ -36,6 +27,16 @@ export default class LoadingModal extends Component {
             ...newState
           }
         });
+
+        // If we added a new promise to the stack, start loading
+        if (oldPromiseStack.length < newState.promiseStack.length) {
+          this.startLoading(newState.promiseStack);
+        }
+
+        // Check if the promise stack was cleared
+        if (oldPromiseStack.length > 0 && newState.promiseStack.length <= 0) {
+          this.stopLoading();
+        }
       }
     );
 
@@ -54,7 +55,7 @@ export default class LoadingModal extends Component {
     );
   }
 
-  startLoading(promiseStack) {
+  startLoading() {
     // Check if we are not loading
     if (!this.state.timeout && !this.state.isActiveClass) {
       // Wait 400 milliseconds before showing the global loader.
@@ -67,20 +68,26 @@ export default class LoadingModal extends Component {
             timeout: false,
             isActiveClass: "is-active"
           });
-        }, 400)
+        }, 250)
       });
     }
 
     // Fire off stop loading once all of our promises resolve
-    Promise.all(promiseStack).then(() => {
-      this.stopLoading();
-    });
+    Promise.all(this.state.loading.promiseStack)
+      .then(() => {
+        this.stopLoading();
+      })
+      .catch(() => {
+        this.stopLoading();
+      });
   }
 
   stopLoading() {
     if (this.state.timeout) {
       clearTimeout(this.state.timeout);
     }
+
+    Pubx.get(PUBX_CONFIG.LOADING_KEY).clearPromiseStack();
 
     this.setState({
       ...this.state,

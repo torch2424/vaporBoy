@@ -79,11 +79,14 @@ export default class ROMScraper extends Component {
       );
       this.state.controlPanel.hideControlPanel();
     };
-    playROMTask().catch(() => {
+    const playROMPromise = playROMTask();
+    playROMPromise.catch(() => {
       Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
         NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
       );
     });
+
+    Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(playROMPromise);
   }
 
   addROMToCollection() {
@@ -102,11 +105,15 @@ export default class ROMScraper extends Component {
       );
       this.state.controlPanel.hideControlPanel();
     };
-    addROMToCollectionTask().catch(() => {
+    const addROMToCollectionPromise = addROMToCollectionTask();
+    addROMToCollectionPromise.catch(() => {
       Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
         NOTIFICATION_MESSAGES.ERROR_ADD_ROM_TO_COLLECTION
       );
     });
+    Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(
+      addROMToCollectionPromise
+    );
   }
 
   render() {

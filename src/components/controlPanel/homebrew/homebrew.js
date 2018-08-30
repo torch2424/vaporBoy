@@ -36,11 +36,13 @@ export default class Homebrew extends Component {
       this.state.controlPanel.hideControlPanel();
     };
 
-    loadHomebrewTask().catch(() => {
+    const loadHomebrewPromise = loadHomebrewTask();
+    loadHomebrewPromise.catch(() => {
       Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
         NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
       );
     });
+    Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(loadHomebrewPromise);
   }
 
   showHomebrewInfo(game) {

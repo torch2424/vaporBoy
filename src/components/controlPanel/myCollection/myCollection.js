@@ -47,11 +47,14 @@ export default class MyCollection extends Component {
       this.state.controlPanel.hideControlPanel();
     };
 
-    loadROMTask().catch(() => {
+    const loadROMPromise = loadROMTask();
+    loadROMPromise.catch(() => {
       Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
         NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
       );
     });
+
+    Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(loadROMPromise);
   }
 
   editROM(collectionROM) {
@@ -70,7 +73,7 @@ export default class MyCollection extends Component {
         required: true
       });
     };
-    editRomTask();
+    Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(editROMTask());
   }
 
   render() {

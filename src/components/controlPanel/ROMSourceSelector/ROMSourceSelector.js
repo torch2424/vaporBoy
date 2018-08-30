@@ -97,11 +97,13 @@ export default class ROMSourceSelector extends Component {
           );
           this.state.controlPanel.hideControlPanel();
         };
-        playROMTask().catch(() => {
+        const playROMPromise = playROMTask();
+        playROMPromise.catch(() => {
           Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
             NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
           );
         });
+        Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(playROMPromise);
       },
       cancelText: "Skip"
     });
@@ -115,77 +117,85 @@ export default class ROMSourceSelector extends Component {
       // Ask if you would like to add to my collection
       this.askToAddROMToCollection(event.target.files[0].name);
     };
-    loadROMTask();
+    Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(loadROMTask());
   }
 
   loadGoogleDriveFile(data) {
-    const loadGoogleDriveFileTask = async () => {
-      if (data.action === "picked") {
-        // Fetch from the drive api to download the file
-        // https://developers.google.com/drive/v3/web/picker
-        // https://developers.google.com/drive/v2/reference/files/get
-
-        const googlePickerFileObject = data.docs[0];
-        const oAuthHeaders = new Headers({
-          Authorization: "Bearer " + googlePickerOAuthToken
-        });
-
-        // First Fetch the Information about the file
-        fetch(
-          "https://www.googleapis.com/drive/v2/files/" +
-            googlePickerFileObject.id,
-          {
-            headers: oAuthHeaders
-          }
-        )
-          .then(response => {
-            return response.json();
-          })
-          .then(responseJson => {
-            if (
-              responseJson.title.endsWith(".zip") ||
-              responseJson.title.endsWith(".gb") ||
-              responseJson.title.endsWith(".gbc")
-            ) {
-              WasmBoy.pause()
-                .then(() => {
-                  // Finally load the file using the oAuthHeaders
-                  WasmBoy.loadROM(responseJson.downloadUrl, {
-                    headers: oAuthHeaders,
-                    fileName: responseJson.title
-                  })
-                    .then(() => {
-                      this.askToAddROMToCollection(responseJson.title);
-                    })
-                    .catch(error => {
-                      console.log("Load Game Error:", error);
-                      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
-                        NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
-                      );
-                    });
-                })
-                .catch(() => {
-                  Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
-                    NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
-                  );
-                });
-            } else {
-              this.props.showNotification("Invalid file type. 😞");
-              Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
-                NOTIFICATION_MESSAGES.ERROR_FILE_TYPE
-              );
-            }
-          })
-          .catch(error => {
-            Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
-              NOTIFICATION_MESSAGES.ERROR_GOOGLE_DRIVE
-            );
-          });
+    const loadGoogleDriveFilePromise = new Promise((resolve, reject) => {
+      // We only want the picked action
+      if (data.action !== "picked") {
+        resolve();
+        return;
       }
-    };
 
+      // Fetch from the drive api to download the file
+      // https://developers.google.com/drive/v3/web/picker
+      // https://developers.google.com/drive/v2/reference/files/get
+
+      const googlePickerFileObject = data.docs[0];
+      const oAuthHeaders = new Headers({
+        Authorization: "Bearer " + googlePickerOAuthToken
+      });
+
+      // First Fetch the Information about the file
+      fetch(
+        "https://www.googleapis.com/drive/v2/files/" +
+          googlePickerFileObject.id,
+        {
+          headers: oAuthHeaders
+        }
+      )
+        .then(response => {
+          return response.json();
+        })
+        .then(responseJson => {
+          if (
+            responseJson.title.endsWith(".zip") ||
+            responseJson.title.endsWith(".gb") ||
+            responseJson.title.endsWith(".gbc")
+          ) {
+            WasmBoy.pause()
+              .then(() => {
+                // Finally load the file using the oAuthHeaders
+                WasmBoy.loadROM(responseJson.downloadUrl, {
+                  headers: oAuthHeaders,
+                  fileName: responseJson.title
+                })
+                  .then(() => {
+                    this.askToAddROMToCollection(responseJson.title);
+                    resolve();
+                  })
+                  .catch(error => {
+                    console.log("Load Game Error:", error);
+                    Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+                      NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
+                    );
+                    reject();
+                  });
+              })
+              .catch(() => {
+                Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+                  NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
+                );
+                reject();
+              });
+          } else {
+            this.props.showNotification("Invalid file type. 😞");
+            Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+              NOTIFICATION_MESSAGES.ERROR_FILE_TYPE
+            );
+            reject();
+          }
+        })
+        .catch(error => {
+          Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+            NOTIFICATION_MESSAGES.ERROR_GOOGLE_DRIVE
+          );
+          reject();
+        });
+    });
     Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(
-      loadGoogleDriveFileTask()
+      loadGoogleDriveFilePromise
     );
   }
 
