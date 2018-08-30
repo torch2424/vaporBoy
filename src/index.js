@@ -16,6 +16,7 @@ import ControlPanel from "./components/controlPanel/controlPanel";
 import ConfirmationModal from "./components/confirmationModal/confirmationModal";
 import Touchpad from "./components/touchpad/touchpad";
 import Notification from "./components/notification/notification";
+import LoadingModal from "./components/loadingModal/loadingModal";
 
 export default class App extends Component {
   constructor() {
@@ -148,6 +149,7 @@ export default class App extends Component {
         {currentLayout}
         <Touchpad />
         <Notification />
+        <LoadingModal />
       </div>
     );
   }

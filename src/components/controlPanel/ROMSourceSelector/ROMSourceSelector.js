@@ -97,11 +97,13 @@ export default class ROMSourceSelector extends Component {
           );
           this.state.controlPanel.hideControlPanel();
         };
-        playROMTask().catch(() => {
+        const playROMPromise = playROMTask();
+        playROMPromise.catch(() => {
           Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
             NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
           );
         });
+        Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(playROMPromise);
       },
       cancelText: "Skip"
     });
@@ -115,11 +117,17 @@ export default class ROMSourceSelector extends Component {
       // Ask if you would like to add to my collection
       this.askToAddROMToCollection(event.target.files[0].name);
     };
-    loadROMTask();
+    Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(loadROMTask());
   }
 
   loadGoogleDriveFile(data) {
-    if (data.action === "picked") {
+    const loadGoogleDriveFilePromise = new Promise((resolve, reject) => {
+      // We only want the picked action
+      if (data.action !== "picked") {
+        resolve();
+        return;
+      }
+
       // Fetch from the drive api to download the file
       // https://developers.google.com/drive/v3/web/picker
       // https://developers.google.com/drive/v2/reference/files/get
@@ -155,32 +163,40 @@ export default class ROMSourceSelector extends Component {
                 })
                   .then(() => {
                     this.askToAddROMToCollection(responseJson.title);
+                    resolve();
                   })
                   .catch(error => {
                     console.log("Load Game Error:", error);
                     Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
                       NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
                     );
+                    reject();
                   });
               })
               .catch(() => {
                 Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
                   NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
                 );
+                reject();
               });
           } else {
             this.props.showNotification("Invalid file type. 😞");
             Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
               NOTIFICATION_MESSAGES.ERROR_FILE_TYPE
             );
+            reject();
           }
         })
         .catch(error => {
           Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
             NOTIFICATION_MESSAGES.ERROR_GOOGLE_DRIVE
           );
+          reject();
         });
-    }
+    });
+    Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(
+      loadGoogleDriveFilePromise
+    );
   }
 
   viewMyCollection() {
@@ -268,6 +284,7 @@ export default class ROMSourceSelector extends Component {
           </button>
         </li>
         <li class="ROMSourceSelector__list__item">
+          {/* mimeTypes, application/zip = .zip, application/octetstream = .gb,.gbc*/}
           <GooglePicker
             clientId={VAPORBOY_GOOGLE_PICKER_CLIENT_ID}
             scope={["https://www.googleapis.com/auth/drive.readonly"]}
@@ -280,6 +297,7 @@ export default class ROMSourceSelector extends Component {
             multiselect={false}
             navHidden={true}
             authImmediate={false}
+            mimeTypes={["application/zip", "application/octet-stream"]}
             viewId={"DOCS"}
           >
             <button>

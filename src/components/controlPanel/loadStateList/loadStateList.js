@@ -24,26 +24,33 @@ export default class LoadStateList extends Component {
   }
 
   loadState(saveState) {
-    WasmBoy.loadState(saveState)
-      .then(() => {
-        WasmBoy.play()
-          .then(() => {
-            this.state.controlPanel.hideControlPanel();
-            Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
-              NOTIFICATION_MESSAGES.LOAD_STATE
-            );
-          })
-          .catch(() => {
-            Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
-              NOTIFICATION_MESSAGES.ERROR_RESUME_ROM
-            );
-          });
-      })
-      .catch(() => {
-        Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
-          NOTIFICATION_MESSAGES.ERROR_LOAD_STATE
-        );
-      });
+    const loadStatePromise = new Promise((resolve, reject) => {
+      WasmBoy.loadState(saveState)
+        .then(() => {
+          WasmBoy.play()
+            .then(() => {
+              this.state.controlPanel.hideControlPanel();
+              Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+                NOTIFICATION_MESSAGES.LOAD_STATE
+              );
+              resolve();
+            })
+            .catch(() => {
+              Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+                NOTIFICATION_MESSAGES.ERROR_RESUME_ROM
+              );
+              reject();
+            });
+        })
+        .catch(() => {
+          Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+            NOTIFICATION_MESSAGES.ERROR_LOAD_STATE
+          );
+          reject();
+        });
+    });
+
+    Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(loadStatePromise);
   }
 
   render() {

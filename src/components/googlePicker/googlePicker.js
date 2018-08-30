@@ -98,7 +98,7 @@ export default class GooglePicker extends Component {
     }
 
     const googleViewId = google.picker.ViewId[this.props.viewId];
-    const view = new window.google.picker.View(googleViewId);
+    const view = new window.google.picker.DocsView(googleViewId);
 
     if (this.props.mimeTypes) {
       view.setMimeTypes(this.props.mimeTypes.join(","));
@@ -107,6 +107,8 @@ export default class GooglePicker extends Component {
     if (!view) {
       throw new Error("Can't find view by viewId");
     }
+
+    view.setMode(window.google.picker.DocsViewMode.LIST);
 
     const picker = new window.google.picker.PickerBuilder()
       .addView(view)
@@ -124,6 +126,19 @@ export default class GooglePicker extends Component {
     if (this.props.multiselect) {
       picker.enableFeature(window.google.picker.Feature.MULTISELECT_ENABLED);
     }
+
+    // Calculate our picker size
+    // https://stackoverflow.com/questions/1248081/get-the-browser-viewport-dimensions-with-javascript
+    // https://developers.google.com/picker/docs/reference#PickerBuilder
+    const viewportWidth = Math.max(
+      document.documentElement.clientWidth,
+      window.innerWidth || 0
+    );
+    const viewportHeight = Math.max(
+      document.documentElement.clientHeight,
+      window.innerHeight || 0
+    );
+    picker.setSize(parseInt(viewportWidth, 10), parseInt(viewportHeight, 10));
 
     picker.build().setVisible(true);
   }

@@ -28,14 +28,14 @@ export default class WasmBoyCanvas extends Component {
     // Check if we are already ready and initialized
     // (this is to avoid resetting a game on layout changes)
     if (!WasmBoy.isReady()) {
-      this.configWasmBoy(canvasElement);
+      const configPromise = this.configWasmBoy(canvasElement);
+      Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(configPromise);
     } else if (WasmBoy.isPlaying()) {
       const setCanvasTask = async () => {
         await WasmBoy.setCanvas(canvasElement);
         await WasmBoy.play();
       };
-
-      setCanvasTask();
+      Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(setCanvasTask());
     }
 
     // Also, subscribe to options/effects changes
