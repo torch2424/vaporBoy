@@ -18,6 +18,7 @@ export const PUBX_CONFIG = {
   VAPORBOY_OPTIONS_KEY: "VAPORBOY_OPTIONS_KEY",
   VAPORBOY_EFFECTS_KEY: "VAPORBOY_EFFECTS_KEY",
   NOTIFICATION_KEY: "NOTIFICATION_KEY",
+  LOADING_KEY: "LOADING_KEY",
   INITIALIZE: () => {
     initializePubxLayout();
     initializePubxControlPanel();
@@ -26,6 +27,7 @@ export const PUBX_CONFIG = {
     initializePubxVaporBoyOptions();
     initializePubxVaporBoyEffects();
     initializePubxNotification();
+    initializePubxLoading();
   }
 };
 
@@ -203,4 +205,24 @@ const initializePubxNotification = () => {
     }
   };
   Pubx.publish(PUBX_CONFIG.NOTIFICATION_KEY, pubxNotificationState);
+};
+
+const initializePubxLoading = () => {
+  const pubxLoadingState = {
+    promiseStack: [],
+    addPromiseToStack: promise => {
+      Pubx.publish(PUBX_CONFIG.LOADING_KEY, {
+        promiseStack: [
+          ...Pubx.get(PUBX_CONFIG.LOADING_KEY).promiseStack,
+          promise
+        ]
+      });
+    },
+    clearPromiseStack: () => {
+      Pubx.publish(PUBX_CONFIG.LOADING_KEY, {
+        promiseStack: []
+      });
+    }
+  };
+  Pubx.publish(PUBX_CONFIG.LOADING_KEY, pubxLoadingState);
 };
