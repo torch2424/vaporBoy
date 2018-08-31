@@ -182,7 +182,7 @@ export default class ControlPanelSelect extends Component {
             <button
               onclick={() => this.saveState()}
               disabled={!WasmBoy.isReady()}
-              aria-label="Save State"
+              aria-label="Save State for current loaded ROM"
             >
               <div>💾</div>
               <div>Save State</div>
@@ -192,7 +192,7 @@ export default class ControlPanelSelect extends Component {
             <button
               onclick={() => this.viewLoadStateList()}
               disabled={this.shouldDisableLoadStates()}
-              aria-label="Load State"
+              aria-label="Load State for current loaded ROM"
             >
               <div>📂</div>
               <div>Load State</div>

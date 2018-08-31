@@ -85,6 +85,7 @@ export default class ManualInput extends Component {
             class="aesthetic-windows-95-text-input"
             type="text"
             placeholder="Title"
+            aria-label="ROM title"
             value={this.state.ROMScraper.ROMInfo.title}
             onChange={e =>
               Pubx.publish(PUBX_CONFIG.ROM_SCRAPER_KEY, {
@@ -103,12 +104,15 @@ export default class ManualInput extends Component {
           </div>
 
           <div class="aesthetic-windows-95-button">
-            <button onClick={() => this.triggerLocalFileUpload()}>
+            <button
+              onClick={() => this.triggerLocalFileUpload()}
+              aria-label="Upload Image for the ROM Optional"
+            >
               Upload
             </button>
           </div>
 
-          <div class="manual-input__image__container">
+          <div class="manual-input__image__container" aria-hidden="true">
             {!this.state.ROMScraper.ROMInfo ||
             !this.state.ROMScraper.ROMInfo.imageDataURL ? (
               ""

@@ -93,6 +93,7 @@ export default class MyCollection extends Component {
                   onClick={() => {
                     this.loadROM(collectionROM);
                   }}
+                  ariaLabel={this.getROMTitle(collectionROM)}
                 />
               </div>
               <div class="ROM-list__item__label">
@@ -102,6 +103,7 @@ export default class MyCollection extends Component {
                 <button
                   class="list-button--edit"
                   onClick={() => this.editROM(collectionROM)}
+                  aria-label={`${this.getROMTitle(collectionROM)} edit ROM`}
                 >
                   ✏️
                 </button>

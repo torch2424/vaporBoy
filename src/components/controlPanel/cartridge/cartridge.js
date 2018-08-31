@@ -78,6 +78,12 @@ export default class Cartridge extends Component {
     }
     let cartridgeOverlayPath = `assets/cartridges/cartridge-${cartridgeOverlayColor}-blank.png`;
 
+    // Our cartridge aria
+    let cartridgeAria = "";
+    if (this.props.ariaLabel) {
+      cartridgeAria = this.props.ariaLabel;
+    }
+
     return (
       <div class="cartridge">
         {/* Our Cartridge content */}
@@ -91,7 +97,7 @@ export default class Cartridge extends Component {
         <button
           class="cartridge__overlay"
           onClick={() => this.onClick()}
-          aria-label="Play ROM"
+          aria-label={`${cartridgeAria} Play ROM`}
         >
           <img src={cartridgeOverlayPath} />
         </button>
