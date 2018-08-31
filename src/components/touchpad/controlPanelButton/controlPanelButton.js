@@ -11,7 +11,11 @@ export default class ControlPanelButton extends Component {
 
   render() {
     return (
-      <button class="control-panel-button" onClick={() => this.props.onClick()}>
+      <button
+        class="control-panel-button"
+        onClick={() => this.props.onClick()}
+        aria-label="control panel"
+      >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
           <path d="M0 0h20v20H0V0z" fill="none" />
           <path

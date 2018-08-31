@@ -1,0 +1,50 @@
+// encapsulate in our classes / media queries
+.desktop.expanded {
+  .vaporboy-touchpad {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 2;
+
+    &__button-layout {
+      position: relative;
+      top: 0px;
+      left: 0px;
+
+      width: 100vw;
+      height: 100vh;
+
+      &__expand {
+        position: absolute;
+        z-index: 1;
+        top: 0px;
+        left: 0px;
+
+        width: 8vmax;
+
+        button {
+          background-color: $aesthetic-50-transparent;
+          border: none;
+        }
+      }
+
+      &__control-panel {
+        position: absolute;
+        z-index: 1;
+        top: 0px;
+        right: 0px;
+
+        width: 8vmax;
+
+        button {
+          background-color: $aesthetic-50-transparent;
+          border: none;
+        }
+      }
+    }
+  }
+}

@@ -1,13 +1,40 @@
 // Desktop Layout for vaporboy
 import { Component } from "preact";
 
+import { Pubx } from "../../../services/pubx";
+import { PUBX_CONFIG } from "../../../pubx.config";
+
 export default class ExpandButton extends Component {
   constructor() {
     super();
-    this.setState({});
+    this.setState({
+      layout: {}
+    });
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const pubxLayoutSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.LAYOUT_KEY,
+      newState => {
+        // Finally set the state
+        this.setState({
+          ...this.state,
+          layout: {
+            ...this.state.layout,
+            ...newState
+          }
+        });
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    // unsubscribe from the state
+    Pubx.unsubscribe(
+      PUBX_CONFIG.LAYOUT_KEY,
+      this.state.pubxLayoutSubscriberKey
+    );
+  }
 
   render() {
     let fullscreenIcon = (
@@ -20,7 +47,7 @@ export default class ExpandButton extends Component {
       </svg>
     );
 
-    if (this.props.expanded) {
+    if (this.state.layout.expanded) {
       fullscreenIcon = (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M0 0h24v24H0z" fill="none" />
@@ -33,7 +60,11 @@ export default class ExpandButton extends Component {
     }
 
     return (
-      <button class="expand-button" onClick={() => this.props.onClick()}>
+      <button
+        class="expand-button"
+        onClick={() => this.props.onClick()}
+        aria-label="expand"
+      >
         {fullscreenIcon}
       </button>
     );

@@ -25,58 +25,18 @@ export default class App extends Component {
     // Initialize our Pubx
     PUBX_CONFIG.INITIALIZE();
 
-    // Function to change out layout, called by resize events and things
-    const changeLayout = () => {
-      const mobile = window.matchMedia("(max-width: 801px)").matches;
-      const landscape = window.matchMedia("screen and (orientation: landscape)")
-        .matches;
-      const portrait = window.matchMedia("screen and (orientation: portrait)")
-        .matches;
-
-      // Clear all of our classes
-      document.documentElement.className = "";
-
-      // Get our document class list
-      const documentClassList = document.documentElement.classList;
-
-      // Add all Media query based on mobile vs desktop
-      if (mobile) {
-        documentClassList.add("mobile");
-      } else {
-        documentClassList.add("desktop");
-      }
-      if (landscape) {
-        documentClassList.add("landscape");
-      }
-      if (portrait) {
-        documentClassList.add("portrait");
-      }
-
-      // Add our expanded class
-      if (this.state.layout && this.state.layout.expanded) {
-        documentClassList.add("expanded");
-      }
-
-      Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
-        mobile: mobile,
-        landscape: landscape && mobile,
-        portrait: portrait && mobile
-      });
-    };
-
     window.addEventListener("resize", () => {
-      changeLayout();
+      this.changeLayout();
     });
 
     window.addEventListener("orientationchange", () => {
-      changeLayout();
+      this.changeLayout();
     });
 
-    changeLayout();
+    this.changeLayout();
 
     this.setState({
-      layout: {},
-      changeLayout: changeLayout
+      layout: {}
     });
   }
 
@@ -90,7 +50,7 @@ export default class App extends Component {
       PUBX_CONFIG.LAYOUT_KEY,
       newState => {
         // First check if expanded is not the current state
-        const wasExpanded = this.state.layout.expanded;
+        const oldExpanded = this.state.layout.expanded;
 
         // You can spread and overwrite variables, while preserving ones,
         // as long is in cascading order.
@@ -102,8 +62,8 @@ export default class App extends Component {
           }
         });
 
-        if (!wasExpanded && newState.expanded) {
-          this.state.changeLayout();
+        if (oldExpanded !== newState.expanded) {
+          this.changeLayout();
         }
       }
     );
@@ -119,6 +79,45 @@ export default class App extends Component {
     Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
       NOTIFICATION_MESSAGES.BETA_VERSION
     );
+  }
+
+  // Function to change out layout, called by resize events and things
+  changeLayout() {
+    const mobile = window.matchMedia("(max-width: 801px)").matches;
+    const landscape = window.matchMedia("screen and (orientation: landscape)")
+      .matches;
+    const portrait = window.matchMedia("screen and (orientation: portrait)")
+      .matches;
+
+    // Clear all of our classes
+    document.documentElement.className = "";
+
+    // Get our document class list
+    const documentClassList = document.documentElement.classList;
+
+    // Add all Media query based on mobile vs desktop
+    if (mobile) {
+      documentClassList.add("mobile");
+    } else {
+      documentClassList.add("desktop");
+    }
+    if (landscape) {
+      documentClassList.add("landscape");
+    }
+    if (portrait) {
+      documentClassList.add("portrait");
+    }
+
+    // Add our expanded class
+    if (this.state.layout && this.state.layout.expanded) {
+      documentClassList.add("expanded");
+    }
+
+    Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
+      mobile: mobile,
+      landscape: landscape && mobile,
+      portrait: portrait && mobile
+    });
   }
 
   render() {
@@ -146,10 +145,10 @@ export default class App extends Component {
       <div>
         <ConfirmationModal />
         <ControlPanel />
-        {currentLayout}
-        <Touchpad />
         <Notification />
         <LoadingModal />
+        {currentLayout}
+        <Touchpad />
       </div>
     );
   }

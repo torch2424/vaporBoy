@@ -38,6 +38,14 @@ export default class ConfirmationModal extends Component {
     );
   }
 
+  componentDidUpdate() {
+    // Focus on our text [a11y]
+    const focusElement = document.querySelector(".vaporboy-info-modal button");
+    if (focusElement) {
+      focusElement.focus();
+    }
+  }
+
   confirmButtonClick() {
     if (this.state.confirmationModal.confirmCallback) {
       this.state.confirmationModal.confirmCallback();
@@ -78,7 +86,11 @@ export default class ConfirmationModal extends Component {
     }
 
     return (
-      <div class="vaporboy-info-modal">
+      <div
+        class="vaporboy-info-modal"
+        role="dialog"
+        aria-label={this.state.confirmationModal.title}
+      >
         <div class="vaporboy-info-modal__modal">
           <div class="aesthetic-windows-95-modal">
             <div class="aesthetic-windows-95-modal-title-bar">
@@ -94,9 +106,9 @@ export default class ConfirmationModal extends Component {
             </div>
 
             <div class="aesthetic-windows-95-modal-content">
-              <div class="vaporboy-info-modal__modal__content">
+              <p class="vaporboy-info-modal__modal__content">
                 {this.state.confirmationModal.contentElement}
-              </div>
+              </p>
               <div class="vaporboy-info-modal__modal__buttons">{buttons}</div>
             </div>
           </div>
