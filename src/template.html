@@ -3,6 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="description" content="A Game Boy and Game Boy Color Emulator Progressive Web App. Powered by wasmBoy for the emulation library.">
+    <meta name="keywords" content="GB,GBC,Gameboy,Gameboy Color, PWA, progressive, web, app, aaronthedev, web assembly, wasm, preact, aaron, turner, aesthetic, vaporwave,vapor,wave">
+    <meta name="author" content="Aaron Turner">
 		<meta name="viewport" content="width=device-width,initial-scale=1">
 		<meta name="mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,6 +31,13 @@
 		<% } %>
 	</head>
 	<body>
+    <noscript>
+      <h1>VaporBoy</h1>
+      <p>
+      Javascript is required to play vaporboy.
+      </p>
+      <img src="/assets/vaporboy/512/vaporboyvhs.png" />
+    </noscript>
 		<%= htmlWebpackPlugin.options.ssr({
 			url: '/'
 		}) %>
