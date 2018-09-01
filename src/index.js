@@ -143,6 +143,18 @@ export default class App extends Component {
 
     return (
       <div>
+        <a href="#" class="a11y-link">
+          Hello! I see you are using a screen reader. Welcome to vaporboy! I
+          tried my best to make this as acessible as possible. You should be
+          able to load, modify, and play roms with just a keyboard and
+          screenreader. And you can use your keyboard to control the game. The
+          keyboard layout is the normal arrow keys, and z, x key layout.
+          However, I would suggest using a regular hardware game controller for
+          both desktop and mobile. This should make things the most comfortable
+          to use in my opinion. Feel free to open accessibilty issues in the git
+          hub project repo. You can find the git hub project repo in the control
+          panel, about section. Thanks for playing!
+        </a>
         <ConfirmationModal />
         <ControlPanel />
         <Notification />
