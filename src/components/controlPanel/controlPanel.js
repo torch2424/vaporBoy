@@ -98,7 +98,7 @@ export default class ControlPanel extends Component {
     }
 
     return (
-      <div class="control-panel">
+      <div class="control-panel" role="dialog">
         <div class="control-panel__modal">
           <div class="aesthetic-windows-95-modal">
             <div class="aesthetic-windows-95-modal-title-bar">

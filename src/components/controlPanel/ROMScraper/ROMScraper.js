@@ -126,10 +126,14 @@ export default class ROMScraper extends Component {
 
   render() {
     let currentTabElement = <div />;
+    let searchTabAria = "Open Search Tab";
+    let manualTabAria = "Open Manual Input Tab";
     if (this.state.ROMScraper.activeTabIndex === 0) {
       currentTabElement = <SearchInput />;
+      searchTabAria = `Current Tab - ${searchTabAria}`;
     } else if (this.state.ROMScraper.activeTabIndex === 1) {
       currentTabElement = <ManualInput />;
+      manualTabAria = `Current Tab - ${manualTabAria}`;
     }
 
     return (
@@ -144,7 +148,7 @@ export default class ROMScraper extends Component {
             >
               <button
                 onClick={() => this.setActiveTabIndex(0)}
-                aria-label="Open Search Tab"
+                aria-label={searchTabAria}
               >
                 Search
               </button>
@@ -157,7 +161,7 @@ export default class ROMScraper extends Component {
             >
               <button
                 onClick={() => this.setActiveTabIndex(1)}
-                aria-label="Open Manual Input Tab"
+                aria-label={manualTabAria}
               >
                 Manual Input
               </button>

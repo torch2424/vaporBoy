@@ -63,8 +63,8 @@ export const VAPORBOY_OPTION_SECTIONS = {
         name: "Frame Skip",
         descriptionElement: (
           <div>
-            This defined how many frames will be skipped in the output phase.
-            For instance, the frame will still be run and renedered, but simply
+            This defines how many frames will be skipped in the output phase.
+            For instance, the frame will still be run and rendered, but simply
             will not be output to the canvas element.
           </div>
         ),

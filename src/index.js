@@ -147,7 +147,7 @@ export default class App extends Component {
         <ControlPanel />
         <Notification />
         <LoadingModal />
-        {currentLayout}
+        <div aria-hidden="true">{currentLayout}</div>
         <Touchpad />
       </div>
     );

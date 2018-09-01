@@ -245,6 +245,7 @@ export default class ROMSourceSelector extends Component {
               this.viewMyCollection();
             }}
             disabled={numberOfROMsInCollection <= 0}
+            aria-label={`My Collection - ${numberOfROMsInCollection} ROMs`}
           >
             <div class="ROMSourceSelector__list__item__icon">📚</div>
 
@@ -259,6 +260,7 @@ export default class ROMSourceSelector extends Component {
             onClick={() => {
               this.viewHomebrew();
             }}
+            aria-label={`Homebrew - ${numberOfHomebrew} ROMs`}
           >
             <div class="ROMSourceSelector__list__item__icon">🍺</div>
 
@@ -269,7 +271,10 @@ export default class ROMSourceSelector extends Component {
           <div class="list-button">{numberOfHomebrew}</div>
         </li>
         <li class="ROMSourceSelector__list__item">
-          <button onClick={() => this.triggerLocalFileUpload()}>
+          <button
+            onClick={() => this.triggerLocalFileUpload()}
+            aria-label="Open ROM from device"
+          >
             <div class="ROMSourceSelector__list__item__icon">⬆️</div>
 
             <div class="ROMSourceSelector__list__item__label">
@@ -279,6 +284,7 @@ export default class ROMSourceSelector extends Component {
           <button
             class="list-button--info"
             onClick={() => this.uploadRomConfirmationModal()}
+            aria-label="Information about Open ROM from device"
           >
             i
           </button>
@@ -300,7 +306,7 @@ export default class ROMSourceSelector extends Component {
             mimeTypes={["application/zip", "application/octet-stream"]}
             viewId={"DOCS"}
           >
-            <button>
+            <button aria-label="Open from Google Drive">
               <div class="ROMSourceSelector__list__item__icon">☁️</div>
 
               <div class="ROMSourceSelector__list__item__label">
