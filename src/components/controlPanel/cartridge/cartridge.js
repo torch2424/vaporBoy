@@ -3,6 +3,8 @@ import { Component } from "preact";
 import { Pubx } from "../../../services/pubx";
 import { PUBX_CONFIG } from "../../../pubx.config";
 
+import { getVaporBoyLogo } from "../../../vaporboyLogo";
+
 export default class Cartridge extends Component {
   constructor() {
     super();
@@ -16,17 +18,10 @@ export default class Cartridge extends Component {
   }
 
   render() {
-    // All paths to vaporboys
-    const vaporboys = [
-      "assets/vaporboyarizona.png",
-      "assets/vaporboybluebeach.png",
-      "assets/vaporboyvhs.png"
-    ];
-
     // Our cartridge content
     let cartridgeContent = (
       <div class="cartridge__content__centered-container__default-container">
-        <img src={vaporboys[Math.floor(Math.random() * vaporboys.length)]} />
+        <img src={getVaporBoyLogo()} />
       </div>
     );
 
@@ -76,7 +71,7 @@ export default class Cartridge extends Component {
     if (this.props.color) {
       cartridgeOverlayColor = this.props.color;
     }
-    let cartridgeOverlayPath = `assets/cartridges/cartridge-${cartridgeOverlayColor}-blank.png`;
+    let cartridgeOverlayPath = `assets/cartridges/512/cartridge-${cartridgeOverlayColor}-blank.png`;
 
     // Our cartridge aria
     let cartridgeAria = "";

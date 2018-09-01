@@ -9,6 +9,8 @@ import WasmBoyCanvas from "../wasmboyCanvas/wasmboyCanvas";
 import { Pubx } from "../../services/pubx";
 import { PUBX_CONFIG } from "../../pubx.config";
 
+import { getVaporBoyLogo } from "../../vaporboyLogo";
+
 import { NOTIFICATION_MESSAGES } from "../../notification.messages";
 
 // 3P libs
@@ -138,7 +140,7 @@ export default class VaporBoyDesktop extends Component {
             <div class="aesthetic-windows-95-modal-title-bar-text">
               <img
                 class="vaporboy-desktop__vaporboy-logo"
-                src="assets/vaporboyvhs.png"
+                src={getVaporBoyLogo()}
               />
               V A P O R B O Y
             </div>
