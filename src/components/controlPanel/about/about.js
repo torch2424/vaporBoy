@@ -1,5 +1,7 @@
 import { Component } from "preact";
 
+import { getVaporBoyLogo } from "../../../vaporboyLogo";
+
 export default class About extends Component {
   constructor() {
     super();
@@ -9,7 +11,7 @@ export default class About extends Component {
     return (
       <div class="about">
         <h1>About</h1>
-        <img src="assets/vaporboyvhs.png" />
+        <img src={getVaporBoyLogo()} />
         <p>
           <b>Vaporboy</b> is a Gameboy & Gameboy Color{" "}
           <a

@@ -5,6 +5,8 @@ import { WasmBoy } from "wasmboy";
 import { Pubx } from "../../services/pubx";
 import { PUBX_CONFIG } from "../../pubx.config";
 
+import { getVaporBoyLogo } from "../../vaporboyLogo";
+
 // Import our effects
 import {
   vaporAudioEffect,
@@ -64,12 +66,6 @@ export default class WasmBoyCanvas extends Component {
       }
     );
 
-    // All paths to vaporboys
-    const vaporboys = [
-      "assets/vaporboyarizona.png",
-      "assets/vaporboybluebeach.png",
-      "assets/vaporboyvhs.png"
-    ];
     this.setState({
       ...this.state,
       options: {
@@ -81,7 +77,7 @@ export default class WasmBoyCanvas extends Component {
       pubxVaporBoyOptionsSubscriberKey,
       pubxVaporBoyEffectsSubscriberKey,
       isMounted: true,
-      vaporboyImage: vaporboys[Math.floor(Math.random() * vaporboys.length)]
+      vaporboyImage: getVaporBoyLogo()
     });
 
     // Re-render every second for the debug menu
