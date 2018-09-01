@@ -195,6 +195,7 @@ export default class SettingsDisplay extends Component {
                   onChange={event =>
                     this.updateSetting(event, settingKey, setting)
                   }
+                  aria-label={setting.name}
                 />
                 <span class="aesthetic-windows-95-checkmark" />
               </label>
@@ -216,6 +217,7 @@ export default class SettingsDisplay extends Component {
                 onChange={event =>
                   this.updateSetting(event, settingKey, setting)
                 }
+                aria-label={setting.name}
               />
               <div class="vaporboy-settings__setting__name">{setting.name}</div>
 
@@ -238,12 +240,20 @@ export default class SettingsDisplay extends Component {
         <ul>{settingsSections}</ul>
         <div class="vaporboy-settings__apply-settings">
           <div class="aesthetic-windows-95-button">
-            <button onClick={() => this.confirmReset()}>
+            <button
+              onClick={() => this.confirmReset()}
+              aria-label="Reset to default settings"
+            >
               Reset to default settings
             </button>
           </div>
           <div class="aesthetic-windows-95-button">
-            <button onClick={() => this.confirmApply()}>Apply</button>
+            <button
+              onClick={() => this.confirmApply()}
+              aria-label="Apply settings"
+            >
+              Apply
+            </button>
           </div>
         </div>
       </div>

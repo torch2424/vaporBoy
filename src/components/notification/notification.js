@@ -42,6 +42,14 @@ export default class Notification extends Component {
     );
   }
 
+  componentDidUpdate() {
+    // Focus on our text [a11y]
+    const focusElement = document.querySelector(".notification button");
+    if (focusElement) {
+      focusElement.focus();
+    }
+  }
+
   showNotification() {
     // Set up a timeout to automitically hide the notification
     const timeout = setTimeout(() => {
@@ -79,9 +87,13 @@ export default class Notification extends Component {
 
   render() {
     return (
-      <div class="notification">
+      <div class="notification" role="dialog">
         <div class={`aesthetic-notification ${this.isActive()}`}>
-          <button class="dismiss" onClick={() => this.hideNotification()}>
+          <button
+            class="dismiss"
+            onClick={() => this.hideNotification()}
+            aria-label="notification close"
+          >
             X
           </button>
           <div class="aesthetic-notification-content">

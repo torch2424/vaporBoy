@@ -50,15 +50,22 @@ export default class SearchResult extends Component {
     const formattedDate = new Date(this.props.date).toDateString();
 
     let rootElementClass = "search-result";
+    let ariaText = "select";
+
     if (
       this.props.index ===
       Pubx.get(PUBX_CONFIG.ROM_SCRAPER_KEY).selectedROMIndex
     ) {
       rootElementClass += " search-result--selected";
+      ariaText = "selected";
     }
 
     return (
-      <button class={rootElementClass} onClick={e => this.resultSelected()}>
+      <button
+        class={rootElementClass}
+        onClick={e => this.resultSelected()}
+        aria-label={`${ariaText} ${this.props.title}`}
+      >
         <div class="search-result__image">
           <img src={this.props.image} />
         </div>

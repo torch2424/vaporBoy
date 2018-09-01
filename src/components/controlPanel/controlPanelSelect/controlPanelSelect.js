@@ -144,14 +144,22 @@ export default class ControlPanelSelect extends Component {
 
   render() {
     let playPause = (
-      <button onclick={() => this.playROM()} disabled={!WasmBoy.isReady()}>
+      <button
+        onclick={() => this.playROM()}
+        disabled={!WasmBoy.isReady()}
+        aria-label="Resume Playing"
+      >
         <div>▶️</div>
         <div>Resume Playing</div>
       </button>
     );
     if (WasmBoy.isPlaying()) {
       playPause = (
-        <button onclick={() => this.pauseROM()} disabled={!WasmBoy.isReady()}>
+        <button
+          onclick={() => this.pauseROM()}
+          disabled={!WasmBoy.isReady()}
+          aria-label="Pause ROM"
+        >
           <div>⏸️</div>
           <div>Pause ROM</div>
         </button>
@@ -162,7 +170,10 @@ export default class ControlPanelSelect extends Component {
       <div class="control-panel-select">
         <ul class="control-panel-select__grid">
           <li class="control-panel-select__grid__item">
-            <button onclick={() => this.viewROMSourceSelector()}>
+            <button
+              onclick={() => this.viewROMSourceSelector()}
+              aria-label="Select a ROM"
+            >
               <div>🎮</div>
               <div>Select a ROM</div>
             </button>
@@ -171,6 +182,7 @@ export default class ControlPanelSelect extends Component {
             <button
               onclick={() => this.saveState()}
               disabled={!WasmBoy.isReady()}
+              aria-label="Save State for current loaded ROM"
             >
               <div>💾</div>
               <div>Save State</div>
@@ -180,26 +192,33 @@ export default class ControlPanelSelect extends Component {
             <button
               onclick={() => this.viewLoadStateList()}
               disabled={this.shouldDisableLoadStates()}
+              aria-label="Load State for current loaded ROM"
             >
               <div>📂</div>
               <div>Load State</div>
             </button>
           </li>
           <li class="control-panel-select__grid__item">
-            <button onclick={() => this.viewOptions()}>
+            <button
+              onclick={() => this.viewOptions()}
+              aria-label="Configure Options"
+            >
               <div>⚙️</div>
               <div>Configure Options</div>
             </button>
           </li>
           <li class="control-panel-select__grid__item">
-            <button onclick={() => this.viewEffects()}>
+            <button
+              onclick={() => this.viewEffects()}
+              aria-label="Configure Effects"
+            >
               <div>✨</div>
               <div>Configure Effects</div>
             </button>
           </li>
           <li class="control-panel-select__grid__item">{playPause}</li>
           <li class="control-panel-select__grid__item">
-            <button onclick={() => this.viewAbout()}>
+            <button onclick={() => this.viewAbout()} aria-label="About">
               <div>ℹ️</div>
               <div>About</div>
             </button>

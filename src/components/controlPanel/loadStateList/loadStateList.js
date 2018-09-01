@@ -74,7 +74,10 @@ export default class LoadStateList extends Component {
         const saveStateDate = new Date(saveState.date);
         saveStates.push(
           <li>
-            <button onClick={() => this.loadState(saveState)}>
+            <button
+              onClick={() => this.loadState(saveState)}
+              aria-label={`Load Save State from ${saveStateDate.toLocaleString()}`}
+            >
               <div>
                 <img src={saveState.screenshotCanvasDataURL} />
               </div>

@@ -54,6 +54,14 @@ export default class ControlPanel extends Component {
     );
   }
 
+  componentDidUpdate() {
+    // Focus on our text [a11y]
+    const focusElement = document.querySelector(".control-panel__modal button");
+    if (focusElement) {
+      focusElement.focus();
+    }
+  }
+
   goToPreviousView() {
     const viewStack = this.state.controlPanel.viewStack;
     viewStack.pop();
@@ -90,7 +98,7 @@ export default class ControlPanel extends Component {
     }
 
     return (
-      <div class="control-panel">
+      <div class="control-panel" role="dialog">
         <div class="control-panel__modal">
           <div class="aesthetic-windows-95-modal">
             <div class="aesthetic-windows-95-modal-title-bar">
@@ -105,6 +113,7 @@ export default class ControlPanel extends Component {
                   <div class="aesthetic-windows-95-button-title-bar">
                     <button
                       onclick={() => this.state.controlPanel.hideControlPanel()}
+                      aria-label="close control panel"
                     >
                       X
                     </button>
@@ -125,6 +134,7 @@ export default class ControlPanel extends Component {
                         this.state.controlPanel.required
                       }
                       onclick={() => this.goToPreviousView()}
+                      aria-label="go to previous control panel view"
                     >
                       ⬅️
                     </button>

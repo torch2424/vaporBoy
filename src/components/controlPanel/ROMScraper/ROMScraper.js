@@ -116,12 +116,24 @@ export default class ROMScraper extends Component {
     );
   }
 
+  componentDidUpdate() {
+    // Focus on our text [a11y]
+    const focusElement = document.querySelector(".ROMScraper button");
+    if (focusElement) {
+      focusElement.focus();
+    }
+  }
+
   render() {
     let currentTabElement = <div />;
+    let searchTabAria = "Open Search Tab";
+    let manualTabAria = "Open Manual Input Tab";
     if (this.state.ROMScraper.activeTabIndex === 0) {
       currentTabElement = <SearchInput />;
+      searchTabAria = `Current Tab - ${searchTabAria}`;
     } else if (this.state.ROMScraper.activeTabIndex === 1) {
       currentTabElement = <ManualInput />;
+      manualTabAria = `Current Tab - ${manualTabAria}`;
     }
 
     return (
@@ -134,7 +146,12 @@ export default class ROMScraper extends Component {
                 (this.state.ROMScraper.activeTabIndex === 0 ? "is-active" : "")
               }
             >
-              <button onClick={() => this.setActiveTabIndex(0)}>Search</button>
+              <button
+                onClick={() => this.setActiveTabIndex(0)}
+                aria-label={searchTabAria}
+              >
+                Search
+              </button>
             </div>
             <div
               class={
@@ -142,7 +159,10 @@ export default class ROMScraper extends Component {
                 (this.state.ROMScraper.activeTabIndex === 1 ? "is-active" : "")
               }
             >
-              <button onClick={() => this.setActiveTabIndex(1)}>
+              <button
+                onClick={() => this.setActiveTabIndex(1)}
+                aria-label={manualTabAria}
+              >
                 Manual Input
               </button>
             </div>
@@ -153,13 +173,19 @@ export default class ROMScraper extends Component {
 
             <div class="ROMScraper__submit">
               <div class="aesthetic-windows-95-button">
-                <button onClick={() => this.skipAddToCollection()}>Skip</button>
+                <button
+                  onClick={() => this.skipAddToCollection()}
+                  aria-label="Skip ROM Scrape, and play ROM"
+                >
+                  Skip
+                </button>
               </div>
 
               <div class="aesthetic-windows-95-button">
                 <button
                   disabled={this.shouldDisableSubmit()}
                   onClick={() => this.addROMToCollection()}
+                  aria-label="Submit ROM"
                 >
                   Submit
                 </button>

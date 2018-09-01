@@ -215,7 +215,7 @@ export default class WasmBoyCanvas extends Component {
     }
 
     return (
-      <div class={canvasClasses.join(" ")}>
+      <div class={canvasClasses.join(" ")} aria-hidden="true">
         <div class="wasmboy-canvas__canvas-container">
           <canvas id="wasmboy-canvas" />
         </div>

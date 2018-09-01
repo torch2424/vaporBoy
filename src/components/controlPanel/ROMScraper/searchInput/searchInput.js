@@ -139,6 +139,7 @@ export default class SearchInput extends Component {
             class="aesthetic-windows-95-text-input"
             type="text"
             placeholder="Search for a GB or GBC game..."
+            aria-label="Input text to search for a GB or GBC game..."
             value={this.state.currentSearch}
             onKeyDown={e =>
               this.setState({
@@ -153,7 +154,12 @@ export default class SearchInput extends Component {
             }}
           />
           <div class="aesthetic-windows-95-button">
-            <button onClick={e => this.performSearch()}>Search</button>
+            <button
+              onClick={e => this.performSearch()}
+              aria-label="Execute ROM Info Search"
+            >
+              Search
+            </button>
           </div>
         </div>
 

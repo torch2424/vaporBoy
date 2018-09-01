@@ -25,58 +25,18 @@ export default class App extends Component {
     // Initialize our Pubx
     PUBX_CONFIG.INITIALIZE();
 
-    // Function to change out layout, called by resize events and things
-    const changeLayout = () => {
-      const mobile = window.matchMedia("(max-width: 801px)").matches;
-      const landscape = window.matchMedia("screen and (orientation: landscape)")
-        .matches;
-      const portrait = window.matchMedia("screen and (orientation: portrait)")
-        .matches;
-
-      // Clear all of our classes
-      document.documentElement.className = "";
-
-      // Get our document class list
-      const documentClassList = document.documentElement.classList;
-
-      // Add all Media query based on mobile vs desktop
-      if (mobile) {
-        documentClassList.add("mobile");
-      } else {
-        documentClassList.add("desktop");
-      }
-      if (landscape) {
-        documentClassList.add("landscape");
-      }
-      if (portrait) {
-        documentClassList.add("portrait");
-      }
-
-      // Add our expanded class
-      if (this.state.layout && this.state.layout.expanded) {
-        documentClassList.add("expanded");
-      }
-
-      Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
-        mobile: mobile,
-        landscape: landscape && mobile,
-        portrait: portrait && mobile
-      });
-    };
-
     window.addEventListener("resize", () => {
-      changeLayout();
+      this.changeLayout();
     });
 
     window.addEventListener("orientationchange", () => {
-      changeLayout();
+      this.changeLayout();
     });
 
-    changeLayout();
+    this.changeLayout();
 
     this.setState({
-      layout: {},
-      changeLayout: changeLayout
+      layout: {}
     });
   }
 
@@ -90,7 +50,7 @@ export default class App extends Component {
       PUBX_CONFIG.LAYOUT_KEY,
       newState => {
         // First check if expanded is not the current state
-        const wasExpanded = this.state.layout.expanded;
+        const oldExpanded = this.state.layout.expanded;
 
         // You can spread and overwrite variables, while preserving ones,
         // as long is in cascading order.
@@ -102,8 +62,8 @@ export default class App extends Component {
           }
         });
 
-        if (!wasExpanded && newState.expanded) {
-          this.state.changeLayout();
+        if (oldExpanded !== newState.expanded) {
+          this.changeLayout();
         }
       }
     );
@@ -119,6 +79,45 @@ export default class App extends Component {
     Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
       NOTIFICATION_MESSAGES.BETA_VERSION
     );
+  }
+
+  // Function to change out layout, called by resize events and things
+  changeLayout() {
+    const mobile = window.matchMedia("(max-width: 801px)").matches;
+    const landscape = window.matchMedia("screen and (orientation: landscape)")
+      .matches;
+    const portrait = window.matchMedia("screen and (orientation: portrait)")
+      .matches;
+
+    // Clear all of our classes
+    document.documentElement.className = "";
+
+    // Get our document class list
+    const documentClassList = document.documentElement.classList;
+
+    // Add all Media query based on mobile vs desktop
+    if (mobile) {
+      documentClassList.add("mobile");
+    } else {
+      documentClassList.add("desktop");
+    }
+    if (landscape) {
+      documentClassList.add("landscape");
+    }
+    if (portrait) {
+      documentClassList.add("portrait");
+    }
+
+    // Add our expanded class
+    if (this.state.layout && this.state.layout.expanded) {
+      documentClassList.add("expanded");
+    }
+
+    Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
+      mobile: mobile,
+      landscape: landscape && mobile,
+      portrait: portrait && mobile
+    });
   }
 
   render() {
@@ -144,12 +143,24 @@ export default class App extends Component {
 
     return (
       <div>
+        <a href="#" class="a11y-link">
+          Hello! I see you are using a screen reader. Welcome to vaporboy! I
+          tried my best to make this as acessible as possible. You should be
+          able to load, modify, and play roms with just a keyboard and
+          screenreader. And you can use your keyboard to control the game. The
+          keyboard layout is the normal arrow keys, and z, x key layout.
+          However, I would suggest using a regular hardware game controller for
+          both desktop and mobile. This should make things the most comfortable
+          to use in my opinion. Feel free to open accessibilty issues in the git
+          hub project repo. You can find the git hub project repo in the control
+          panel, about section. Thanks for playing!
+        </a>
         <ConfirmationModal />
         <ControlPanel />
-        {currentLayout}
-        <Touchpad />
         <Notification />
         <LoadingModal />
+        <div aria-hidden="true">{currentLayout}</div>
+        <Touchpad />
       </div>
     );
   }

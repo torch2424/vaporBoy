@@ -44,21 +44,36 @@ export default class Touchpad extends Component {
           </div>
 
           {/* Gameboy Buttons */}
-          <div class="vaporboy-touchpad__button-layout__b-button">
+          <div
+            class="vaporboy-touchpad__button-layout__b-button"
+            aria-hidden="true"
+          >
             <GameboyButton button={"B"} />
           </div>
-          <div class="vaporboy-touchpad__button-layout__a-button">
+          <div
+            class="vaporboy-touchpad__button-layout__a-button"
+            aria-hidden="true"
+          >
             <GameboyButton button={"A"} />
           </div>
-          <div class="vaporboy-touchpad__button-layout__dpad">
+          <div
+            class="vaporboy-touchpad__button-layout__dpad"
+            aria-hidden="true"
+          >
             <GameboyDpad />
           </div>
 
-          <div class="vaporboy-touchpad__button-layout__start-button">
+          <div
+            class="vaporboy-touchpad__button-layout__start-button"
+            aria-hidden="true"
+          >
             <GameboyButton button={"start"} />
           </div>
 
-          <div class="vaporboy-touchpad__button-layout__select-button">
+          <div
+            class="vaporboy-touchpad__button-layout__select-button"
+            aria-hidden="true"
+          >
             <GameboyButton button={"select"} />
           </div>
         </div>

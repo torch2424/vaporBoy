@@ -56,6 +56,7 @@ export default class Cartridge extends Component {
               this.props.infoModalObject
             )
           }
+          aria-label="ROM Info"
         >
           i
         </button>
@@ -64,6 +65,7 @@ export default class Cartridge extends Component {
       <button
         class="list-button--edit"
         onClick={() => this.props.editCallback()}
+        aria-label="Edit ROM"
       >
         ✏️
       </button>;
@@ -76,17 +78,27 @@ export default class Cartridge extends Component {
     }
     let cartridgeOverlayPath = `assets/cartridges/cartridge-${cartridgeOverlayColor}-blank.png`;
 
+    // Our cartridge aria
+    let cartridgeAria = "";
+    if (this.props.ariaLabel) {
+      cartridgeAria = this.props.ariaLabel;
+    }
+
     return (
       <div class="cartridge">
         {/* Our Cartridge content */}
-        <div class="cartridge__content">
+        <div class="cartridge__content" aria-hidden="true">
           <div class="cartridge__content__centered-container">
             {cartridgeContent}
           </div>
         </div>
 
         {/* Our Cartridge overlay */}
-        <button class="cartridge__overlay" onClick={() => this.onClick()}>
+        <button
+          class="cartridge__overlay"
+          onClick={() => this.onClick()}
+          aria-label={`${cartridgeAria} Play ROM`}
+        >
           <img src={cartridgeOverlayPath} />
         </button>
       </div>

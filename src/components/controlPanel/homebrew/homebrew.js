@@ -56,13 +56,14 @@ export default class Homebrew extends Component {
     let homebrewROMs = [];
     AVAILABLE_GAMES.forEach(game => {
       homebrewROMs.push(
-        <li class="ROM-list__item">
+        <li class="ROM-list__item" aria-label={game.title}>
           <div class="ROM-list__item__cartridge">
             <Cartridge
               imageUrl={game.imagePath}
               onClick={() => {
                 this.loadROM(game);
               }}
+              ariaLabel={game.title}
             />
           </div>
           <div class="ROM-list__item__label">{game.title}</div>
@@ -70,6 +71,7 @@ export default class Homebrew extends Component {
             <button
               class="list-button--info"
               onClick={() => this.showHomebrewInfo(game)}
+              aria-label={`Information about ${game.title}`}
             >
               i
             </button>
