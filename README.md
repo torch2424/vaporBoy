@@ -52,6 +52,30 @@ An _A E S T H E T I C_ GB / GBC Emulator PWA. Powered by [wasmBoy](https://githu
 
 ![Lighthouse Score Screenshot. Approximately 91](./readme_assets/lighthouse_screenshot.png)
 
+# License
+
+Licensed under [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/). 🐦
+
+# Contributing
+
+Feel free to fork and submit PRs! Any help is much appreciated, and would be a ton of fun! I would appreciate opening an issue, or replying to an already open issue to express intent of trying to solve the issue, and we discuss.
+
+### Installation
+
+Just your standard node app. Install Node with [nvm](https://github.com/creationix/nvm), `git clone` the project, and `npm install`, and you should be good to go!
+
+### Npm Scripts & CLI Commands
+
+**TODO**: See the `package.json` in the meantime
+
+# Special Thanks
+
+* [awesome gb-dev communitty](https://github.com/avivace/awesome-gbdev), too many rad dudes to name!
+
+* [dcodeIO for building and fixing bugs with AssemblyScript](https://github.com/AssemblyScript/assemblyscript). And for being awesome!
+
+* [r/emudev](https://www.reddit.com/r/EmuDev/), especially to [binjimint](https://www.reddit.com/r/EmuDev/comments/7y2bux/gameboy_gb_graphical_bugs_game_writes_zeroes_into/dudlj3w/) for helping me sooooo much!
+
 # Other Notes & Links
 
 * [SGB Borders](http://www.vgmuseum.com/features/sgb/#4s)
