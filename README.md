@@ -1,12 +1,20 @@
-# vaporBoy
-
-A GB / GBC Emulator PWA. Powered by wasmBoy.
+# VaporBoy
 
 <!-- Badges -->
 
 [![Build Status](https://travis-ci.org/torch2424/vaporBoy.svg?branch=master)](https://travis-ci.org/torch2424/vaporBoy)
 ![License Badge](https://img.shields.io/github/license/torch2424/vaporBoy.svg)
 ![GitHub package version](https://img.shields.io/github/package-json/v/torch2424/vaporBoy.svg)
+
+An _A E S T H E T I C_ GB / GBC Emulator PWA. Powered by [wasmBoy](https://github.com/torch2424/wasmBoy).
+
+![Vapor Boy Walk through gif](./readme_assets/VaporboyWalkThrough.gif)
+
+# Table of Contents
+
+# Features
+
+* Emulates the Gameboy / Gameboy Color 🎮👾🕹️
 
 # Lighthouse Score
 
