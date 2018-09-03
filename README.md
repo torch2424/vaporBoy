@@ -14,7 +14,37 @@ An _A E S T H E T I C_ GB / GBC Emulator PWA. Powered by [wasmBoy](https://githu
 
 # Features
 
-* Emulates the Gameboy / Gameboy Color 🎮👾🕹️
+* Emulates the Gameboy / Gameboy Color using [wasmBoy](https://github.com/torch2424/wasmBoy), for Web Assembly awesome-ness. 🎮👾🕹️
+
+* Built as a [Progressive Web App(PWA)](https://developers.google.com/web/progressive-web-apps/), using [Preact](https://github.com/developit/preact). ⚛️
+
+* Feel all of the _N O S T A L G I A_, and appreciate the _A E S T H E T I C_ of [aesthetic-css](https://github.com/torch2424/aesthetic-css). 📼💜
+
+* Upload your ROMs from anywhere. Local Device, Pre-loaded Open Source ROMS, and even cloud services! 🍺☁️
+
+* Unique layouts for portrait (GBC), landscape (GBA), and desktop (SGB). 📱🖥️
+
+* Keyboard, touch, and gamepad input support using [responsive gamepad](https://www.npmjs.com/package/responsive-gamepad). ⌨️ 🎮
+
+* Supports all major browsers (Chrome, Firefox, Safari). Meaning, you can play gameboy on your iPhone! 🌐
+
+* Have complete control of your emulation and performance with configurable settings and save states. ⚙️💾
+
+* Experience the gameboy like you never have before, with Video/Audio altering VaporBoy effects. 🌈🔈📹
+
+# Example Gifs & Screenshots
+
+![Desktop Layout](./readme_assets/desktopLayout.png)
+![Portrait Layout](./readme_assets/portraitLayout.png)
+![Land Scape Layout](./readme_assets/landscapeLayout.png)
+
+![Desktop Control Pnale](./readme_assets/desktopControlPanel.png)
+![portrait ROM source selector](./readme_assets/portraitROMSourceSelector.png)
+![portrait Homebrew ROMS](./readme_assets/portraitHomebrewROMs.png)
+
+![landscape settings](./readme_assets/landscapeSettings.png)
+![portrait effects](./readme_assets/portraitEffects.png)
+![portrait tobu tobu girl](./readme_assets/portraitTobu.png)
 
 # Lighthouse Score
 
