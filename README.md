@@ -12,6 +12,16 @@ An _A E S T H E T I C_ GB / GBC Emulator PWA. Powered by [wasmBoy](https://githu
 
 # Table of Contents
 
+* [Features](#features)
+* [Example Gifs &amp; Screenshots](#example-gifs--screenshots)
+* [Lighthouse Score](#lighthouse-score)
+* [License](#license)
+* [Contributing](#contributing)
+  * [Installation](#installation)
+  * [Npm Scripts &amp; CLI Commands](#npm-scripts--cli-commands)
+* [Special Thanks](#special-thanks)
+* [Other Notes &amp; Links](#other-notes--links)
+
 # Features
 
 * Emulates the Gameboy / Gameboy Color using [wasmBoy](https://github.com/torch2424/wasmBoy), for Web Assembly awesome-ness. 🎮👾🕹️
@@ -36,17 +46,17 @@ An _A E S T H E T I C_ GB / GBC Emulator PWA. Powered by [wasmBoy](https://githu
 
 # Example Gifs & Screenshots
 
-![Desktop Layout](./readme_assets/desktopLayout.png)
-![Portrait Layout](./readme_assets/portraitLayout.png)
-![Land Scape Layout](./readme_assets/landscapeLayout.png)
+  <img alt="Desktop Layout" src="./readme_assets/desktopLayout.png" width="300px"/>
+  <img alt="Portrait Layout" src="./readme_assets/portraitLayout.png" width="300px"/>
+  <img alt="Land Scape Layout" src="./readme_assets/landscapeLayout.png" width="300px"/>
 
-![Desktop Control Panel](./readme_assets/desktopControlPanel.png)
-![portrait ROM source selector](./readme_assets/portraitROMSourceSelector.png)
-![portrait Homebrew ROMS](./readme_assets/portraitHomebrewROMs.png)
+  <img alt="Desktop Control Panel" src="./readme_assets/desktopControlPanel.png" width="300px"/>
+  <img alt="Portrait ROM source Selector" src="./readme_assets/portraitROMSourceSelector.png" width="300px"/>
+  <img alt="Portrait Home brew ROMs" src="./readme_assets/portraitHomebrewROMs.png" width="300px"/>
 
-![landscape settings](./readme_assets/landscapeSettings.png)
-![portrait effects](./readme_assets/portraitEffects.png)
-![portrait tobu tobu girl](./readme_assets/portraitTobu.png)
+  <img alt="Land Scape Settings" src="./readme_assets/landscapeSettings.png" width="300px"/>
+  <img alt="Portrait Effects" src="./readme_assets/portraitEffects.png" width="300px"/>
+  <img alt="Portrait Tobu Tobu Girl" src="./readme_assets/portraitTobu.png" width="300px"/>
 
 # Lighthouse Score
 
@@ -66,7 +76,43 @@ Just your standard node app. Install Node with [nvm](https://github.com/creation
 
 ### Npm Scripts & CLI Commands
 
-**TODO**: See the `package.json` in the meantime
+```
+# Starts the preact development server.
+npm run start
+
+# Same as `npm run start`
+npm run dev
+
+# Runs all precommit hooks
+npm run precommit
+
+# Runs the prettier linter, and automagically fixes all linting errors
+npm run prettier:fix
+
+# Builds a production version of the PWA
+npm run preact:build
+
+# Watches for changes, and continually builds/servers a production version of the PWA
+npm run preact:build:watch
+
+# Serves the locally built PWA
+npm run preact:serve
+
+# Serves the preact development server, called by `npm run start`
+npm run preact:dev
+
+# Start the cordova browser platform for development
+npm run cordova:serve
+
+# Serves the cordova (mobile) development server
+npm run cordova:dev
+
+# Start the electron server
+npm run electron:serve
+
+# Start the electron development server
+npm run electron:dev
+```
 
 # Special Thanks
 
