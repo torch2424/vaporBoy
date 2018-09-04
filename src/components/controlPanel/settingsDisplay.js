@@ -52,9 +52,6 @@ export default class SettingsDisplay extends Component {
       ...this.state,
       stored: {
         ...this.props.currentSettings
-      },
-      current: {
-        ...this.props.currentSettings
       }
     });
   }
