@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125157178-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-125157178-1');
+    </script>
+
+
 		<meta charset="utf-8">
 		<title><%= htmlWebpackPlugin.options.title %></title>
     <meta name="description" content="A Game Boy and Game Boy Color Emulator Progressive Web App. Powered by wasmBoy for the emulation library.">
@@ -11,7 +22,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 
     <!-- Cordova Head -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: ws: https://ssl.gstatic.com https://vaporboy.net https://*.google.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; media-src *; img-src * data: content:; connect-src * data: content:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: ws: https://ssl.gstatic.com https://vaporboy.net https://*.google.com https://www.googletagmanager.com https://www.google-analytics.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; media-src *; img-src * data: content:; connect-src * data: content:;">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
 
