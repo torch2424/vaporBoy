@@ -141,17 +141,12 @@ export default class SearchInput extends Component {
             placeholder="Search for a GB or GBC game..."
             aria-label="Input text to search for a GB or GBC game..."
             value={this.state.currentSearch}
-            onKeyDown={e =>
+            onChange={e =>
               this.setState({
                 ...this.state,
                 currentSearch: event.target.value
               })
             }
-            onKeyPress={event => {
-              if (event.key == "Enter") {
-                this.performSearch();
-              }
-            }}
           />
           <div class="aesthetic-windows-95-button">
             <button

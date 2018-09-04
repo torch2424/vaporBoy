@@ -11,6 +11,7 @@ import LoadStateList from "../loadStateList/loadStateList";
 import VaporBoyOptions from "../vaporBoyOptions/vaporBoyOptions";
 import VaporBoyEffects from "../vaporBoyEffects/vaporBoyEffects";
 import About from "../about/about";
+import Install from "../install/install";
 
 export default class ControlPanelSelect extends Component {
   constructor() {
@@ -126,6 +127,13 @@ export default class ControlPanelSelect extends Component {
     );
   }
 
+  viewInstall() {
+    this.state.controlPanel.addComponentToControlPanelViewStack(
+      "Install",
+      <Install />
+    );
+  }
+
   playROM() {
     WasmBoy.play();
     this.state.controlPanel.hideControlPanel();
@@ -162,6 +170,19 @@ export default class ControlPanelSelect extends Component {
         >
           <div>⏸️</div>
           <div>Pause ROM</div>
+        </button>
+      );
+    }
+
+    // Also check if we should show PWA Install
+    let install = "";
+    // This will show if you are in the PWA view
+    // https://stackoverflow.com/questions/41742390/javascript-to-check-if-pwa-or-mobile-web
+    if (!window.matchMedia("(display-mode: standalone)").matches) {
+      install = (
+        <button onclick={() => this.viewInstall()} aria-label="Install">
+          <div>⬇️</div>
+          <div>Install</div>
         </button>
       );
     }
@@ -223,6 +244,7 @@ export default class ControlPanelSelect extends Component {
               <div>About</div>
             </button>
           </li>
+          <li class="control-panel-select__grid__item">{install}</li>
         </ul>
       </div>
     );

@@ -56,6 +56,14 @@ export default class ControlPanel extends Component {
 
   componentDidUpdate() {
     // Focus on our text [a11y]
+
+    // Dont re focus if we are focused on an input element
+    if (
+      document.activeElement &&
+      document.activeElement.tagName.toLowerCase() === "input"
+    ) {
+      return;
+    }
     const focusElement = document.querySelector(".control-panel__modal button");
     if (focusElement) {
       focusElement.focus();
