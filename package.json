@@ -14,15 +14,12 @@
     "precommit": "pretty-quick --staged",
     "prettier:fix":
       "npx prettier --write '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*'",
-    "preact:start":
-      "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
     "preact:build":
       "preact build --template src/template.html --dest www --config src/preact.config.js --no-prerender",
     "preact:build:watch":
       "npx chokidar '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*' -c \"npm run preact:build\"",
     "preact:serve": "npm run preact:build && preact serve --dir www",
     "preact:dev": "preact watch --template src/template.html",
-    "preact:lint": "eslint src",
     "cordova:serve": "npx cordova run browser",
     "cordova:dev":
       "npx concurrently --kill-others --names \"PREACT,CORDOVA\" -c \"bgMagenta.bold,bgBlue.bold\" \"npm run preact:build:watch\" \"npm run cordova:serve\"",

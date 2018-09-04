@@ -1,39 +1,129 @@
-# vaporBoy
+# VaporBoy
 
-A GB / GBC Emulator PWA. Powered by wasmBoy.
+<!-- Badges -->
 
 [![Build Status](https://travis-ci.org/torch2424/vaporBoy.svg?branch=master)](https://travis-ci.org/torch2424/vaporBoy)
+![License Badge](https://img.shields.io/github/license/torch2424/vaporBoy.svg)
+![GitHub package version](https://img.shields.io/github/package-json/v/torch2424/vaporBoy.svg)
 
-This uses [Preact](https://preactjs.com/) for it's frontend application framework and PWA support, was geenrated using [preact-cli](https://github.com/developit/preact-cli) and wrapped in [Cordova](https://cordova.apache.org/) for Android and iOS deployment, and [electron](https://electronjs.org/) with [electron-builder](https://github.com/electron-userland/electron-builder) for desktop application support.
+An _A E S T H E T I C_ GB / GBC Emulator PWA. Powered by [wasmBoy](https://github.com/torch2424/wasmBoy).
 
-Installing Preact Sass: https://github.com/developit/preact-cli/issues/443
+![Vapor Boy Walk through gif](./readme_assets/VaporboyWalkThrough.gif)
 
-Setting up cordova (simply build to www, and use custom preact template): https://cordova.apache.org/
+# Table of Contents
 
-SGB Borders: http://www.vgmuseum.com/features/sgb/#4s
+* [Features](#features)
+* [Example Gifs &amp; Screenshots](#example-gifs--screenshots)
+* [Lighthouse Score](#lighthouse-score)
+* [License](#license)
+* [Contributing](#contributing)
+  * [Installation](#installation)
+  * [Npm Scripts &amp; CLI Commands](#npm-scripts--cli-commands)
+* [Special Thanks](#special-thanks)
+* [Other Notes &amp; Links](#other-notes--links)
 
-GBA Overlay (Base): http://www.rlauncher.com/forum/showthread.php?2929-What-Icons-do-we-need-for-the-RL-interface
+# Features
 
-https://retropie.org.uk/forum/topic/9152/handheld-overlays-psd-png-cfg
+* Emulates the Gameboy / Gameboy Color using [wasmBoy](https://github.com/torch2424/wasmBoy), for Web Assembly awesome-ness. 🎮👾🕹️
 
-https://obsproject.com/forum/threads/gamepad-display.12508/page-5
+* Built as a [Progressive Web App(PWA)](https://developers.google.com/web/progressive-web-apps/), using [Preact](https://github.com/developit/preact). ⚛️
 
-https://weheartit.com/entry/198414863
+* **TODO** Wrapped in [Electron](https://electronjs.org/) with [electron-builder](https://github.com/electron-userland/electron-builder), and [Cordova](https://cordova.apache.org/) to offer standalone alternative "app" experiences on Windows, Mac, Linux, Android, and iOS. 🐱🐦
 
-https://weheartit.com/entry/198414863
+* Feel all of the _N O S T A L G I A_, and appreciate the _A E S T H E T I C_ of [aesthetic-css](https://github.com/torch2424/aesthetic-css). 📼💜
 
-https://www.youtube.com/watch?v=5ihHjBFLjRQ
+* Upload your ROMs from anywhere. Local Device, Pre-loaded Open Source ROMS, and even cloud services! 🍺☁️
 
-Gameboy Button SVGs (Manually written with snippets from):
+* Unique layouts for portrait (GBC), landscape (GBA), and desktop (SGB). 📱🖥️
 
-https://fonts.google.com/specimen/BenchNine?selection.family=BenchNine
+* Keyboard, touch, and gamepad input support using [responsive gamepad](https://www.npmjs.com/package/responsive-gamepad). ⌨️ 🎮
 
-http://distantfuturejosh.com/kungfu/
+* Supports all major browsers (Chrome, Firefox, Safari). Meaning, you can play gameboy on your iPhone! 🌐
 
-view-source:http://distantfuturejosh.com/kungfu/img/d-pad-shadow.svg
+* Have complete control of your emulation and performance with configurable settings and save states. ⚙️💾
 
-Cartridges: https://blueamnesiac.deviantart.com/art/Nintendo-Game-Boy-Cartridge-Gold-457938773
+* Experience the gameboy like you never have before, with Video/Audio altering VaporBoy effects. 🌈🔈📹
 
-http://hyperspin-fe.com/profile/3039-subzero/content/?type=forums_topic_post&page=76
+# Example Gifs & Screenshots
 
-Icon Generator: https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=image&foreground.space.trim=1&foreground.space.pad=0.25&foreColor=rgba(96%2C%20125%2C%20139%2C%200)&backColor=rgb(68%2C%20138%2C%20255)&crop=0&backgroundShape=square&effects=none&name=ic_launcher
+<img alt="Desktop Layout" src="./readme_assets/desktopLayout.png" width="300px"/> <img alt="Land Scape Layout" src="./readme_assets/landscapeLayout.png" width="300px"/> <img alt="Desktop Control Panel" src="./readme_assets/desktopControlPanel.png" width="300px"/> <img alt="Land Scape Settings" src="./readme_assets/landscapeSettings.png" width="300px"/>
+
+<img alt="Portrait Layout" src="./readme_assets/portraitLayout.png" height="300px"/> <img alt="Portrait ROM source Selector" src="./readme_assets/portraitROMSourceSelector.png" height="300px"/> <img alt="Portrait Home brew ROMs" src="./readme_assets/portraitHomebrewROMs.png" height="300px"/> <img alt="Portrait Effects" src="./readme_assets/portraitEffects.png" height="300px"/> <img alt="Portrait Tobu Tobu Girl" src="./readme_assets/portraitTobu.png" height="300px"/>
+
+# Lighthouse Score
+
+![Lighthouse Score Screenshot. Approximately 91](./readme_assets/lighthouse_screenshot.png)
+
+# License
+
+Licensed under [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/). 🐦
+
+# Contributing
+
+Feel free to fork and submit PRs! Any help is much appreciated, and would be a ton of fun! I would appreciate opening an issue, or replying to an already open issue to express intent of trying to solve the issue, and we discuss.
+
+### Installation
+
+Just your standard node app. Install Node with [nvm](https://github.com/creationix/nvm), `git clone` the project, and `npm install`, and you should be good to go!
+
+### Npm Scripts & CLI Commands
+
+```
+# Starts the preact development server.
+npm run start
+
+# Same as `npm run start`
+npm run dev
+
+# Runs all precommit hooks
+npm run precommit
+
+# Runs the prettier linter, and automagically fixes all linting errors
+npm run prettier:fix
+
+# Builds a production version of the PWA
+npm run preact:build
+
+# Watches for changes, and continually builds/servers a production version of the PWA
+npm run preact:build:watch
+
+# Serves the locally built PWA
+npm run preact:serve
+
+# Serves the preact development server, called by `npm run start`
+npm run preact:dev
+
+# Start the cordova browser platform for development
+npm run cordova:serve
+
+# Serves the cordova (mobile) development server
+npm run cordova:dev
+
+# Start the electron server
+npm run electron:serve
+
+# Start the electron development server
+npm run electron:dev
+```
+
+# Special Thanks
+
+* [awesome gb-dev communitty](https://github.com/avivace/awesome-gbdev), too many rad dudes to name!
+
+* [dcodeIO for building and fixing bugs with AssemblyScript](https://github.com/AssemblyScript/assemblyscript). And for being awesome!
+
+* [r/emudev](https://www.reddit.com/r/EmuDev/), especially to [binjimint](https://www.reddit.com/r/EmuDev/comments/7y2bux/gameboy_gb_graphical_bugs_game_writes_zeroes_into/dudlj3w/) for helping me sooooo much!
+
+# Other Notes & Links
+
+* [SGB Borders](http://www.vgmuseum.com/features/sgb/#4s)
+
+* [GBA Border](https://obsproject.com/forum/threads/gamepad-display.12508/page-5)
+
+* [GBC Border](https://weheartit.com/entry/198414863)
+
+* [Touchpad SVG Inspiration](http://distantfuturejosh.com/kungfu/)
+
+* [Cartridge Border Images](http://hyperspin-fe.com/profile/3039-subzero/content/?type=forums_topic_post&page=76)
+
+* [App Icon Generator](<https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=image&foreground.space.trim=1&foreground.space.pad=0.25&foreColor=rgba(96%2C%20125%2C%20139%2C%200)&backColor=rgb(68%2C%20138%2C%20255)&crop=0&backgroundShape=square&effects=none&name=ic_launcher>)
