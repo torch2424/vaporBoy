@@ -46,11 +46,9 @@ An _A E S T H E T I C_ GB / GBC Emulator PWA. Powered by [wasmBoy](https://githu
 
 # Example Gifs & Screenshots
 
-<img alt="Desktop Layout" src="./readme_assets/desktopLayout.png" width="300px"/> <img alt="Portrait Layout" src="./readme_assets/portraitLayout.png" width="300px"/> <img alt="Land Scape Layout" src="./readme_assets/landscapeLayout.png" width="300px"/>
+<img alt="Desktop Layout" src="./readme_assets/desktopLayout.png" width="300px"/> <img alt="Land Scape Layout" src="./readme_assets/landscapeLayout.png" width="300px"/> <img alt="Land Scape Settings" src="./readme_assets/landscapeSettings.png" width="300px"/> <img alt="Desktop Control Panel" src="./readme_assets/desktopControlPanel.png" width="300px"/>
 
-<img alt="Desktop Control Panel" src="./readme_assets/desktopControlPanel.png" width="300px"/> <img alt="Portrait ROM source Selector" src="./readme_assets/portraitROMSourceSelector.png" width="300px"/> <img alt="Portrait Home brew ROMs" src="./readme_assets/portraitHomebrewROMs.png" width="300px"/>
-
-<img alt="Land Scape Settings" src="./readme_assets/landscapeSettings.png" width="300px"/> <img alt="Portrait Effects" src="./readme_assets/portraitEffects.png" width="300px"/> <img alt="Portrait Tobu Tobu Girl" src="./readme_assets/portraitTobu.png" width="300px"/>
+<img alt="Portrait Layout" src="./readme_assets/portraitLayout.png" width="300px"/> <img alt="Portrait ROM source Selector" src="./readme_assets/portraitROMSourceSelector.png" width="300px"/> <img alt="Portrait Home brew ROMs" src="./readme_assets/portraitHomebrewROMs.png" width="300px"/> <img alt="Portrait Effects" src="./readme_assets/portraitEffects.png" width="300px"/> <img alt="Portrait Tobu Tobu Girl" src="./readme_assets/portraitTobu.png" width="300px"/>
 
 # Lighthouse Score
 
