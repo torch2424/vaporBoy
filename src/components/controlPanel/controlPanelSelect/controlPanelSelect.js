@@ -174,6 +174,19 @@ export default class ControlPanelSelect extends Component {
       );
     }
 
+    // Also check if we should show PWA Install
+    let install = "";
+    // This will show if you are in the PWA view
+    // https://stackoverflow.com/questions/41742390/javascript-to-check-if-pwa-or-mobile-web
+    if (!window.matchMedia("(display-mode: standalone)").matches) {
+      install = (
+        <button onclick={() => this.viewInstall()} aria-label="Install">
+          <div>⬇️</div>
+          <div>Install</div>
+        </button>
+      );
+    }
+
     return (
       <div class="control-panel-select">
         <ul class="control-panel-select__grid">
@@ -231,12 +244,7 @@ export default class ControlPanelSelect extends Component {
               <div>About</div>
             </button>
           </li>
-          <li class="control-panel-select__grid__item">
-            <button onclick={() => this.viewInstall()} aria-label="Install">
-              <div>⬇️</div>
-              <div>Install</div>
-            </button>
-          </li>
+          <li class="control-panel-select__grid__item">{install}</li>
         </ul>
       </div>
     );

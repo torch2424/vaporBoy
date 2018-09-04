@@ -33,7 +33,7 @@ export default class Install extends Component {
           </b>. Installing the application as a PWA on your device will offer
           the following features:
           <ul>
-            <li>Fullscreen support</li>
+            <li>Fullscreen/Standalone support</li>
             <li>Better scroll support</li>
             <li>Automatic Data Backups (depending on OS)</li>
             <li>Better Offline support</li>
