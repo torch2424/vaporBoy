@@ -117,11 +117,11 @@ export default class WasmBoyCanvas extends Component {
       const vaporboyOptions = {
         ...Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY)
       };
-      const vaporboyEffects = {
-        ...Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY)
-      };
+      // Done grab vaporboyEffects here,
+      // As we need it to be grabbed in the callbacks
+      // To be updated as needed
 
-      if (vaporboyEffects.vapor) {
+      if (Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY).vapor) {
         vaporboyOptions.gameboyFrameRate = Math.floor(
           vaporboyOptions.gameboyFrameRate * 0.875
         );
@@ -140,6 +140,10 @@ export default class WasmBoyCanvas extends Component {
           // Chain connect the audio nodes
           let audioNode = audioBufferSourceNode;
 
+          const vaporboyEffects = {
+            ...Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY)
+          };
+
           if (vaporboyEffects.vapor) {
             audioNode = vaporAudioEffect(audioContext, audioNode);
           }
@@ -151,6 +155,10 @@ export default class WasmBoyCanvas extends Component {
           return audioNode;
         },
         updateGraphicsCallback: imageDataArray => {
+          const vaporboyEffects = {
+            ...Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY)
+          };
+
           if (vaporboyEffects.vapor) {
             vaporVideoEffect(imageDataArray);
           }
@@ -184,15 +192,18 @@ export default class WasmBoyCanvas extends Component {
 
     // Our insert cartridge menu
     let insertCartridge = <div />;
-    // TODO: Change to loaded and played
-    if (!WasmBoy.isReady()) {
+    if (!WasmBoy.isLoadedAndStarted()) {
       insertCartridge = (
         <div class="wasmboy-canvas__insert-cartridge">
           <img src={this.state.vaporboyImage} />
           <h1>V A P O R B O Y</h1>
           <h3>Please insert a cartridge...</h3>
           <div class="wasmboy-canvas__insert-cartridge__instructions">
-            File > Control Panel (⚙️) > Select a ROM
+            {Pubx.get(PUBX_CONFIG.LAYOUT_KEY).mobile ? (
+              <div>⚙️ > Select a ROM</div>
+            ) : (
+              <div>File > Control Panel > Select a ROM</div>
+            )}
           </div>
         </div>
       );

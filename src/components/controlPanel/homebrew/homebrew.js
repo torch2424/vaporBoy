@@ -37,7 +37,8 @@ export default class Homebrew extends Component {
     };
 
     const loadHomebrewPromise = loadHomebrewTask();
-    loadHomebrewPromise.catch(() => {
+    loadHomebrewPromise.catch(error => {
+      console.error(error);
       Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
         NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
       );

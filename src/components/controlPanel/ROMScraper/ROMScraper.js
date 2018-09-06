@@ -80,7 +80,8 @@ export default class ROMScraper extends Component {
       this.state.controlPanel.hideControlPanel();
     };
     const playROMPromise = playROMTask();
-    playROMPromise.catch(() => {
+    playROMPromise.catch(error => {
+      console.error(error);
       Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
         NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
       );
@@ -106,7 +107,8 @@ export default class ROMScraper extends Component {
       this.state.controlPanel.hideControlPanel();
     };
     const addROMToCollectionPromise = addROMToCollectionTask();
-    addROMToCollectionPromise.catch(() => {
+    addROMToCollectionPromise.catch(error => {
+      console.error(error);
       Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
         NOTIFICATION_MESSAGES.ERROR_ADD_ROM_TO_COLLECTION
       );

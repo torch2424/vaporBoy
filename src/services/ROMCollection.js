@@ -5,6 +5,8 @@ import { idbKeyval } from "./idb";
 import { Pubx } from "./pubx";
 import { PUBX_CONFIG } from "../pubx.config";
 
+import { NOTIFICATION_MESSAGES } from "../notification.messages";
+
 // Our key for our vaporboy collection
 const IDB_COLLECTION_KEY = "vaporboy_collection";
 
@@ -58,8 +60,11 @@ class ROMCollectionService {
             saveStates
           });
         })
-        .catch(() => {
-          // TODO:
+        .catch(error => {
+          console.error(error);
+          Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+            NOTIFICATION_MESSAGES.ERROR_SAVE_STATE
+          );
         });
     };
 

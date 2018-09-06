@@ -91,7 +91,7 @@ export default class SettingsDisplay extends Component {
 
         // Save the state
         const resetSettingsTask = async () => {
-          if (WasmBoy.isReady()) {
+          if (WasmBoy.isLoadedAndStarted()) {
             await WasmBoy.saveState();
           }
 
@@ -104,11 +104,20 @@ export default class SettingsDisplay extends Component {
           Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
             NOTIFICATION_MESSAGES.RESET_SETTINGS
           );
+
+          // Finally, reload the save state we just made
+          if (WasmBoy.isLoadedAndStarted()) {
+            const saveStates = await WasmBoy.getSaveStates();
+            await WasmBoy.loadState(saveStates[saveStates.length - 1]);
+            await WasmBoy.play();
+          }
+
           this.state.controlPanel.hideControlPanel();
         };
 
         // Run the task
-        resetSettingsTask().catch(() => {
+        resetSettingsTask().catch(error => {
+          console.error(error);
           Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
             NOTIFICATION_MESSAGES.ERROR_RESET_SETTINGS
           );
@@ -125,7 +134,7 @@ export default class SettingsDisplay extends Component {
         // If confirm, apply
 
         const applyOptionsTask = async () => {
-          if (WasmBoy.isReady()) {
+          if (WasmBoy.isLoadedAndStarted()) {
             await WasmBoy.saveState();
           }
 
@@ -138,11 +147,20 @@ export default class SettingsDisplay extends Component {
           Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
             NOTIFICATION_MESSAGES.APPLY_SETTINGS
           );
+
+          // Finally, reload the save state we just made
+          if (WasmBoy.isLoadedAndStarted()) {
+            const saveStates = await WasmBoy.getSaveStates();
+            await WasmBoy.loadState(saveStates[saveStates.length - 1]);
+            await WasmBoy.play();
+          }
+
           this.state.controlPanel.hideControlPanel();
         };
 
         // Run the task
-        applyOptionsTask().catch(() => {
+        applyOptionsTask().catch(error => {
+          console.error(error);
           Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
             NOTIFICATION_MESSAGES.ERROR_APPLY_SETTINGS
           );

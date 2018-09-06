@@ -55,14 +55,15 @@ export default class Install extends Component {
           (View More) button in the top right corner of your web browser, and
           then, <b>"Add to homescreen"</b>. Alternatively on Firefox, there may
           be a "home" icon with a plus (+) icon inside it near the URL bar to
-          add to install VaporBoy.
+          install VaporBoy.
         </p>
         <h3>iOS</h3>
         <p>
           Click the
           <img src="/assets/iosShare.png" class="install__ios-icon" />
-          and then the
+          button, and then the
           <img src="/assets/iosAddToHomescreen.png" class="install__ios-icon" />
+          button.
         </p>
       </div>
     );

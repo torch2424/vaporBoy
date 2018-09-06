@@ -77,7 +77,8 @@ export default class ControlPanelSelect extends Component {
               NOTIFICATION_MESSAGES.SAVE_STATE
             );
           })
-          .catch(() => {
+          .catch(error => {
+            console.error(error);
             Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
               `${NOTIFICATION_MESSAGES.SAVE_STATE} ${
                 NOTIFICATION_MESSAGES.ERROR_RESUME_ROM
@@ -85,7 +86,8 @@ export default class ControlPanelSelect extends Component {
             );
           });
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
           NOTIFICATION_MESSAGES.ERROR_SAVE_STATE
         );
@@ -150,6 +152,10 @@ export default class ControlPanelSelect extends Component {
     );
   }
 
+  reloadVaporBoy() {
+    window.location.reload(true);
+  }
+
   render() {
     let playPause = (
       <button
@@ -175,16 +181,24 @@ export default class ControlPanelSelect extends Component {
     }
 
     // Also check if we should show PWA Install
-    let install = "";
+    let install = (
+      <button onclick={() => this.viewInstall()} aria-label="Install">
+        <div>⬇️</div>
+        <div>Install</div>
+      </button>
+    );
     // This will show if you are in the PWA view
     // https://stackoverflow.com/questions/41742390/javascript-to-check-if-pwa-or-mobile-web
-    if (!window.matchMedia("(display-mode: standalone)").matches) {
-      install = (
-        <button onclick={() => this.viewInstall()} aria-label="Install">
-          <div>⬇️</div>
-          <div>Install</div>
-        </button>
-      );
+    // https://developer.mozilla.org/en-US/docs/Web/CSS/@media/display-mode
+    if (Pubx.get(PUBX_CONFIG.LAYOUT_KEY).mobile) {
+      if (
+        window.matchMedia("(display-mode: fullscreen)").matches ||
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.fullscreen ||
+        window.navigator.standalone
+      ) {
+        install = "";
+      }
     }
 
     return (
@@ -242,6 +256,12 @@ export default class ControlPanelSelect extends Component {
             <button onclick={() => this.viewAbout()} aria-label="About">
               <div>ℹ️</div>
               <div>About</div>
+            </button>
+          </li>
+          <li class="control-panel-select__grid__item">
+            <button onclick={() => this.reloadVaporBoy()} aria-label="About">
+              <div>♻️</div>
+              <div>Reload</div>
             </button>
           </li>
           <li class="control-panel-select__grid__item">{install}</li>
