@@ -56,7 +56,6 @@ export default class WasmBoyCanvas extends Component {
     const pubxVaporBoyEffectsSubscriberKey = Pubx.subscribe(
       PUBX_CONFIG.VAPORBOY_EFFECTS_KEY,
       newState => {
-        console.log("new effects!");
         this.configWasmBoy(canvasElement);
         this.setState({
           ...this.state,
