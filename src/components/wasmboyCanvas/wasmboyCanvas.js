@@ -184,15 +184,18 @@ export default class WasmBoyCanvas extends Component {
 
     // Our insert cartridge menu
     let insertCartridge = <div />;
-    // TODO: Change to loaded and played
-    if (!WasmBoy.isReady()) {
+    if (!WasmBoy.isLoadedAndStarted()) {
       insertCartridge = (
         <div class="wasmboy-canvas__insert-cartridge">
           <img src={this.state.vaporboyImage} />
           <h1>V A P O R B O Y</h1>
           <h3>Please insert a cartridge...</h3>
           <div class="wasmboy-canvas__insert-cartridge__instructions">
-            File > Control Panel (⚙️) > Select a ROM
+            {Pubx.get(PUBX_CONFIG.LAYOUT_KEY).mobile ? (
+              <div>⚙️ > Select a ROM</div>
+            ) : (
+              <div>File > Control Panel > Select a ROM</div>
+            )}
           </div>
         </div>
       );

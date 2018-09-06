@@ -35,14 +35,16 @@ export default class LoadStateList extends Component {
               );
               resolve();
             })
-            .catch(() => {
+            .catch(error => {
+              console.error(error);
               Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
                 NOTIFICATION_MESSAGES.ERROR_RESUME_ROM
               );
               reject();
             });
         })
-        .catch(() => {
+        .catch(error => {
+          console.error(error);
           Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
             NOTIFICATION_MESSAGES.ERROR_LOAD_STATE
           );

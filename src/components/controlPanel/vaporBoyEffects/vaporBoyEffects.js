@@ -66,8 +66,8 @@ export default class VaporBoyEffects extends Component {
     const applyTitle = "Apply Effects";
     const applyElement = (
       <div>
-        This will reset any currently running ROM. A save state will be made.
-        Apply effects?
+        This will reset any currently running ROM. A save state will be made,
+        and then loaded to continue playing. Apply effects?
       </div>
     );
 

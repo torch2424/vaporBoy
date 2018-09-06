@@ -57,7 +57,8 @@ export default class VaporBoyDesktop extends Component {
       );
     };
 
-    resetWasmBoyTask().catch(() => {
+    resetWasmBoyTask().catch(error => {
+      console.error(error);
       Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
         NOTIFICATION_MESSAGES.ERROR_RESET_ROM
       );

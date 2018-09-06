@@ -48,7 +48,8 @@ export default class MyCollection extends Component {
     };
 
     const loadROMPromise = loadROMTask();
-    loadROMPromise.catch(() => {
+    loadROMPromise.catch(error => {
+      console.error(error);
       Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
         NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
       );

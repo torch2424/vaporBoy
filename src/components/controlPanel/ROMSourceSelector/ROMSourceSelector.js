@@ -98,7 +98,8 @@ export default class ROMSourceSelector extends Component {
           this.state.controlPanel.hideControlPanel();
         };
         const playROMPromise = playROMTask();
-        playROMPromise.catch(() => {
+        playROMPromise.catch(error => {
+          console.error(error);
           Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
             NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
           );
@@ -166,14 +167,15 @@ export default class ROMSourceSelector extends Component {
                     resolve();
                   })
                   .catch(error => {
-                    console.log("Load Game Error:", error);
+                    console.error("Load Game Error:", error);
                     Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
                       NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
                     );
                     reject();
                   });
               })
-              .catch(() => {
+              .catch(error => {
+                console.error(error);
                 Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
                   NOTIFICATION_MESSAGES.ERROR_LOAD_ROM
                 );
@@ -188,6 +190,7 @@ export default class ROMSourceSelector extends Component {
           }
         })
         .catch(error => {
+          console.error(error);
           Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
             NOTIFICATION_MESSAGES.ERROR_GOOGLE_DRIVE
           );

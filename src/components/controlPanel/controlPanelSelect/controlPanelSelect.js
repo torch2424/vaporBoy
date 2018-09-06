@@ -77,7 +77,8 @@ export default class ControlPanelSelect extends Component {
               NOTIFICATION_MESSAGES.SAVE_STATE
             );
           })
-          .catch(() => {
+          .catch(error => {
+            console.error(error);
             Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
               `${NOTIFICATION_MESSAGES.SAVE_STATE} ${
                 NOTIFICATION_MESSAGES.ERROR_RESUME_ROM
@@ -85,7 +86,8 @@ export default class ControlPanelSelect extends Component {
             );
           });
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
           NOTIFICATION_MESSAGES.ERROR_SAVE_STATE
         );

@@ -68,8 +68,8 @@ export default class VaporBoyOptions extends Component {
     const applyTitle = "Apply Options";
     const applyElement = (
       <div>
-        This will reset any currently running ROM. A save state will be made.
-        Apply options?
+        This will reset any currently running ROM. A save state will be made,
+        and then loaded to continue playing. Apply options?
       </div>
     );
 
