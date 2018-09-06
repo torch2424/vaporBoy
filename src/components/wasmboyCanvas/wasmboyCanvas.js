@@ -56,6 +56,7 @@ export default class WasmBoyCanvas extends Component {
     const pubxVaporBoyEffectsSubscriberKey = Pubx.subscribe(
       PUBX_CONFIG.VAPORBOY_EFFECTS_KEY,
       newState => {
+        console.log("new effects!");
         this.configWasmBoy(canvasElement);
         this.setState({
           ...this.state,
@@ -117,11 +118,11 @@ export default class WasmBoyCanvas extends Component {
       const vaporboyOptions = {
         ...Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY)
       };
-      const vaporboyEffects = {
-        ...Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY)
-      };
+      // Done grab vaporboyEffects here,
+      // As we need it to be grabbed in the callbacks
+      // To be updated as needed
 
-      if (vaporboyEffects.vapor) {
+      if (Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY).vapor) {
         vaporboyOptions.gameboyFrameRate = Math.floor(
           vaporboyOptions.gameboyFrameRate * 0.875
         );
@@ -140,6 +141,10 @@ export default class WasmBoyCanvas extends Component {
           // Chain connect the audio nodes
           let audioNode = audioBufferSourceNode;
 
+          const vaporboyEffects = {
+            ...Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY)
+          };
+
           if (vaporboyEffects.vapor) {
             audioNode = vaporAudioEffect(audioContext, audioNode);
           }
@@ -151,6 +156,10 @@ export default class WasmBoyCanvas extends Component {
           return audioNode;
         },
         updateGraphicsCallback: imageDataArray => {
+          const vaporboyEffects = {
+            ...Pubx.get(PUBX_CONFIG.VAPORBOY_EFFECTS_KEY)
+          };
+
           if (vaporboyEffects.vapor) {
             vaporVideoEffect(imageDataArray);
           }

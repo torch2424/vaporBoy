@@ -91,7 +91,7 @@ export default class SettingsDisplay extends Component {
 
         // Save the state
         const resetSettingsTask = async () => {
-          if (WasmBoy.isReady()) {
+          if (WasmBoy.isLoadedAndStarted()) {
             await WasmBoy.saveState();
           }
 
@@ -104,6 +104,14 @@ export default class SettingsDisplay extends Component {
           Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
             NOTIFICATION_MESSAGES.RESET_SETTINGS
           );
+
+          // Finally, reload the save state we just made
+          if (WasmBoy.isLoadedAndStarted()) {
+            const saveStates = await WasmBoy.getSaveStates();
+            await WasmBoy.loadState(saveStates[saveStates.length - 1]);
+            await WasmBoy.play();
+          }
+
           this.state.controlPanel.hideControlPanel();
         };
 
@@ -141,10 +149,11 @@ export default class SettingsDisplay extends Component {
           );
 
           // Finally, reload the save state we just made
-          await WasmBoy.reset();
-          const saveStates = await WasmBoy.getSaveStates();
-          await WasmBoy.loadState(saveStates[saveStates.length - 1]);
-          await WasmBoy.play();
+          if (WasmBoy.isLoadedAndStarted()) {
+            const saveStates = await WasmBoy.getSaveStates();
+            await WasmBoy.loadState(saveStates[saveStates.length - 1]);
+            await WasmBoy.play();
+          }
 
           this.state.controlPanel.hideControlPanel();
         };
