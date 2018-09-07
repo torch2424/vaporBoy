@@ -91,8 +91,9 @@ export default class SettingsDisplay extends Component {
 
         // Save the state
         const resetSettingsTask = async () => {
+          let saveState = undefined;
           if (WasmBoy.isLoadedAndStarted()) {
-            await WasmBoy.saveState();
+            saveState = await WasmBoy.saveState();
           }
 
           window.localStorage.setItem(
@@ -106,9 +107,9 @@ export default class SettingsDisplay extends Component {
           );
 
           // Finally, reload the save state we just made
-          if (WasmBoy.isLoadedAndStarted()) {
-            const saveStates = await WasmBoy.getSaveStates();
-            await WasmBoy.loadState(saveStates[saveStates.length - 1]);
+          if (WasmBoy.isLoadedAndStarted() && saveState) {
+            await WasmBoy.reset();
+            await WasmBoy.loadState(saveState);
             await WasmBoy.play();
           }
 
@@ -134,8 +135,9 @@ export default class SettingsDisplay extends Component {
         // If confirm, apply
 
         const applyOptionsTask = async () => {
+          let saveState = undefined;
           if (WasmBoy.isLoadedAndStarted()) {
-            await WasmBoy.saveState();
+            saveState = await WasmBoy.saveState();
           }
 
           window.localStorage.setItem(
@@ -149,9 +151,9 @@ export default class SettingsDisplay extends Component {
           );
 
           // Finally, reload the save state we just made
-          if (WasmBoy.isLoadedAndStarted()) {
-            const saveStates = await WasmBoy.getSaveStates();
-            await WasmBoy.loadState(saveStates[saveStates.length - 1]);
+          if (WasmBoy.isLoadedAndStarted() && saveState) {
+            await WasmBoy.reset();
+            await WasmBoy.loadState(saveState);
             await WasmBoy.play();
           }
 
