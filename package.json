@@ -65,7 +65,7 @@
   },
   "eslintIgnore": ["build/*"],
   "dependencies": {
-    "aesthetic-css": "0.0.4",
+    "aesthetic-css": "1.0.0",
     "cordova-android": "^7.1.1",
     "cordova-browser": "^5.0.4",
     "cordova-plugin-whitelist": "^1.3.3",
@@ -75,7 +75,7 @@
     "preact-compat": "^3.17.0",
     "screenfull": "^3.3.2",
     "tunajs": "^1.0.1",
-    "wasmboy": "0.1.4"
+    "wasmboy": "0.1.5"
   },
   "devDependencies": {
     "chokidar-cli": "^1.2.0",
