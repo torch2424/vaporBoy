@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-    
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125157178-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-125157178-1');
-    </script>
-
-
 		<meta charset="utf-8">
 		<title><%= htmlWebpackPlugin.options.title %></title>
     <meta name="description" content="A Game Boy and Game Boy Color Emulator Progressive Web App. Powered by wasmBoy for the emulation library.">
@@ -54,7 +43,5 @@
 		}) %>
 		<script defer src="<%= htmlWebpackPlugin.files.chunks['bundle'].entry %>"></script>
 		<script>window.fetch||document.write('<script src="<%= htmlWebpackPlugin.files.chunks["polyfills"].entry %>"><\/script>')</script>
-    <!-- Cordova script -->
-    <script type="text/javascript" src="cordova.js"></script>
 	</body>
 </html>

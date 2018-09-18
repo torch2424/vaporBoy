@@ -22,6 +22,11 @@ export default class App extends Component {
   constructor() {
     super();
 
+    // Add our 3p Scripts
+    if (typeof window !== "undefined") {
+      this.initialize3p();
+    }
+
     // Initialize our Pubx
     PUBX_CONFIG.INITIALIZE();
 
@@ -101,6 +106,32 @@ export default class App extends Component {
     Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
       NOTIFICATION_MESSAGES.BETA_VERSION
     );
+  }
+
+  initialize3p() {
+    const loadScript = require("load-script");
+
+    // Setup Google Analytics
+    loadScript(
+      "https://www.googletagmanager.com/gtag/js?id=UA-125157178-1",
+      function(err, script) {
+        if (!err) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            window.dataLayer.push(arguments);
+          }
+          gtag("js", new Date());
+          gtag("config", "UA-125157178-1");
+        }
+      }
+    );
+
+    // Setup Cordova
+    loadScript("cordova.js", function(err, script) {
+      if (!err) {
+        console.log("Loaded Cordova!");
+      }
+    });
   }
 
   // Function to change out layout, called by resize events and things

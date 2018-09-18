@@ -22,31 +22,6 @@
   user-select: none;
 }
 
-// Mixin to hide the touchpad
-@mixin hide-gamepad() {
-  .vaporboy-touchpad {
-    .vaporboy-touchpad__button-layout {
-      .vaporboy-touchpad__button-layout__b-button,
-      .vaporboy-touchpad__button-layout__a-button,
-      .vaporboy-touchpad__button-layout__dpad,
-      .vaporboy-touchpad__button-layout__start-button,
-      .vaporboy-touchpad__button-layout__select-button {
-        display: none;
-      }
-    }
-  }
-}
-
-// Hide Virtual gamepad on desktop
-.desktop {
-  @include hide-gamepad;
-}
-
-// Hide Virtual gamepad on hide-expanded-gamepad
-.expanded.hide-expanded-gamepad {
-  @include hide-gamepad;
-}
-
 // Add a black stroke to expanded semi transparent expanded buttons
 .expanded {
   // Add black stroke around semi white background

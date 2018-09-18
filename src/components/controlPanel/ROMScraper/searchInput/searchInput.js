@@ -147,6 +147,11 @@ export default class SearchInput extends Component {
                 currentSearch: event.target.value
               })
             }
+            onKeyPress={event => {
+              if (event.key == "Enter") {
+                this.performSearch();
+              }
+            }}
           />
           <div class="aesthetic-windows-95-button">
             <button

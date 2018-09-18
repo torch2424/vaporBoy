@@ -9,8 +9,8 @@
   flex-grow: 1;
 
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: space-around;
+  align-items: flex-start;
   flex-wrap: wrap;
 
   &__item {
@@ -29,8 +29,12 @@
     width: 150px;
 
     &__cartridge {
-      width: 150px;
-      height: 150px;
+      // Cartridge Dimensions:
+      // 65.5mm x 57mm x 9mm
+      // Meaning Ratio for H/W = 1.15 / 1
+      $cartridgeWidth: 150px;
+      width: $cartridgeWidth;
+      height: $cartridgeWidth * 1.15;
     }
 
     &__label {

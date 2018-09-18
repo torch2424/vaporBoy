@@ -2,6 +2,8 @@ import { Component } from "preact";
 
 import { getVaporBoyLogo } from "../../../vaporboyLogo";
 
+const packageJson = require("../../../../package.json");
+
 export default class About extends Component {
   constructor() {
     super();
@@ -12,6 +14,7 @@ export default class About extends Component {
       <div class="about">
         <h1>About</h1>
         <img src={getVaporBoyLogo()} />
+        <p class="version">Vaporboy Version {packageJson.version}</p>
         <p>
           <b>Vaporboy</b> is a Gameboy & Gameboy Color{" "}
           <a
@@ -181,6 +184,13 @@ export default class About extends Component {
               responsive-gamepad
             </a>{" "}
             - Keyboard, Touch, and controller input library.
+          </li>
+
+          <li>
+            <a href="https://leahrosegarza.com/" target="_blank">
+              Leah Rose Garza
+            </a>{" "}
+            - For making the amazing Vaporboy logo.
           </li>
 
           <li>Anyone/Anything I am forgetting. 🤔</li>

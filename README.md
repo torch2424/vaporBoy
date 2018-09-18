@@ -104,6 +104,8 @@ npm run electron:dev
 
 # Special Thanks
 
+* [Leah Rose Garza](https://leahrosegarza.com/#/), Artist of the Vaporboy Logo.
+
 * [awesome gb-dev communitty](https://github.com/avivace/awesome-gbdev), too many rad dudes to name!
 
 * [dcodeIO for building and fixing bugs with AssemblyScript](https://github.com/AssemblyScript/assemblyscript). And for being awesome!
