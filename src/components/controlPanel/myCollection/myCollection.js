@@ -60,7 +60,7 @@ export default class MyCollection extends Component {
 
   editROM(collectionROM) {
     // Load the ROM, and then launch the editor
-    const editRomTask = async () => {
+    const editROMTask = async () => {
       await WasmBoy.pause();
       await WasmBoy.loadROM(collectionROM.ROM);
 
@@ -115,10 +115,6 @@ export default class MyCollection extends Component {
       );
     }
 
-    return (
-      <div>
-        <ul class="ROM-list">{collectionROMs}</ul>
-      </div>
-    );
+    return <ul class="ROM-list">{collectionROMs}</ul>;
   }
 }

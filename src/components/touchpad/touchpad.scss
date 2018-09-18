@@ -22,21 +22,6 @@
   user-select: none;
 }
 
-// Hide Virtual gamepad on desktop
-.desktop {
-  .vaporboy-touchpad {
-    .vaporboy-touchpad__button-layout {
-      .vaporboy-touchpad__button-layout__b-button,
-      .vaporboy-touchpad__button-layout__a-button,
-      .vaporboy-touchpad__button-layout__dpad,
-      .vaporboy-touchpad__button-layout__start-button,
-      .vaporboy-touchpad__button-layout__select-button {
-        display: none;
-      }
-    }
-  }
-}
-
 // Add a black stroke to expanded semi transparent expanded buttons
 .expanded {
   // Add black stroke around semi white background

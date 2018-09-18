@@ -15,12 +15,12 @@ An _A E S T H E T I C_ GB / GBC Emulator PWA. Powered by [wasmBoy](https://githu
 * [Features](#features)
 * [Example Gifs &amp; Screenshots](#example-gifs--screenshots)
 * [Lighthouse Score](#lighthouse-score)
-* [License](#license)
 * [Contributing](#contributing)
   * [Installation](#installation)
   * [Npm Scripts &amp; CLI Commands](#npm-scripts--cli-commands)
 * [Special Thanks](#special-thanks)
 * [Other Notes &amp; Links](#other-notes--links)
+* [License](#license)
 
 # Features
 
@@ -53,10 +53,6 @@ An _A E S T H E T I C_ GB / GBC Emulator PWA. Powered by [wasmBoy](https://githu
 # Lighthouse Score
 
 ![Lighthouse Score Screenshot. Approximately 91](./readme_assets/lighthouse_screenshot.png)
-
-# License
-
-Licensed under [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/). 🐦
 
 # Contributing
 
@@ -108,6 +104,8 @@ npm run electron:dev
 
 # Special Thanks
 
+* [Leah Rose Garza](https://leahrosegarza.com/#/), Artist of the Vaporboy Logo.
+
 * [awesome gb-dev communitty](https://github.com/avivace/awesome-gbdev), too many rad dudes to name!
 
 * [dcodeIO for building and fixing bugs with AssemblyScript](https://github.com/AssemblyScript/assemblyscript). And for being awesome!
@@ -127,3 +125,7 @@ npm run electron:dev
 * [Cartridge Border Images](http://hyperspin-fe.com/profile/3039-subzero/content/?type=forums_topic_post&page=76)
 
 * [App Icon Generator](<https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=image&foreground.space.trim=1&foreground.space.pad=0.25&foreColor=rgba(96%2C%20125%2C%20139%2C%200)&backColor=rgb(68%2C%20138%2C%20255)&crop=0&backgroundShape=square&effects=none&name=ic_launcher>)
+
+# License
+
+Licensed under [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/). 🐦

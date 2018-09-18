@@ -25,6 +25,24 @@ export const VAPORBOY_OPTION_SECTIONS = {
       }
     }
   },
+  interface: {
+    name: "Interface",
+    descriptionElement: (
+      <div>Options pertaining to the Interface of vaporboy.</div>
+    ),
+    settings: {
+      hideGamepadInExpandedMode: {
+        name: "Hide Gamepad In Expanded Mode",
+        descriptionElement: (
+          <div>
+            This will force hiding the gamepad in the expanded mode. This is
+            useful when, using a gamepad on mobile.
+          </div>
+        ),
+        type: "boolean"
+      }
+    }
+  },
   performance: {
     name: "Performance",
     descriptionElement: (
