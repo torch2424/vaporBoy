@@ -126,12 +126,14 @@ export default class App extends Component {
       }
     );
 
-    // Setup Cordova
-    loadScript("cordova.js", function(err, script) {
+    // TODO: Setup Cordova
+    /*
+    loadScript('cordova.js', function(err, script) {
       if (!err) {
-        console.log("Loaded Cordova!");
+        console.log('Loaded Cordova!');
       }
-    });
+    })
+    */
   }
 
   // Function to change out layout, called by resize events and things
