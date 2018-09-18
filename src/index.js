@@ -64,7 +64,8 @@ export default class App extends Component {
           layout: {
             ...this.state.layout,
             ...newState
-          }
+          },
+          touchpadKey: this.getNewTouchpadKey()
         });
 
         if (oldExpanded !== newState.expanded) {
@@ -96,7 +97,8 @@ export default class App extends Component {
         ...Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY)
       },
       pubxLayoutSubscriberKey,
-      pubxSettingsSubscriberKey
+      pubxSettingsSubscriberKey,
+      touchpadKey: this.getNewTouchpadKey()
     });
 
     // Updated the options clases
@@ -180,6 +182,15 @@ export default class App extends Component {
     });
   }
 
+  getNewTouchpadKey() {
+    return (
+      "" +
+      Math.random()
+        .toString(36)
+        .substr(1, 9)
+    );
+  }
+
   updateOptionsClasses() {
     // Get our document class list
     const documentClassList = document.documentElement.classList;
@@ -230,7 +241,7 @@ export default class App extends Component {
         <Notification />
         <LoadingModal />
         <div aria-hidden="true">{currentLayout}</div>
-        <Touchpad />
+        <Touchpad key={this.state.touchpadKey} />
       </div>
     );
   }
