@@ -22,8 +22,8 @@
   user-select: none;
 }
 
-// Hide Virtual gamepad on desktop
-.desktop {
+// Mixin to hide the touchpad
+@mixin hide-gamepad() {
   .vaporboy-touchpad {
     .vaporboy-touchpad__button-layout {
       .vaporboy-touchpad__button-layout__b-button,
@@ -35,6 +35,16 @@
       }
     }
   }
+}
+
+// Hide Virtual gamepad on desktop
+.desktop {
+  @include hide-gamepad;
+}
+
+// Hide Virtual gamepad on hide-expanded-gamepad
+.expanded.hide-expanded-gamepad {
+  @include hide-gamepad;
 }
 
 // Add a black stroke to expanded semi transparent expanded buttons

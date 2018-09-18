@@ -68,12 +68,34 @@ export default class App extends Component {
       }
     );
 
+    const pubxSettingsSubscriberKey = Pubx.subscribe(
+      PUBX_CONFIG.VAPORBOY_OPTIONS_KEY,
+      newState => {
+        this.setState({
+          ...this.state,
+          options: {
+            ...this.state.options,
+            ...newState
+          }
+        });
+
+        this.updateOptionsClasses();
+      }
+    );
+
     this.setState({
       layout: {
         ...Pubx.get(PUBX_CONFIG.LAYOUT_KEY)
       },
-      pubxLayoutSubscriberKey
+      options: {
+        ...Pubx.get(PUBX_CONFIG.VAPORBOY_OPTIONS_KEY)
+      },
+      pubxLayoutSubscriberKey,
+      pubxSettingsSubscriberKey
     });
+
+    // Updated the options clases
+    this.updateOptionsClasses();
 
     // Print the beta disclaimer
     Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
@@ -89,28 +111,33 @@ export default class App extends Component {
     const portrait = window.matchMedia("screen and (orientation: portrait)")
       .matches;
 
-    // Clear all of our classes
-    document.documentElement.className = "";
-
     // Get our document class list
     const documentClassList = document.documentElement.classList;
 
     // Add all Media query based on mobile vs desktop
     if (mobile) {
       documentClassList.add("mobile");
+      documentClassList.remove("desktop");
     } else {
+      documentClassList.remove("mobile");
       documentClassList.add("desktop");
     }
     if (landscape) {
       documentClassList.add("landscape");
+    } else {
+      documentClassList.remove("landscape");
     }
     if (portrait) {
       documentClassList.add("portrait");
+    } else {
+      documentClassList.remove("portrait");
     }
 
     // Add our expanded class
     if (this.state.layout && this.state.layout.expanded) {
       documentClassList.add("expanded");
+    } else {
+      documentClassList.remove("expanded");
     }
 
     Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
@@ -118,6 +145,16 @@ export default class App extends Component {
       landscape: landscape && mobile,
       portrait: portrait && mobile
     });
+  }
+
+  updateOptionsClasses() {
+    // Get our document class list
+    const documentClassList = document.documentElement.classList;
+    if (this.state.options.hideGamepadInExpandedMode) {
+      documentClassList.add("hide-expanded-gamepad");
+    } else {
+      documentClassList.remove("hide-expanded-gamepad");
+    }
   }
 
   render() {
