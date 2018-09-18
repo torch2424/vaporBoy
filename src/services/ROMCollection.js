@@ -61,10 +61,13 @@ class ROMCollectionService {
           });
         })
         .catch(error => {
+          // TODO: Unhide this error when no save states
+          /*
           console.error(error);
           Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
             NOTIFICATION_MESSAGES.ERROR_SAVE_STATE
           );
+          */
         });
     };
 
