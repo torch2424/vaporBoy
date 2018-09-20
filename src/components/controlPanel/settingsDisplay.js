@@ -114,6 +114,10 @@ export default class SettingsDisplay extends Component {
           }
 
           this.state.controlPanel.hideControlPanel();
+
+          if (window !== undefined && window.gtag) {
+            gtag("event", "settings_reset");
+          }
         };
 
         // Run the task
@@ -158,6 +162,10 @@ export default class SettingsDisplay extends Component {
           }
 
           this.state.controlPanel.hideControlPanel();
+
+          if (window !== undefined && window.gtag) {
+            gtag("event", "settings_applied");
+          }
         };
 
         // Run the task

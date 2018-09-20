@@ -44,6 +44,10 @@ export default class ControlPanel extends Component {
       },
       pubxControlPanelSubscriberKey
     });
+
+    if (window !== undefined && window.gtag) {
+      gtag("event", "control_panel_opened");
+    }
   }
 
   componentWillUnmount() {

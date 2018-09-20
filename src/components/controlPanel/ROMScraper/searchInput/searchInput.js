@@ -99,6 +99,10 @@ export default class SearchInput extends Component {
           results: [...results]
         });
       });
+
+    if (window !== undefined && window.gtag) {
+      gtag("event", "scraper_search");
+    }
   }
 
   render() {

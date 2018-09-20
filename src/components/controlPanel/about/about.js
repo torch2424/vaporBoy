@@ -9,6 +9,12 @@ export default class About extends Component {
     super();
   }
 
+  componentDidMount() {
+    if (window !== undefined && window.gtag) {
+      gtag("event", "about_opened");
+    }
+  }
+
   render() {
     return (
       <div class="about">

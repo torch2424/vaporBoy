@@ -87,6 +87,10 @@ export default class ROMSourceSelector extends Component {
           ],
           required: true
         });
+
+        if (window !== undefined && window.gtag) {
+          gtag("event", "scraper_show");
+        }
       },
       cancelCallback: () => {
         const playROMTask = async () => {
@@ -96,6 +100,10 @@ export default class ROMSourceSelector extends Component {
             NOTIFICATION_MESSAGES.LOAD_ROM
           );
           this.state.controlPanel.hideControlPanel();
+
+          if (window !== undefined && window.gtag) {
+            gtag("event", "scraper_skip");
+          }
         };
         const playROMPromise = playROMTask();
         playROMPromise.catch(error => {
@@ -200,6 +208,10 @@ export default class ROMSourceSelector extends Component {
     Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(
       loadGoogleDriveFilePromise
     );
+
+    if (window !== undefined && window.gtag) {
+      gtag("event", "google_drive_load");
+    }
   }
 
   viewMyCollection() {

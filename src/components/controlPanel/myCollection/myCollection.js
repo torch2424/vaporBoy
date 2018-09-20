@@ -45,6 +45,10 @@ export default class MyCollection extends Component {
         NOTIFICATION_MESSAGES.LOAD_ROM
       );
       this.state.controlPanel.hideControlPanel();
+
+      if (window !== undefined && window.gtag) {
+        gtag("event", "my_collection_load");
+      }
     };
 
     const loadROMPromise = loadROMTask();
