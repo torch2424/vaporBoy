@@ -124,6 +124,9 @@ export default class App extends Component {
           }
           gtag("js", new Date());
           gtag("config", "UA-125157178-1");
+
+          // Add analytics to window
+          window.gtag = gtag;
         }
       }
     );

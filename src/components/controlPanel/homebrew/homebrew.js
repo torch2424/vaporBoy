@@ -34,6 +34,10 @@ export default class Homebrew extends Component {
         NOTIFICATION_MESSAGES.LOAD_ROM
       );
       this.state.controlPanel.hideControlPanel();
+
+      if (window !== undefined && window.gtag) {
+        gtag("event", "homebrew_load");
+      }
     };
 
     const loadHomebrewPromise = loadHomebrewTask();

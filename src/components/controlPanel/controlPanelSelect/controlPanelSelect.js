@@ -153,6 +153,9 @@ export default class ControlPanelSelect extends Component {
   }
 
   reloadVaporBoy() {
+    if (window !== undefined && window.gtag) {
+      gtag("event", "reload");
+    }
     window.location.reload(true);
   }
 

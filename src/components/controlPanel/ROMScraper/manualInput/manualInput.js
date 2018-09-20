@@ -58,6 +58,10 @@ export default class ManualInput extends Component {
     };
 
     fileReader.readAsDataURL(event.target.files[0]);
+
+    if (window !== undefined && window.gtag) {
+      gtag("event", "scraper_manual_input_image");
+    }
   }
 
   render() {

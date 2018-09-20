@@ -5,6 +5,12 @@ export default class Install extends Component {
     super();
   }
 
+  componentDidMount() {
+    if (window !== undefined && window.gtag) {
+      gtag("event", "install_opened");
+    }
+  }
+
   render() {
     return (
       <div class="install">
