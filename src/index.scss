@@ -1,3 +1,6 @@
+// Import normalize
+@import "../node_modules/normalize.css/normalize";
+
 // Import the aesthetic components we are using
 @import "../node_modules/aesthetic-css/src/variables";
 @import "../node_modules/aesthetic-css/src/mixins";
@@ -30,11 +33,12 @@
 @import "components/notification/notification";
 @import "components/loadingModal/loadingModal";
 
+// General styles
 html,
 body {
   font: 14px/1.21 "Times New Roman", Times, serif;
   font-weight: 400;
-  margin-top: 10px;
+  margin: 0px;
 
   // Disable pull to refresh on Chrome and Firefox
   // https://stackoverflow.com/questions/36212722/how-to-prevent-pull-down-to-refresh-of-mobile-chrome
@@ -49,6 +53,26 @@ button {
 
 h1 {
   text-align: center;
+}
+
+// Prevent URL Bar moving around on mobile:
+// https://stackoverflow.com/questions/18061308/prevent-address-bar-hiding-in-mobile-browsers
+@media (max-width: 801px) {
+  html,
+  body {
+    height: 100vh;
+    width: 100vw;
+  }
+
+  html {
+    overflow: hidden;
+  }
+
+  body {
+    position: fixed; /* prevent overscroll bounce*/
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; /* iOS velocity scrolling */
+  }
 }
 
 // Mixin to hide the touchpad

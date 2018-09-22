@@ -5,8 +5,8 @@
     top: 0px;
     left: 0px;
 
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 
     z-index: 2;
 
@@ -15,35 +15,19 @@
       top: 0px;
       left: 0px;
 
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
 
       &__expand {
-        position: absolute;
-        z-index: 1;
+        @include expand-touchpad-button();
+        top: initial;
         bottom: 0px;
-        left: 0px;
-
-        width: 8vmax;
-
-        button {
-          background-color: $aesthetic-50-transparent;
-          border: none;
-        }
       }
 
       &__control-panel {
-        position: absolute;
-        z-index: 1;
+        @include control-panel-touchpad-button();
+        top: initial;
         bottom: 0px;
-        right: 0px;
-
-        width: 8vmax;
-
-        button {
-          background-color: $aesthetic-50-transparent;
-          border: none;
-        }
       }
 
       &__b-button {

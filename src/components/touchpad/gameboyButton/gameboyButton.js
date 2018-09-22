@@ -16,7 +16,8 @@ const GRADIENTS = {
     EXPANDED_STOP_COLORS: [
       "rgba(255, 255, 255, 0.5)",
       "rgba(255, 255, 255, 0.5)"
-    ]
+    ],
+    EXPANDED_SAFARI_STOP_OPACITY: ["0.5", "0.5"]
   },
   BUTTON_LETTER_FILL: {
     ID: "ButtonLetterFill",
@@ -25,7 +26,8 @@ const GRADIENTS = {
     EXPANDED_STOP_COLORS: [
       "rgba(150, 150, 150, 0.25)",
       "rgba(150, 150, 150, 0.25)"
-    ]
+    ],
+    EXPANDED_SAFARI_STOP_OPACITY: ["0.25", "0.25"]
   },
   BUTTON_LETTER_STROKE: {
     ID: "ButtonLetterStroke",
@@ -35,7 +37,8 @@ const GRADIENTS = {
       "rgba(200, 200, 200, 0.25)",
       "rgba(200, 200, 200, 0.25)",
       "rgba(200, 200, 200, 0.25)"
-    ]
+    ],
+    EXPANDED_SAFARI_STOP_OPACITY: ["0.25", "0.25", "0.25"]
   }
 };
 
@@ -49,6 +52,19 @@ const getStopColor = (gradientObject, stopColorIndex, isGbc, isExpanded) => {
   }
 
   return gradientObject.GBA_STOP_COLORS[stopColorIndex];
+};
+
+// Stop Opacity is for Safari
+// https://stackoverflow.com/questions/31729206
+const getExpandedSafariStopOpacity = (
+  gradientObject,
+  stopOpacityIndex,
+  isExpanded
+) => {
+  if (isExpanded) {
+    return gradientObject.EXPANDED_SAFARI_STOP_OPACITY[stopOpacityIndex];
+  }
+  return "1.0";
 };
 
 export default class GameboyButton extends Component {
@@ -89,16 +105,54 @@ export default class GameboyButton extends Component {
     WasmBoy.removeTouchInput(this.state.keyMapButton, this.state.gamepadId);
   }
 
-  getButtonText() {
-    if (
-      this.props.button &&
-      this.props.button !== "start" &&
-      this.props.button !== "select"
-    ) {
+  isExpandedStartSelect(isExpanded) {
+    return (
+      (this.props.button === "start" || this.props.button === "select") &&
+      isExpanded
+    );
+  }
+
+  getButtonText(isExpanded) {
+    if (this.props.button) {
+      // Don't return if not expanded start/select
+      if (
+        (this.props.button === "start" || this.props.button === "select") &&
+        !isExpanded
+      ) {
+        return "";
+      }
+
       return this.props.button;
     }
 
     return "";
+  }
+
+  isExpandedStartSelect(isExpanded) {
+    return (
+      (this.props.button === "start" || this.props.button === "select") &&
+      isExpanded
+    );
+  }
+
+  getButtonTextX(isExpanded) {
+    const defaultX = "25";
+
+    if (this.isExpandedStartSelect(isExpanded)) {
+      return "20";
+    }
+
+    return defaultX;
+  }
+
+  getButtonTextY(isExpanded) {
+    const defaultY = "80";
+
+    if (this.isExpandedStartSelect(isExpanded)) {
+      return "85";
+    }
+
+    return defaultY;
   }
 
   render() {
@@ -189,6 +243,11 @@ export default class GameboyButton extends Component {
                   isGbc,
                   isExpanded
                 )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_BACKGROUND_FILL,
+                  0,
+                  isExpanded
+                )}
               />
               <stop
                 offset="100%"
@@ -196,6 +255,11 @@ export default class GameboyButton extends Component {
                   GRADIENTS.BUTTON_BACKGROUND_FILL,
                   1,
                   isGbc,
+                  isExpanded
+                )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_BACKGROUND_FILL,
+                  1,
                   isExpanded
                 )}
               />
@@ -217,13 +281,23 @@ export default class GameboyButton extends Component {
                   isGbc,
                   isExpanded
                 )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_LETTER_FILL,
+                  0,
+                  isExpanded
+                )}
               />
               <stop
                 offset="100%"
                 stop-color={getStopColor(
                   GRADIENTS.BUTTON_LETTER_FILL,
-                  0,
+                  1,
                   isGbc,
+                  isExpanded
+                )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_LETTER_FILL,
+                  1,
                   isExpanded
                 )}
               />
@@ -245,6 +319,11 @@ export default class GameboyButton extends Component {
                   isGbc,
                   isExpanded
                 )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_LETTER_STROKE,
+                  0,
+                  isExpanded
+                )}
               />
               <stop
                 offset="75%"
@@ -254,6 +333,11 @@ export default class GameboyButton extends Component {
                   isGbc,
                   isExpanded
                 )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_LETTER_STROKE,
+                  1,
+                  isExpanded
+                )}
               />
               <stop
                 offset="100%"
@@ -261,6 +345,11 @@ export default class GameboyButton extends Component {
                   GRADIENTS.BUTTON_LETTER_STROKE,
                   2,
                   isGbc,
+                  isExpanded
+                )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_LETTER_STROKE,
+                  2,
                   isExpanded
                 )}
               />
@@ -277,12 +366,12 @@ export default class GameboyButton extends Component {
             fill={`url(#${GRADIENTS.BUTTON_BACKGROUND_FILL.ID})`}
           />
           <text
-            x="25"
-            y="80"
+            x={this.getButtonTextX(isExpanded)}
+            y={this.getButtonTextY(isExpanded)}
             fill={`url(#${GRADIENTS.BUTTON_LETTER_FILL.ID})`}
             stroke={`url(#${GRADIENTS.BUTTON_LETTER_STROKE.ID})`}
           >
-            {this.getButtonText()}
+            {this.getButtonText(isExpanded)}
           </text>
         </svg>
 
