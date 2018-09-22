@@ -33,16 +33,16 @@ export default class Touchpad extends Component {
   render() {
     return (
       <div class="vaporboy-touchpad">
+        {/* VaporBoy specific buttons */}
+        <div class="vaporboy-touchpad__expand">
+          <ExpandButton onClick={() => this.toggleExpand()} />
+        </div>
+
+        <div class="vaporboy-touchpad__control-panel">
+          <ControlPanelButton onClick={() => this.showControlPanel()} />
+        </div>
+
         <div className="vaporboy-touchpad__button-layout">
-          {/* VaporBoy specific buttons */}
-          <div class="vaporboy-touchpad__button-layout__expand">
-            <ExpandButton onClick={() => this.toggleExpand()} />
-          </div>
-
-          <div class="vaporboy-touchpad__button-layout__control-panel">
-            <ControlPanelButton onClick={() => this.showControlPanel()} />
-          </div>
-
           {/* Gameboy Buttons */}
           <div
             class="vaporboy-touchpad__button-layout__b-button"

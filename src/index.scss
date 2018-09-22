@@ -64,6 +64,19 @@ h1 {
     width: 100vw;
   }
 
+  // Chrome mobile with URL bar does height 100% different than 100vh
+  // Move the touchpad down if mobile, portrait, not expanded, and chrome
+  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+    .mobile.portrait .vaporboy-touchpad {
+      overflow: hidden;
+    }
+    .mobile.portrait:not(.expanded)
+      .vaporboy-touchpad
+      .vaporboy-touchpad__button-layout {
+      top: 36px !important;
+    }
+  }
+
   html {
     overflow: hidden;
   }

@@ -10,6 +10,18 @@
 
     z-index: 2;
 
+    &__expand {
+      @include expand-touchpad-button();
+      top: initial;
+      bottom: 0px;
+    }
+
+    &__control-panel {
+      @include control-panel-touchpad-button();
+      top: initial;
+      bottom: 0px;
+    }
+
     &__button-layout {
       position: relative;
       top: 0px;
@@ -17,18 +29,6 @@
 
       width: 100%;
       height: 100%;
-
-      &__expand {
-        @include expand-touchpad-button();
-        top: initial;
-        bottom: 0px;
-      }
-
-      &__control-panel {
-        @include control-panel-touchpad-button();
-        top: initial;
-        bottom: 0px;
-      }
 
       &__b-button {
         width: 20vw;

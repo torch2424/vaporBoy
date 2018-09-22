@@ -129,6 +129,13 @@ export default class WasmBoyCanvas extends Component {
 
       const wasmboyConfig = {
         ...vaporboyOptions,
+        onPlay: () => {
+          // This is to show/hide the
+          // Insert cartridge
+          this.setState({
+            ...this.state
+          });
+        },
         saveStateCallback: saveStateObject => {
           // Fire off analytics ping, for session length
           if (window !== undefined && window.gtag) {
