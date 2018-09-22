@@ -3,8 +3,8 @@
   top: 0px;
   left: 0px;
 
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 
   display: flex;
   justify-content: flex-start;
@@ -78,8 +78,8 @@
     top: 0px;
     left: 0px;
 
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 
     z-index: 1;
 
@@ -88,8 +88,8 @@
       top: 0px;
       left: 0px;
 
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
 
       .com-label {
         display: flex;
@@ -134,11 +134,15 @@
         display: grid;
         grid-template-columns: repeat(8, 10px);
         grid-template-rows: repeat(8, 10px);
-        grid-gap: 0.1vw 0.1vw;
+        grid-gap: 0.01vh 0.01vh;
 
         div {
-          width: 2.5vw;
-          height: 2.5vw;
+          width: 1.5vh;
+          height: 1.5vh;
+          min-height: 5px;
+          min-width: 5px;
+          max-height: 10px;
+          max-width: 10px;
           border-radius: 5px;
           background-color: black;
 

@@ -16,7 +16,8 @@ const GRADIENTS = {
     EXPANDED_STOP_COLORS: [
       "rgba(255, 255, 255, 0.5)",
       "rgba(255, 255, 255, 0.5)"
-    ]
+    ],
+    EXPANDED_SAFARI_STOP_OPACITY: ["0.5", "0.5"]
   },
   BUTTON_TRIANGLE_FILL_UP: {
     ID: "ButtonTriangleFillUp",
@@ -25,7 +26,8 @@ const GRADIENTS = {
     EXPANDED_STOP_COLORS: [
       "rgba(175, 175, 175, 0.25)",
       "rgba(175, 175, 175, 0.25)"
-    ]
+    ],
+    EXPANDED_SAFARI_STOP_OPACITY: ["0.25", "0.25"]
   },
   BUTTON_TRIANGLE_FILL_DOWN: {
     ID: "ButtonTriangleFillDown",
@@ -34,7 +36,8 @@ const GRADIENTS = {
     EXPANDED_STOP_COLORS: [
       "rgba(175, 175, 175, 0.25)",
       "rgba(175, 175, 175, 0.25)"
-    ]
+    ],
+    EXPANDED_SAFARI_STOP_OPACITY: ["0.25", "0.25"]
   },
   BUTTON_TRIANGLE_FILL_HORIZONTAL: {
     ID: "ButtonTriangleFillHorizontal",
@@ -44,7 +47,9 @@ const GRADIENTS = {
       "rgba(175, 175, 175, 0.25)",
       "rgba(175, 175, 175, 0.25)",
       "rgba(175, 175, 175, 0.25)"
-    ]
+    ],
+    EXPANDED_SAFARI_STOP_OPACITY: ["0.25", "0.25", "0.25"],
+    EXPANDED_SAFARI_STOP_OPACITY: ["0.25", "0.25", "0.25"]
   },
   BUTTON_TRIANGLE_STROKE: {
     ID: "ButtonTriangleStroke",
@@ -54,7 +59,8 @@ const GRADIENTS = {
       "rgba(175, 175, 175, 0.25)",
       "rgba(175, 175, 175, 0.25)",
       "rgba(175, 175, 175, 0.25)"
-    ]
+    ],
+    EXPANDED_SAFARI_STOP_OPACITY: ["0.25", "0.25", "0.25"]
   }
 };
 
@@ -68,6 +74,19 @@ const getStopColor = (gradientObject, stopColorIndex, isGbc, isExpanded) => {
   }
 
   return gradientObject.GBA_STOP_COLORS[stopColorIndex];
+};
+
+// Stop Opacity is for Safari
+// https://stackoverflow.com/questions/31729206
+const getExpandedSafariStopOpacity = (
+  gradientObject,
+  stopOpacityIndex,
+  isExpanded
+) => {
+  if (isExpanded) {
+    return gradientObject.EXPANDED_SAFARI_STOP_OPACITY[stopOpacityIndex];
+  }
+  return "1.0";
 };
 
 export default class GameboyDpad extends Component {
@@ -169,6 +188,11 @@ export default class GameboyDpad extends Component {
                   isGbc,
                   isExpanded
                 )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_BACKGROUND_FILL,
+                  0,
+                  isExpanded
+                )}
               />
               <stop
                 offset="100%"
@@ -176,6 +200,11 @@ export default class GameboyDpad extends Component {
                   GRADIENTS.BUTTON_BACKGROUND_FILL,
                   1,
                   isGbc,
+                  isExpanded
+                )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_BACKGROUND_FILL,
+                  1,
                   isExpanded
                 )}
               />
@@ -194,6 +223,11 @@ export default class GameboyDpad extends Component {
                   isGbc,
                   isExpanded
                 )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_TRIANGLE_FILL_UP,
+                  0,
+                  isExpanded
+                )}
               />
               <stop
                 offset="100%"
@@ -201,6 +235,11 @@ export default class GameboyDpad extends Component {
                   GRADIENTS.BUTTON_TRIANGLE_FILL_UP,
                   1,
                   isGbc,
+                  isExpanded
+                )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_TRIANGLE_FILL_UP,
+                  1,
                   isExpanded
                 )}
               />
@@ -219,6 +258,11 @@ export default class GameboyDpad extends Component {
                   isGbc,
                   isExpanded
                 )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_TRIANGLE_FILL_DOWN,
+                  0,
+                  isExpanded
+                )}
               />
               <stop
                 offset="100%"
@@ -226,6 +270,11 @@ export default class GameboyDpad extends Component {
                   GRADIENTS.BUTTON_TRIANGLE_FILL_DOWN,
                   1,
                   isGbc,
+                  isExpanded
+                )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_TRIANGLE_FILL_DOWN,
+                  1,
                   isExpanded
                 )}
               />
@@ -244,6 +293,11 @@ export default class GameboyDpad extends Component {
                   isGbc,
                   isExpanded
                 )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_TRIANGLE_FILL_HORIZONTAL,
+                  0,
+                  isExpanded
+                )}
               />
               <stop
                 offset="75%"
@@ -253,6 +307,11 @@ export default class GameboyDpad extends Component {
                   isGbc,
                   isExpanded
                 )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_TRIANGLE_FILL_HORIZONTAL,
+                  1,
+                  isExpanded
+                )}
               />
               <stop
                 offset="100%"
@@ -260,6 +319,11 @@ export default class GameboyDpad extends Component {
                   GRADIENTS.BUTTON_TRIANGLE_FILL_HORIZONTAL,
                   2,
                   isGbc,
+                  isExpanded
+                )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_TRIANGLE_FILL_HORIZONTAL,
+                  2,
                   isExpanded
                 )}
               />
@@ -278,6 +342,11 @@ export default class GameboyDpad extends Component {
                   isGbc,
                   isExpanded
                 )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_TRIANGLE_STROKE,
+                  0,
+                  isExpanded
+                )}
               />
               <stop
                 offset="75%"
@@ -287,6 +356,11 @@ export default class GameboyDpad extends Component {
                   isGbc,
                   isExpanded
                 )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_TRIANGLE_STROKE,
+                  1,
+                  isExpanded
+                )}
               />
               <stop
                 offset="100%"
@@ -294,6 +368,11 @@ export default class GameboyDpad extends Component {
                   GRADIENTS.BUTTON_TRIANGLE_STROKE,
                   2,
                   isGbc,
+                  isExpanded
+                )}
+                stop-opacity={getExpandedSafariStopOpacity(
+                  GRADIENTS.BUTTON_TRIANGLE_STROKE,
+                  2,
                   isExpanded
                 )}
               />

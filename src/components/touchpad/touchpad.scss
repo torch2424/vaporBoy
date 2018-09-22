@@ -4,12 +4,58 @@
 @import "gameboyButton/gameboyButton";
 @import "gameboyDpad/gameboyDpad";
 
-// Import our layouts
-@import "touchpadMobilePortrait";
-@import "touchpadMobileLandscape";
-@import "touchpadExpandedLandscape";
-@import "touchpadExpandedPortrait";
-@import "touchpadExpandedDesktop";
+// Mixins for expanded and control panel buttons
+@mixin expand-touchpad-button() {
+  position: absolute;
+  z-index: 1;
+  top: 0px;
+  left: 0px;
+
+  height: 13vw;
+  width: 13vw;
+  max-width: 50px;
+  max-height: 50px;
+
+  button {
+    height: 100%;
+    width: 100%;
+
+    padding: 0px;
+    padding-top: 0px;
+    padding-right: 5px;
+    padding-bottom: 0px;
+    padding-left: 5px;
+
+    background-color: $aesthetic-50-transparent;
+    border: none;
+  }
+}
+
+@mixin control-panel-touchpad-button() {
+  position: absolute;
+  z-index: 1;
+  top: 0px;
+  right: 0px;
+
+  height: 13vw;
+  width: 13vw;
+  max-width: 50px;
+  max-height: 50px;
+
+  button {
+    height: 100%;
+    width: 100%;
+
+    padding: 0px;
+    padding-top: 0px;
+    padding-right: 5px;
+    padding-bottom: 0px;
+    padding-left: 5px;
+
+    background-color: $aesthetic-50-transparent;
+    border: none;
+  }
+}
 
 // Stop allowing elements on the touch pad from being selected
 // https://stackoverflow.com/questions/21003535/anyway-to-prevent-the-blue-highlighting-of-elements-in-chrome-when-clicking-quic
@@ -25,8 +71,28 @@
 // Add a black stroke to expanded semi transparent expanded buttons
 .expanded {
   // Add black stroke around semi white background
+  .gameboy-button svg,
+  .gameboy-dpad svg {
+    padding: 3px;
+    overflow: visible;
+  }
+
   .gameboy-button svg rect,
   .gameboy-dpad svg path {
     stroke: #000;
+    stroke-width: 2px;
+  }
+
+  // Show Start/Select
+  .gameboy-button--start svg text,
+  .gameboy-button--select svg text {
+    font-size: 35px;
   }
 }
+
+// Import our layouts
+@import "touchpadMobilePortrait";
+@import "touchpadMobileLandscape";
+@import "touchpadExpandedLandscape";
+@import "touchpadExpandedPortrait";
+@import "touchpadExpandedDesktop";

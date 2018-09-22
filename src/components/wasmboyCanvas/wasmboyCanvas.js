@@ -129,7 +129,19 @@ export default class WasmBoyCanvas extends Component {
 
       const wasmboyConfig = {
         ...vaporboyOptions,
+        onPlay: () => {
+          // This is to show/hide the
+          // Insert cartridge
+          this.setState({
+            ...this.state
+          });
+        },
         saveStateCallback: saveStateObject => {
+          // Fire off analytics ping, for session length
+          if (window !== undefined && window.gtag) {
+            gtag("event", "save_state_callback");
+          }
+
           // Function called everytime a savestate occurs
           // Used by the WasmBoySystemControls to show screenshots on save states
           if (WasmBoy.getCanvas()) {

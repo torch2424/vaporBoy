@@ -145,13 +145,18 @@ export default class SearchInput extends Component {
             placeholder="Search for a GB or GBC game..."
             aria-label="Input text to search for a GB or GBC game..."
             value={this.state.currentSearch}
-            onChange={e =>
+            onChange={event =>
               this.setState({
                 ...this.state,
                 currentSearch: event.target.value
               })
             }
             onKeyPress={event => {
+              // Need to set state first, or else will eat enters.
+              this.setState({
+                ...this.state,
+                currentSearch: event.target.value
+              });
               if (event.key == "Enter") {
                 this.performSearch();
               }
@@ -159,7 +164,7 @@ export default class SearchInput extends Component {
           />
           <div class="aesthetic-windows-95-button">
             <button
-              onClick={e => this.performSearch()}
+              onClick={event => this.performSearch()}
               aria-label="Execute ROM Info Search"
             >
               Search
