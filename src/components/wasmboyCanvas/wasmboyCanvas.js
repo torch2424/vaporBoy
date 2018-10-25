@@ -132,8 +132,25 @@ export default class WasmBoyCanvas extends Component {
         onPlay: () => {
           // This is to show/hide the
           // Insert cartridge
-          this.setState({
-            ...this.state
+          setTimeout(() => {
+            this.setState(
+              {
+                ...this.state
+              },
+              100
+            );
+          });
+        },
+        onPause: () => {
+          // This is to show/hide the
+          // Insert cartridge
+          setTimeout(() => {
+            this.setState(
+              {
+                ...this.state
+              },
+              100
+            );
           });
         },
         saveStateCallback: saveStateObject => {
@@ -233,6 +250,12 @@ export default class WasmBoyCanvas extends Component {
       );
     }
 
+    // Get a pause overlay
+    let pauseOverlay = <div />;
+    if (WasmBoy.isLoadedAndStarted() && WasmBoy.isPaused()) {
+      pauseOverlay = <div class="wasmboy-canvas__pause-overlay">Paused ⏸️</div>;
+    }
+
     return (
       <div class={canvasClasses.join(" ")} aria-hidden="true">
         <div class="wasmboy-canvas__canvas-container">
@@ -240,6 +263,7 @@ export default class WasmBoyCanvas extends Component {
         </div>
         {insertCartridge}
         {debugOverlay}
+        {pauseOverlay}
       </div>
     );
   }

@@ -69,6 +69,19 @@
     z-index: 4;
   }
 
+  &__pause-overlay {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+
+    padding: 5px;
+
+    background-color: $aesthetic-50-transparent;
+    color: $aesthetic-white;
+
+    z-index: 5;
+  }
+
   &__canvas-container {
     position: absolute;
     top: 0px;
