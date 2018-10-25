@@ -52,7 +52,9 @@ export default class Notification extends Component {
     ) {
       return;
     }
-    const focusElement = document.querySelector(".notification button");
+    const focusElement = document.querySelector(
+      ".notification .aesthetic-notification-content"
+    );
     if (focusElement) {
       focusElement.focus();
     }
@@ -104,9 +106,9 @@ export default class Notification extends Component {
           >
             X
           </button>
-          <div class="aesthetic-notification-content">
+          <p class="aesthetic-notification-content">
             {this.state.notification.text}
-          </div>
+          </p>
         </div>
       </div>
     );
