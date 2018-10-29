@@ -2,7 +2,7 @@
   "name": "vaporBoy",
   "displayName": "VaporBoy",
   "author": "Aaron Turner",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "license": "Apache-2.0",
   "description": "Coming soon!",
   "main": "main.js",
@@ -76,7 +76,7 @@
     "preact-compat": "^3.17.0",
     "screenfull": "^3.3.2",
     "tunajs": "^1.0.1",
-    "wasmboy": "0.2.0"
+    "wasmboy": "0.2.1"
   },
   "devDependencies": {
     "chokidar-cli": "^1.2.0",

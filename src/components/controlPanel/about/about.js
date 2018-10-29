@@ -21,6 +21,12 @@ export default class About extends Component {
         <h1>About</h1>
         <img src={getVaporBoyLogo()} />
         <p class="version">Vaporboy Version {packageJson.version}</p>
+        <p class="version">
+          <a href="https://github.com/torch2424/wasmBoy" target="_blank">
+            WasmBoy
+          </a>{" "}
+          Version {packageJson.dependencies.wasmboy}
+        </p>
         <p>
           <b>Vaporboy</b> is a Gameboy & Gameboy Color{" "}
           <a
