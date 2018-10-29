@@ -113,6 +113,7 @@ export default class WasmBoyCanvas extends Component {
   }
 
   handleWasmBoyIsPlayingChange() {
+    WasmBoy.resumeAudioContext();
     // Set timeout to wait on the event queue for playpause to take effect
     setTimeout(() => {
       this.setState({
