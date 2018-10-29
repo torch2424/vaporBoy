@@ -112,6 +112,15 @@ export default class WasmBoyCanvas extends Component {
     });
   }
 
+  handleWasmBoyIsPlayingChange() {
+    // Set timeout to wait on the event queue for playpause to take effect
+    setTimeout(() => {
+      this.setState({
+        ...this.state
+      });
+    }, 50);
+  }
+
   configWasmBoy(canvasElement) {
     const wasmBoyConfigTask = async () => {
       const vaporboyOptions = {
@@ -130,28 +139,10 @@ export default class WasmBoyCanvas extends Component {
       const wasmboyConfig = {
         ...vaporboyOptions,
         onPlay: () => {
-          // This is to show/hide the
-          // Insert cartridge
-          setTimeout(() => {
-            this.setState(
-              {
-                ...this.state
-              },
-              100
-            );
-          });
+          this.handleWasmBoyIsPlayingChange();
         },
         onPause: () => {
-          // This is to show/hide the
-          // Insert cartridge
-          setTimeout(() => {
-            this.setState(
-              {
-                ...this.state
-              },
-              100
-            );
-          });
+          this.handleWasmBoyIsPlayingChange();
         },
         saveStateCallback: saveStateObject => {
           // Fire off analytics ping, for session length

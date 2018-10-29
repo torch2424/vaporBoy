@@ -69,6 +69,9 @@ export default class VaporBoyDesktop extends Component {
     Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
       show: true
     });
+
+    // Calling resume Audio Context here, as it is always used on desktop
+    WasmBoy.resumeAudioContext();
   }
 
   toggleExpand() {
