@@ -1,5 +1,6 @@
 // Desktop Layout for vaporboy
 import { Component } from "preact";
+import { WasmBoy } from "wasmboy";
 
 import { Pubx } from "../../services/pubx";
 import { PUBX_CONFIG } from "../../pubx.config";
@@ -28,6 +29,8 @@ export default class Touchpad extends Component {
     Pubx.publish(PUBX_CONFIG.CONTROL_PANEL_KEY, {
       show: true
     });
+    // Calling resume Audio Context here, as it is always touched on mobile
+    WasmBoy.resumeAudioContext();
   }
 
   render() {
