@@ -34,7 +34,7 @@
     "preact-compat": "^3.17.0",
     "screenfull": "^3.3.2",
     "tunajs": "^1.0.1",
-    "wasmboy": "0.3.2"
+    "wasmboy": "0.4.1"
   },
   "devDependencies": {
     "chokidar-cli": "^1.2.0",
