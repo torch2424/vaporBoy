@@ -28,8 +28,6 @@ An _A E S T H E T I C_ GB / GBC Emulator PWA. Powered by [wasmBoy](https://githu
 
 * Built as a [Progressive Web App(PWA)](https://developers.google.com/web/progressive-web-apps/), using [Preact](https://github.com/developit/preact). ⚛️
 
-* **TODO** Wrapped in [Electron](https://electronjs.org/) with [electron-builder](https://github.com/electron-userland/electron-builder), and [Cordova](https://cordova.apache.org/) to offer standalone alternative "app" experiences on Windows, Mac, Linux, Android, and iOS. 🐱🐦
-
 * Feel all of the _N O S T A L G I A_, and appreciate the _A E S T H E T I C_ of [aesthetic-css](https://github.com/torch2424/aesthetic-css). 📼💜
 
 * Upload your ROMs from anywhere. Local Device, Pre-loaded Open Source ROMS, and even cloud services! 🍺☁️
