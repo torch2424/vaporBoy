@@ -38,6 +38,8 @@ An _A E S T H E T I C_ GB / GBC Emulator PWA. Powered by [wasmBoy](https://githu
 
 * Supports all major browsers (Chrome, Firefox, Safari). Meaning, you can play gameboy on your iPhone! 🌐
 
+* Installable using Desktop PWA Support and Mobile Browser's Add to Homescreen. 🖥️📱
+
 * Have complete control of your emulation and performance with configurable settings and save states. ⚙️💾
 
 * Experience the gameboy like you never have before, with Video/Audio altering VaporBoy effects. 🌈🔈📹
