@@ -20,19 +20,25 @@ import {
 export default class WasmBoyCanvas extends Component {
   constructor() {
     super();
-    this.setState({});
+    this.setState({
+      isPlaying: false
+    });
+
+    // Not setting on state, as this is used internally
+    // For our debug menu update loop.
+    this.isMounted = false;
   }
 
   componentDidMount() {
     // Get our HTML5 Canvas element
-    const canvasElement = document.querySelector("#wasmboy-canvas");
+    const canvasElement = this.base.querySelector("#wasmboy-canvas");
 
     // Check if we are already ready and initialized
     // (this is to avoid resetting a game on layout changes)
     if (!WasmBoy.isReady()) {
       const configPromise = this.configWasmBoy(canvasElement);
       Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(configPromise);
-    } else if (WasmBoy.isPlaying()) {
+    } else if (WasmBoy.isReady() && WasmBoy.isLoadedAndStarted()) {
       const setCanvasTask = async () => {
         await WasmBoy.setCanvas(canvasElement);
         await WasmBoy.play();
@@ -66,6 +72,7 @@ export default class WasmBoyCanvas extends Component {
       }
     );
 
+    this.isMounted = true;
     this.setState({
       ...this.state,
       options: {
@@ -76,13 +83,12 @@ export default class WasmBoyCanvas extends Component {
       },
       pubxVaporBoyOptionsSubscriberKey,
       pubxVaporBoyEffectsSubscriberKey,
-      isMounted: true,
       vaporboyImage: getVaporBoyLogo()
     });
 
     // Re-render every second for the debug menu
     const debugMenuUpdate = () => {
-      if (this.state.isMounted) {
+      if (this.isMounted) {
         setTimeout(() => {
           if (this.state.options.showDebugMenu) {
             this.setState({
@@ -106,19 +112,14 @@ export default class WasmBoyCanvas extends Component {
       this.state.pubxVaporBoyEffectsSubscriberKey
     );
 
-    this.setState({
-      ...this.state,
-      isMounted: false
-    });
+    this.isMounted = false;
   }
 
-  handleWasmBoyIsPlayingChange() {
-    // Set timeout to wait on the event queue for playpause to take effect
-    setTimeout(() => {
-      this.setState({
-        ...this.state
-      });
-    }, 50);
+  handleWasmBoyIsPlayingChange(isPlaying) {
+    this.setState({
+      ...this.state,
+      isPlaying
+    });
   }
 
   configWasmBoy(canvasElement) {
@@ -139,10 +140,10 @@ export default class WasmBoyCanvas extends Component {
       const wasmboyConfig = {
         ...vaporboyOptions,
         onPlay: () => {
-          this.handleWasmBoyIsPlayingChange();
+          this.handleWasmBoyIsPlayingChange(true);
         },
         onPause: () => {
-          this.handleWasmBoyIsPlayingChange();
+          this.handleWasmBoyIsPlayingChange(false);
         },
         saveStateCallback: saveStateObject => {
           // Fire off analytics ping, for session length
@@ -242,8 +243,10 @@ export default class WasmBoyCanvas extends Component {
     }
 
     // Get a pause overlay
+    // TODO: Use WasmBoy.isPlaying once this is fixed:
+    // https://github.com/torch2424/wasmboy/issues/292
     let pauseOverlay = <div />;
-    if (WasmBoy.isLoadedAndStarted() && WasmBoy.isPaused()) {
+    if (WasmBoy.isLoadedAndStarted() && !this.state.isPlaying) {
       pauseOverlay = <div class="wasmboy-canvas__pause-overlay">Paused ⏸️</div>;
     }
 
