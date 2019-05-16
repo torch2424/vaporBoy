@@ -20,9 +20,7 @@ import {
 export default class WasmBoyCanvas extends Component {
   constructor() {
     super();
-    this.setState({
-      isPlaying: false
-    });
+    this.setState({});
 
     // Not setting on state, as this is used internally
     // For our debug menu update loop.
@@ -42,6 +40,7 @@ export default class WasmBoyCanvas extends Component {
       const setCanvasTask = async () => {
         await WasmBoy.setCanvas(canvasElement);
         await WasmBoy.play();
+        this.handleWasmBoyIsPlayingChange();
       };
       Pubx.get(PUBX_CONFIG.LOADING_KEY).addPromiseToStack(setCanvasTask());
     }
@@ -115,11 +114,21 @@ export default class WasmBoyCanvas extends Component {
     this.isMounted = false;
   }
 
-  handleWasmBoyIsPlayingChange(isPlaying) {
-    this.setState({
-      ...this.state,
-      isPlaying
-    });
+  handleWasmBoyIsPlayingChange() {
+    // TODO: Remove setTimeout hack for
+    // WasmBoy.isPlaying once this is fixed:
+    // https://github.com/torch2424/wasmboy/issues/292
+    setTimeout(() => {
+      const pauseOverlay = document.querySelector(
+        ".wasmboy-canvas__pause-overlay"
+      );
+
+      if (WasmBoy.isLoadedAndStarted() && WasmBoy.isPlaying()) {
+        pauseOverlay.classList.add("wasmboy-canvas__pause-overlay--hidden");
+      } else {
+        pauseOverlay.classList.remove("wasmboy-canvas__pause-overlay--hidden");
+      }
+    }, 50);
   }
 
   configWasmBoy(canvasElement) {
@@ -140,10 +149,10 @@ export default class WasmBoyCanvas extends Component {
       const wasmboyConfig = {
         ...vaporboyOptions,
         onPlay: () => {
-          this.handleWasmBoyIsPlayingChange(true);
+          this.handleWasmBoyIsPlayingChange();
         },
         onPause: () => {
-          this.handleWasmBoyIsPlayingChange(false);
+          this.handleWasmBoyIsPlayingChange();
         },
         saveStateCallback: saveStateObject => {
           // Fire off analytics ping, for session length
@@ -242,14 +251,6 @@ export default class WasmBoyCanvas extends Component {
       );
     }
 
-    // Get a pause overlay
-    // TODO: Use WasmBoy.isPlaying once this is fixed:
-    // https://github.com/torch2424/wasmboy/issues/292
-    let pauseOverlay = <div />;
-    if (WasmBoy.isLoadedAndStarted() && !this.state.isPlaying) {
-      pauseOverlay = <div class="wasmboy-canvas__pause-overlay">Paused ⏸️</div>;
-    }
-
     return (
       <div class={canvasClasses.join(" ")} aria-hidden="true">
         <div class="wasmboy-canvas__canvas-container">
@@ -257,7 +258,9 @@ export default class WasmBoyCanvas extends Component {
         </div>
         {insertCartridge}
         {debugOverlay}
-        {pauseOverlay}
+        <div class="wasmboy-canvas__pause-overlay wasmboy-canvas__pause-overlay--hidden">
+          Paused ⏸️
+        </div>;
       </div>
     );
   }

@@ -80,6 +80,10 @@
     color: $aesthetic-white;
 
     z-index: 5;
+
+    &--hidden {
+      display: none;
+    }
   }
 
   &__canvas-container {
@@ -101,4 +105,10 @@
       height: 100%;
     }
   }
+}
+
+.portrait.expanded .wasmboy-canvas .wasmboy-canvas__pause-overlay,
+.portrait.expanded .wasmboy-canvas .wasmboy-canvas__debug-overlay {
+  top: 0px;
+  bottom: initial;
 }

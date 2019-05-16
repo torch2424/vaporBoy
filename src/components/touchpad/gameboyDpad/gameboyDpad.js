@@ -95,11 +95,7 @@ export default class GameboyDpad extends Component {
 
     this.setState({
       ...this.state,
-      elementId: getInputId(),
-      upGamepadId: undefined,
-      downGamepadId: undefined,
-      leftGamepadId: undefined,
-      rightGamepadId: undefined
+      elementId: getInputId()
     });
   }
 
@@ -107,32 +103,12 @@ export default class GameboyDpad extends Component {
     const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
 
     const touchElement = document.getElementById(this.state.elementId);
-    const upGamepadId = WasmBoy.addTouchInput("UP", touchElement, "DPAD", "UP");
-    const downGamepadId = WasmBoy.addTouchInput(
-      "DOWN",
-      touchElement,
-      "DPAD",
-      "DOWN"
-    );
-    const leftGamepadId = WasmBoy.addTouchInput(
-      "LEFT",
-      touchElement,
-      "DPAD",
-      "LEFT"
-    );
-    const rightGamepadId = WasmBoy.addTouchInput(
-      "RIGHT",
-      touchElement,
-      "DPAD",
-      "RIGHT"
-    );
+    WasmBoy.ResponsiveGamepad.TouchInput.addDpadInput(touchElement, {
+      allowMultipleDirections: true
+    });
 
     this.setState({
       ...this.state,
-      upGamepadId: upGamepadId,
-      downGamepadId: downGamepadId,
-      leftGamepadId: leftGamepadId,
-      rightGamepadId: rightGamepadId,
       layout: {
         ...pubxLayoutState
       }
@@ -140,10 +116,8 @@ export default class GameboyDpad extends Component {
   }
 
   componentWillUnmount() {
-    WasmBoy.removeTouchInput("UP", this.state.upGamepadId);
-    WasmBoy.removeTouchInput("DOWN", this.state.downGamepadId);
-    WasmBoy.removeTouchInput("LEFT", this.state.leftGamepadId);
-    WasmBoy.removeTouchInput("RIGHT", this.state.rightGamepadId);
+    // TODO: Allow removing touch inputs
+    // https://github.com/torch2424/responsive-gamepad/issues/26
   }
 
   render() {
