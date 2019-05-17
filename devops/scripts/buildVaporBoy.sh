@@ -24,6 +24,7 @@ if [ $? -eq 0 ]; then
    rm -rf public
    mkdir -p public
    cp -r www/* public/
+   cp -r legacy/* public/
 else
     echo "Failed Building vaporBoy"
 fi
