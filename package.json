@@ -9,15 +9,16 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "npm run preact:dev",
+    "build": "npm run preact:build",
     "serve":
       "echo \"NOTE: This is meant for testing build output, not a development server...\" && sleep 2 && npm run preact:serve",
-    "precommit": "pretty-quick --staged",
+    "precommit": "pretty-quick --staged --pattern \"!legacy/**/*\"",
     "prettier:fix":
-      "npx prettier --write '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*'",
+      "npx prettier --write '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!legacy/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*'",
     "preact:build":
       "preact build --template src/template.html --dest www --config src/preact.config.js --no-prerender",
     "preact:build:watch":
-      "npx chokidar '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*' -c \"npm run preact:build\"",
+      "npx chokidar '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!legacy/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*' -c \"npm run preact:build\"",
     "preact:serve": "npm run preact:build && preact serve --dir www",
     "preact:dev": "preact watch --template src/template.html",
     "cordova:serve": "npx cordova run browser",
@@ -89,6 +90,7 @@
     "husky": "^0.14.3",
     "if-env": "^1.0.0",
     "node-sass": "^4.9.0",
+    "np": "^5.0.1",
     "preact-cli": "^2.0.0",
     "prettier": "1.12.1",
     "pretty-quick": "^1.4.1",
