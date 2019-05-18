@@ -10,7 +10,7 @@
     "start": "npm run dev",
     "dev": "npm run preact:dev",
     "build": "npx run-s preact:build legacy:build privacy:build",
-    "release": "npx np --no-publish",
+    "release": "npx np --no-publish --yolo",
     "serve": "echo \"NOTE: This is meant for testing build output, not a development server...\" && sleep 2 && npm run preact:serve",
     "precommit": "pretty-quick --staged --pattern \"!legacy/**/*\"",
     "prettier:fix": "npx prettier --write '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!legacy/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*'",
