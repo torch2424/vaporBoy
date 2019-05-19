@@ -7,6 +7,8 @@ import { PUBX_CONFIG } from "../pubx.config";
 
 import { NOTIFICATION_MESSAGES } from "../notification.messages";
 
+const packageJson = require("../../package.json");
+
 // Our key for our vaporboy collection
 const IDB_COLLECTION_KEY = "vaporboy_collection";
 
@@ -92,7 +94,8 @@ class ROMCollectionService {
         titleAsString: title || cartridgeInfo.titleAsString,
         imageAsDataURL: imageDataURL,
         CGBFlag: cartridgeInfo.CGBFlag,
-        SGBFlag: cartridgeInfo.SGBFlag
+        SGBFlag: cartridgeInfo.SGBFlag,
+        vaporBoyVersion: packageJson.version
       };
 
       await this._setCollection(collectionObject);

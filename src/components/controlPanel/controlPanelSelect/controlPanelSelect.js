@@ -12,6 +12,7 @@ import VaporBoyOptions from "../vaporBoyOptions/vaporBoyOptions";
 import VaporBoyEffects from "../vaporBoyEffects/vaporBoyEffects";
 import About from "../about/about";
 import Install from "../install/install";
+import Legacy from "../legacy/legacy";
 
 export default class ControlPanelSelect extends Component {
   constructor() {
@@ -135,6 +136,14 @@ export default class ControlPanelSelect extends Component {
       <Install />
     );
   }
+
+  viewLegacy() {
+    this.state.controlPanel.addComponentToControlPanelViewStack(
+      "Legacy",
+      <Legacy />
+    );
+  }
+
 
   playROM() {
     WasmBoy.play();
@@ -268,6 +277,12 @@ export default class ControlPanelSelect extends Component {
             </button>
           </li>
           <li class="control-panel-select__grid__item">{install}</li>
+          <li class="control-panel-select__grid__item">
+            <button onclick={() => this.viewLegacy()} aria-label="Legacy">
+              <div>🗝️</div>
+              <div>Legacy</div>
+            </button>
+          </li>
         </ul>
       </div>
     );

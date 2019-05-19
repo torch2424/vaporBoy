@@ -3,6 +3,9 @@
   "displayName": "VaporBoy",
   "author": "Aaron Turner",
   "version": "0.1.1",
+  "legacyVersions": [
+    "0.1.1"
+  ],
   "license": "Apache-2.0",
   "description": "Coming soon!",
   "main": "main.js",
