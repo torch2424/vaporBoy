@@ -276,13 +276,13 @@ export default class ControlPanelSelect extends Component {
               <div>Reload</div>
             </button>
           </li>
-          <li class="control-panel-select__grid__item">{install}</li>
           <li class="control-panel-select__grid__item">
             <button onclick={() => this.viewLegacy()} aria-label="Legacy">
               <div>🗝️</div>
               <div>Legacy</div>
             </button>
           </li>
+          <li class="control-panel-select__grid__item">{install}</li>
         </ul>
       </div>
     );
