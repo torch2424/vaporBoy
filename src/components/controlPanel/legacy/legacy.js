@@ -19,7 +19,7 @@ export default class Legacy extends Component {
     // Find the version of the saveState in the legacy versions
     const legacyVersion = packageJson.legacyVersions[packageJson.legacyVersions.indexOf(version)];
     // Redirect to the legacy vaporby version
-    window.location.pathname = `/legacy/vaporboy-${legacyVersion}/index.html`;
+    window.location.pathname = `/legacy/vaporboy-${legacyVersion}/`;
   }
 
   render() {
