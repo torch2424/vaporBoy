@@ -209,6 +209,26 @@ export default class About extends Component {
 
           <li>You! Thanks for Playing! 🎮 😄 🎮</li>
         </ul>
+        <h1>Analytics & Privacy</h1>
+        <p>
+          Analytics is used on this application simply for performance monitoring, and tracking popularity of the applications. The following events are sent, with nothing more than the event name. The analytics provider used is <a href="https://support.google.com/analytics/answer/6004245?ref_topic=2919631" target="_blank">Google Analytics</a>. We also have a <a target="_blank" href="/assets/privacypolicy.html">Privacy Policy</a>. Which simply expands on this a little bit more.
+        </p>
+        <p><b>The following events are sent to the analytics provider:</b></p>
+        <ul>
+          <li>Save State Created</li>
+          <li>Homebrew ROM Loaded</li>
+          <li>My Collection ROM Loaded</li>
+          <li>Scraper opened</li>
+          <li>Manual reload</li>
+          <li>Settings Applied</li>
+          <li>Install opened</li>
+          <li>Scraper skipped</li>
+          <li>Scraper Search</li>
+          <li>About Opened</li>
+          <li>Scaper Manual Input</li>
+          <li>Settings reset</li>
+          <li>Google Drive ROM Load</li>
+        </ul>
       </div>
     );
   }

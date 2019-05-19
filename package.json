@@ -11,7 +11,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "npm run preact:dev",
-    "build": "npx run-s preact:build legacy:build privacy:build",
+    "build": "npx run-s preact:build legacy:build privacy:build robots:build",
     "release": "npx np --no-publish --yolo",
     "serve": "echo \"NOTE: This is meant for testing build output, not a development server...\" && sleep 2 && npm run preact:serve",
     "precommit": "npx pretty-quick --staged --pattern \"!legacy/**/*\"",
@@ -21,7 +21,8 @@
     "preact:serve": "npm run preact:build && preact serve --dir www",
     "preact:dev": "preact watch --template src/template.html",
     "legacy:build": "npx cp -r 'legacy/' 'www/'",
-    "privacy:build": "npx cp 'src/assets/privacypolicy.html' 'www/'"
+    "privacy:build": "npx cp 'src/assets/privacypolicy.html' 'www/'",
+    "robots:build": "npx cp 'src/assets/robots.txt' 'www/'"
   },
   "eslintConfig": {
     "extends": "eslint-config-synacor"
