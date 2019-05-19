@@ -17,6 +17,8 @@ import {
   rainbowEffect
 } from "../../vaporboyEffects.config";
 
+const packageJson = require("../../../package.json");
+
 export default class WasmBoyCanvas extends Component {
   constructor() {
     super();
@@ -155,6 +157,9 @@ export default class WasmBoyCanvas extends Component {
           if (WasmBoy.getCanvas()) {
             saveStateObject.screenshotCanvasDataURL = WasmBoy.getCanvas().toDataURL();
           }
+
+          // Tag our save state with the vaporboy version
+          saveStateObject.vaporBoyVersion = packageJson.version;
         },
         updateAudioCallback: (audioContext, audioBufferSourceNode) => {
           // Chain connect the audio nodes
