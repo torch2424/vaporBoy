@@ -3,28 +3,32 @@
   "displayName": "VaporBoy",
   "author": "Aaron Turner",
   "version": "0.1.2",
+  "legacyVersions": [
+    "0.1.1"
+  ],
   "license": "Apache-2.0",
-  "description":
-    "A Gameboy / Gameboy Color Emulator PWA. ⚛️ Powered by wasmBoy. 🎮",
+  "description": "A Gameboy / Gameboy Color Emulator PWA. ⚛️ Powered by wasmBoy. 🎮",
   "scripts": {
     "start": "npm run dev",
     "dev": "npm run preact:dev",
-    "serve":
-      "echo \"NOTE: This is meant for testing build output, not a development server...\" && sleep 2 && npm run preact:serve",
-    "precommit": "pretty-quick --staged",
-    "prettier:fix":
-      "npx prettier --write '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*'",
-    "preact:build":
-      "preact build --template src/template.html --dest www --config src/preact.config.js --no-prerender",
-    "preact:build:watch":
-      "npx chokidar '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*' -c \"npm run preact:build\"",
+    "build": "npx run-s preact:build legacy:build privacy:build",
+    "release": "npx np --no-publish --yolo",
+    "serve": "echo \"NOTE: This is meant for testing build output, not a development server...\" && sleep 2 && npm run preact:serve",
+    "precommit": "npx pretty-quick --staged --pattern \"!legacy/**/*\"",
+    "prettier:fix": "npx prettier --write '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!legacy/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*'",
+    "preact:build": "preact build --template src/template.html --dest www --config src/preact.config.js --no-prerender",
+    "preact:build:watch": "npx chokidar '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!legacy/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*' -c \"npm run preact:build\"",
     "preact:serve": "npm run preact:build && preact serve --dir www",
-    "preact:dev": "preact watch --template src/template.html"
+    "preact:dev": "preact watch --template src/template.html",
+    "legacy:build": "npx cp -r 'legacy/' 'www/'",
+    "privacy:build": "npx cp 'src/assets/privacypolicy.html' 'www/'"
   },
   "eslintConfig": {
     "extends": "eslint-config-synacor"
   },
-  "eslintIgnore": ["build/*"],
+  "eslintIgnore": [
+    "build/*"
+  ],
   "dependencies": {
     "aesthetic-css": "1.0.0",
     "idb": "^2.1.2",
@@ -45,6 +49,8 @@
     "if-env": "^1.0.0",
     "node-sass": "^4.9.0",
     "preact-cli": "^2.2.1",
+    "np": "^5.0.1",
+    "npm-run-all": "^4.1.5",
     "prettier": "1.12.1",
     "pretty-quick": "^1.4.1",
     "sass-loader": "^7.0.1",

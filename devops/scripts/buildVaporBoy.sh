@@ -17,7 +17,7 @@ rm package-lock.json
 
 npm install
 
-npm run preact:build
+npm run build
 
 # Copy the build output to public/ if successful build
 if [ $? -eq 0 ]; then
