@@ -2,17 +2,16 @@
   "name": "vaporBoy",
   "displayName": "VaporBoy",
   "author": "Aaron Turner",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "legacyVersions": [
     "0.1.1"
   ],
   "license": "Apache-2.0",
-  "description": "Coming soon!",
-  "main": "main.js",
+  "description": "A Gameboy / Gameboy Color Emulator PWA. ⚛️ Powered by wasmBoy. 🎮",
   "scripts": {
     "start": "npm run dev",
     "dev": "npm run preact:dev",
-    "build": "npx run-s preact:build legacy:build privacy:build",
+    "build": "npx run-s preact:build legacy:build privacy:build robots:build",
     "release": "npx np --no-publish --yolo",
     "serve": "echo \"NOTE: This is meant for testing build output, not a development server...\" && sleep 2 && npm run preact:serve",
     "precommit": "npx pretty-quick --staged --pattern \"!legacy/**/*\"",
@@ -21,57 +20,9 @@
     "preact:build:watch": "npx chokidar '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!legacy/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*' -c \"npm run preact:build\"",
     "preact:serve": "npm run preact:build && preact serve --dir www",
     "preact:dev": "preact watch --template src/template.html",
-    "cordova:serve": "npx cordova run browser",
-    "cordova:dev": "npx concurrently --kill-others --names \"PREACT,CORDOVA\" -c \"bgMagenta.bold,bgBlue.bold\" \"npm run preact:build:watch\" \"npm run cordova:serve\"",
-    "electron:serve": "export DEV=\"true\" && npx electron .",
-    "electron:dev": "npx concurrently --kill-others --names \"PREACT,ELECTRON\" -c \"bgMagenta.bold,bgGreen.bold\" \"npm run preact:dev\" \"npm run electron:serve\"",
     "legacy:build": "npx cp -r 'legacy/' 'www/'",
-    "privacy:build": "npx cp 'src/assets/privacypolicy.html' 'www/'"
-  },
-  "cordova": {
-    "plugins": {
-      "cordova-plugin-whitelist": {}
-    },
-    "platforms": [
-      "android",
-      "browser"
-    ]
-  },
-  "build": {
-    "appId": "com.torch2424.vaporboy",
-    "productName": "VaporBoy",
-    "directories": {
-      "buildResources": "res"
-    },
-    "files": [
-      "www/**/*",
-      "main.js",
-      "!**/node_modules/**/*",
-      "!.editorconfig",
-      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,__pycache__,thumbs.db,.gitignore,.gitattributes,.flowconfig,.yarn-metadata.json,.idea,.vs,appveyor.yml,.travis.yml,circle.yml,npm-debug.log,.nyc_output,yarn.lock,.yarn-integrity}",
-      "!**/._*",
-      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}"
-    ],
-    "extraResources": [],
-    "mac": {
-      "category": "public.app-category.games",
-      "target": [
-        "dmg",
-        "zip"
-      ]
-    },
-    "win": {
-      "target": [
-        "nsis",
-        "portable"
-      ]
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "zip"
-      ]
-    }
+    "privacy:build": "npx cp 'src/assets/privacypolicy.html' 'www/'",
+    "robots:build": "npx cp 'src/assets/robots.txt' 'www/'"
   },
   "eslintConfig": {
     "extends": "eslint-config-synacor"
@@ -81,9 +32,6 @@
   ],
   "dependencies": {
     "aesthetic-css": "1.0.0",
-    "cordova-android": "^7.1.1",
-    "cordova-browser": "^5.0.4",
-    "cordova-plugin-whitelist": "^1.3.3",
     "idb": "^2.1.2",
     "load-script": "^1.0.0",
     "normalize.css": "^8.0.0",
@@ -91,23 +39,19 @@
     "preact-compat": "^3.17.0",
     "screenfull": "^3.3.2",
     "tunajs": "^1.0.1",
-    "wasmboy": "0.3.2"
+    "wasmboy": "0.4.1"
   },
   "devDependencies": {
     "chokidar-cli": "^1.2.0",
     "concurrently": "^3.5.1",
-    "cordova": "^8.0.0",
-    "cpy-cli": "^2.0.0",
-    "electron": "^2.0.1",
-    "electron-builder": "^20.13.4",
     "eslint": "^4.5.0",
     "eslint-config-synacor": "^1.1.0",
     "husky": "^0.14.3",
     "if-env": "^1.0.0",
     "node-sass": "^4.9.0",
+    "preact-cli": "^2.2.1",
     "np": "^5.0.1",
     "npm-run-all": "^4.1.5",
-    "preact-cli": "^2.0.0",
     "prettier": "1.12.1",
     "pretty-quick": "^1.4.1",
     "sass-loader": "^7.0.1",

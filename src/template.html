@@ -10,19 +10,6 @@
 		<meta name="mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Cordova Head -->
-    <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self' data: blob: gap: ws: https://ssl.gstatic.com https://vaporboy.net https://*.google.com https://www.googletagmanager.com https://www.google-analytics.com 'unsafe-eval' 'unsafe-inline';  
-    worker-src 'self' blob:;
-    child-src 'self' blob:;
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
-    font-src 'self' https://fonts.gstatic.com data:; 
-    media-src *; 
-    img-src * data: content:; 
-    connect-src * data: content:;">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
-
 		<link rel="manifest" href="<%= htmlWebpackPlugin.files.publicPath %>manifest.json">
 		<% if (htmlWebpackPlugin.options.manifest.theme_color) { %>
 			<meta name="theme-color" content="<%= htmlWebpackPlugin.options.manifest.theme_color %>">
@@ -42,7 +29,7 @@
     <noscript>
       <h1>VaporBoy</h1>
       <p>
-      Javascript is required to play vaporboy.
+        Javascript is required to play vaporboy.
       </p>
       <img src="/assets/vaporboy/512/vaporboyvhs.png" />
     </noscript>

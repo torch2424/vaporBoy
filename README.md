@@ -8,6 +8,8 @@
 
 An _A E S T H E T I C_ GB / GBC Emulator PWA. Powered by [wasmBoy](https://github.com/torch2424/wasmBoy).
 
+[Talk given at WebAssembly SF March 28th, 2019](https://youtu.be/ZlL1nduatZQ)
+
 ![Vapor Boy Walk through gif](./readme_assets/VaporboyWalkThrough.gif)
 
 # Table of Contents
@@ -20,15 +22,13 @@ An _A E S T H E T I C_ GB / GBC Emulator PWA. Powered by [wasmBoy](https://githu
   * [Npm Scripts &amp; CLI Commands](#npm-scripts--cli-commands)
 * [Special Thanks](#special-thanks)
 * [Other Notes &amp; Links](#other-notes--links)
-* [License](#license)
+* [Privacy](#privacy)
 
 # Features
 
 * Emulates the Gameboy / Gameboy Color using [wasmBoy](https://github.com/torch2424/wasmBoy), for Web Assembly awesome-ness. 🎮👾🕹️
 
 * Built as a [Progressive Web App(PWA)](https://developers.google.com/web/progressive-web-apps/), using [Preact](https://github.com/developit/preact). ⚛️
-
-* **TODO** Wrapped in [Electron](https://electronjs.org/) with [electron-builder](https://github.com/electron-userland/electron-builder), and [Cordova](https://cordova.apache.org/) to offer standalone alternative "app" experiences on Windows, Mac, Linux, Android, and iOS. 🐱🐦
 
 * Feel all of the _N O S T A L G I A_, and appreciate the _A E S T H E T I C_ of [aesthetic-css](https://github.com/torch2424/aesthetic-css). 📼💜
 
@@ -39,6 +39,8 @@ An _A E S T H E T I C_ GB / GBC Emulator PWA. Powered by [wasmBoy](https://githu
 * Keyboard, touch, and gamepad input support using [responsive gamepad](https://www.npmjs.com/package/responsive-gamepad). ⌨️ 🎮
 
 * Supports all major browsers (Chrome, Firefox, Safari). Meaning, you can play gameboy on your iPhone! 🌐
+
+* Installable using Desktop PWA Support and Mobile Browser's Add to Homescreen. 🖥️📱
 
 * Have complete control of your emulation and performance with configurable settings and save states. ⚙️💾
 
@@ -114,6 +116,8 @@ npm run electron:dev
 
 # Other Notes & Links
 
+* [Talk given at WebAssembly SF March 28th, 2019](https://youtu.be/ZlL1nduatZQ)
+
 * [SGB Borders](http://www.vgmuseum.com/features/sgb/#4s)
 
 * [GBA Border](https://obsproject.com/forum/threads/gamepad-display.12508/page-5)
@@ -126,6 +130,22 @@ npm run electron:dev
 
 * [App Icon Generator](<https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=image&foreground.space.trim=1&foreground.space.pad=0.25&foreColor=rgba(96%2C%20125%2C%20139%2C%200)&backColor=rgb(68%2C%20138%2C%20255)&crop=0&backgroundShape=square&effects=none&name=ic_launcher>)
 
-# License
+# Privacy
 
-Licensed under [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/). 🐦
+Analytics is used on this application simply for performance monitoring, and tracking popularity of the applications. The following events are sent, with nothing more than the event name. The analytics provider used is [Google Analytics](https://support.google.com/analytics/answer/6004245?ref_topic=2919631). 
+
+**The Events sent are:**
+
+- Save State Created
+- Homebrew ROM Loaded
+- My Collection ROM Loaded
+- Scraper opened
+- Manual reload
+- Settings Applied
+- Install opened
+- Scraper skipped
+- Scraper Search
+- About Opened
+- Scaper Manual Input
+- Settings reset
+- Google Drive ROM Load

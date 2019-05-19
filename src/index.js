@@ -46,10 +46,6 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener("deviceready", () => {
-      console.log("Cordova Launched Device Ready!");
-    });
-
     // Subscribe to changes
     const pubxLayoutSubscriberKey = Pubx.subscribe(
       PUBX_CONFIG.LAYOUT_KEY,
@@ -130,15 +126,6 @@ export default class App extends Component {
         }
       }
     );
-
-    // TODO: Setup Cordova
-    /*
-    loadScript('cordova.js', function(err, script) {
-      if (!err) {
-        console.log('Loaded Cordova!');
-      }
-    })
-    */
   }
 
   // Function to change out layout, called by resize events and things

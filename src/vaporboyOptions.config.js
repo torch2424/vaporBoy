@@ -4,6 +4,7 @@ export const VAPORBOY_OPTIONS_LOCALSTORAGE_KEY = "vaporBoyOptions";
 // Callbacks assigned through components
 export const VAPORBOY_DEFAULT_OPTIONS = {
   isGbcEnabled: true,
+  isGbcColorizationEnabled: true,
   isAudioEnabled: true,
   frameSkip: 1,
   audioBatchProcessing: true,

@@ -18,6 +18,18 @@ export const VAPORBOY_OPTION_SECTIONS = {
         ),
         type: "boolean"
       },
+      isGbcColorizationEnabled: {
+        name: "Use GBC Colorization of GB games",
+        descriptionElement: (
+          <div>
+            Some GameBoy ROMS have a header, that when computed by a hash by a
+            GameBoy Color will enable a colorized palette of the GameBoy ROM.
+            This will play GameBoy games with their intended GameBoy Color
+            palette.
+          </div>
+        ),
+        type: "boolean"
+      },
       isAudioEnabled: {
         name: "Enable Audio",
         descriptionElement: <div>Enable/Disable Audio Output</div>,
