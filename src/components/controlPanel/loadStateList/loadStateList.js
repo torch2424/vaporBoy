@@ -63,7 +63,7 @@ export default class LoadStateList extends Component {
         
         if (legacyVersion) {
           // Redirect to the legacy vaporby version
-          window.location.pathname = `/legacy/vaporboy-${legacyVersion}/index.html`;
+          window.location.pathname = `/legacy/vaporboy-${legacyVersion}/`;
         } else {
           throw new Error('Could not find correct legacy version');
         }
