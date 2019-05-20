@@ -37,7 +37,6 @@
     "normalize.css": "^8.0.0",
     "preact": "^8.2.1",
     "preact-compat": "^3.17.0",
-    "screenfull": "^3.3.2",
     "tunajs": "^1.0.1",
     "wasmboy": "0.4.1"
   },

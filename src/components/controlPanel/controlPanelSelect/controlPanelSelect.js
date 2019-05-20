@@ -97,7 +97,7 @@ export default class ControlPanelSelect extends Component {
 
   viewROMSourceSelector() {
     this.state.controlPanel.addComponentToControlPanelViewStack(
-      "ROM Source",
+      "Select a ROM",
       <ROMSourceSelector />
     );
   }

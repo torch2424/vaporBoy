@@ -90,7 +90,7 @@
   }
 }
 
-.desktop {
+.desktop:not(.expanded) {
   .vaporboy-touchpad {
     display: none;
   }

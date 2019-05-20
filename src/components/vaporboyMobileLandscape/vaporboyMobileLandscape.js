@@ -21,6 +21,7 @@ export default class VaporBoyMobileLandscape extends Component {
           <div className="wasmboy-canvas-container">
             <WasmBoyCanvas />
           </div>
+          <div className="gba-scale-black-border"></div>
           <div className="gba-border">
             <img src="assets/borders/gbaBorder.png" />
           </div>

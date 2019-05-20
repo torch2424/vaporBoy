@@ -13,8 +13,11 @@ import { getVaporBoyLogo } from "../../vaporboyLogo";
 
 import { NOTIFICATION_MESSAGES } from "../../notification.messages";
 
-// 3P libs
-import * as screenfull from "screenfull";
+import ROMSourceSelector from "../controlPanel/ROMSourceSelector/ROMSourceSelector";
+import VaporBoyOptions from "../controlPanel/vaporBoyOptions/vaporBoyOptions";
+import VaporBoyEffects from "../controlPanel/vaporBoyEffects/vaporBoyEffects";
+import About from "../controlPanel/about/about";
+import Install from "../controlPanel/install/install";
 
 export default class VaporBoyDesktop extends Component {
   componentDidMount() {
@@ -25,15 +28,6 @@ export default class VaporBoyDesktop extends Component {
       },
       taskBarActive: false
     });
-
-    if (screenfull.enabled) {
-      screenfull.on("change", () => {
-        // Set the state to re-render and update our fullscreen icon
-        this.setState({
-          ...this.state
-        });
-      });
-    }
 
     document.addEventListener("click", () => {
       this.closeDropdowns();
@@ -71,6 +65,15 @@ export default class VaporBoyDesktop extends Component {
     WasmBoy.resumeAudioContext();
   }
 
+  goToControlPanelView(name, component) {
+    this.showControlPanel();
+
+    this.state.controlPanel.addComponentToControlPanelViewStack(
+      name,
+      component
+    );
+  }
+
   toggleExpand() {
     const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
 
@@ -80,43 +83,6 @@ export default class VaporBoyDesktop extends Component {
   }
 
   render() {
-    // Create our fullscreenButton
-    let fullScreenButton = "";
-    let fullScreenViewListItem = "";
-    if (screenfull.enabled) {
-      // Our full screen view button
-      fullScreenViewListItem = (
-        <li class="aesthetic-windows-95-dropdown-menu-item">
-          <button
-            onClick={() => {
-              screenfull.toggle();
-            }}
-          >
-            Toggle Fullscreen
-          </button>
-        </li>
-      );
-
-      // Full Screen Icon
-      let fullScreenIcon = "";
-      if (screenfull.isFullscreen) {
-        fullScreenIcon = "_";
-      }
-
-      fullScreenButton = (
-        <div class="aesthetic-windows-95-button-title-bar vaporboy-desktop__title-bar__fullscreen">
-          <button
-            onClick={() => {
-              screenfull.toggle();
-            }}
-          >
-            {fullScreenIcon}
-          </button>
-        </div>
-      );
-    }
-
-
     return (
       <div class="vaporboy-desktop">
 
@@ -124,7 +90,58 @@ export default class VaporBoyDesktop extends Component {
         <div class="vaporboy-desktop__main">
 
           <div class="vaporboy-desktop__main__shortcuts">
-            <ul></ul>
+            <ul>
+              <li>
+                <div class="vaporboy-desktop__main__shortcuts__icon">
+                  <img src={getVaporBoyLogo()} />
+                </div>
+                <div class="vaporboy-desktop__main__shortcuts__text">My Vaporboy</div>
+              </li>
+
+              <li>
+                <div class="vaporboy-desktop__main__shortcuts__icon">
+                  🗑️
+                </div>
+                <div class="vaporboy-desktop__main__shortcuts__text">Recycle Bin</div>
+              </li>
+
+              <li>
+                <div class="vaporboy-desktop__main__shortcuts__icon">
+                  🌐
+                </div>
+                <div class="vaporboy-desktop__main__shortcuts__text">Surf the Web</div>
+              </li>
+
+              <li>
+                <div class="vaporboy-desktop__main__shortcuts__icon">
+                  ⚡
+                </div>
+                <div class="vaporboy-desktop__main__shortcuts__text">VinAMP</div>
+              </li>
+
+              <li>
+                <div class="vaporboy-desktop__main__shortcuts__icon">
+                  ⚔️
+                </div>
+                <div class="vaporboy-desktop__main__shortcuts__text">A E S T H E T I C of Empires</div>
+              </li>
+
+              <li>
+                <div class="vaporboy-desktop__main__shortcuts__icon">
+                  🛹
+                </div>
+                <div class="vaporboy-desktop__main__shortcuts__text">Aaron Turner's Internet Skater 2</div>
+              </li>
+
+              <li>
+                <div class="vaporboy-desktop__main__shortcuts__icon">
+                  <img src="assets/levelcar.png" />
+                </div>
+                <div class="vaporboy-desktop__main__shortcuts__text">Get  Dis  Money</div>
+              </li>
+
+
+            </ul>
           </div>
 
           <div class="vaporboy-desktop__main__window">
@@ -142,8 +159,13 @@ export default class VaporBoyDesktop extends Component {
 
                 <div class="aesthetic-windows-95-modal-title-bar-controls">
                   <div class="aesthetic-windows-95-button-title-bar">
-                    <button>
-                      X
+                    <button class="vaporboy-desktop__expand" onClick={() => this.toggleExpand()}>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path
+                          d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"
+                        />
+                      </svg>
                     </button>
                   </div>
                 </div>
@@ -176,13 +198,22 @@ export default class VaporBoyDesktop extends Component {
 
           <ul class={`aesthetic-windows-95-taskbar-start-menu ${this.state.taskBarActive ? 'is-active' : ''}`}>
             <li class="aesthetic-windows-95-taskbar-start-menu-item">
-              <button>Menu Item 1</button>
+              <button onClick={() => this.showControlPanel()}>📝 Control Panel</button>
             </li>
             <li class="aesthetic-windows-95-taskbar-start-menu-item">
-              <button>Menu Item 2</button>
+              <button onClick={() => this.goToControlPanelView("Select a ROM", <ROMSourceSelector />)}>🎮 Select a ROM</button>
             </li>
             <li class="aesthetic-windows-95-taskbar-start-menu-item">
-              <button>Menu Item 3</button>
+              <button onClick={() => this.goToControlPanelView("Options", <VaporBoyOptions />)}>⚙️  Options</button>
+            </li>
+            <li class="aesthetic-windows-95-taskbar-start-menu-item">
+              <button onClick={() => this.goToControlPanelView("Effects", <VaporBoyEffects />)}>✨ Effects</button>
+            </li>
+            <li class="aesthetic-windows-95-taskbar-start-menu-item">
+              <button onClick={() => this.goToControlPanelView("About", <About />)}>ℹ️ About</button>
+            </li>
+            <li class="aesthetic-windows-95-taskbar-start-menu-item">
+              <button onClick={() => this.goToControlPanelView("Install", <Install />)}>⬇️ Install</button>
             </li>
           </ul>
 

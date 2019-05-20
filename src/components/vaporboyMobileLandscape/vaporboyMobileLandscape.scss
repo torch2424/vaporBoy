@@ -27,7 +27,24 @@
     .wasmboy-canvas-container {
       position: absolute;
       top: 12.35%;
+      left: 20.25%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 59.55%;
+      height: 63.35%;
+
+      z-index: 2;
+    }
+
+    .gba-scale-black-border {
+      position: absolute;
+      top: 12.35%;
       left: 9.85%;
+
+      background-color: $aesthetic-black;
 
       display: flex;
       justify-content: center;
@@ -36,7 +53,7 @@
       width: 80.05%;
       height: 63.35%;
 
-      z-index: 2;
+      z-index: 1;
     }
 
     .gba-border {

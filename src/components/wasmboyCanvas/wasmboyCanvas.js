@@ -235,9 +235,9 @@ export default class WasmBoyCanvas extends Component {
           <h3>Please insert a cartridge...</h3>
           <div class="wasmboy-canvas__insert-cartridge__instructions">
             {Pubx.get(PUBX_CONFIG.LAYOUT_KEY).mobile ? (
-              <div>⚙️ > Select a ROM</div>
+              <div>⚙️ > 🎮 Select a ROM</div>
             ) : (
-              <div>File > Control Panel > Select a ROM</div>
+              <div>🖥️ Start > 🎮 Select a ROM</div>
             )}
           </div>
         </div>
