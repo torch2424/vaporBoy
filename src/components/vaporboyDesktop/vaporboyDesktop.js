@@ -100,13 +100,6 @@ export default class VaporBoyDesktop extends Component {
 
               <li>
                 <div class="vaporboy-desktop__main__shortcuts__icon">
-                  🗑️
-                </div>
-                <div class="vaporboy-desktop__main__shortcuts__text">Recycle Bin</div>
-              </li>
-
-              <li>
-                <div class="vaporboy-desktop__main__shortcuts__icon">
                   🌐
                 </div>
                 <div class="vaporboy-desktop__main__shortcuts__text">Surf the Web</div>
