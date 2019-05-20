@@ -40,7 +40,6 @@ export default function(config, env, helpers) {
   // Need to not navigate to index.html, 
   // for anything beyond the legacy path
   const precacheConfig = {
-    navigateFallback: 'index.html'
     navigateFallbackWhitelist: [ /^(?!(\/legacy))(?!\/__).*/ ]
   };
   return preactCliSwPrecachePlugin(config, precacheConfig);
