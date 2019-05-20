@@ -104,7 +104,7 @@ export default class GameboyDpad extends Component {
 
     const touchElement = document.getElementById(this.state.elementId);
     WasmBoy.ResponsiveGamepad.TouchInput.addDpadInput(touchElement, {
-      allowMultipleDirections: true
+      allowMultipleDirections: false
     });
 
     this.setState({
