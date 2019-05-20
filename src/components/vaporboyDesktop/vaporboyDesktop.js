@@ -23,8 +23,7 @@ export default class VaporBoyDesktop extends Component {
       controlPanel: {
         ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
       },
-      fileMenuActiveClass: "",
-      viewMenuActiveClass: ""
+      taskBarActive: false
     });
 
     if (screenfull.enabled) {
@@ -47,21 +46,19 @@ export default class VaporBoyDesktop extends Component {
     });
   }
 
-  resetWasmBoy() {
-    const resetWasmBoyTask = async () => {
-      await WasmBoy.reset();
-      await WasmBoy.play();
-
-      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
-        NOTIFICATION_MESSAGES.RESET_ROM
-      );
+  openDropdown(event, stateKey) {
+    event.stopPropagation();
+    const state = {
+      ...this.state
     };
+    state[stateKey] = true;
+    this.setState(state);
+  }
 
-    resetWasmBoyTask().catch(error => {
-      console.error(error);
-      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
-        NOTIFICATION_MESSAGES.ERROR_RESET_ROM
-      );
+  closeDropdowns() {
+    this.setState({
+      ...this.state,
+      taskBarActive: false
     });
   }
 
@@ -79,24 +76,6 @@ export default class VaporBoyDesktop extends Component {
 
     Pubx.publish(PUBX_CONFIG.LAYOUT_KEY, {
       expanded: !pubxLayoutState.expanded
-    });
-  }
-
-  showDropdown(event, stateKey) {
-    event.stopPropagation();
-    this.closeDropdowns();
-    const newState = {
-      ...this.state
-    };
-    newState[stateKey] = "is-active";
-    this.setState(newState);
-  }
-
-  closeDropdowns() {
-    this.setState({
-      ...this.state,
-      fileMenuActiveClass: "",
-      viewMenuActiveClass: ""
     });
   }
 
@@ -137,94 +116,81 @@ export default class VaporBoyDesktop extends Component {
       );
     }
 
+
     return (
       <div class="vaporboy-desktop">
-        <div class="aesthetic-windows-95-modal">
-          <div class="aesthetic-windows-95-modal-title-bar">
-            <div class="aesthetic-windows-95-modal-title-bar-text">
-              <img
-                class="vaporboy-desktop__vaporboy-logo"
-                src={getVaporBoyLogo()}
-              />
-              V A P O R B O Y
-            </div>
 
-            <div class="aesthetic-windows-95-modal-title-bar-controls">
-              {fullScreenButton}
-            </div>
+        {/* Main Desktop Area */}
+        <div class="vaporboy-desktop__main">
+
+          <div class="vaporboy-desktop__main__shortcuts">
+            <ul></ul>
           </div>
 
-          <div class="aesthetic-windows-95-modal-content">
-            {/* Drop Down Lists */}
-            <div class="vaporboy-desktop__dropdowns">
-              <div class="aesthetic-windows-95-dropdown">
-                <button
-                  class="aesthetic-windows-95-dropdown-trigger"
-                  onClick={event =>
-                    this.showDropdown(event, "fileMenuActiveClass")
-                  }
-                >
-                  File
-                </button>
-                <ul
-                  class={`aesthetic-windows-95-dropdown-menu ${
-                    this.state.fileMenuActiveClass
-                  }`}
-                >
-                  <li class="aesthetic-windows-95-dropdown-menu-item">
-                    <button onClick={() => this.showControlPanel()}>
-                      Control Panel
+          <div class="vaporboy-desktop__main__window">
+
+            <div class="aesthetic-windows-95-modal">
+
+              <div class="aesthetic-windows-95-modal-title-bar">
+                <div class="aesthetic-windows-95-modal-title-bar-text">
+                  <img
+                    class="vaporboy-desktop__vaporboy-logo"
+                    src={getVaporBoyLogo()}
+                  />
+                  V A P O R B O Y
+                </div>
+
+                <div class="aesthetic-windows-95-modal-title-bar-controls">
+                  <div class="aesthetic-windows-95-button-title-bar">
+                    <button>
+                      X
                     </button>
-                  </li>
-
-                  <hr />
-
-                  <li class="aesthetic-windows-95-dropdown-menu-item">
-                    <button onClick={() => this.resetWasmBoy()}>
-                      Reset...
-                    </button>
-                  </li>
-                </ul>
+                  </div>
+                </div>
               </div>
 
-              <div class="aesthetic-windows-95-dropdown">
-                <button
-                  class="aesthetic-windows-95-dropdown-trigger"
-                  onClick={event =>
-                    this.showDropdown(event, "viewMenuActiveClass")
-                  }
-                >
-                  View
-                </button>
-                <ul
-                  class={`aesthetic-windows-95-dropdown-menu ${
-                    this.state.viewMenuActiveClass
-                  }`}
-                >
-                  <li class="aesthetic-windows-95-dropdown-menu-item">
-                    <button onClick={() => this.toggleExpand()}>
-                      Expand Game
-                    </button>
-                  </li>
-                  {fullScreenViewListItem}
-                </ul>
-              </div>
-            </div>
+              <div class="aesthetic-windows-95-modal-content vaporboy-desktop__main__window__game-container">
+                {/* Actual Game Content Here */}
 
-            <hr />
-
-            <div class="aesthetic-windows-95-container vaporboy-desktop__game-container">
-              {/* Actual Game Content Here */}
-
-              <div className="wasmboy-canvas-container">
-                <WasmBoyCanvas />
+                <div className="wasmboy-canvas-container">
+                  <WasmBoyCanvas />
+                </div>
+                <div className="sgb-border">
+                  <SGBBorder />
+                </div>
               </div>
-              <div className="sgb-border">
-                <SGBBorder />
-              </div>
-            </div>
+            </div> 
+
           </div>
         </div>
+
+
+        {/* Bottom Taskbar */}
+        <div class="aesthetic-windows-95-taskbar">
+
+          <div class="aesthetic-windows-95-taskbar-start">
+            <button onClick={(event) => this.openDropdown(event, 'taskBarActive')}>
+              🖥️ Start            
+            </button>
+          </div>
+
+          <ul class={`aesthetic-windows-95-taskbar-start-menu ${this.state.taskBarActive ? 'is-active' : ''}`}>
+            <li class="aesthetic-windows-95-taskbar-start-menu-item">
+              <button>Menu Item 1</button>
+            </li>
+            <li class="aesthetic-windows-95-taskbar-start-menu-item">
+              <button>Menu Item 2</button>
+            </li>
+            <li class="aesthetic-windows-95-taskbar-start-menu-item">
+              <button>Menu Item 3</button>
+            </li>
+          </ul>
+
+          <div class="aesthetic-windows-95-taskbar-services">
+            📶🔈🔔
+          </div>
+        </div>
+
       </div>
     );
   }

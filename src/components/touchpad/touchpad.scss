@@ -90,6 +90,12 @@
   }
 }
 
+.desktop {
+  .vaporboy-touchpad {
+    display: none;
+  }
+}
+
 // Import our layouts
 @import "touchpadMobilePortrait";
 @import "touchpadMobileLandscape";
