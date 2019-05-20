@@ -1,3 +1,6 @@
+// https://github.com/prateekbh/preact-cli-sw-precache
+const preactCliSwPrecachePlugin = require('preact-cli-sw-precache');
+
 /**
  * Function that mutates original webpack config.
  * Supports asynchronous changes when promise is returned.
@@ -33,4 +36,12 @@ export default function(config, env, helpers) {
   // https://github.com/developit/preact-cli/pull/323
   // TODO: Make this absolute for production: https://github.com/developit/preact-cli/issues/279
   config.output.publicPath = "";
+
+  // Need to not navigate to index.html, 
+  // for anything beyond the legacy path
+  const precacheConfig = {
+    navigateFallback: 'index.html'
+    navigateFallbackWhitelist: [ /^(?!(\/legacy))(?!\/__).*/ ]
+  };
+  return preactCliSwPrecachePlugin(config, precacheConfig);
 }
