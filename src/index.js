@@ -130,7 +130,7 @@ export default class App extends Component {
 
   // Function to change out layout, called by resize events and things
   changeLayout() {
-    const mobile = window.matchMedia("(max-width: 801px)").matches;
+    const mobile = window.matchMedia("(max-width: 1024px)").matches;
     const landscape = window.matchMedia("screen and (orientation: landscape)")
       .matches;
     const portrait = window.matchMedia("screen and (orientation: portrait)")
