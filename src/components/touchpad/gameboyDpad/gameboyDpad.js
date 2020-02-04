@@ -103,7 +103,7 @@ export default class GameboyDpad extends Component {
     const pubxLayoutState = Pubx.get(PUBX_CONFIG.LAYOUT_KEY);
 
     const touchElement = document.getElementById(this.state.elementId);
-    WasmBoy.ResponsiveGamepad.TouchInput.addDpadInput(touchElement, {
+    const removeTouchInput = WasmBoy.ResponsiveGamepad.TouchInput.addDpadInput(touchElement, {
       allowMultipleDirections: false
     });
 
@@ -111,13 +111,15 @@ export default class GameboyDpad extends Component {
       ...this.state,
       layout: {
         ...pubxLayoutState
-      }
+      },
+      removeTouchInput
     });
   }
 
   componentWillUnmount() {
-    // TODO: Allow removing touch inputs
-    // https://github.com/torch2424/responsive-gamepad/issues/26
+    if (this.state.removeTouchInput) {
+      this.state.removeTouchInput();
+    }
   }
 
   render() {

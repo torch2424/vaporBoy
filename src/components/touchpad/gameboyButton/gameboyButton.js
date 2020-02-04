@@ -84,7 +84,7 @@ export default class GameboyButton extends Component {
     // Get our button
     const keyMapButton = this.props.button.toUpperCase();
     const touchElement = document.getElementById(this.state.elementId);
-    WasmBoy.ResponsiveGamepad.TouchInput.addButtonInput(
+    const removeTouchInput = WasmBoy.ResponsiveGamepad.TouchInput.addButtonInput(
       touchElement,
       keyMapButton
     );
@@ -94,14 +94,15 @@ export default class GameboyButton extends Component {
       keyMapButton: keyMapButton,
       layout: {
         ...pubxLayoutState
-      }
+      },
+      removeTouchInput
     });
   }
 
   componentWillUnmount() {
-    // TODO: Allow removing touch inputs
-    // https://github.com/torch2424/responsive-gamepad/issues/26
-    // WasmBoy.removeTouchInput(this.state.keyMapButton, this.state.gamepadId);
+    if (this.state.removeTouchInput) {
+      this.state.removeTouchInput();
+    }
   }
 
   isExpandedStartSelect(isExpanded) {
