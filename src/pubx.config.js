@@ -19,6 +19,7 @@ export const PUBX_CONFIG = {
   VAPORBOY_EFFECTS_KEY: "VAPORBOY_EFFECTS_KEY",
   NOTIFICATION_KEY: "NOTIFICATION_KEY",
   LOADING_KEY: "LOADING_KEY",
+  SPEED_KEY: "SPEED_KEY",
   INITIALIZE: () => {
     initializePubxLayout();
     initializePubxControlPanel();
@@ -28,6 +29,7 @@ export const PUBX_CONFIG = {
     initializePubxVaporBoyEffects();
     initializePubxNotification();
     initializePubxLoading();
+    initializePubxSpeed();
   }
 };
 
@@ -225,4 +227,23 @@ const initializePubxLoading = () => {
     }
   };
   Pubx.publish(PUBX_CONFIG.LOADING_KEY, pubxLoadingState);
+};
+
+const initializePubxSpeed = () => {
+  let speed = 1.0;
+  const pubxSpeedState = {
+    toggleSpeed: () => {
+      speed += 0.5;
+      if (speed > 2.0) {
+        speed = 0.5;
+      }
+    },
+    getSpeed: () => {
+      return speed;
+    },
+    resetSpeed: () => {
+      speed = 1.0;
+    }
+  };
+  Pubx.publish(PUBX_CONFIG.SPEED_KEY, pubxSpeedState);
 };

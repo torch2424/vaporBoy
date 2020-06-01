@@ -58,6 +58,55 @@ export default class About extends Component {
           <b>VaporBoy is still in beta</b>. Please expect bugs. And check the{" "}
           <b>F.A.Q</b> for where to report them.
         </p>
+        <h1>Controls</h1>
+        <p>This covers the controls for desktop (keyboard) and USB / Bluetooth Gamepads. Touch Controls model the original GameBoy controls.</p>
+        <table>
+          <tr>
+            <th>Action</th>
+            <th>Keyboard</th>
+            <th>External GamePad</th>
+          </tr>
+          <tr>
+            <td>GameBoy Up</td>
+            <td>UpArrow / W</td>
+            <td>Dpad Up / Left Analog Up</td>
+          </tr>
+          <tr>
+            <td>GameBoy Right</td>
+            <td>RightArrow / D</td>
+            <td>Dpad Right / Left Analog Right</td>
+          </tr>
+          <tr>
+            <td>GameBoy Down</td>
+            <td>DownArrow / S</td>
+            <td>Dpad Down / Left Analog Down</td>
+          </tr>
+          <tr>
+            <td>GameBoy Left</td>
+            <td>LeftArrow / A</td>
+            <td>Dpad Left / Left Analog Left</td>
+          </tr>
+          <tr>
+            <td>GameBoy A</td>
+            <td>Z</td>
+            <td>A / X</td>
+          </tr>
+          <tr>
+            <td>GameBoy B</td>
+            <td>X</td>
+            <td>B / Y</td>
+          </tr>
+          <tr>
+            <td>Play/Pause Hotkey</td>
+            <td>Space</td>
+            <td>Special</td>
+          </tr>
+          <tr>
+            <td>Quick Speed Hotkey</td>
+            <td>Q / U</td>
+            <td>Left Trigger / Right Trigger</td>
+          </tr>
+        </table>
         <h1>F.A.Q</h1>
         <ul>
           <li>
