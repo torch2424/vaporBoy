@@ -4,6 +4,7 @@ import { WasmBoy } from "wasmboy";
 
 import { Pubx } from "../../services/pubx";
 import { PUBX_CONFIG } from "../../pubx.config";
+import { NOTIFICATION_MESSAGES } from "../../notification.messages";
 
 import { getVaporBoyLogo } from "../../vaporboyLogo";
 
@@ -18,6 +19,42 @@ import {
 } from "../../vaporboyEffects.config";
 
 const packageJson = require("../../../package.json");
+
+// Add some hotkeys
+let quickSpeed = false;
+WasmBoy.ResponsiveGamepad.onInputsChange(
+  [
+    WasmBoy.ResponsiveGamepad.RESPONSIVE_GAMEPAD_INPUTS.LEFT_TRIGGER,
+    WasmBoy.ResponsiveGamepad.RESPONSIVE_GAMEPAD_INPUTS.RIGHT_TRIGGER,
+    WasmBoy.ResponsiveGamepad.RESPONSIVE_GAMEPAD_INPUTS.SPECIAL
+  ],
+  state => {
+    // Quick Speed
+    if (!quickSpeed && (state.LEFT_TRIGGER || state.RIGHT_TRIGGER)) {
+      WasmBoy.setSpeed(3.0);
+      quickSpeed = true;
+      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+        NOTIFICATION_MESSAGES.QUICK_SPEED_HOTKEY
+      );
+    } else if (quickSpeed && (!state.LEFT_TRIGGER && !state.RIGHT_TRIGGER)) {
+      WasmBoy.setSpeed(1.0);
+      quickSpeed = false;
+    }
+
+    // Play / Pause
+    if (WasmBoy.isPlaying() && state.SPECIAL) {
+      WasmBoy.pause();
+      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+        NOTIFICATION_MESSAGES.PLAY_PAUSE_HOTKEY
+      );
+    } else if (!WasmBoy.isPlaying() && state.SPECIAL) {
+      WasmBoy.play();
+      Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+        NOTIFICATION_MESSAGES.PLAY_PAUSE_HOTKEY
+      );
+    }
+  }
+);
 
 export default class WasmBoyCanvas extends Component {
   constructor() {
