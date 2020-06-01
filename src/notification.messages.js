@@ -18,5 +18,6 @@ export const NOTIFICATION_MESSAGES = {
   ERROR_APPLY_SETTINGS: "Error! Could not apply settings... ⚙️",
   ERROR_RESET_SETTINGS: "Error! Could not reset settings... ⚙️",
   ERROR_FILE_TYPE: "Invalid file type. 😞",
-  ERROR_GOOGLE_DRIVE: "Error getting file from google drive 💔"
+  ERROR_GOOGLE_DRIVE: "Error getting file from google drive 💔",
+  TOGGLE_SPEED: "Speed Toggled! ⚡"
 };

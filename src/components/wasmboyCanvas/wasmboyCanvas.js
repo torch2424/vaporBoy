@@ -156,6 +156,9 @@ export default class WasmBoyCanvas extends Component {
         onPause: () => {
           this.handleWasmBoyIsPlayingChange();
         },
+        onReady: () => {
+          Pubx.get(PUBX_CONFIG.SPEED_KEY).resetSpeed();
+        },
         saveStateCallback: saveStateObject => {
           // Fire off analytics ping, for session length
           if (window !== undefined && window.gtag) {

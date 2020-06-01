@@ -44,6 +44,9 @@ export default class ControlPanelSelect extends Component {
       controlPanel: {
         ...Pubx.get(PUBX_CONFIG.CONTROL_PANEL_KEY)
       },
+      speed: {
+        ...Pubx.get(PUBX_CONFIG.SPEED_KEY)
+      },
       pubxSaveStatesSubscriberKey
     });
   }
@@ -93,6 +96,17 @@ export default class ControlPanelSelect extends Component {
           NOTIFICATION_MESSAGES.ERROR_SAVE_STATE
         );
       });
+  }
+
+  toggleSpeed() {
+    this.state.speed.toggleSpeed();
+    let speed = this.state.speed.getSpeed();
+    WasmBoy.setSpeed(speed);
+
+    this.state.controlPanel.hideControlPanel();
+    Pubx.get(PUBX_CONFIG.NOTIFICATION_KEY).showNotification(
+      NOTIFICATION_MESSAGES.TOGGLE_SPEED
+    );
   }
 
   viewROMSourceSelector() {
@@ -213,6 +227,12 @@ export default class ControlPanelSelect extends Component {
       }
     }
 
+    // Get our current speed
+    let speed = 1.0;
+    if (this.state.speed) {
+      speed = this.state.speed.getSpeed();
+    }
+
     return (
       <div class="control-panel-select">
         <ul class="control-panel-select__grid">
@@ -243,6 +263,16 @@ export default class ControlPanelSelect extends Component {
             >
               <div>📂</div>
               <div>Load State</div>
+            </button>
+          </li>
+          <li class="control-panel-select__grid__item">
+            <button
+              onclick={() => this.toggleSpeed()}
+              disabled={!WasmBoy.isPlaying()}
+              aria-label={`Toggle Speed - Current: ${speed}x`}
+            >
+              <div>⚡</div>
+              <div>{`Toggle Speed - Current: ${speed}x`}</div>
             </button>
           </li>
           <li class="control-panel-select__grid__item">

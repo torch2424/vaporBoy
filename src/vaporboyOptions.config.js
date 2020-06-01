@@ -16,5 +16,5 @@ export const VAPORBOY_DEFAULT_OPTIONS = {
   tileCaching: true,
   gameboyFrameRate: 60,
   showDebugMenu: false,
-  hideGamepadInExpandedMode: false
+  hideGamepadInExpandedMode: false,
 };
