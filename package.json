@@ -11,18 +11,18 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "npm run preact:dev",
-    "build": "npx run-s preact:build legacy:build privacy:build robots:build",
-    "release": "npx np --no-publish --yolo",
+    "build": "run-s preact:build legacy:build privacy:build robots:build",
+    "release": "np --no-publish --yolo",
     "serve": "echo \"NOTE: This is meant for testing build output, not a development server...\" && sleep 2 && npm run preact:serve",
-    "precommit": "npx pretty-quick --staged --pattern \"!legacy/**/*\"",
-    "prettier:fix": "npx prettier --write '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!legacy/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*'",
+    "precommit": "pretty-quick --staged --pattern \"!legacy/**/*\"",
+    "prettier:fix": "prettier --write '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!legacy/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*'",
     "preact:build": "preact build --template src/template.html --dest www --config src/preact.config.js --no-prerender",
-    "preact:build:watch": "npx chokidar '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!legacy/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*' -c \"npm run preact:build\"",
+    "preact:build:watch": "chokidar '**/*.js' '**/*.scss' '**/*.css' '**/*.json' '!www/**/*' '!legacy/**/*' '!platforms/**/*' '!build/**/*' '!plugins/**/*' -c \"npm run preact:build\"",
     "preact:serve": "npm run preact:build && preact serve --dir www",
     "preact:dev": "preact watch --template src/template.html",
-    "legacy:build": "npx cp -r 'legacy/' 'www/'",
-    "privacy:build": "npx cp 'src/assets/privacypolicy.html' 'www/'",
-    "robots:build": "npx cp 'src/assets/robots.txt' 'www/'"
+    "legacy:build": "cp -r 'legacy/' 'www/'",
+    "privacy:build": "cp 'src/assets/privacypolicy.html' 'www/'",
+    "robots:build": "cp 'src/assets/robots.txt' 'www/'"
   },
   "eslintConfig": {
     "extends": "eslint-config-synacor"
@@ -48,13 +48,13 @@
     "husky": "^0.14.3",
     "if-env": "^1.0.0",
     "node-sass": "^4.14.1",
-    "np": "^5.0.1",
+    "np": "^7.5.0",
     "npm-run-all": "^4.1.5",
     "preact-cli": "^2.2.1",
     "preact-cli-sw-precache": "^1.0.3",
     "prettier": "1.12.1",
     "pretty-quick": "^1.4.1",
     "sass-loader": "^7.0.1",
-    "uglifyjs-webpack-plugin": "^1.2.5"
+    "uglifyjs-webpack-plugin": "^1.1.2"
   }
 }
