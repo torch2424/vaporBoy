@@ -119,6 +119,21 @@ export default class ROMSourceSelector extends Component {
   }
 
   loadLocalFile(event) {
+    if(!event.target.files[0].name.endsWith(".zip") &&
+    !event.target.files[0].name.endsWith(".gb") &&
+    !event.target.files[0].name.endsWith(".gbc")) {
+      this.state.confirmationModal.showConfirmationModal({
+        title: "Fail - " + event.target.files[0].name,
+        contentElement: (
+          <div>
+            Uploaded ROM had a unknown filetype. Confirm it is correct.
+          </div>
+        )
+      });
+
+      return;
+    }
+  
     const loadROMTask = async () => {
       await WasmBoy.pause();
       await WasmBoy.loadROM(event.target.files[0]);
@@ -340,7 +355,7 @@ export default class ROMSourceSelector extends Component {
           type="file"
           id="ROMFileInput"
           class="hidden"
-          accept=".gb, .gbc, .zip"
+          accept="*"
           value={undefined}
           onChange={event => {
             this.loadLocalFile(event);
